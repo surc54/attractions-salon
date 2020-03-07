@@ -1,14 +1,30 @@
+import "normalize.css/normalize.css";
+import "./components/global.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Router } from "react-router-dom";
 import history from "./models/history";
 import * as serviceWorker from "./serviceWorker";
 import App from "./App";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: "#E7A1AF",
+        },
+    },
+    typography: {
+        htmlFontSize: 10,
+    },
+});
 
 ReactDOM.render(
-    <Router history={history}>
-        <App />
-    </Router>,
+    <ThemeProvider theme={theme}>
+        <Router history={history}>
+            <App />
+        </Router>
+    </ThemeProvider>,
     document.getElementById("root")
 );
 
