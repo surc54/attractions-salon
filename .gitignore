@@ -54,3 +54,6 @@ yarn-error.log*
 
 # User-specific stuff
 .idea/*
+
+# Environment file for React
+client/.env
