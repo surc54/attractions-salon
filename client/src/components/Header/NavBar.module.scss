@@ -3,6 +3,7 @@ header.appBar {
 
     .toolbar {
         background: white;
+
         .navWrapper {
             display: flex;
             flex-flow: row nowrap;
@@ -47,5 +48,11 @@ header.appBar {
     &:global(-exit-done) {
         transform: translateY(-74px);
         opacity: 0;
+    }
+}
+
+.drawer {
+    .paper {
+        padding-bottom: 36px;
     }
 }

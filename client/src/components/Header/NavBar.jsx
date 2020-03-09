@@ -1,17 +1,21 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
 import {
+    AppBar,
     Button,
     Container,
-    AppBar,
-    Typography,
-    Toolbar,
+    Hidden,
+    Icon,
+    IconButton,
     makeStyles,
+    Toolbar,
+    Typography,
     useScrollTrigger,
 } from "@material-ui/core";
-import { CSSTransition } from "react-transition-group";
 import clsx from "clsx";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
 import styles from "./NavBar.module.scss";
+import NavDrawer from "./NavDrawer";
 
 const navItems = [
     {
@@ -53,20 +57,22 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NavBar = () => {
-    const f = useLocation();
+    const [mobileDrawer, setMobileDrawer] = React.useState(false);
 
+    const closeMobileDrawer = () => setMobileDrawer(false);
+
+    const location = useLocation();
     const classes = useStyles();
-    const loc = useLocation();
     const isScrolled =
         useScrollTrigger({
             disableHysteresis: true,
             threshold: 0,
         }) &&
-        (!f.state || f.state.disableNav === false);
+        (!location.state || location.state.disableNav === false);
 
     return (
         <CSSTransition
-            in={!f.state || f.state.disableNav === false}
+            in={!location.state || location.state.disableNav === false}
             classNames={styles.appBar}
             timeout={300}
             unmountOnExit
@@ -83,30 +89,54 @@ const NavBar = () => {
                             Attractions Salon
                         </Typography>
                         <span className="spacer"></span>
-                        {navItems.map(item => {
-                            let matched =
-                                loc.pathname === "/" || item.path === "/"
-                                    ? item.path === loc.pathname
-                                    : loc.pathname.startsWith(item.path);
+                        <Hidden smDown>
+                            {navItems.map(item => {
+                                let matched =
+                                    location.pathname === "/" ||
+                                    item.path === "/"
+                                        ? item.path === location.pathname
+                                        : location.pathname.startsWith(
+                                              item.path
+                                          );
 
-                            return (
-                                <Button
-                                    key={item.path}
-                                    className={clsx(styles.navButton, {
-                                        [classes.activeNavButton]: matched,
-                                    })}
-                                    href={item.external ? item.path : undefined}
-                                    component={
-                                        !item.external ? Link : undefined
-                                    }
-                                    to={!item.external ? item.path : undefined}
-                                    variant="outlined"
-                                    color={matched ? "primary" : "default"}
-                                >
-                                    {item.name}
-                                </Button>
-                            );
-                        })}
+                                return (
+                                    <Button
+                                        key={item.path}
+                                        className={clsx(styles.navButton, {
+                                            [classes.activeNavButton]: matched,
+                                        })}
+                                        href={
+                                            item.external
+                                                ? item.path
+                                                : undefined
+                                        }
+                                        component={
+                                            !item.external ? Link : undefined
+                                        }
+                                        to={
+                                            !item.external
+                                                ? item.path
+                                                : undefined
+                                        }
+                                        variant="outlined"
+                                        color={matched ? "primary" : "default"}
+                                    >
+                                        {item.name}
+                                    </Button>
+                                );
+                            })}
+                        </Hidden>
+                        <Hidden mdUp>
+                            <IconButton onClick={() => setMobileDrawer(true)}>
+                                <Icon>menu</Icon>
+                            </IconButton>
+                            <NavDrawer
+                                open={mobileDrawer}
+                                onBackdropClick={closeMobileDrawer}
+                                onMenuClick={closeMobileDrawer}
+                                items={navItems}
+                            />
+                        </Hidden>
                     </Container>
                 </Toolbar>
             </AppBar>
