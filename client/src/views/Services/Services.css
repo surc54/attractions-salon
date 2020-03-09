@@ -1,0 +1,68 @@
+.SearchBar{
+    height: 60px;
+    /*
+    background: linear-gradient(, rgba(231, 161, 175, 0) 100%);
+    background: repeating-linear-gradient(180deg, #E7A1AF 0%);
+    background: pink;
+    */
+    
+    display: flex;
+    align-content: top;
+} 
+
+.spacer {
+    flex: 1 0 auto;
+}
+
+.filter{
+    width: 412.69px; 
+}
+
+.buttonHolder{
+    display: flex;
+    margin-left: 50px;
+    margin-right: 100px;
+}
+.checkBoxes{
+    padding-right: 10px;
+}
+.checkBoxName{
+    margin-left: 5px;
+    color: #E7A1AF;
+    width: 250px;
+    justify-content: space-between;
+}
+.SideBarTitle{
+    margin-left: 5px;
+    font-weight: 500;
+    width: 250px;
+    justify-content: space-between;
+}
+
+.titleBox{
+    border: 1px solid rgba(0, 0, 0, 0.17);
+    border-radius: 5px;
+    height: 40px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    /*align-content: center;*/
+}
+
+.itemBox{
+    border: 1px solid rgba(0, 0, 0, 0.17);
+    border-radius: 5px;
+    height: 30px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    /*align-content: center;*/
+}
+
+.SideBar{
+    display: flex;
+    flex-direction: column;
+}
+
+.itemClass{
+    border: 1px solid rgba(0, 0, 0, 0.17);
+}

@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-
 import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles(theme => ({
@@ -10,7 +9,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: 70,
     },
     option: {
-        width: 400,
+        width: 390,
         height: 170,
         marginTop: 5,
     },
@@ -24,10 +23,6 @@ const useStyles = makeStyles(theme => ({
 export default function SpacingGrid() {
     const [spacing, setSpacing] = React.useState(5);
     const classes = useStyles();
-
-    const handleChange = event => {
-        setSpacing(Number(event.target.value));
-    };
 
     return (
         <Grid container className={classes.root} spacing={2}>
