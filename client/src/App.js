@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/Header/NavBar";
 import Home from "./views/Home/Home";
 import NotFound from "./views/NotFound";
+import Payments from "./views/Payments/Payments";
 
 const routes = [
     {
@@ -23,7 +24,7 @@ const routes = [
     {
         exact: false,
         path: "/payments",
-        component: Home,
+        component: Payments,
     },
     {
         exact: false,
