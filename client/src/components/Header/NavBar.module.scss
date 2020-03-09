@@ -1,0 +1,58 @@
+header.appBar {
+    background: white;
+
+    .toolbar {
+        background: white;
+
+        .navWrapper {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: stretch;
+            align-items: center;
+
+            .title {
+                font-family: "Pacifico", sans-serif;
+                font-size: 2.4rem;
+            }
+
+            .navButton {
+                &:not(&:last-child) {
+                    margin-right: 1.6rem;
+                }
+            }
+        }
+    }
+
+    &:global(-enter) {
+        transform: translateY(-74px);
+        opacity: 0;
+    }
+
+    &:global(-enter-active) {
+        transform: translateY(0);
+        opacity: 1;
+        transition: transform 0.25s, opacity 0.25s;
+    }
+
+    &:global(-exit) {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    &:global(-exit-active) {
+        transform: translateY(-74px);
+        opacity: 0;
+        transition: transform 0.25s, opacity 0.25s;
+    }
+
+    &:global(-exit-done) {
+        transform: translateY(-74px);
+        opacity: 0;
+    }
+}
+
+.drawer {
+    .paper {
+        padding-bottom: 36px;
+    }
+}

@@ -1,22 +1,54 @@
-import React from 'react';
-import { Route, Switch, Redirect  } from 'react-router-dom';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import NavBar from "./components/Header/NavBar";
 import Home from "./views/Home/Home";
 import NotFound from "./views/NotFound";
-import NavBar from "./components/Header/NavBar";
+
+const routes = [
+    {
+        exact: true,
+        path: "/",
+        component: Home,
+    },
+    {
+        exact: false,
+        path: "/services",
+        component: Home,
+    },
+    {
+        exact: false,
+        path: "/book",
+        component: Home,
+    },
+    {
+        exact: false,
+        path: "/payments",
+        component: Home,
+    },
+    {
+        exact: false,
+        path: "/testimonials",
+        component: Home,
+    },
+];
 
 const App = () => {
-  return (
-    <div>
-      <NavBar />
-      <Switch>
-        <Route exact path="/Home" component={Home} />
-        <Route exact path="/">
-          <Redirect to="/Home" />
-        </Route>
-        <Route component={NotFound}/>
-      </Switch>
-    </div>
-  );
-}
+    return (
+        <div>
+            <NavBar />
+            <Switch>
+                {routes.map(r => (
+                    <Route
+                        key={r.path}
+                        exact={!!r.exact}
+                        path={r.path}
+                        component={r.component}
+                    />
+                ))}
+                <Route component={NotFound} />
+            </Switch>
+        </div>
+    );
+};
 
 export default App;
