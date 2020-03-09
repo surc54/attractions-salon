@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/Header/NavBar";
 import Home from "./views/Home/Home";
+import testimonials from "./views/testimonials";
 import NotFound from "./views/NotFound";
 
 const routes = [
@@ -28,7 +29,7 @@ const routes = [
     {
         exact: false,
         path: "/testimonials",
-        component: Home,
+        component: testimonials,
     },
 ];
 
