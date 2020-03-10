@@ -27,6 +27,7 @@ function Home() {
                 <Link to='/book'><Button className = 'booton'>Book Now</Button></Link>
             </header>
 
+            <div>
             <about-header className = 'about-header'>
                 <h3 className = 'about'>About Us</h3>
                 <img src={logo} className="logo2" alt="logo2" />
@@ -38,24 +39,24 @@ function Home() {
                 </p>
                 </Container>
                 <Rectangle className = 'sliderr'></Rectangle>
-
             </about-header>
+            </div>
             <stylists className = 'stylist-header'>
                 <h4 className = 'stylists-title'>Our Stylists</h4>
                 <Rectangle className = 'stylist1' 
                 style = {{left: -310}}></Rectangle>
                 <Rectangle className = 'stylist1' 
-                style = {{left: -10, top: 580}}></Rectangle>
+                style = {{left: -10, top: 470}}></Rectangle>
                 <Rectangle className = 'stylist1' 
-                style = {{left: 290, top: 280}}></Rectangle>
+                style = {{left: 290, top: 220}}></Rectangle>
                 <Container className = 'stylist-box' 
-                style = {{top: 2166, left: 280}}>
+                style = {{top: 1996, left: 280}}>
                     Jane Doe</Container>
                 <Container className = 'stylist-box' 
-                style = {{top: 2166, left: 580}}>
+                style = {{top: 1996, left: 580}}>
                     Jane Doe II</Container> 
                 <Container className = 'stylist-box' 
-                style = {{top: 2166, left: 880}}>
+                style = {{top: 1996, left: 880}}>
                     Jane Doe III</Container>        
             </stylists>  
 
@@ -68,7 +69,7 @@ function Home() {
                 <p className = 'loc-text2'><b>Phone:</b> (352) 376-6008
                 </p></Container>
             <iframe className = 'map' width="600" height="450" frameborder="0" 
-            style={{border:0, bottom: 40, top:2450, right: 100, padding: 40}} 
+            style={{border:0, bottom: 40, top:2250, right: 100, padding: 40}} 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3466.590252296763!2d-82.393560285099!3d29.673662342947903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88e8bb527c8cb42d%3A0x1a9ff37664975788!2sAttractions%20Salon!5e0!3m2!1sen!2sus!4v1583782909156!5m2!1sen!2sus" 
             allowfullscreen></iframe>
             <Rectangle className = 'footer'></Rectangle>    

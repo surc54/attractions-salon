@@ -1,11 +1,14 @@
 body {
-    margin: 0;
+
 }
 
 .App {
     text-align: center;
-    /* background: #282c34; */
+    display: absolute;
     background: white;
+    margin-left: auto;
+    margin-right: auto;
+    width:960px;
 }
 
 .App-logo {
@@ -14,6 +17,8 @@ body {
 
 .App-header {
     background-color: white;
+    width: 100%;
+    display: table;
     min-height: 70vh;
     display: flex;
     flex-direction: column;
@@ -26,6 +31,7 @@ body {
 .about-header {
     background-color: white;
     min-height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,6 +44,7 @@ body {
     background-color: white;
     min-height: 100vh;
     display: flex;
+    flex: 2;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -47,7 +54,8 @@ body {
 }
 
 .location-header {
-    position: absolute;
+    
+    position: fixed;
     top: 8000px;
     background-color: white;
     min-height: 100vh;
@@ -75,9 +83,9 @@ top: 1200px;
 }
 
 .about-body {
-    position: absolute;
-    top: 1450px;
-    left: 163px;
+    position: relative;
+    top: 950px;
+    left: -70px;
     color: black;
     width: 300px;
     font-size: 15px;
@@ -88,7 +96,7 @@ top: 1200px;
 .salon-bkgrnd {
     position: absolute;
     filter: grayscale(100%);
-    width: 1440px;
+    width: 100vw;
     height: 880px;
     left: 0px;
     top: 100px;
@@ -175,7 +183,7 @@ h2 {
 
     position: absolute;
     left: 37%;
-    top: 1830px;
+    top: 237%;
     bottom: 0%;
     
     font-family: Pacifico;
@@ -194,11 +202,11 @@ h2 {
 }
 
  .sliderr {
-    position: absolute;
+    position: relative;
     width: 570px;
     height: 350px;
-    left: 650px;
-    top: 630px;
+    left: 40%;
+    top: 75vh;
 
     background: #E1E1E1;
     border-radius: 5px;
@@ -207,12 +215,14 @@ h2 {
  }
 
  .stylist1 {
+     /* displays the photograph for stylist*/
+
      position: relative;
      background: url(../../assets/stylist-example.jpg);
     border-radius: 10px 10px 0px 0px;
-     top: 880px;
+     top: 720px;
      width: 250px;
-     height: 300px;
+     height: 250px;
  }
 
  .stylist-box {
@@ -239,7 +249,7 @@ h2 {
 
     position: absolute;
     left: 40%;
-    top: 2450px;
+    top: 2250px;
     bottom: 0%;
     
     font-family: Pacifico;
@@ -259,17 +269,18 @@ h2 {
 
  .map {
      position: absolute;
-     top: 1800px;
+     top: 1000px;
      bottom: 0px;
      order: 1;
  }
 
  .loc-title2 {
+     /*get in touch*/
     position: absolute;
     width: 262px;
     height: 84px;
     left: 18.7%;
-    top: 2470px;
+    top: 2230px;
     
     font-family: Pacifico;
     font-style: normal;
@@ -283,12 +294,13 @@ h2 {
  }
 
  .loc-text {
+     /*address*/
      position: absolute;
      color: white;
      text-align: center;
      font-family: Montserrat;
      font-size: 15px;
-     top: 2650px;
+     top: 2400px;
      left: 270px;
      background: #E7A1AF;
      border-radius: 10px;
@@ -297,12 +309,13 @@ h2 {
  }
 
  .loc-text2 {
+     /*phone number*/
     position: absolute;
     color: white;
     font-family: Montserrat;
     
     font-size: 15px;
-    top: 70px;
+    top: 60px;
     left: 0px;
     background: grey;
     border-radius: 10px;
@@ -314,9 +327,9 @@ h2 {
     position: absolute;
     height: 200px;
     overflow: hidden;
-    left: 0px;
-    right: 0px;
-    top: 1100px;  
+    width: 100vw;
+    bottom: -130vh;
+    left: -250px;
     background: rgba(231, 161, 175, 0.35);
  }
 
