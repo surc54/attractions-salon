@@ -7,6 +7,7 @@ import {
     CardContent,
     IconButton,
     Typography,
+    Grid,
 } from "@material-ui/core";
 import StarRateIcon from "@material-ui/icons/StarRate";
 
@@ -87,52 +88,50 @@ const testimonials = props => {
             <Button style={styles.button} variant="contained" color="primary">
                 Add Your Testimonial
             </Button>
-            <div>
+            <Grid container spacing={2}>
                 {tempTestimonials.map(testimonial => {
                     return (
-                        <Card
-                            key={testimonial.id}
-                            elevation={3}
-                            style={styles.paper}
-                        >
-                            <CardHeader
-                                avatar={
-                                    <img
-                                        src={testimonial.profilePic}
-                                        alt={testimonial.name}
-                                        style={styles.picture}
-                                    />
-                                }
-                                action={
-                                    <IconButton disabled>
-                                        {stars.map((star, idx) => {
-                                            return (
-                                                <div key={idx}>
-                                                    <StarRateIcon
-                                                        color={
-                                                            idx >=
-                                                            testimonial.rating
-                                                                ? "inherit"
-                                                                : "primary"
-                                                        }
-                                                    />
-                                                </div>
-                                            );
-                                        })}
-                                    </IconButton>
-                                }
-                                title={testimonial.name}
-                                subheader="07/08/80"
-                            />
-                            <CardContent>
-                                <Typography variant="body2" component="p">
-                                    {testimonial.testimonial}
-                                </Typography>
-                            </CardContent>
-                        </Card>
+                        <Grid key={testimonial.id} lg={4} container item>
+                            <Card elevation={3} style={styles.card}>
+                                <CardHeader
+                                    avatar={
+                                        <img
+                                            src={testimonial.profilePic}
+                                            alt={testimonial.name}
+                                            style={styles.picture}
+                                        />
+                                    }
+                                    action={
+                                        <IconButton disabled>
+                                            {stars.map((star, idx) => {
+                                                return (
+                                                    <div key={idx}>
+                                                        <StarRateIcon
+                                                            color={
+                                                                idx >=
+                                                                testimonial.rating
+                                                                    ? "inherit"
+                                                                    : "primary"
+                                                            }
+                                                        />
+                                                    </div>
+                                                );
+                                            })}
+                                        </IconButton>
+                                    }
+                                    title={testimonial.name}
+                                    subheader="07/08/80"
+                                />
+                                <CardContent>
+                                    <Typography variant="body2" component="p">
+                                        {testimonial.testimonial}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
                     );
                 })}
-            </div>
+            </Grid>
         </div>
     );
 };
@@ -148,9 +147,11 @@ const styles = {
     button: {
         float: "right",
     },
-    paper: {
+    card: {
         width: "400px",
-        margin: "50px 50px 50px 0px",
+        margin: "25px 10px",
+        minHeight: "300px",
+        display: "inline-block",
     },
     picture: {
         width: "40px",
