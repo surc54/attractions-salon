@@ -5,7 +5,12 @@
             {
                 "name": "Single Process Color",
                 "price": "55.00",
+<<<<<<< HEAD
                 "description": ""
+=======
+                "description": "",
+                "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+>>>>>>> develop/frontend/service
             },
             {
                 "name": "Single Process/Cut",
