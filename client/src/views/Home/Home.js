@@ -36,7 +36,7 @@ function Home() {
                 ultricies nec, pellentesque eu, pretium quis, sem. 
                 </p>
                 </Container>
-                <Rectangle className = 'sliderr'></Rectangle>
+                <Rectangle className = 'sliderr'><p style ={{fontSize: '25px', fontFamily: 'arial', color: 'white'}}>Slideshow</p></Rectangle>
             </about-header>
             </div>
             <stylists className = 'stylist-header'>

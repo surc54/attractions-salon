@@ -30,6 +30,7 @@ body {
 
 .about-header {
     background-color: white;
+    /* position: absolute; */
     min-height: 100vh;
     width: 100%;
     display: flex;
@@ -78,13 +79,13 @@ position: absolute;
 width: 250x;
 height: 250px;
 left: 184px;
-top: 1200px;
+top: 1190px;
 
 }
 
 .about-body {
     position: relative;
-    top: 950px;
+    top: 920px;
     left: -70px;
     color: black;
     width: 300px;
@@ -202,7 +203,7 @@ h2 {
 }
 
  .sliderr {
-    position: relative;
+    position: ;
     width: 570px;
     height: 350px;
     left: 40%;
