@@ -38,3 +38,9 @@
 .itemClass{
     border: 1px solid rgba(0, 0, 0, 0.17);
 }
+
+.serviceEntries{
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: row;
+}
