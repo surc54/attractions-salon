@@ -1,7 +1,3 @@
-body {
-    overflow: hidden;
-}
-
 .topRectangle {
     position: absolute;
     width: 1920px;
@@ -9,7 +5,11 @@ body {
     left: 0px;
     top: 0px;
 
-    background: linear-gradient(180deg, #E7A1AF 0%, rgba(231, 161, 175, 0) 100%);
+    background: linear-gradient(
+        180deg,
+        #e7a1af 0%,
+        rgba(231, 161, 175, 0) 100%
+    );
 }
 
 .inputBox {
@@ -24,7 +24,6 @@ body {
     left: 593px;
     top: 265px;
 }
-
 
 .bigBottomRectangle {
     position: absolute;
@@ -77,7 +76,6 @@ body {
     align-items: flex-end;
     text-align: right;
     text-decoration-line: underline;
-    
 
     color: #000000;
 }
@@ -133,14 +131,17 @@ body {
     margin: 10px 0px;
 }
 
-
 .lingrad {
     position: absolute;
     height: 470px;
     left: 0px;
     right: 0px;
     top: 570px;
-    background: linear-gradient(180deg, rgba(231,161,175,0) 0%, #E7A1AF 100%);
+    background: linear-gradient(
+        180deg,
+        rgba(231, 161, 175, 0) 0%,
+        #e7a1af 100%
+    );
 }
 
 .rect {
@@ -150,5 +151,9 @@ body {
     left: 0px;
     top: 980px;
 
-    background: linear-gradient(180deg, #E7A1AF 0%, rgba(231, 161, 175, 0) 100%);  
- }
+    background: linear-gradient(
+        180deg,
+        #e7a1af 0%,
+        rgba(231, 161, 175, 0) 100%
+    );
+}
