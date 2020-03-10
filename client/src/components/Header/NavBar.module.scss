@@ -23,6 +23,60 @@ header.appBar {
         }
     }
 
+    &.light {
+        color: #000000de;
+
+        .toolbar {
+            color: #000000de;
+
+            .navWrapper {
+                .title {
+                    color: #000000de;
+                }
+
+                .navButton {
+                    color: #000000de;
+                    border-color: #0000003b;
+
+                    &.active {
+                        color: #000000de;
+                    }
+                }
+            }
+        }
+    }
+
+    &.dark {
+        color: #ffffffde;
+
+        .toolbar {
+            color: #ffffffde;
+
+            .navWrapper {
+                .title {
+                    color: #ffffffde;
+                }
+
+                .navButton {
+                    color: #ffffffde;
+                    border-color: #ffffff3b;
+
+                    &.active {
+                        color: black;
+                    }
+                }
+            }
+        }
+    }
+
+    &.transparent {
+        background: transparent;
+
+        .toolbar {
+            background: transparent;
+        }
+    }
+
     &:global(-enter) {
         transform: translateY(-74px);
         opacity: 0;
