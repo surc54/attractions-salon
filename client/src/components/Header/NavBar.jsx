@@ -1,17 +1,21 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
 import {
+    AppBar,
     Button,
     Container,
-    AppBar,
-    Typography,
-    Toolbar,
+    Hidden,
+    Icon,
+    IconButton,
     makeStyles,
+    Toolbar,
+    Typography,
     useScrollTrigger,
 } from "@material-ui/core";
-import { CSSTransition } from "react-transition-group";
 import clsx from "clsx";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
 import styles from "./NavBar.module.scss";
+import NavDrawer from "./NavDrawer";
 
 const navItems = [
     {
@@ -53,20 +57,32 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NavBar = () => {
-    const f = useLocation();
+    const [mobileDrawer, setMobileDrawer] = React.useState(false);
+    const [navbarSettings, setNavBarSettings] = React.useState({
+        disable: false,
+        style: "default",
+        transparent: false,
+    });
 
+    const closeMobileDrawer = () => setMobileDrawer(false);
+    const location = useLocation();
     const classes = useStyles();
-    const loc = useLocation();
+
+    React.useEffect(() => {
+        if (location.state && location.state.navbarSettings) {
+            setNavBarSettings(location.state.navbarSettings);
+        }
+    }, [location]);
+
     const isScrolled =
         useScrollTrigger({
             disableHysteresis: true,
             threshold: 0,
-        }) &&
-        (!f.state || f.state.disableNav === false);
+        }) && navbarSettings.disableNav === false;
 
     return (
         <CSSTransition
-            in={!f.state || f.state.disableNav === false}
+            in={!navbarSettings.disable}
             classNames={styles.appBar}
             timeout={300}
             unmountOnExit
@@ -75,7 +91,11 @@ const NavBar = () => {
                 color="default"
                 position="fixed"
                 elevation={!isScrolled ? 0 : 4}
-                className={styles.appBar}
+                className={clsx(styles.appBar, {
+                    [styles.transparent]: navbarSettings.transparent,
+                    [styles.light]: navbarSettings.style === "light",
+                    [styles.dark]: navbarSettings.style === "dark",
+                })}
             >
                 <Toolbar className={styles.toolbar}>
                     <Container className={styles.navWrapper}>
@@ -83,30 +103,55 @@ const NavBar = () => {
                             Attractions Salon
                         </Typography>
                         <span className="spacer"></span>
-                        {navItems.map(item => {
-                            let matched =
-                                loc.pathname === "/" || item.path === "/"
-                                    ? item.path === loc.pathname
-                                    : loc.pathname.startsWith(item.path);
+                        <Hidden smDown>
+                            {navItems.map(item => {
+                                let matched =
+                                    location.pathname === "/" ||
+                                    item.path === "/"
+                                        ? item.path === location.pathname
+                                        : location.pathname.startsWith(
+                                              item.path
+                                          );
 
-                            return (
-                                <Button
-                                    key={item.path}
-                                    className={clsx(styles.navButton, {
-                                        [classes.activeNavButton]: matched,
-                                    })}
-                                    href={item.external ? item.path : undefined}
-                                    component={
-                                        !item.external ? Link : undefined
-                                    }
-                                    to={!item.external ? item.path : undefined}
-                                    variant="outlined"
-                                    color={matched ? "primary" : "default"}
-                                >
-                                    {item.name}
-                                </Button>
-                            );
-                        })}
+                                return (
+                                    <Button
+                                        key={item.path}
+                                        className={clsx(styles.navButton, {
+                                            [classes.activeNavButton]: matched,
+                                            [styles.active]: matched,
+                                        })}
+                                        href={
+                                            item.external
+                                                ? item.path
+                                                : undefined
+                                        }
+                                        component={
+                                            !item.external ? Link : undefined
+                                        }
+                                        to={
+                                            !item.external
+                                                ? item.path
+                                                : undefined
+                                        }
+                                        variant="outlined"
+                                        color={matched ? "primary" : "default"}
+                                    >
+                                        {item.name}
+                                    </Button>
+                                );
+                            })}
+                        </Hidden>
+                        <Hidden mdUp>
+                            <IconButton onClick={() => setMobileDrawer(true)}>
+                                <Icon>menu</Icon>
+                            </IconButton>
+                            <NavDrawer
+                                open={mobileDrawer}
+                                onBackdropClick={closeMobileDrawer}
+                                onMenuClick={closeMobileDrawer}
+                                items={navItems}
+                            />
+                        </Hidden>
                     </Container>
                 </Toolbar>
             </AppBar>
