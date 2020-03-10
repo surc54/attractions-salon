@@ -68,7 +68,7 @@ const NavBar = () => {
     const location = useLocation();
     const classes = useStyles();
 
-    React.useState(() => {
+    React.useEffect(() => {
         if (location.state && location.state.navbarSettings) {
             setNavBarSettings(location.state.navbarSettings);
         }
@@ -82,7 +82,7 @@ const NavBar = () => {
 
     return (
         <CSSTransition
-            in={!location.state || location.state.disableNav === false}
+            in={!navbarSettings.disable}
             classNames={styles.appBar}
             timeout={300}
             unmountOnExit
