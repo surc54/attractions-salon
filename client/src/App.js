@@ -5,6 +5,7 @@ import Home from "./views/Home/Home";
 import testimonials from "./views/testimonials";
 import NotFound from "./views/NotFound";
 import Payments from "./views/Payments/Payments";
+import Services from "./views/Services/Services";
 
 const routes = [
     {
@@ -15,7 +16,7 @@ const routes = [
     {
         exact: false,
         path: "/services",
-        component: Home,
+        component: Services,
     },
     {
         exact: false,
