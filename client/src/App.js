@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/Header/NavBar";
 import Home from "./views/Home/Home";
-import Services from "./views/Services/Services";
 import NotFound from "./views/NotFound";
 import Payments from "./views/Payments/Payments";
 
@@ -15,7 +14,7 @@ const routes = [
     {
         exact: false,
         path: "/services",
-        component: Services,
+        component: Home,
     },
     {
         exact: false,
