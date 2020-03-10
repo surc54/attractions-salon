@@ -1,0 +1,154 @@
+body {
+    overflow: hidden;
+}
+
+.topRectangle {
+    position: absolute;
+    width: 1920px;
+    height: 220px;
+    left: 0px;
+    top: 0px;
+
+    background: linear-gradient(180deg, #E7A1AF 0%, rgba(231, 161, 175, 0) 100%);
+}
+
+.inputBox {
+    width: 700px;
+    margin: 0 auto;
+}
+
+.paymentBox {
+    position: absolute;
+    width: 642px;
+    height: 633px;
+    left: 593px;
+    top: 265px;
+}
+
+
+.bigBottomRectangle {
+    position: absolute;
+    height: 235px;
+    left: -5px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.bottomRectangle1 {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    background: rgba(231, 161, 175, 0.2);
+}
+
+.bottomRectangle2 {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 6.82%;
+    bottom: 0%;
+
+    background: rgba(231, 161, 175, 0.2);
+}
+
+.Sitemap {
+    position: absolute;
+    /* left: 93.52%;
+    right: 3.4%;
+    top: 66.74%;
+    bottom: 25.18%; */
+    /* bottom: 0;
+    left: 0; */
+    right: 0;
+    bottom: 0;
+    margin: 5.5px 5.5px 5.5px 5.5px;
+    /* vertical-align: bottom; */
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: flex-end;
+    text-align: right;
+    text-decoration-line: underline;
+    
+
+    color: #000000;
+}
+
+.credit {
+    position: absolute;
+    /* left: 3.38%;
+    right: 87.29%;
+    top: 66.74%;
+    bottom: 25.18%; */
+    /* vertical-align: bottom; */
+    left: 0;
+    bottom: 0;
+    margin: 5.5px 5.5px 5.5px 5.5px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: flex-end;
+
+    color: #000000;
+}
+
+.Logo {
+    position: static;
+    left: 0%;
+    right: 0%;
+    top: -1.85%;
+    bottom: -1.85%;
+
+    font-family: Pacifico;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 64px;
+    line-height: 112px;
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
+
+    /* color: #FFFFFF; */
+    color: #000000;
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    align-self: center;
+    margin: 10px 0px;
+}
+
+
+.lingrad {
+    position: absolute;
+    height: 470px;
+    left: 0px;
+    right: 0px;
+    top: 570px;
+    background: linear-gradient(180deg, rgba(231,161,175,0) 0%, #E7A1AF 100%);
+}
+
+.rect {
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    left: 0px;
+    top: 980px;
+
+    background: linear-gradient(180deg, #E7A1AF 0%, rgba(231, 161, 175, 0) 100%);  
+ }
