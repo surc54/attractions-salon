@@ -58,21 +58,31 @@ const useStyles = makeStyles(theme => ({
 
 const NavBar = () => {
     const [mobileDrawer, setMobileDrawer] = React.useState(false);
+    const [navbarSettings, setNavBarSettings] = React.useState({
+        disable: false,
+        style: "default",
+        transparent: false,
+    });
 
     const closeMobileDrawer = () => setMobileDrawer(false);
-
     const location = useLocation();
     const classes = useStyles();
+
+    React.useEffect(() => {
+        if (location.state && location.state.navbarSettings) {
+            setNavBarSettings(location.state.navbarSettings);
+        }
+    }, [location]);
+
     const isScrolled =
         useScrollTrigger({
             disableHysteresis: true,
             threshold: 0,
-        }) &&
-        (!location.state || location.state.disableNav === false);
+        }) && navbarSettings.disableNav === false;
 
     return (
         <CSSTransition
-            in={!location.state || location.state.disableNav === false}
+            in={!navbarSettings.disable}
             classNames={styles.appBar}
             timeout={300}
             unmountOnExit
@@ -81,7 +91,11 @@ const NavBar = () => {
                 color="default"
                 position="fixed"
                 elevation={!isScrolled ? 0 : 4}
-                className={styles.appBar}
+                className={clsx(styles.appBar, {
+                    [styles.transparent]: navbarSettings.transparent,
+                    [styles.light]: navbarSettings.style === "light",
+                    [styles.dark]: navbarSettings.style === "dark",
+                })}
             >
                 <Toolbar className={styles.toolbar}>
                     <Container className={styles.navWrapper}>
@@ -104,6 +118,7 @@ const NavBar = () => {
                                         key={item.path}
                                         className={clsx(styles.navButton, {
                                             [classes.activeNavButton]: matched,
+                                            [styles.active]: matched,
                                         })}
                                         href={
                                             item.external
