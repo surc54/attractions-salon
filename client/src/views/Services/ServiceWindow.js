@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 const MediaCard = (props) => {
   const classes = useStyles();
 
-  let img = new Image;
+  let img = new Image();
 
   fetch("https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg")
   .then(response => response.blob())
@@ -37,8 +37,7 @@ const MediaCard = (props) => {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          //image="images/pexels-photo-973403.jpg"
-          src={img}
+          image="https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
           title="pexels-photo-973403"
           height="140"
         />
