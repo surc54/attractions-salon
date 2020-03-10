@@ -5,7 +5,6 @@ import Paper from "@material-ui/core/Paper";
 import './Services.css';
 
 import ServiceWindow from "./ServiceWindow";
-import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
 
 const useStyles = makeStyles(theme => ({
@@ -22,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
     serviceWindow: {
         width: 1100,
-        height: 500,
+        height: 600,
         marginTop: 5,
     },
 }));
@@ -31,12 +30,10 @@ const ServiceGrid = (props) => {
     const [filterText, setFilterText] = useState('');
     const classes = useStyles();
 
+
+
     return (
         <div className={classes.window}>
-            <SearchBar>
-                filterText={filterText}
-                setFilterText={setFilterText}
-            </SearchBar>
             <Grid container className={classes.root} spacing={2}>
                 <Grid item xs={12}>
                     <Grid container justify="center" spacing={6}>
@@ -47,9 +44,9 @@ const ServiceGrid = (props) => {
                             </Paper>
                         </Grid>
 
-                        <Grid key={2} item>
-                            <Paper className={classes.serviceWindow}>
-                                <ServiceWindow/>
+                        <Grid key={2} item >
+                            <Paper className={classes.serviceWindow} > {/* elevation={0} */}
+                                <ServiceWindow services={props.services}/>
                             </Paper>
                         </Grid>
                     </Grid>
