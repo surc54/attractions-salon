@@ -6,8 +6,6 @@ import './Home.css';
 import { Link } from 'react-router-dom'
 import {Modal, Button, Form, Icon, Image, Container} from 'semantic-ui-react'
 import Rectangle from 'react-rectangle';
-import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
-
 
 const defaultProps = {
     center: {lat: 29.672800, lng: -82.391310}, 
