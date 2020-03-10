@@ -1,4 +1,5 @@
 import "normalize.css/normalize.css";
+import "semantic-ui-css/semantic.min.css";
 import "./components/global.scss";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -7,7 +8,6 @@ import history from "./models/history";
 import * as serviceWorker from "./serviceWorker";
 import App from "./App";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import 'semantic-ui-css/semantic.min.css';
 
 const theme = createMuiTheme({
     palette: {
