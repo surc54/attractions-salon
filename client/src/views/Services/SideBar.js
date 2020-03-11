@@ -27,6 +27,9 @@ const useStyles = makeStyles(theme => ({
         marginLeft: 5,
         paddingTop: 5,
         paddingBottom: 5,
+        display: "flex",
+        justifyContent: "space-between",
+        marginRight: "5px",
     },
     root: {
         border: "1px solid rgba(0, 0, 0, 0.17)",
