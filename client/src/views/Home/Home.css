@@ -109,7 +109,7 @@ top: 1200px;
     bottom: 100px;
 }
 
-h2 { 
+.homeH2 { 
     position: absolute; 
     top: 700px; 
     left: 0; 
