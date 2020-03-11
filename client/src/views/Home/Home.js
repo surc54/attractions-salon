@@ -17,7 +17,7 @@ function Home() {
         <div className="App">
             <header className="App-header">
                 <img src={homepic} className="salon-bkgrnd" alt="logo" />
-                <h2>
+                <h2 className="homeH2">
                     Beautiful hair with beautiful care
                 </h2>
                 <linearGradient className = 'lingrad'></linearGradient>
