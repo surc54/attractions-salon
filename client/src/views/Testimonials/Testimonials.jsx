@@ -10,6 +10,7 @@ import {
     Grid,
 } from "@material-ui/core";
 import StarRateIcon from "@material-ui/icons/StarRate";
+import "./Testimonials.css";
 
 const tempTestimonials = [
     {
@@ -81,24 +82,24 @@ const testimonials = props => {
     }
 
     return (
-        <div style={styles.body}>
-            <Typography color="primary" variant="h4" style={styles.title}>
+        <div className="body">
+            <Typography color="primary" variant="h4" className="title">
                 Testimonials
             </Typography>
-            <Button style={styles.button} variant="contained" color="primary">
+            <Button className="button" variant="contained" color="primary">
                 Add Your Testimonial
             </Button>
             <Grid container spacing={2}>
                 {tempTestimonials.map(testimonial => {
                     return (
                         <Grid key={testimonial.id} lg={4} container item>
-                            <Card elevation={3} style={styles.card}>
+                            <Card elevation={3} className="card">
                                 <CardHeader
                                     avatar={
                                         <img
                                             src={testimonial.profilePic}
                                             alt={testimonial.name}
-                                            style={styles.picture}
+                                            className="picture"
                                         />
                                     }
                                     action={
@@ -134,31 +135,6 @@ const testimonials = props => {
             </Grid>
         </div>
     );
-};
-
-const styles = {
-    body: {
-        margin: "100px 50px",
-    },
-    title: {
-        fontFamily: "Pacifico, sans-serif",
-        display: "inline-block",
-    },
-    button: {
-        float: "right",
-    },
-    card: {
-        width: "400px",
-        margin: "25px 10px",
-        minHeight: "300px",
-        display: "inline-block",
-    },
-    picture: {
-        width: "40px",
-        height: "40px",
-        borderRadius: "3px",
-        margin: "10px",
-    },
 };
 
 // testimonials.propTypes = {};

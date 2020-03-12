@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/Header/NavBar";
 import Home from "./views/Home/Home";
-import testimonials from "./views/testimonials";
+import testimonials from "./views/Testimonials/Testimonials";
 import NotFound from "./views/NotFound";
 import Payments from "./views/Payments/Payments";
 import Services from "./views/Services/Services";

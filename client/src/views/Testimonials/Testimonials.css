@@ -1,0 +1,26 @@
+.body {
+    margin: 100px 50px;
+}
+
+.title {
+    font-family: Pacifico, sans-serif;
+    display: inline-block;
+}
+
+.button {
+    float: right;
+}
+
+.card {
+    width: 400px;
+    margin: 25px 10px;
+    min-height: 300px;
+    display: inline-block;
+}
+
+.picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+    margin: 10px;
+}
