@@ -1,19 +1,23 @@
-import React from "react";
-import { useHistory, useLocation, Link } from "react-router-dom";
 import {
-    Typography,
-    Paper,
-    TextField,
     Button,
+    CircularProgress,
+    Divider,
     Icon,
     IconButton,
-    useTheme,
+    Link,
+    Paper,
+    TextField,
+    Typography,
     useMediaQuery,
-    CircularProgress,
+    useTheme,
+    LinearProgress,
 } from "@material-ui/core";
-import styles from "./Login.module.scss";
 import clsx from "clsx";
+import React from "react";
+import { Link as RouterLink, useHistory, useLocation } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
+import LayeredBackground from "./LayeredBackground";
+import styles from "./Login.module.scss";
 
 const goBack = history => {
     if (history.length !== 0) {
@@ -27,7 +31,7 @@ const goHome = history => {
     history.push("/");
 };
 
-const AdminBase = () => {
+const Login = () => {
     const history = useHistory();
     const location = useLocation();
     const [loading, setLoading] = React.useState(false);
@@ -52,83 +56,107 @@ const AdminBase = () => {
     }, []);
 
     return (
-        <div
-            className={clsx(styles.wrapper, {
-                [styles.small]: isSmall,
-            })}
-        >
-            <header>
-                <IconButton
-                    className={styles.backButton}
-                    onClick={() => goBack(history)}
-                >
-                    <Icon>arrow_back</Icon>
-                </IconButton>
+        <LayeredBackground>
+            <div
+                className={clsx(styles.wrapper, {
+                    [styles.small]: isSmall,
+                })}
+            >
+                <Paper className={styles.paper} square={isSmall}>
+                    <LinearProgress
+                        className={styles.loadingProgress}
+                        variant="indeterminate"
+                    />
+                    <header>
+                        <div className={styles.backButtonWrapper}>
+                            <IconButton
+                                className={styles.backButton}
+                                onClick={() => goBack(history)}
+                            >
+                                <Icon>arrow_back</Icon>
+                            </IconButton>
+                        </div>
 
-                <Button
-                    className={styles.titleButton}
-                    color="primary"
-                    onClick={() => goHome(history)}
-                >
-                    <Typography
-                        className={styles.title}
-                        color="primary"
-                        variant="h1"
-                    >
-                        Attractions Salon
-                    </Typography>
-                </Button>
-            </header>
+                        <Button
+                            className={styles.titleButton}
+                            color="primary"
+                            onClick={() => goHome(history)}
+                        >
+                            <Typography
+                                className={styles.title}
+                                color="primary"
+                                variant="h1"
+                            >
+                                Attractions Salon
+                            </Typography>
+                        </Button>
+                    </header>
+                    <Divider />
+                    <main>
+                        <Typography className={styles.subtitle} variant="h2">
+                            Sign in to continue
+                        </Typography>
+                        <TextField
+                            className={styles.input}
+                            label="Username"
+                            placeholder="member@example.com"
+                            type="text"
+                            variant="outlined"
+                            fullWidth
+                            required
+                            autoComplete="off"
+                        />
+                        <TextField
+                            className={styles.input}
+                            label="Password"
+                            placeholder="••••••••"
+                            type="password"
+                            variant="outlined"
+                            fullWidth
+                            required
+                            autoComplete="off"
+                        />
 
-            <Paper className={styles.paper} square={isSmall}>
-                <Typography className={styles.subtitle} variant="h2">
-                    Sign in to continue
-                </Typography>
-                <TextField
-                    className={styles.input}
-                    label="Username"
-                    placeholder="member@example.com"
-                    type="text"
-                    variant="outlined"
-                    fullWidth
-                    required
-                    autoComplete="off"
-                />
-                <TextField
-                    className={styles.input}
-                    label="Password"
-                    type="password"
-                    variant="outlined"
-                    fullWidth
-                    required
-                    autoComplete="off"
-                />
-
-                <div className={styles.actions}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                        disabled={loading}
-                        onClick={() => setLoading(!loading)}
-                        className={styles.submitButton}
-                    >
-                        <span style={{ marginTop: 2 }}>Continue</span>
-                        <span className="spacer"></span>
-                        {loading ? (
-                            <CircularProgress color="inherit" size={20} />
-                        ) : (
-                            <Icon>arrow_forward</Icon>
-                        )}
-                    </Button>
-                </div>
-            </Paper>
-
-            <Warning icon style={{ maxWidth: 450, width: "100%" }}>
-                You are entering a restricted area. Unauthorized access is
-                prohibited
-            </Warning>
-        </div>
+                        <div className={styles.actions}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                fullWidth
+                                disabled={loading}
+                                onClick={() => setLoading(!loading)}
+                                className={styles.submitButton}
+                            >
+                                <span style={{ marginTop: 2 }}>Sign in</span>
+                                <span className="spacer"></span>
+                                {loading ? (
+                                    <CircularProgress
+                                        color="inherit"
+                                        size={20}
+                                    />
+                                ) : (
+                                    <Icon>arrow_forward</Icon>
+                                )}
+                            </Button>
+                        </div>
+                        <div className={styles.textActions}>
+                            <Link component={RouterLink} to="/account/forgot">
+                                Forgot your password?
+                            </Link>
+                            <br />
+                            <Typography>
+                                Don't have an account?{" "}
+                                <Link
+                                    component={RouterLink}
+                                    to="/account/signup"
+                                >
+                                    Create one!
+                                </Link>
+                            </Typography>
+                        </div>
+                    </main>
+                </Paper>
+            </div>
+        </LayeredBackground>
     );
 };
 
@@ -169,7 +197,7 @@ export default props => {
             mountOnEnter
             unmountOnExit
         >
-            <AdminBase {...props} />
+            <Login {...props} />
         </CSSTransition>
     );
 };
