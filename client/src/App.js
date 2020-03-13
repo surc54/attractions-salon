@@ -6,6 +6,7 @@ import testimonials from "./views/testimonials";
 import NotFound from "./views/NotFound";
 import Payments from "./views/Payments/Payments";
 import Services from "./views/Services/Services";
+import Login from "./views/Login/Login";
 
 const routes = [
     {
@@ -33,11 +34,16 @@ const routes = [
         path: "/testimonials",
         component: testimonials,
     },
+    {
+        exact: false,
+        path: "/login",
+        component: Login,
+    },
 ];
 
 const App = () => {
     return (
-        <div>
+        <>
             <NavBar />
             <Switch>
                 {routes.map(r => (
@@ -50,7 +56,7 @@ const App = () => {
                 ))}
                 <Route component={NotFound} />
             </Switch>
-        </div>
+        </>
     );
 };
 
