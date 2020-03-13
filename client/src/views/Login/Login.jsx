@@ -1,16 +1,15 @@
 import {
     Button,
     CircularProgress,
-    Divider,
     Icon,
     IconButton,
+    LinearProgress,
     Link,
     Paper,
     TextField,
     Typography,
     useMediaQuery,
     useTheme,
-    LinearProgress,
 } from "@material-ui/core";
 import clsx from "clsx";
 import React from "react";
@@ -38,6 +37,11 @@ const Login = () => {
 
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down("xs"));
+
+    const onFormSubmit = e => {
+        e.preventDefault();
+        console.log("sign in form submit");
+    };
 
     React.useEffect(() => {
         history.replace(location.pathname, {
@@ -91,53 +95,62 @@ const Login = () => {
                             </Typography>
                         </Button>
                     </header>
-                    <Divider />
                     <main>
                         <Typography className={styles.subtitle} variant="h2">
                             Sign in to continue
                         </Typography>
-                        <TextField
-                            className={styles.input}
-                            label="Username"
-                            placeholder="member@example.com"
-                            type="text"
-                            variant="outlined"
-                            fullWidth
-                            required
-                            autoComplete="off"
-                        />
-                        <TextField
-                            className={styles.input}
-                            label="Password"
-                            placeholder="••••••••"
-                            type="password"
-                            variant="outlined"
-                            fullWidth
-                            required
-                            autoComplete="off"
-                        />
-
-                        <div className={styles.actions}>
-                            <Button
-                                variant="contained"
-                                color="primary"
+                        <form
+                            action="/api/login"
+                            method="POST"
+                            onSubmit={onFormSubmit}
+                        >
+                            <TextField
+                                className={styles.input}
+                                label="Username"
+                                placeholder="member@example.com"
+                                type="text"
+                                variant="outlined"
                                 fullWidth
-                                disabled={loading}
-                                onClick={() => setLoading(!loading)}
-                                className={styles.submitButton}
-                            >
-                                <span style={{ marginTop: 2 }}>Sign in</span>
-                                <span className="spacer"></span>
-                                {loading ? (
-                                    <CircularProgress
-                                        color="inherit"
-                                        size={20}
-                                    />
-                                ) : (
-                                    <Icon>arrow_forward</Icon>
-                                )}
-                            </Button>
-                        </div>
+                                required
+                                autoComplete="off"
+                            />
+                            <TextField
+                                className={styles.input}
+                                label="Password"
+                                placeholder="••••••••••••"
+                                type="password"
+                                variant="outlined"
+                                fullWidth
+                                required
+                                autoComplete="off"
+                            />
+
+                            <div className={styles.actions}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    fullWidth
+                                    disabled={loading}
+                                    type="submit"
+                                    onClick={() => setLoading(!loading)}
+                                    className={styles.submitButton}
+                                >
+                                    <span style={{ marginTop: 2 }}>
+                                        Sign in
+                                    </span>
+                                    <span className="spacer"></span>
+                                    {loading ? (
+                                        <CircularProgress
+                                            color="inherit"
+                                            size={20}
+                                        />
+                                    ) : (
+                                        <Icon>arrow_forward</Icon>
+                                    )}
+                                </Button>
+                            </div>
+                        </form>
+
                         <div className={styles.textActions}>
                             <Link component={RouterLink} to="/account/forgot">
                                 Forgot your password?

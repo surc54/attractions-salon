@@ -15,12 +15,13 @@
 
         // border: 1px solid rgba(0, 0, 0, 0.2);
 
-        min-width: 40rem;
+        width: 40rem;
         max-height: 100%;
 
         .loadingProgress {
             width: 100%;
             background: transparent;
+            min-height: 4px;
         }
 
         header {
@@ -28,6 +29,7 @@
             flex-flow: row nowrap;
             justify-content: center;
             align-items: center;
+            min-height: 64px;
             height: 64px;
             overflow: hidden;
             align-self: stretch;
