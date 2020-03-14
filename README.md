@@ -1,4 +1,4 @@
-## _**PLEASE READ THIS TO COMPLETION BEFORE ASKING ANY QUESTIONS!**_
+## Attractions Salon
 
 ### _**IMPORTANT NOTES**_ - 
 This project does not have a mongoDB connection setup. Setup the connection based on the environments below.
