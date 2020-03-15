@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const AccountController = require("../controllers/account.controller");
+const UserController = require("../controllers/user.controller");
 
 const UNIMPLEMENTED = (req, res) =>
     res.send({
@@ -15,7 +15,7 @@ router.get("/", UNIMPLEMENTED);
 router.post("/", UNIMPLEMENTED);
 
 // Sign up
-router.put("/", AccountController.create);
+router.put("/", UserController.create);
 
 // Delete account (self)
 router.delete("/", UNIMPLEMENTED);

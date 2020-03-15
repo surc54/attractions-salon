@@ -67,6 +67,11 @@ schema.methods.setPassword = function(password) {
     this.password = hash;
 };
 
+schema.statics.hashPassword = function(password) {
+    const hash = bcrypt.hashSync(password, SALT_ROUNDS);
+    return hash;
+};
+
 schema.methods.isGuest = function() {
     return this.role === "Guest";
 };

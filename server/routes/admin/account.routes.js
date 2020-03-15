@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const AccountController = require("../../controllers/account.controller");
+const UserController = require("../../controllers/user.controller");
 
 const UNIMPLEMENTED = (req, res) =>
     res.send({
@@ -9,9 +9,9 @@ const UNIMPLEMENTED = (req, res) =>
     });
 
 // Get list of all users
-router.get("/", UNIMPLEMENTED);
+router.get("/", UserController.admin.list);
 
 // Get info on one user
-router.get("/:uid", AccountController.admin.info);
+router.get("/:uid", UserController.admin.info);
 
 module.exports = router;

@@ -1,8 +1,27 @@
-module.exports.std_error = (message, err = null) => ({
-    status: "fail",
-    message,
-    ...(err ? { error: err } : {}),
-});
+const mongoErrors = require("./mongo_errors");
+
+module.exports.mongoErrors = mongoErrors;
+
+module.exports.std_error_old = (message, err = null) => {
+    return {
+        status: "fail",
+        message,
+        ...(err ? { error: err } : {}),
+    };
+};
+
+module.exports.std_error = (err = {}, backupMessage = "Unknown error") => {
+    return {
+        status: "fail",
+        error:
+            (err &&
+                err.message &&
+                    typeof err.message === "string" &&
+                    err.message) ||
+            (typeof err === "string" && err) ||
+            backupMessage,
+    };
+};
 
 module.exports.requiredBody = (
     requiredList,
@@ -12,7 +31,7 @@ module.exports.requiredBody = (
 ) => (req, res, realNext) => {
     if (!req.body && requiredList.length !== 0) {
         res.send(
-            module.exports.std_error(
+            module.exports.std_error_old(
                 message.replace("%s", requiredList[0] + "")
             )
         );
@@ -25,7 +44,7 @@ module.exports.requiredBody = (
         if (!req.body[item]) {
             ok = false;
             res.send(
-                module.exports.std_error(message.replace("%s", item + ""))
+                module.exports.std_error_old(message.replace("%s", item + ""))
             );
             return;
         }
