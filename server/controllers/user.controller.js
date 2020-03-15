@@ -40,7 +40,6 @@ module.exports.create = requiredBody(
                 res.send({
                     status: "ok",
                     message: "Signed up successfully",
-                    data: user.toJSON(),
                 });
             })
             .catch(err => {
@@ -66,7 +65,7 @@ module.exports.admin.list = (req, res) => {
 
     const pageNum = Number(page) || 0;
 
-    User.find({}, null, {
+    User.find({}, "-password", {
         limit: config.options.admin.accountsPerPage,
         skip: (pageNum * config.options.admin.accountsPerPage),
     })
@@ -95,7 +94,7 @@ module.exports.admin.info = (req, res) => {
         return;
     }
 
-    User.findById(uid)
+    User.findById(uid, "-password")
         .then(response => {
             res.send({
                 status: "ok",
