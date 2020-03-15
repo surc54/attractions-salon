@@ -77,7 +77,7 @@ module.exports.admin.list = (req, res) => {
             });
         })
         .catch(err => {
-            res.send(std_error_old("Could not get users list.", err));
+            res.send(std_error(err, "Could not get users list"));
         });
 };
 
@@ -86,12 +86,12 @@ module.exports.admin.info = (req, res) => {
     const { uid } = req.params;
 
     if (!uid) {
-        res.send(std_error_old("Parameter uid missing."));
+        res.send(std_error("Parameter uid missing."));
         return;
     }
 
     if (!UID_REGEX.test(uid)) {
-        res.send(std_error_old("Parameter uid is in an invalid format."));
+        res.send(std_error("Parameter uid is in an invalid format."));
         return;
     }
 
@@ -102,5 +102,5 @@ module.exports.admin.info = (req, res) => {
                 data: response,
             });
         })
-        .catch(err => res.send(std_error_old("Could not get user", err)));
+        .catch(err => res.send(std_error(err, "Could not get user")));
 };
