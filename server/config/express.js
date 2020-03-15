@@ -1,10 +1,13 @@
+require("./config_setup");
 const path = require("path"),
     express = require("express"),
     mongoose = require("mongoose"),
     morgan = require("morgan"),
     bodyParser = require("body-parser"),
     exampleRouter = require("../routes/examples.server.routes"),
-    servicesRouter = require("../routes/services.routes");
+    servicesRouter = require("../routes/services.routes"),
+    accountRouter = require("../routes/account.routes"),
+    adminRouter = require("../routes/admin/index.routes");
 
 module.exports.init = () => {
     /* 
@@ -13,6 +16,7 @@ module.exports.init = () => {
     */
     mongoose.connect(process.env.DB_URI || require("./config").db.uri, {
         useNewUrlParser: true,
+        useUnifiedTopology: true,
     });
     mongoose.set("useCreateIndex", true);
     mongoose.set("useFindAndModify", false);
@@ -29,6 +33,8 @@ module.exports.init = () => {
     // add a router
     app.use("/api/example", exampleRouter);
     app.use("/api/services", servicesRouter);
+    app.use("/api/account", accountRouter);
+    app.use("/api/admin", adminRouter);
 
     if (process.env.NODE_ENV === "production") {
         // Serve any static files
