@@ -3,7 +3,7 @@ const router = express.Router();
 const UserController = require("../../controllers/user.controller");
 
 const UNIMPLEMENTED = (req, res) =>
-    res.send({
+    res.status(501).send({
         status: "fail",
         message: "Unimplemented feature.",
     });

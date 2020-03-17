@@ -6,6 +6,24 @@ const User = require("../models/user.model");
 
 const UID_REGEX = /[A-Za-z0-9\-_]+/;
 
+/*
+ * HTTP STATUS CODES
+ *   200 - OK
+ *   201 - CREATED
+ *
+ *   400 - BAD REQUEST
+ *   401 - UNAUTHORIZED (NOT LOGGED IN)
+ *   403 - FORBIDDEN (LOGGED IN, NO PERMISSION)
+ *
+ *   500 - SERVER ERROR
+ *   501 - NOT IMPLEMENTED
+ *   502 - BAD GATEWAY (THE EXTERNAL API USED DIDN'T RESPOND PROPERLY)
+ */
+
+module.exports.info = (req, res) => {
+    // check if logged in.
+};
+
 module.exports.create = requiredBody(
     ["email", "password", "firstName", "lastName"],
     "Parameter %s is missing",
@@ -19,7 +37,7 @@ module.exports.create = requiredBody(
         } = req.body;
 
         if (!validator.isEmail(email)) {
-            res.send(std_error("Email format incorrect."));
+            res.status(400).send(std_error("Email format incorrect."));
             return;
         }
 
@@ -37,13 +55,13 @@ module.exports.create = requiredBody(
 
         user.save()
             .then(resp => {
-                res.send({
+                res.status(201).send({
                     status: "ok",
                     message: "Signed up successfully",
                 });
             })
             .catch(err => {
-                res.send(
+                res.status(500).send(
                     std_error(
                         err && err.name && err.name === "MongoError" && err.code
                             ? mongoErrors.users[err.code]
@@ -70,13 +88,13 @@ module.exports.admin.list = (req, res) => {
         skip: (pageNum * config.options.admin.accountsPerPage),
     })
         .then(response => {
-            res.send({
+            res.status(200).send({
                 status: "ok",
                 data: response,
             });
         })
         .catch(err => {
-            res.send(std_error(err, "Could not get users list"));
+            res.status(500).send(std_error(err, "Could not get users list"));
         });
 };
 
@@ -85,21 +103,25 @@ module.exports.admin.info = (req, res) => {
     const { uid } = req.params;
 
     if (!uid) {
-        res.send(std_error("Parameter uid missing."));
+        res.status(400).send(std_error("Parameter uid missing."));
         return;
     }
 
     if (!UID_REGEX.test(uid)) {
-        res.send(std_error("Parameter uid is in an invalid format."));
+        res.status(400).send(
+            std_error("Parameter uid is in an invalid format.")
+        );
         return;
     }
 
     User.findById(uid, "-password")
         .then(response => {
-            res.send({
+            res.status(200).send({
                 status: "ok",
                 data: response,
             });
         })
-        .catch(err => res.send(std_error(err, "Could not get user")));
+        .catch(err =>
+            res.status(500).send(std_error(err, "Could not get user"))
+        );
 };
