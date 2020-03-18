@@ -10,51 +10,57 @@ module.exports.std_error_old = (message, err = null) => {
     };
 };
 
+module.exports.send_code_error = (res, status, code, extra = {}) => {
+    res.status(status).send({
+        status: "error",
+        code: code || "success",
+        ...extra,
+    });
+};
+
+module.exports.send_code_success = (res, status, code, extra = {}) => {
+    res.status(status).send({
+        status: "ok",
+        code: code || "success",
+        ...extra,
+    });
+};
+
 module.exports.std_error = (err = {}, backupMessage = "Unknown error") => {
     return {
         status: "fail",
         error:
             (err &&
                 err.message &&
-                    typeof err.message === "string" &&
-                    err.message) ||
+                typeof err.message === "string" &&
+                err.message) ||
             (typeof err === "string" && err) ||
             backupMessage,
     };
 };
 
-module.exports.requiredBody = (
-    requiredList,
-    /** @type {String} */ message,
-    middleware,
-    next
-) => (req, res, realNext) => {
+module.exports.requiredBody = (requiredList, /** @type {String} */ message) => (
+    req,
+    res,
+    realNext
+) => {
     if (!req.body && requiredList.length !== 0) {
         res.send(
             module.exports.std_error_old(
                 message.replace("%s", requiredList[0] + "")
             )
         );
-        return;
     }
 
-    let ok = true;
-
-    requiredList.forEach(item => {
+    for (let i = 0; i < requiredList.length; i++) {
+        const item = requiredList[i];
         if (!req.body[item]) {
-            ok = false;
             res.send(
                 module.exports.std_error_old(message.replace("%s", item + ""))
             );
             return;
         }
-    });
-
-    if (!ok) return;
-
-    if (middleware) {
-        realNext();
-    } else if (next) {
-        next(req, res);
     }
+
+    realNext();
 };

@@ -1,7 +1,13 @@
 const express = require("express");
 const config = require("../config/config");
 const validator = require("validator").default;
-const { std_error, requiredBody, mongoErrors } = require("../tools");
+const passport = require("passport");
+const {
+    requiredBody,
+    mongoErrors,
+    send_code_error,
+    send_code_success,
+} = require("../tools");
 const User = require("../models/user.model");
 
 const UID_REGEX = /[A-Za-z0-9\-_]+/;
@@ -20,14 +26,40 @@ const UID_REGEX = /[A-Za-z0-9\-_]+/;
  *   502 - BAD GATEWAY (THE EXTERNAL API USED DIDN'T RESPOND PROPERLY)
  */
 
+/** @type {express.RequestHandler} */
 module.exports.info = (req, res) => {
-    // check if logged in.
+    send_code_success(res, 200, "auth/info/success", {
+        signedIn: !!req.user,
+        user: req.user || null,
+    });
 };
 
-module.exports.create = requiredBody(
-    ["email", "password", "firstName", "lastName"],
-    "Parameter %s is missing",
-    false,
+/** @type {express.RequestHandler[]} */
+module.exports.signIn = [
+    passport.authenticate("local"),
+    (req, res) => {
+        send_code_success(res, 200, "auth/sign-in/success", {
+            user: req.user,
+        });
+    },
+];
+
+/** @type {express.RequestHandler} */
+module.exports.signOut = (req, res) => {
+    if (req.user) {
+        req.logout();
+
+        send_code_success(res, 200, "auth/sign-out/success");
+    } else {
+        send_code_error(res, 401, "auth/sign-out/not-signed-in");
+    }
+};
+
+module.exports.create = [
+    requiredBody(
+        ["email", "password", "firstName", "lastName"],
+        "auth/sign-up/missing-%s"
+    ),
     (req, res) => {
         const {
             email,
@@ -37,7 +69,7 @@ module.exports.create = requiredBody(
         } = req.body;
 
         if (!validator.isEmail(email)) {
-            res.status(400).send(std_error("Email format incorrect."));
+            send_code_error(res, 400, "auth/sign-up/email-illegal-format");
             return;
         }
 
@@ -55,24 +87,21 @@ module.exports.create = requiredBody(
 
         user.save()
             .then(resp => {
-                res.status(201).send({
-                    status: "ok",
-                    message: "Signed up successfully",
-                });
+                send_code_success(res, 201, "auth/sign-up/success");
             })
             .catch(err => {
-                res.status(500).send(
-                    std_error(
+                send_code_error(res, 500, "auth/sign-up/unknown-error", {
+                    error:
                         err && err.name && err.name === "MongoError" && err.code
                             ? mongoErrors.users[err.code]
                             : err,
-                        "Could not sign up user"
-                    )
-                );
+                });
+
+                // TODO: Log error into database (if possible, ofc)
                 console.error("Could not save user to database:", err);
             });
-    }
-);
+    },
+];
 
 /** @type {{[key: string]: express.RequestHandler}} */
 module.exports.admin = {};
@@ -88,13 +117,14 @@ module.exports.admin.list = (req, res) => {
         skip: (pageNum * config.options.admin.accountsPerPage),
     })
         .then(response => {
-            res.status(200).send({
-                status: "ok",
-                data: response,
+            send_code_success(res, 200, "admin/auth/list/success", {
+                data: response.map(x => x.toObject({ virtuals: true })),
             });
         })
         .catch(err => {
-            res.status(500).send(std_error(err, "Could not get users list"));
+            send_code_error(res, 500, "admin/auth/list/unknown-error", {
+                error: err,
+            });
         });
 };
 
@@ -103,25 +133,24 @@ module.exports.admin.info = (req, res) => {
     const { uid } = req.params;
 
     if (!uid) {
-        res.status(400).send(std_error("Parameter uid missing."));
+        send_code_error(res, 400, "admin/auth/info/missing-uid");
         return;
     }
 
     if (!UID_REGEX.test(uid)) {
-        res.status(400).send(
-            std_error("Parameter uid is in an invalid format.")
-        );
+        send_code_error(res, 400, "admin/auth/info/uid-illegal-format");
         return;
     }
 
     User.findById(uid, "-password")
         .then(response => {
-            res.status(200).send({
-                status: "ok",
-                data: response,
+            send_code_success(res, 200, "admin/auth/info/success", {
+                data: response.toObject({ virtuals: true }),
             });
         })
         .catch(err =>
-            res.status(500).send(std_error(err, "Could not get user"))
+            send_code_error(res, 500, "admin/auth/info/unknown-error", {
+                error: err,
+            })
         );
 };

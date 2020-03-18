@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-interface IUser {
+export interface IUser {
     /**
      * Name of user (split to first and last)
      */
@@ -44,7 +44,7 @@ interface IUser {
     fullName: string;
 }
 
-interface IUserModel extends IUser, mongoose.Document {
+export interface IUserModel extends IUser, mongoose.Document {
     /**
      * Check if input password matches user's password
      * @param password password to check
@@ -83,3 +83,13 @@ declare const User: mongoose.Model<IUserModel> & {
 };
 
 export = User;
+
+declare global {
+    namespace Express {
+        interface User extends IUser {
+            _id: string;
+            id: string;
+            __v: string;
+        }
+    }
+}

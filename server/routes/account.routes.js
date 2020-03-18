@@ -9,13 +9,16 @@ const UNIMPLEMENTED = (req, res) =>
     });
 
 // Get current account info
-router.get("/", UNIMPLEMENTED);
+router.get("/", UserController.info);
 
 // Sign in
-router.post("/", UNIMPLEMENTED);
+router.post("/", ...UserController.signIn);
 
 // Sign up
-router.put("/", UserController.create);
+router.put("/", ...UserController.create);
+
+// Sign out
+router.get("/logout", UserController.signOut);
 
 // Delete account (self)
 router.delete("/", UNIMPLEMENTED);
