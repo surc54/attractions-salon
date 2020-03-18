@@ -40,6 +40,7 @@ const Login = () => {
 
     const onFormSubmit = e => {
         e.preventDefault();
+        setLoading(true);
         console.log("sign in form submit");
     };
 
@@ -67,10 +68,12 @@ const Login = () => {
                 })}
             >
                 <Paper className={styles.paper} square={isSmall}>
-                    <LinearProgress
-                        className={styles.loadingProgress}
-                        variant="indeterminate"
-                    />
+                    {loading && (
+                        <LinearProgress
+                            className={styles.loadingProgress}
+                            variant="indeterminate"
+                        />
+                    )}
                     <header>
                         <div className={styles.backButtonWrapper}>
                             <IconButton
@@ -132,7 +135,7 @@ const Login = () => {
                                     fullWidth
                                     disabled={loading}
                                     type="submit"
-                                    onClick={() => setLoading(!loading)}
+                                    onClick={onFormSubmit}
                                     className={styles.submitButton}
                                 >
                                     <span style={{ marginTop: 2 }}>
