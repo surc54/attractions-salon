@@ -4,7 +4,11 @@ import homepic from '../../assets/attractions_salon_photo.jpeg';
 import logo from '../../assets/attractions_salon_logo1.jpg';
 import './Home.css';
 import { Link } from 'react-router-dom'
-import {Modal, Button, Form, Icon, Image, Container} from 'semantic-ui-react'
+import {Grid, Container, FormGroup} from '@material-ui/core';
+import SpacingGrid from './SpacingGrid';
+import SpacingGrid2 from './SpacingGrid2';
+import Paper from '@material-ui/core/Paper';
+// import {Modal, Button, Form, Icon, Image, Container} from 'semantic-ui-react'
 import Rectangle from 'react-rectangle';
 
 const defaultProps = {
@@ -12,9 +16,11 @@ const defaultProps = {
     zoom: 12
  }
 
+
 function Home() {
     return (
         <div className="App">
+            <div>
             <header className="App-header">
                 <img src={homepic} className="salon-bkgrnd" alt="logo" />
                 <h2 className="homeH2">
@@ -22,12 +28,19 @@ function Home() {
                 </h2>
                 <linearGradient className = 'lingrad'></linearGradient>
                 <linearGradient className = 'rect'></linearGradient>
-                <Link to='/book'><Button className = 'booton'>Book Now</Button></Link>
+                <Link to='/book'><button className = 'booton'>Book Now</button></Link>
             </header>
-
-            <div>
+            </div>
+            <Grid
+            container
+            direction="column"
+            justify="flex-start"
+            alignItems="center"
+            >
+            <div style = {{top : '100%', minHeight: '100vh'}}>
             <about-header className = 'about-header'>
-                <h3 className = 'about'>About Us</h3>
+                <div style = {{height: '50px'}}>
+                <Grid item h3 className = 'about'>About Us</Grid></div>
                 <img src={logo} className="logo2" alt="logo2" />
                 <Container className = 'about-body'><p>
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
@@ -39,26 +52,13 @@ function Home() {
                 <Rectangle className = 'sliderr'><p style ={{fontSize: '25px', fontFamily: 'arial', color: 'white'}}>Slideshow</p></Rectangle>
             </about-header>
             </div>
+            </Grid>
             <stylists className = 'stylist-header'>
                 <h4 className = 'stylists-title'>Our Stylists</h4>
-                <Rectangle className = 'stylist1' 
-                style = {{left: -310}}></Rectangle>
-                <Rectangle className = 'stylist1' 
-                style = {{left: -10, top: 470}}></Rectangle>
-                <Rectangle className = 'stylist1' 
-                style = {{left: 290, top: 220}}></Rectangle>
-                <Container className = 'stylist-box' 
-                style = {{top: 1996, left: 280}}>
-                    Jane Doe</Container>
-                <Container className = 'stylist-box' 
-                style = {{top: 1996, left: 580}}>
-                    Jane Doe II</Container> 
-                <Container className = 'stylist-box' 
-                style = {{top: 1996, left: 880}}>
-                    Jane Doe III</Container>        
+                <SpacingGrid className='stylist1'></SpacingGrid>
+                <SpacingGrid2 className='stylist-box'>Jane Doe</SpacingGrid2>
             </stylists>  
-
-            <div>
+            <div style = {{height: '60vh'}}>
             <location-header className = 'location-header'>
             <h4 className = 'location-title'>Visit Us</h4>
             <h5 className = 'loc-title2'>Get in Touch</h5>
@@ -67,13 +67,12 @@ function Home() {
                 <p className = 'loc-text2'><b>Phone:</b> (352) 376-6008
                 </p></Container>
             <iframe className = 'map' width="600" height="450" frameborder="0" 
-            style={{border:0, bottom: 40, top:2250, right: 100, padding: 40}} 
+            style={{border:0, bottom: 40, top:'-20vh', right: -250, padding: 40}} 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3466.590252296763!2d-82.393560285099!3d29.673662342947903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88e8bb527c8cb42d%3A0x1a9ff37664975788!2sAttractions%20Salon!5e0!3m2!1sen!2sus!4v1583782909156!5m2!1sen!2sus" 
-            allowfullscreen></iframe>
-            <Rectangle className = 'footer'></Rectangle>    
+            allowfullscreen></iframe>   
             </location-header>
+            <Rectangle className = 'footer'></Rectangle> 
             </div>
-
         </div>
     );
 }
