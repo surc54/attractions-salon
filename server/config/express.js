@@ -13,6 +13,8 @@ const path = require("path"),
     adminRouter = require("../routes/admin/index.routes"),
     config = require("./config");
 
+const { send_code_error } = require("../tools/index");
+
 module.exports.init = () => {
     /* 
         connect to database
@@ -69,6 +71,13 @@ module.exports.init = () => {
             );
         });
     }
+
+    // Auth Error Handling
+    app.use((err, req, res, next) => {
+        if (err && err.name && err.name === "AuthenticationError") {
+            send_code_error(res, 401, "auth/sign-in/failure");
+        } else next(err);
+    });
 
     return app;
 };

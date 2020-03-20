@@ -17,6 +17,9 @@ import { Link as RouterLink, useHistory, useLocation } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import LayeredBackground from "./LayeredBackground";
 import styles from "./Login.module.scss";
+import { useDispatch } from "react-redux";
+import { getUserAuthInfo } from "../../actions";
+import { useUserAuth } from "../../hooks";
 
 const goBack = history => {
     if (history.length !== 0) {
@@ -34,6 +37,11 @@ const Login = () => {
     const history = useHistory();
     const location = useLocation();
     const [loading, setLoading] = React.useState(false);
+    const userAuth = useUserAuth();
+
+    React.useEffect(() => {
+        console.log("userAuth updated!!", userAuth);
+    }, [userAuth]);
 
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down("xs"));
@@ -42,6 +50,23 @@ const Login = () => {
         e.preventDefault();
         setLoading(true);
         console.log("sign in form submit");
+        if (userAuth.signedIn) {
+            userAuth
+                .logout()
+                .then(res => {
+                    console.log("Logged out!");
+                })
+                .catch(console.error)
+                .finally(() => setLoading(false));
+        } else {
+            userAuth
+                .login("test@gmail.com", "test")
+                .then(res => {
+                    console.log("Logged in!");
+                })
+                .catch(console.error)
+                .finally(() => setLoading(false));
+        }
     };
 
     React.useEffect(() => {
@@ -100,13 +125,18 @@ const Login = () => {
                     </header>
                     <main>
                         <Typography className={styles.subtitle} variant="h2">
-                            Sign in to continue
+                            {userAuth.loading
+                                ? "Loading..."
+                                : userAuth.signedIn
+                                ? "You are signed in"
+                                : "Sign in to continue"}
                         </Typography>
                         <form
                             action="/api/login"
                             method="POST"
                             onSubmit={onFormSubmit}
                         >
+                            {console.log("f:", userAuth.loading) && false}
                             <TextField
                                 className={styles.input}
                                 label="Username"
@@ -116,6 +146,7 @@ const Login = () => {
                                 fullWidth
                                 required
                                 autoComplete="off"
+                                diasbled={!!userAuth.loading}
                             />
                             <TextField
                                 className={styles.input}
@@ -126,6 +157,7 @@ const Login = () => {
                                 fullWidth
                                 required
                                 autoComplete="off"
+                                disabled={!!userAuth.loading}
                             />
 
                             <div className={styles.actions}>

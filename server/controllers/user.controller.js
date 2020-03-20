@@ -36,11 +36,24 @@ module.exports.info = (req, res) => {
 
 /** @type {express.RequestHandler[]} */
 module.exports.signIn = [
-    passport.authenticate("local"),
+    (req, res, next) => {
+        if (!!req.user) {
+            send_code_error(res, 400, "auth/sign-in/already-signed-in");
+        } else {
+            next();
+        }
+    },
+    passport.authenticate("local", {
+        failWithError: true,
+    }),
     (req, res) => {
-        send_code_success(res, 200, "auth/sign-in/success", {
-            user: req.user,
-        });
+        if (!!req.user) {
+            send_code_success(res, 200, "auth/sign-in/success", {
+                user: req.user,
+            });
+        } else {
+            send_code_error(res, 401, "auth/sign-in/failure");
+        }
     },
 ];
 

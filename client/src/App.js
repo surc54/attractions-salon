@@ -7,6 +7,7 @@ import NotFound from "./views/NotFound";
 import Payments from "./views/Payments/Payments";
 import Services from "./views/Services/Services";
 import Login from "./views/Login/Login";
+import { useUserAuth } from "./hooks";
 
 const routes = [
     {
@@ -42,6 +43,13 @@ const routes = [
 ];
 
 const App = () => {
+    const userAuth = useUserAuth();
+
+    React.useEffect(() => {
+        // Initial update - get user status
+        userAuth.updateInfo();
+    }, []);
+
     return (
         <>
             <NavBar />
