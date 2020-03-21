@@ -335,6 +335,9 @@ export default props => {
 
     //     return () => clearTimeout(timer);
     // }, []);
+    if (props.modalMode) {
+        return <Login {...props} />;
+    }
 
     return (
         <CSSTransition
