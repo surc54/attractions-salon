@@ -11,6 +11,8 @@ import {
     Toolbar,
     Typography,
     useScrollTrigger,
+    useMediaQuery,
+    useTheme,
 } from "@material-ui/core";
 import clsx from "clsx";
 import React from "react";
@@ -87,6 +89,8 @@ const NavBar = () => {
         transparent: false,
     });
     const [accountMenuAnchor, setAmAnchor] = React.useState(null);
+    const theme = useTheme();
+    const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
     const closeMobileDrawer = () => setMobileDrawer(false);
     const location = useLocation();
@@ -100,6 +104,13 @@ const NavBar = () => {
         );
         // u will lose state here!
     };
+
+    React.useEffect(
+        () => () => {
+            setAmAnchor(null);
+        },
+        [isSmall]
+    );
 
     React.useEffect(() => {
         if (location.state && location.state.navbarSettings) {

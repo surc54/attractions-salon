@@ -1,4 +1,4 @@
-import { Popover, PopoverProps } from "@material-ui/core";
+import { Popover, PopoverProps, Backdrop, useTheme } from "@material-ui/core";
 import React from "react";
 import Login from "../../views/Login/Login";
 
@@ -10,17 +10,27 @@ const AccountMenu: React.FC<AccountMenuProps> = ({
     const onMenuItemClick = () => {
         onClose();
     };
+    const theme = useTheme();
 
     return (
-        <Popover
-            {...others}
+        <Backdrop
             open={
                 open === undefined || open === null ? !!others.anchorEl : open
             }
-            onClose={onClose}
+            style={{ zIndex: theme.zIndex.appBar + 1 }}
         >
-            <Login keepNavBar modalMode closeModal={() => onClose()} />
-        </Popover>
+            <Popover
+                {...others}
+                open={
+                    open === undefined || open === null
+                        ? !!others.anchorEl
+                        : open
+                }
+                onClose={onClose}
+            >
+                <Login keepNavBar modalMode closeModal={() => onClose()} />
+            </Popover>
+        </Backdrop>
     );
 };
 
