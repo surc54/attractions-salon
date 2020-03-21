@@ -33,7 +33,9 @@ export const getUserAuthInfo = (
         });
 
         axios
-            .get<GetAuthInfoResponse>(Config.apiUrls["get account info"].url)
+            .request<GetAuthInfoResponse>({
+                ...Config.apiUrls["get account info"],
+            })
             .then(resp => {
                 if (resp.status !== 200) {
                     console.error("Status code was not 200", resp);

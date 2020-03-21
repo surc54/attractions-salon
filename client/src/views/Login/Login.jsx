@@ -1,25 +1,25 @@
 import {
     Button,
-    CircularProgress,
     Icon,
     IconButton,
     LinearProgress,
     Link,
     Paper,
-    TextField,
     Typography,
     useMediaQuery,
     useTheme,
+    CircularProgress,
 } from "@material-ui/core";
 import clsx from "clsx";
 import React from "react";
 import { Link as RouterLink, useHistory, useLocation } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
+import { useUserAuth } from "../../hooks";
 import LayeredBackground from "./LayeredBackground";
 import styles from "./Login.module.scss";
-import { useDispatch } from "react-redux";
-import { getUserAuthInfo } from "../../actions";
-import { useUserAuth } from "../../hooks";
+import LoginForm from "./LoginForm";
+import LoginRedirect from "./LoginRedirect";
+import querystring from "querystring";
 
 const goBack = history => {
     if (history.length !== 0) {
@@ -36,52 +36,104 @@ const goHome = history => {
 const Login = () => {
     const history = useHistory();
     const location = useLocation();
-    const [loading, setLoading] = React.useState(false);
     const userAuth = useUserAuth();
-
-    React.useEffect(() => {
-        console.log("userAuth updated!!", userAuth);
-    }, [userAuth]);
+    const [redirectCancelled, setRedirectCancelled] = React.useState(false);
+    const [initialLoading, setInitialLoading] = React.useState(true);
+    const [paperHeight, setPaperHeight] = React.useState(0);
+    const [ofy, setOfy] = React.useState(true);
+    const mainRef = React.createRef();
 
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down("xs"));
+    const query = querystring.parse(location.search.substr(1));
 
-    const onFormSubmit = e => {
-        e.preventDefault();
-        setLoading(true);
-        console.log("sign in form submit");
+    React.useLayoutEffect(() => {
+        const newHeight = mainRef.current.offsetHeight + 6 + 64;
+        let timer;
+        if (newHeight == paperHeight) {
+            timer = setTimeout(() => {
+                setOfy(false);
+            }, 300);
+            return;
+        } else {
+            console.log(mainRef.current.offsetHeight);
+            setOfy(true);
+            setPaperHeight(newHeight);
+            timer = setTimeout(() => {
+                setOfy(false);
+            }, 300);
+        }
+
+        return () => {
+            if (timer) clearTimeout(timer);
+        };
+    }, [mainRef, userAuth.loading]);
+
+    // INITIAL LOAD ANIMATION
+    React.useEffect(() => {
+        if (!initialLoading) return;
+
+        if (!userAuth.loading) {
+            setInitialLoading(false);
+        }
+    }, [userAuth.loading]);
+
+    const onFormSubmit = (email, password) => {
         if (userAuth.signedIn) {
             userAuth
                 .logout()
                 .then(res => {
                     console.log("Logged out!");
                 })
-                .catch(console.error)
-                .finally(() => setLoading(false));
+                .catch(e => {
+                    console.error(e);
+                    alert(
+                        "Error: " +
+                            (e.message ||
+                                (typeof e === "string" && e) ||
+                                "unknown")
+                    );
+                });
         } else {
             userAuth
-                .login("test@gmail.com", "test")
+                .login(email, password)
                 .then(res => {
                     console.log("Logged in!");
                 })
-                .catch(console.error)
-                .finally(() => setLoading(false));
+                .catch(e => {
+                    console.error(e);
+                    alert(
+                        "Error: " +
+                            (e.message ||
+                                (typeof e === "string" && e) ||
+                                "unknown")
+                    );
+                });
         }
     };
 
+    const onSignOut = () => {
+        userAuth.logout();
+    };
+
     React.useEffect(() => {
-        history.replace(location.pathname, {
+        history.replace(location.pathname + location.search + location.hash, {
             navbarSettings: {
                 disable: true,
             },
         });
 
         return () => {
-            history.replace(history.location.pathname, {
-                navbarSettings: {
-                    disable: false,
-                },
-            });
+            history.replace(
+                history.location.pathname +
+                    history.location.search +
+                    history.location.hash,
+                {
+                    navbarSettings: {
+                        disable: false,
+                    },
+                }
+            );
         };
     }, []);
 
@@ -92,13 +144,23 @@ const Login = () => {
                     [styles.small]: isSmall,
                 })}
             >
-                <Paper className={styles.paper} square={isSmall}>
-                    {loading && (
-                        <LinearProgress
-                            className={styles.loadingProgress}
-                            variant="indeterminate"
-                        />
-                    )}
+                <Paper
+                    className={styles.paper}
+                    style={{
+                        height: isSmall ? "100%" : paperHeight,
+                        overflowY: ofy ? "hidden" : "auto",
+                    }}
+                    square={isSmall}
+                >
+                    {/* {!!userAuth.loading && ( */}
+                    <LinearProgress
+                        className={styles.loadingProgress}
+                        variant={
+                            userAuth.loading ? "indeterminate" : "determinate"
+                        }
+                        value={0}
+                    />
+                    {/* )} */}
                     <header>
                         <div className={styles.backButtonWrapper}>
                             <IconButton
@@ -123,84 +185,110 @@ const Login = () => {
                             </Typography>
                         </Button>
                     </header>
-                    <main>
-                        <Typography className={styles.subtitle} variant="h2">
-                            {userAuth.loading
-                                ? "Loading..."
-                                : userAuth.signedIn
-                                ? "You are signed in"
-                                : "Sign in to continue"}
-                        </Typography>
-                        <form
-                            action="/api/login"
-                            method="POST"
-                            onSubmit={onFormSubmit}
-                        >
-                            {console.log("f:", userAuth.loading) && false}
-                            <TextField
-                                className={styles.input}
-                                label="Username"
-                                placeholder="member@example.com"
-                                type="text"
-                                variant="outlined"
-                                fullWidth
-                                required
-                                autoComplete="off"
-                                diasbled={!!userAuth.loading}
-                            />
-                            <TextField
-                                className={styles.input}
-                                label="Password"
-                                placeholder="••••••••••••"
-                                type="password"
-                                variant="outlined"
-                                fullWidth
-                                required
-                                autoComplete="off"
-                                disabled={!!userAuth.loading}
-                            />
-
-                            <div className={styles.actions}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth
-                                    disabled={loading}
-                                    type="submit"
-                                    onClick={onFormSubmit}
-                                    className={styles.submitButton}
-                                >
-                                    <span style={{ marginTop: 2 }}>
-                                        Sign in
-                                    </span>
+                    <main ref={mainRef}>
+                        {initialLoading ? (
+                            <CircularProgress />
+                        ) : userAuth.signedIn ? (
+                            <>
+                                <div className={styles.signedInDetails}>
+                                    {/* <Avatar className={styles.avatar}>
+                                        {userAuth.user.fullName
+                                            .split(" ")
+                                            .map(x => x.substr(0, 1))
+                                            .join("")}
+                                    </Avatar> */}
+                                    <div className={styles.details}>
+                                        <Typography variant="button">
+                                            Welcome,
+                                        </Typography>
+                                        <Typography
+                                            noWrap
+                                            className={styles.name}
+                                        >
+                                            {userAuth.user.name.first}
+                                        </Typography>
+                                    </div>
                                     <span className="spacer"></span>
-                                    {loading ? (
-                                        <CircularProgress
-                                            color="inherit"
-                                            size={20}
-                                        />
-                                    ) : (
-                                        <Icon>arrow_forward</Icon>
-                                    )}
-                                </Button>
-                            </div>
-                        </form>
+                                    <Button
+                                        variant="outlined"
+                                        color="primary"
+                                        onClick={onSignOut}
+                                        disabled={userAuth.loading}
+                                    >
+                                        Sign out
+                                    </Button>
+                                </div>
 
-                        <div className={styles.textActions}>
-                            <Link component={RouterLink} to="/account/forgot">
-                                Forgot your password?
-                            </Link>
-                            <br />
-                            <Typography>
-                                Don't have an account?{" "}
-                                <Link
-                                    component={RouterLink}
-                                    to="/account/signup"
+                                {!redirectCancelled &&
+                                location.state &&
+                                location.state.redirectAfterLogin &&
+                                location.state.redirectAfterLogin.path ? (
+                                    <LoginRedirect
+                                        onCancel={() =>
+                                            setRedirectCancelled(true)
+                                        }
+                                        goTo={
+                                            location.state.redirectAfterLogin
+                                                .path
+                                        }
+                                        displayName={
+                                            location.state.redirectAfterLogin
+                                                .displayName || undefined
+                                        }
+                                    />
+                                ) : !redirectCancelled && query.next ? (
+                                    <LoginRedirect
+                                        onCancel={() =>
+                                            setRedirectCancelled(true)
+                                        }
+                                        close={query.next === "close"}
+                                        goTo={query.next}
+                                    />
+                                ) : (
+                                    <div className={styles.signedInLinks}>
+                                        <Link
+                                            component={RouterLink}
+                                            to="/profile"
+                                        >
+                                            Go to your profile
+                                        </Link>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                <Typography
+                                    className={styles.subtitle}
+                                    variant="h2"
                                 >
-                                    Create one!
-                                </Link>
-                            </Typography>
-                        </div>
+                                    Sign in to continue
+                                </Typography>
+
+                                <LoginForm
+                                    onSubmit={onFormSubmit}
+                                    loading={userAuth.loading}
+                                />
+
+                                <div className={styles.textActions}>
+                                    <Link
+                                        component={RouterLink}
+                                        to="/account/forgot"
+                                    >
+                                        Forgot your password?
+                                    </Link>
+                                    <br />
+                                    <Typography>
+                                        Don't have an account?{" "}
+                                        <Link
+                                            component={RouterLink}
+                                            to="/account/signup"
+                                        >
+                                            Create one!
+                                        </Link>
+                                    </Typography>
+                                </div>
+                            </>
+                        )}
                     </main>
                 </Paper>
             </div>

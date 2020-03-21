@@ -8,10 +8,12 @@
     .paper {
         display: flex;
         flex-flow: column nowrap;
-        justify-content: stretch;
+        justify-content: flex-start;
         align-items: center;
         overflow-y: auto;
         overflow-x: hidden;
+
+        transition: height 0.25s;
 
         // border: 1px solid rgba(0, 0, 0, 0.2);
 
@@ -22,6 +24,8 @@
             width: 100%;
             background: transparent;
             min-height: 4px;
+
+            animation: 0.25s topLoader;
         }
 
         header {
@@ -71,11 +75,52 @@
         main {
             padding: 48px 14px;
             width: 100%;
-            flex-grow: 1;
+            // flex-grow: 1;
             display: flex;
             flex-flow: column nowrap;
             justify-content: center;
             align-items: center;
+
+            > .signedInDetails {
+                width: 100%;
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: flex-start;
+                align-items: center;
+
+                padding: 0 16px;
+
+                > .avatar {
+                    height: 64px;
+                    width: 64px;
+                }
+
+                > .details {
+                    // margin-left: 16px;
+
+                    > .name {
+                        font-size: 3.2rem;
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            > .signedInLinks {
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: flex-start;
+                align-items: flex-start;
+
+                padding: 0 16px;
+                width: 100%;
+
+                margin-top: 1.6rem;
+
+                > h2 {
+                    font-weight: 500;
+                    font-size: 2.4rem;
+                }
+            }
 
             > .subtitle {
                 text-align: center;
@@ -178,5 +223,14 @@ div.warningWrapper {
         flex-flow: row nowrap;
         justify-content: stretch;
         align-items: center;
+    }
+}
+
+@keyframes topLoader {
+    from {
+        height: 0;
+    }
+    to {
+        height: 4px;
     }
 }

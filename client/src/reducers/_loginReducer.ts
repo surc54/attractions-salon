@@ -3,7 +3,7 @@ import User from "../models/User";
 import { UserActions, GetAuthInfoEnd, AuthLogoutEnd } from "../actions/types";
 
 const INIT: UserState = {
-    loading: false,
+    loading: true,
     user: null,
     signedIn: false,
     error: null,
