@@ -40,6 +40,7 @@ const Login = () => {
     const [redirectCancelled, setRedirectCancelled] = React.useState(false);
     const [initialLoading, setInitialLoading] = React.useState(true);
     const [paperHeight, setPaperHeight] = React.useState(0);
+    const [fr, forceRender] = React.useReducer(state => state + 1, 0);
     const [ofy, setOfy] = React.useState(true);
     const mainRef = React.createRef();
 
@@ -56,7 +57,7 @@ const Login = () => {
             }, 300);
             return;
         } else {
-            console.log(mainRef.current.offsetHeight);
+            // console.log(mainRef.current.offsetHeight);
             setOfy(true);
             setPaperHeight(newHeight);
             timer = setTimeout(() => {
@@ -148,7 +149,7 @@ const Login = () => {
                     className={styles.paper}
                     style={{
                         height: isSmall ? "100%" : paperHeight,
-                        overflowY: ofy ? "hidden" : "auto",
+                        overflowY: initialLoading || ofy ? "hidden" : "auto",
                     }}
                     square={isSmall}
                 >
@@ -265,6 +266,7 @@ const Login = () => {
                                 </Typography>
 
                                 <LoginForm
+                                    forceRender={forceRender}
                                     onSubmit={onFormSubmit}
                                     loading={userAuth.loading}
                                 />
