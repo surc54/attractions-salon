@@ -232,6 +232,7 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
                                 location.state.redirectAfterLogin &&
                                 location.state.redirectAfterLogin.path ? (
                                     <LoginRedirect
+                                        timeout={3}
                                         onCancel={() =>
                                             setRedirectCancelled(true)
                                         }
@@ -246,6 +247,7 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
                                     />
                                 ) : !redirectCancelled && query.next ? (
                                     <LoginRedirect
+                                        timeout={3}
                                         onCancel={() =>
                                             setRedirectCancelled(true)
                                         }
