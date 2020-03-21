@@ -1,0 +1,236 @@
+.wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .paper {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        transition: height 0.25s;
+
+        // border: 1px solid rgba(0, 0, 0, 0.2);
+
+        width: 40rem;
+        max-height: 100%;
+
+        .loadingProgress {
+            width: 100%;
+            background: transparent;
+            min-height: 4px;
+
+            animation: 0.25s topLoader;
+        }
+
+        header {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            min-height: 64px;
+            height: 64px;
+            overflow: hidden;
+            align-self: stretch;
+
+            width: 100%;
+
+            position: relative;
+
+            .backButtonWrapper {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 64px;
+
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: center;
+                align-items: center;
+
+                padding-left: 14px;
+
+                .backButton {
+                    margin-right: 1rem;
+                }
+            }
+
+            > .titleButton {
+                .title {
+                    font-family: "Galada", sans-serif;
+                    font-size: 24px;
+
+                    text-transform: none;
+
+                    transition: font-size 0.25s;
+                }
+            }
+        }
+
+        main {
+            padding: 48px 14px;
+            width: 100%;
+            // flex-grow: 1;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+
+            > .signedInDetails {
+                width: 100%;
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: flex-start;
+                align-items: center;
+
+                padding: 0 16px;
+
+                > .avatar {
+                    height: 64px;
+                    width: 64px;
+                }
+
+                > .details {
+                    // margin-left: 16px;
+
+                    > .name {
+                        font-size: 3.2rem;
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            > .signedInLinks {
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: flex-start;
+                align-items: flex-start;
+
+                padding: 0 16px;
+                width: 100%;
+
+                margin-top: 1.6rem;
+
+                > h2 {
+                    font-weight: 500;
+                    font-size: 2.4rem;
+                }
+            }
+
+            > .subtitle {
+                text-align: center;
+                font-size: 2.4rem;
+                margin-bottom: 48px;
+                font-weight: 500;
+            }
+
+            .input {
+                margin-bottom: 1rem;
+            }
+
+            .actions {
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: stretch;
+                align-items: center;
+
+                margin-top: 1.6rem;
+                width: 100%;
+
+                .submitButton {
+                    height: 5.6rem;
+                }
+            }
+
+            .textActions {
+                text-align: center;
+                margin-top: 4.8rem;
+            }
+        }
+    }
+
+    &.small {
+        header {
+            > .titleButton {
+                .title {
+                    font-size: 28px;
+                }
+            }
+        }
+
+        .paper {
+            height: 100%;
+            width: 100%;
+            min-width: unset;
+
+            > .subtitle {
+                font-size: 2.4rem;
+                margin-bottom: 24px;
+            }
+        }
+    }
+
+    &:global(-appear) {
+        // border-radius: 50%;
+        transform: scale(0.3);
+        opacity: 0;
+        overflow: hidden;
+    }
+
+    &:global(-appear-active) {
+        // border-radius: 0;
+        transform: scale(1);
+        opacity: 1;
+
+        transition: transform 0.25s, opacity 0.25s, border-radius 0.25s;
+    }
+    &:global(-enter) {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    &:global(-enter-active) {
+        transform: scale(1);
+        opacity: 1;
+
+        transition: transform 0.25s, opacity 0.25s;
+    }
+}
+
+div.warningWrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: stretch;
+    align-items: center;
+
+    padding: 24px;
+
+    margin: 1.6rem auto;
+
+    background-color: #f3c9d1;
+
+    .icon {
+        padding-right: 14px;
+    }
+
+    .content {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: stretch;
+        align-items: center;
+    }
+}
+
+@keyframes topLoader {
+    from {
+        height: 0;
+    }
+    to {
+        height: 4px;
+    }
+}

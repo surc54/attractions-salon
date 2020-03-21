@@ -44,7 +44,7 @@ const SideBar = props => {
                         className="SideBarTitle"
                         value="???"
                         control={
-                            <Button className="checkBoxes" size="small">
+                            <Button className="checkBoxes" size="small" style={{float: "right"}}>
                                 Clear
                             </Button>
                         }
@@ -125,12 +125,12 @@ const SideBar = props => {
             </div>
             <div>
                 <Button
-                    key={"Book an appointment"}
+                    key={"Request an appointment"}
                     variant="contained"
                     color="primary"
                     style={{ width: "100%", marginTop: 15, marginBottom: 20 }}
                 >
-                    Book an appointment
+                    Request an appointment
                 </Button>
                 <CartList/>
             </div>
@@ -151,7 +151,6 @@ const CartList = () => {
         <List component="nav" className={classes.root} disablePadding>
             <ListItem button onClick={handleClick} className="itemClass">
                 <ListItemText primary="Your Cart" />
-                {/* primary = data.services.name*/}
                 {open ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
 

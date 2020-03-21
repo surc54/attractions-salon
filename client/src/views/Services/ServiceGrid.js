@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Container } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import "./Services.css";
@@ -10,17 +10,19 @@ import SideBar from "./SideBar";
 const useStyles = makeStyles(theme => ({
     window: {
         marginTop: 64,
+        width: "100%",
     },
-    root: {
+    container:{
+        display: "flex",
         flexGrow: 1,
+        flexDirection: "row",
+        justifyContent: "space-around",
     },
     sideBar: {
-        width: 250,
         height: "auto",
         marginTop: 5,
     },
     serviceWindow: {
-        width: 1100,
         height: 600,
         marginTop: 5,
         overflow: "auto",
@@ -34,25 +36,19 @@ const ServiceGrid = props => {
 
     return (
         <div className={classes.window}>
-            <Grid container className={classes.root} spacing={2}>
-                <Grid item xs={12}>
-                    <Grid container justify="center" spacing={6}>
-                        <Grid key={1} item>
-                            <Paper className={classes.sideBar} elevation={0}>
-                                <SideBar />
-                            </Paper>
-                        </Grid>
 
-                        <Grid key={2} item>
-                            <Paper
-                                className={classes.serviceWindow}
-                                elevation={0}
-                            >
-                                <ServiceWindow services={props.services} />
-                            </Paper>
-                        </Grid>
-                    </Grid>
-                </Grid>
+            <Grid container spacing={0} className={classes.container}>
+            <Grid item xs={12} md={2}>
+                <Paper className={classes.sideBar} elevation={0}>
+                    <SideBar />
+                </Paper>
+            </Grid>
+
+            <Grid item xs={12} md={9}>
+                <Paper className={classes.serviceWindow} elevation={0}>
+                    <ServiceWindow services={props.services} />
+                </Paper>
+            </Grid>
             </Grid>
         </div>
     );

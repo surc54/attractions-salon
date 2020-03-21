@@ -43,6 +43,11 @@ const navItems = [
         path: "/testimonials",
         external: false,
     },
+    {
+        name: "Login",
+        path: "/login",
+        external: false,
+    },
 ];
 
 const useStyles = makeStyles(theme => ({
