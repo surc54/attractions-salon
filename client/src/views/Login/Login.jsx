@@ -1,5 +1,6 @@
 import {
     Button,
+    CircularProgress,
     Icon,
     IconButton,
     LinearProgress,
@@ -8,9 +9,9 @@ import {
     Typography,
     useMediaQuery,
     useTheme,
-    CircularProgress,
 } from "@material-ui/core";
 import clsx from "clsx";
+import querystring from "querystring";
 import React from "react";
 import { Link as RouterLink, useHistory, useLocation } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
@@ -19,7 +20,6 @@ import LayeredBackground from "./LayeredBackground";
 import styles from "./Login.module.scss";
 import LoginForm from "./LoginForm";
 import LoginRedirect from "./LoginRedirect";
-import querystring from "querystring";
 
 const goBack = history => {
     if (history.length !== 0) {
@@ -33,7 +33,7 @@ const goHome = history => {
     history.push("/");
 };
 
-const Login = () => {
+const Login = ({ keepNavBar, modalMode, closeModal }) => {
     const history = useHistory();
     const location = useLocation();
     const userAuth = useUserAuth();
@@ -49,13 +49,16 @@ const Login = () => {
     const query = querystring.parse(location.search.substr(1));
 
     React.useLayoutEffect(() => {
-        const newHeight = mainRef.current.offsetHeight + 6 + 64;
+        const newHeight =
+            mainRef.current.offsetHeight + 6 + (!modalMode ? 64 : 0);
         let timer;
         if (newHeight == paperHeight) {
             timer = setTimeout(() => {
                 setOfy(false);
             }, 300);
-            return;
+            return () => {
+                if (timer) clearTimeout(timer);
+            };
         } else {
             // console.log(mainRef.current.offsetHeight);
             setOfy(true);
@@ -68,7 +71,7 @@ const Login = () => {
         return () => {
             if (timer) clearTimeout(timer);
         };
-    }, [mainRef, userAuth.loading]);
+    }, [mainRef, userAuth.loading, modalMode]);
 
     // INITIAL LOAD ANIMATION
     React.useEffect(() => {
@@ -115,9 +118,11 @@ const Login = () => {
 
     const onSignOut = () => {
         userAuth.logout();
+        if (closeModal) closeModal();
     };
 
     React.useEffect(() => {
+        if (keepNavBar || modalMode) return;
         history.replace(location.pathname + location.search + location.hash, {
             navbarSettings: {
                 disable: true,
@@ -162,30 +167,32 @@ const Login = () => {
                         value={0}
                     />
                     {/* )} */}
-                    <header>
-                        <div className={styles.backButtonWrapper}>
-                            <IconButton
-                                className={styles.backButton}
-                                onClick={() => goBack(history)}
-                            >
-                                <Icon>arrow_back</Icon>
-                            </IconButton>
-                        </div>
+                    {!modalMode && (
+                        <header>
+                            <div className={styles.backButtonWrapper}>
+                                <IconButton
+                                    className={styles.backButton}
+                                    onClick={() => goBack(history)}
+                                >
+                                    <Icon>arrow_back</Icon>
+                                </IconButton>
+                            </div>
 
-                        <Button
-                            className={styles.titleButton}
-                            color="primary"
-                            onClick={() => goHome(history)}
-                        >
-                            <Typography
-                                className={styles.title}
+                            <Button
+                                className={styles.titleButton}
                                 color="primary"
-                                variant="h1"
+                                onClick={() => goHome(history)}
                             >
-                                Attractions Salon
-                            </Typography>
-                        </Button>
-                    </header>
+                                <Typography
+                                    className={styles.title}
+                                    color="primary"
+                                    variant="h1"
+                                >
+                                    Attractions Salon
+                                </Typography>
+                            </Button>
+                        </header>
+                    )}
                     <main ref={mainRef}>
                         {initialLoading ? (
                             <CircularProgress />
@@ -250,6 +257,9 @@ const Login = () => {
                                         <Link
                                             component={RouterLink}
                                             to="/profile"
+                                            onClick={() => {
+                                                if (closeModal) closeModal();
+                                            }}
                                         >
                                             Go to your profile
                                         </Link>
