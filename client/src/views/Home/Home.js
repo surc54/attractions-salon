@@ -4,7 +4,11 @@ import Rectangle from "react-rectangle";
 import { Link } from "react-router-dom";
 import logo from "../../assets/attractions_salon_logo1.jpg";
 import homepic from "../../assets/attractions_salon_photo.jpeg";
-import "./Home.css";
+
+// This "styles" object is the only way to set styles from
+// your scss file now (because of modularity)
+import styles from "./Home.module.scss";
+
 import SpacingGrid from "./SpacingGrid";
 import SpacingGrid2 from "./SpacingGrid2";
 

@@ -1,3 +1,14 @@
+// This file is now a modular .scss file
+// This means a few things:
+//      - [SCSS] You can now nest styles within each other
+//      - [MODULE] You can no longer use regular className
+//        to set your styles. You have to use the styles
+//        object. This way, your styles won't affect other
+//        people's work.
+
+// Remark: For a style file to be modular, it must
+//         end with .module.scss or .module.css
+
 body {
     /* I removed "height: 100%" because I added it in global.scss */
 }
