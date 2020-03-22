@@ -14,31 +14,273 @@ body {
 }
 
 .App {
-    text-align: center;
+    // text-align: center; // this will center everything
     background: white;
-    margin-left: auto;
-    margin-right: auto;
-    min-width: 960px;
-    display: flex;
-    flex-direction: column;
+    // margin-left: auto; // unnecessary
+    // margin-right: auto; // unnecessary
+    // min-width: 960px; // unnecessary
+    // display: flex;
+    // flex-direction: column;
+
+    // This is a nested style.
+    // This means find a div with the className
+    // of "jumbotron" inside .App
+    div.jumbotron {
+        /* Set height to 100vh (full height of browser) */
+        height: 100vh;
+
+        /* Set background styles to make image look good */
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+
+        div.appHeader {
+            // Your code - I've disabled somethings, but kept others
+
+            // order: 1; // I've never seen this used before
+            // background-color: white; // We need a transparent header
+            // width: 100%; // <div /> automatically gets this
+            // display: table; // Table is ... a no-no.
+            // min-height: 70vh;
+            display: flex; // #WeLoveFlexBox
+            // flex-direction: column; // Let's use the shorthand (flex-flow)
+            flex-flow: column nowrap; // Same as above, but with wrapping property
+            // align-items: center;
+            align-items: stretch; // We want elements to be stretched horizontally
+
+            // justify-content: center;
+            justify-content: flex-start;
+            // [justify-content]: Let's begin our stuff at the top
+
+            // font-size: calc(10px + 2vmin); // We'll worry about this later
+            color: white;
+
+            // We'll set height to 100% to fill up the jumbotron
+            height: 100%;
+
+            // Another nested style!
+            div.bottomGradient {
+                // Your gradient from .lingrad
+                background: linear-gradient(
+                    180deg,
+                    rgba(231, 161, 175, 0) 0%,
+                    #e7a1af 100%
+                );
+
+                height: 50%;
+
+                // We'll make this a flexbox to center its children
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: center; // center vert
+                align-items: center; // center horiz
+
+                // NOTE: align-items and justify-content are flipped
+                //       when flex-flow is "row"
+
+                text-align: center;
+            }
+
+            div.topGradient {
+                // Another way to write gradients without degress
+                background: linear-gradient(
+                    to bottom,
+                    white,
+                    rgba(255, 255, 255, 0)
+                );
+
+                // At minimum, it needs to be the navbar's height
+                min-height: 64px;
+                height: 10%;
+            }
+
+            // Technically this should be inside div.bottomGradient
+            // But, I left it outside just incase of plan changes
+            // It still works either way.
+            h2.homeH2 {
+                // position: absolute; // absolute = bad*
+                // top: 700px; // absolute = bad*
+                // left: 0; // absolute = bad*
+                // bottom: 0px; // absolute = bad*
+
+                // * unless you know exactly what you want
+                //   (hence "absolute")
+
+                // width: 100%; // <h2 /> automatically gets this
+                color: white;
+                font-size: 48px;
+                font-family: "Pacifico", cursive;
+
+                // Let's also reduce the font-weight
+                // It's bold right now, which looks bad
+                // with Pacifico
+                font-weight: normal;
+
+                &.smallOrBelow {
+                    font-size: 36px;
+                }
+            }
+        } // end of .appHeader
+    } // end of .jumbotron
+
+    div.contentBeginFadeOut {
+        height: 115px; // From Figma
+        background: linear-gradient(to bottom, #e7a1af, rgba(231, 161, 175, 0));
+    }
+
+    .aboutUsSection {
+        margin-top: 120px; // Separation from the top
+        margin-bottom: 80px; // Separation for bottom
+
+        .left {
+            .sliderr {
+                // top: -10vh; // only usable with absolute or other positioning
+                // left: 40%;
+
+                // width: 600px;
+                width: 100%; // set width to 100% of container
+                height: 500px; // increased to look better
+                background: #e1e1e1;
+
+                // Add some flex for centering
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: center;
+                align-items: center;
+
+                border-radius: 5px;
+                color: black;
+                border-color: #e7a1af;
+                border: 5px solid #e7a1af;
+            }
+        }
+
+        .right {
+            // Use flex to center
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center; // vert
+            align-items: flex-start; // horiz
+
+            h2.about {
+                /*for text about us*/
+                // order: 1; // no need
+
+                // position: relative; // default is fine
+                // left: 30%;
+                // right: 3.51%;
+                // top: 30vh;
+                // bottom: 0%;
+
+                // font-family: Pacifico; // Improper syntax
+                font-family: "Pacifico", cursive; // Proper syntax
+                font-style: normal;
+                font-weight: normal;
+                font-size: 48px; // New size
+                // line-height: 112px; // Let's not bother
+
+                // display: flex; // No need for flex
+                // align-items: flex-end;
+                // text-align: center;
+                // flex: none;
+                // align-self: center;
+
+                color: #e7a1af;
+
+                // order: 0; // Again?
+                // margin: 0px 10px;
+                margin: 0; // Remove all margin
+            }
+
+            p.text {
+                margin-bottom: 48px; // Give space to button
+            }
+
+            // These styles will only apply if the class
+            // "styles.smallOrBelow" is set.
+            // Equivalient of ".App .aboutUsSection .right.smallOrBelow"
+            // (notice the lack of space)
+            &.smallOrBelow {
+                h2.about {
+                    // Center text
+                    text-align: center;
+                    align-self: stretch;
+
+                    // Add a bit of margin below
+                    margin-bottom: 8px;
+                }
+
+                button.readMoreButton {
+                    // Also center the button
+                    align-self: center;
+                }
+            }
+        }
+    }
+
+    section.stylists {
+        padding: 40px 0; // 40 on top/bottom - 0 on sides
+
+        h2.sectionTitle {
+            // Add on to generic style (defined below)
+            // Center text
+            text-align: center;
+        }
+    }
+
+    section.getInTouch {
+        padding: 40px 0; // 40 on top/bottom - 0 on sides
+
+        .left {
+            h2.sectionTitle {
+                margin-bottom: 26px;
+            }
+
+            div.information > * {
+                margin-bottom: 18px;
+            }
+        }
+
+        .right {
+            .map {
+                max-height: 50vh;
+                height: 600px;
+                width: 100%;
+            }
+        }
+
+        &.smallOrBelow {
+            .left {
+                h2.sectionTitle {
+                    text-align: center;
+                    align-self: stretch;
+                }
+
+                .information {
+                    padding-top: 12px;
+
+                    display: flex;
+                    flex-flow: column nowrap;
+                    justify-content: flex-start;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}
+
+// Generic style for section title
+h2.sectionTitle {
+    font-family: "Pacifico", cursive;
+    font-size: 48px;
+    font-weight: normal;
+    margin: 0;
+
+    color: #e7a1af;
 }
 
 .App-logo {
     height: 40vmin;
-}
-
-.App-header {
-    order: 1;
-    background-color: white;
-    width: 100%;
-    display: table;
-    min-height: 70vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
 }
 
 .about-header {
@@ -126,21 +368,13 @@ body {
 }
 
 .text {
-    position: relative;
-    width: 100%; /* for IE 6 */
-    color: pink;
-    bottom: 100px;
+    // position: relative;
+    // width: 100%; /* for IE 6 */
+    // color: pink;
+    // bottom: 100px;
 }
 
 .homeH2 {
-    position: absolute;
-    top: 700px;
-    left: 0;
-    width: 100%;
-    color: white;
-    /* bottom: 0px; */
-    font-size: 48px;
-    font-family: "Pacifico", cursive;
 }
 
 .booton {
@@ -186,27 +420,6 @@ body {
 }
 
 .about {
-    /*for text about us*/
-    order: 1;
-    position: relative;
-    left: 30%;
-    /* right: 3.51%; */
-    top: 30vh;
-    bottom: 0%;
-
-    font-family: Pacifico;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 64px;
-    line-height: 112px;
-    display: flex;
-    align-items: flex-end;
-    text-align: center;
-    color: #e7a1af;
-    flex: none;
-    order: 0;
-    align-self: center;
-    margin: 0px 10px;
 }
 
 .stylists-title {
@@ -230,17 +443,6 @@ body {
     order: 0;
     align-self: center;
     margin: 0px 10px;
-}
-
-.sliderr {
-    width: 600px;
-    height: 350px;
-    left: 40%;
-    top: -10vh;
-    background: #e1e1e1;
-    border-radius: 5px;
-    border-color: #e7a1af;
-    border: 5px #e7a1af;
 }
 
 .stylist1 {
@@ -299,8 +501,8 @@ body {
 }
 
 .map {
-    position: relative;
-    order: 1;
+    // position: relative; // dont do this unless you know exactly what you're doing
+    // order: 1;
 }
 
 .loc-title2 {
