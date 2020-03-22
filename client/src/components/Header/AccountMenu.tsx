@@ -13,24 +13,18 @@ const AccountMenu: React.FC<AccountMenuProps> = ({
     const theme = useTheme();
 
     return (
-        <Backdrop
+        <Popover
+            BackdropComponent={Backdrop}
+            BackdropProps={{ style: { zIndex: theme.zIndex.appBar + 1 } }}
+            PaperProps={{ style: { zIndex: theme.zIndex.appBar + 2 } }}
+            {...others}
             open={
                 open === undefined || open === null ? !!others.anchorEl : open
             }
-            style={{ zIndex: theme.zIndex.appBar + 1 }}
+            onClose={onClose}
         >
-            <Popover
-                {...others}
-                open={
-                    open === undefined || open === null
-                        ? !!others.anchorEl
-                        : open
-                }
-                onClose={onClose}
-            >
-                <Login keepNavBar modalMode closeModal={() => onClose()} />
-            </Popover>
-        </Backdrop>
+            <Login keepNavBar modalMode closeModal={() => onClose()} />
+        </Popover>
     );
 };
 

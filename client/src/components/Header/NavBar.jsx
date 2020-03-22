@@ -98,6 +98,12 @@ const NavBar = () => {
     const classes = useStyles();
     const userAuth = useUserAuth();
 
+    window.__debug_nav = (
+        disable = false,
+        style = "default",
+        transparent = false
+    ) => setNavBarSettings({ disable, style, transparent });
+
     const goToLogin = () => {
         history.push(
             "/login?next=" + location.pathname + location.search + location.hash
