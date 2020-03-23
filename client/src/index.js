@@ -7,6 +7,10 @@ import history from "./models/history";
 import * as serviceWorker from "./serviceWorker";
 import App from "./App";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { createStore, applyMiddleware, compose } from "redux";
+import { Provider } from "react-redux";
+import reduxThunk from "redux-thunk";
+import reducers from "./reducers";
 
 const theme = createMuiTheme({
     palette: {
@@ -19,12 +23,25 @@ const theme = createMuiTheme({
     },
 });
 
+const composeEnhancers =
+    typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+              // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+          })
+        : compose;
+
+const enhancer = composeEnhancers(applyMiddleware(reduxThunk));
+
+const store = createStore(reducers, enhancer);
+
 ReactDOM.render(
-    <ThemeProvider theme={theme}>
-        <Router history={history}>
-            <App />
-        </Router>
-    </ThemeProvider>,
+    <Provider store={store}>
+        <ThemeProvider theme={theme}>
+            <Router history={history}>
+                <App />
+            </Router>
+        </ThemeProvider>
+    </Provider>,
     document.getElementById("root")
 );
 
