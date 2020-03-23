@@ -126,7 +126,7 @@ interface LoginFormProps {
 }
 
 export default React.memo(LoginForm, (prev, next) => {
-    return ["defaultEmail", "defaultPassword", "loading", "onSubmit"].some(
+    return !["defaultEmail", "defaultPassword", "loading", "onSubmit"].some(
         m => prev[m as keyof LoginFormProps] !== next[m as keyof LoginFormProps]
     );
 });

@@ -82,7 +82,7 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
         }
     }, [userAuth.loading]);
 
-    const onFormSubmit = (email, password) => {
+    const onFormSubmit = React.useCallback((email, password) => {
         if (userAuth.signedIn) {
             userAuth
                 .logout()
@@ -114,7 +114,7 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
                     );
                 });
         }
-    };
+    }, []);
 
     const onSignOut = () => {
         userAuth.logout();
@@ -290,6 +290,7 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
                                     >
                                         Forgot your password?
                                     </Link>
+                                    <br />
                                     <br />
                                     <Typography>
                                         Don't have an account?{" "}
