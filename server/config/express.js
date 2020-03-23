@@ -1,4 +1,4 @@
-require("./config_setup");
+require("./config_setup")();
 const path = require("path"),
     express = require("express"),
     mongoose = require("mongoose"),
