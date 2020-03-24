@@ -61,7 +61,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
                 className={styles.input}
                 label="Email"
                 placeholder="member@example.com"
-                type="text"
+                type="email"
                 variant="outlined"
                 fullWidth
                 required

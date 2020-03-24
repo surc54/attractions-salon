@@ -20,6 +20,7 @@ import LayeredBackground from "./LayeredBackground";
 import styles from "./Login.module.scss";
 import LoginForm from "./LoginForm";
 import LoginRedirect from "./LoginRedirect";
+import SignUpForm from "./SignUpForm";
 
 const goBack = history => {
     if (history.length !== 0) {
@@ -43,6 +44,8 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
     const [fr, forceRender] = React.useReducer(state => state + 1, 0);
     const [ofy, setOfy] = React.useState(true);
     const mainRef = React.createRef();
+
+    const signUpMode = /login\/signup([?#].*|\/.*)?$/i.test(location.pathname);
 
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down("xs"));
@@ -268,6 +271,27 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
                                     </div>
                                 )}
                             </>
+                        ) : signUpMode ? (
+                            <>
+                                <Typography
+                                    className={styles.subtitle}
+                                    variant="h2"
+                                >
+                                    Let's get set up!
+                                </Typography>
+                                <SignUpForm forceRender={forceRender} />
+                                <div className={styles.textActions}>
+                                    <Typography>
+                                        Already have an account?{" "}
+                                        <Link
+                                            component={RouterLink}
+                                            to="/login"
+                                        >
+                                            Sign in!
+                                        </Link>
+                                    </Typography>
+                                </div>
+                            </>
                         ) : (
                             <>
                                 <Typography
@@ -284,19 +308,19 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
                                 />
 
                                 <div className={styles.textActions}>
-                                    <Link
+                                    {/* <Link
                                         component={RouterLink}
                                         to="/account/forgot"
                                     >
                                         Forgot your password?
                                     </Link>
-                                    <br />
-                                    <br />
+                                    <br /> */}
+                                    {/* <br /> */}
                                     <Typography>
                                         Don't have an account?{" "}
                                         <Link
                                             component={RouterLink}
-                                            to="/account/signup"
+                                            to="/login/signup"
                                         >
                                             Create one!
                                         </Link>
