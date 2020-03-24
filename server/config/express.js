@@ -9,8 +9,7 @@ const path = require("path"),
     exampleRouter = require("../routes/examples.server.routes"),
     servicesRouter = require("../routes/services.routes"),
     accountRouter = require("../routes/account.routes"),
-    adminRouter = require("../routes/admin/index.routes"),
-    config = require("./config");
+    adminRouter = require("../routes/admin/index.routes");
 
 const { send_code_error } = require("../tools/index");
 
@@ -19,7 +18,7 @@ module.exports.init = () => {
         connect to database
         - reference README for db uri
     */
-    mongoose.connect(process.env.DB_URI || config.db.uri, {
+    mongoose.connect(process.env.DB_URI || require("./config").db.uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
@@ -34,7 +33,8 @@ module.exports.init = () => {
 
     app.use(
         session({
-            secret: process.env.COOKIE_SECRET || config.cookie.secret,
+            secret:
+                process.env.COOKIE_SECRET || require("./config").cookie.secret,
             cookie: {
                 maxAge: 86400000,
             },
