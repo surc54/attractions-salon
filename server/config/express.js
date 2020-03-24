@@ -1,4 +1,3 @@
-require("./config_setup");
 const path = require("path"),
     express = require("express"),
     mongoose = require("mongoose"),
@@ -20,7 +19,7 @@ module.exports.init = () => {
         connect to database
         - reference README for db uri
     */
-    mongoose.connect(process.env.DB_URI || require("./config").db.uri, {
+    mongoose.connect(process.env.DB_URI || config.db.uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
@@ -35,7 +34,7 @@ module.exports.init = () => {
 
     app.use(
         session({
-            secret: config.cookie.secret,
+            secret: process.env.COOKIE_SECRET || config.cookie.secret,
             cookie: {
                 maxAge: 86400000,
             },

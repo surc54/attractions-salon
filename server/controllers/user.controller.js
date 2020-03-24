@@ -1,5 +1,4 @@
 const express = require("express");
-const config = require("../config/config");
 const validator = require("validator").default;
 const passport = require("passport");
 const {
@@ -11,6 +10,7 @@ const {
 const User = require("../models/user.model");
 
 const UID_REGEX = /[A-Za-z0-9\-_]+/;
+const ACCOUNTS_PER_PAGE = 10;
 
 /*
  * HTTP STATUS CODES
@@ -126,8 +126,8 @@ module.exports.admin.list = (req, res) => {
     const pageNum = Number(page) || 0;
 
     User.find({}, "-password", {
-        limit: config.options.admin.accountsPerPage,
-        skip: (pageNum * config.options.admin.accountsPerPage),
+        limit: ACCOUNTS_PER_PAGE,
+        skip: (pageNum * ACCOUNTS_PER_PAGE),
     })
         .then(response => {
             send_code_success(res, 200, "admin/auth/list/success", {
