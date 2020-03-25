@@ -11,6 +11,20 @@ interface User {
     fullName: string;
 }
 
+export const getUserInitials = (user?: User | null) => {
+    if (!user || !user.fullName) {
+        return "?";
+    }
+
+    let initials = user.fullName
+        .split(" ")
+        .map(x => x.substr(0, 1))
+        .join("")
+        .trim()
+        .substr(0, 2);
+    return initials;
+};
+
 export interface SignUpData {
     email: string;
     password: string;

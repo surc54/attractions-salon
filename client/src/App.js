@@ -8,6 +8,7 @@ import Payments from "./views/Payments/Payments";
 import Services from "./views/Services/Services";
 import Login from "./views/Login/Login";
 import { useUserAuth } from "./hooks";
+import InitialLoader from "./views/Admin/initial-loader/InitialLoader";
 
 const routes = [
     {
@@ -40,6 +41,11 @@ const routes = [
         path: "/login",
         component: Login,
     },
+    {
+        exact: false,
+        path: "/admin",
+        component: InitialLoader,
+    },
 ];
 
 const App = () => {
@@ -47,7 +53,7 @@ const App = () => {
 
     React.useEffect(() => {
         // Initial update - get user status
-        userAuth.updateInfo();
+        setTimeout(() => userAuth.updateInfo(), 1000);
     }, []);
 
     return (

@@ -12,17 +12,9 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import reduxThunk from "redux-thunk";
 import reducers from "./reducers";
+import Config from "./models/Config";
 
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: "#E7A1AF",
-        },
-    },
-    typography: {
-        htmlFontSize: 10,
-    },
-});
+const theme = createMuiTheme(Config.theme);
 
 const composeEnhancers =
     typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

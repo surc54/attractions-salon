@@ -15,6 +15,9 @@ interface IConfig {
     apiUrls: {
         [desc: string]: AxiosRequestConfig & { url: string };
     };
+    theme: {
+        [desc: string]: any;
+    };
     [tag: string]: any;
 }
 
@@ -49,6 +52,16 @@ const Config: IConfig = {
             headers: {
                 ...noCache,
             },
+        },
+    },
+    theme: {
+        palette: {
+            primary: {
+                main: "#E7A1AF",
+            },
+        },
+        typography: {
+            htmlFontSize: 10,
         },
     },
 };
