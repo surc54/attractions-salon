@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import clsx from "clsx";
 import React from "react";
+import { getUserInitials } from "../../models/User";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import { useUserAuth } from "../../hooks";
@@ -55,20 +56,6 @@ const navItems = [
         external: false,
     },
 ];
-
-const getUserInitials = user => {
-    if (!user || !user.fullName) {
-        return "?";
-    }
-
-    let initials = user.fullName
-        .split(" ")
-        .map(x => x.substr(0, 1))
-        .join("")
-        .trim()
-        .substr(0, 2);
-    return initials;
-};
 
 const useStyles = makeStyles(theme => ({
     activeNavButton: {
