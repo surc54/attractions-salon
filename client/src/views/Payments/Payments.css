@@ -141,5 +141,41 @@
             rgba(231, 161, 175, 0) 100%
         );
     } */
+} 
+
+.paymentButtons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.paypalButton {
+    background: #ffc439;
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    width: 50%;
+}
+
+.squareButton {
+    background: #ffc439;
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+}
+
+.bigDiv {
+    position: relative;
+}
+
+.spacerDiv {
+    flex: 1;
     
+}
+
+.questionDiv{
+    position: absolute;
+    bottom: -140px;
 }
