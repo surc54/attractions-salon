@@ -46,6 +46,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ loading, forceRender }) => {
     const userAuth = useUserAuth();
     const snack = useSnackbar();
     const history = useHistory();
+    const [resetRecaptcha, setResetRecaptcha] = React.useState<boolean>(false);
     const recaptchaRef = React.createRef<ReCAPTCHA>();
     const { register, errors, handleSubmit } = useForm<SignUpData>({
         defaultValues: {
@@ -60,6 +61,13 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ loading, forceRender }) => {
     React.useLayoutEffect(() => {
         forceRender?.();
     });
+
+    React.useLayoutEffect(() => {
+        if (resetRecaptcha && recaptchaRef.current) {
+            recaptchaRef.current.reset();
+            setResetRecaptcha(false);
+        }
+    }, [recaptchaRef, resetRecaptcha]);
 
     const onFormSubmit: OnSubmit<SignUpData> = async data => {
         if (!recaptchaRef.current) {
@@ -101,6 +109,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ loading, forceRender }) => {
                     autoHideDuration: 5000,
                     variant: "error",
                 });
+                setResetRecaptcha(true);
             });
     };
 
