@@ -3,6 +3,7 @@ import "./components/global.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Router } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
 import history from "./models/history";
 import * as serviceWorker from "./serviceWorker";
 import App from "./App";
@@ -37,9 +38,15 @@ const store = createStore(reducers, enhancer);
 ReactDOM.render(
     <Provider store={store}>
         <ThemeProvider theme={theme}>
-            <Router history={history}>
-                <App />
-            </Router>
+            <SnackbarProvider
+                max={3}
+                hideIconVariant
+                classes={{ root: "mat-ui-snackbar-root" }}
+            >
+                <Router history={history}>
+                    <App />
+                </Router>
+            </SnackbarProvider>
         </ThemeProvider>
     </Provider>,
     document.getElementById("root")

@@ -1,18 +1,22 @@
-import React from "react";
 import {
-    TextField,
     Button,
-    Icon,
     CircularProgress,
     Grid,
+    Icon,
     InputAdornment,
+    TextField,
 } from "@material-ui/core";
-import { useForm, Validate, OnSubmit } from "react-hook-form";
+import React from "react";
+import { OnSubmit, useForm, Validate } from "react-hook-form";
+import ReCAPTCHA from "react-google-recaptcha";
 import validator from "validator";
-import styles from "./SignUpForm.module.scss";
 import { useUserAuth } from "../../hooks";
+import { SignUpData } from "../../models/User";
+import { emsg } from "../../tools";
+import { useSnackbar } from "notistack";
+import styles from "./SignUpForm.module.scss";
+import { useHistory } from "react-router-dom";
 
-const NAME_MAX_LENGTH = 24;
 const REQUIRED_VALIDATION = {
     required: "This field is required",
 };
@@ -40,6 +44,9 @@ const validateEmail: Validate = val => {
 
 const SignUpForm: React.FC<SignUpFormProps> = ({ loading, forceRender }) => {
     const userAuth = useUserAuth();
+    const snack = useSnackbar();
+    const history = useHistory();
+    const recaptchaRef = React.createRef<ReCAPTCHA>();
     const { register, errors, handleSubmit } = useForm<SignUpData>({
         defaultValues: {
             firstName: "",
@@ -54,11 +61,47 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ loading, forceRender }) => {
         forceRender?.();
     });
 
-    const onFormSubmit: OnSubmit<SignUpData> = data => {
-        window.alert(
-            `Hey, ${data.firstName} ${data.lastName}! Signing up is not supported yet.`
-        );
-        console.log(data, errors);
+    const onFormSubmit: OnSubmit<SignUpData> = async data => {
+        if (!recaptchaRef.current) {
+            snack.enqueueSnackbar("ReCAPTCHA unavailable. Try again later.", {
+                autoHideDuration: 5000,
+            });
+            return;
+        }
+
+        const token = recaptchaRef.current.getValue();
+
+        if (!token) {
+            snack.enqueueSnackbar("ReCAPTCHA is required. Try again.", {
+                autoHideDuration: 5000,
+            });
+            return;
+        }
+
+        userAuth
+            .signUp({
+                ...data,
+                recaptchaToken: token,
+            })
+            .then(() => {
+                snack.enqueueSnackbar(
+                    "Successfully signed up. Welcome, " + data.firstName + "!",
+                    {
+                        variant: "success",
+                        autoHideDuration: 4000,
+                    }
+                );
+
+                history.push("/login", {
+                    email: data.email,
+                });
+            })
+            .catch(err => {
+                snack.enqueueSnackbar("An error occurred: " + emsg(err), {
+                    autoHideDuration: 5000,
+                    variant: "error",
+                });
+            });
     };
 
     return (
@@ -112,7 +155,6 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ loading, forceRender }) => {
                     />
                 </Grid>
             </Grid>
-
             <TextField
                 className={styles.input}
                 name="phone"
@@ -175,7 +217,12 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ loading, forceRender }) => {
                 helperText={errors.password?.message}
                 disabled={loading}
             />
-
+            <div className={styles.recaptcha}>
+                <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey="6Le9zuMUAAAAAE6pAtVkhrOoRrMaycB9b-hdA53b"
+                />
+            </div>
             <div className={styles.actions}>
                 <Button
                     variant="contained"
@@ -205,14 +252,6 @@ export interface SignUpFormProps {
     forceRender?: any;
 }
 
-export interface SignUpData {
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    phone?: string;
-}
-
 export default React.memo(SignUpForm, (prev, next) => {
     return !["onSubmit", "loading"].some(
         m =>
@@ -220,3 +259,5 @@ export default React.memo(SignUpForm, (prev, next) => {
             next[m as keyof SignUpFormProps]
     );
 });
+
+// declare const grecaptcha: any;
