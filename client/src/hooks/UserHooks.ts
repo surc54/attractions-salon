@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import User from "../models/User";
+import { SignUpData } from "../models/User";
 import { ReduxState } from "../reducers";
 import { UserState } from "../reducers/_loginReducer";
-import { logout, getUserAuthInfo, login } from "../actions";
+import { logout, getUserAuthInfo, login, signUp } from "../actions";
 
 export const useUserAuth = (): UserHook => {
     const dispatch = useDispatch();
@@ -32,6 +32,17 @@ export const useUserAuth = (): UserHook => {
             });
         },
 
+        signUp: info => {
+            return new Promise((resolve, reject) => {
+                dispatch(
+                    signUp(info, {
+                        then: resolve,
+                        catch: reject,
+                    })
+                );
+            });
+        },
+
         updateInfo: () => {
             return new Promise((resolve, reject) => {
                 dispatch(
@@ -49,6 +60,7 @@ export const useUserAuth = (): UserHook => {
             ...ret,
             ...userState,
         });
+        // eslint-disable-next-line
     }, [userState]);
 
     return ret;
@@ -57,5 +69,7 @@ export const useUserAuth = (): UserHook => {
 export interface UserHook extends UserState {
     login(email: string, password: string): Promise<undefined>;
     logout(): Promise<undefined>;
+
+    signUp(info: SignUpData & { recaptchaToken: string }): Promise<undefined>;
     updateInfo(): Promise<undefined>;
 }

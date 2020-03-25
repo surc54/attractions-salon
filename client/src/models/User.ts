@@ -11,4 +11,12 @@ interface User {
     fullName: string;
 }
 
+export interface SignUpData {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    phone?: string;
+}
+
 export default User;

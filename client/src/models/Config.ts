@@ -1,4 +1,3 @@
-import axios from "./axios";
 import { AxiosRequestConfig } from "axios";
 
 type HttpMethod =
@@ -40,6 +39,13 @@ const Config: IConfig = {
         "login user": {
             url: "/api/account",
             method: "POST",
+            headers: {
+                ...noCache,
+            },
+        },
+        "signup user": {
+            url: "/api/account",
+            method: "PUT",
             headers: {
                 ...noCache,
             },
