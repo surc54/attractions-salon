@@ -41,10 +41,10 @@ const NotFound: React.FC<NotFoundProps> = () => {
                     spacing={!isSmall ? 5 : undefined}
                     justify="center"
                 >
-                    <Grid item xs={12} md={6} className={styles.left}>
+                    <Grid item xs={12} md={8} className={styles.left}>
                         <img src={pic} />
                     </Grid>
-                    <Grid item xs={12} md={6} className={styles.right}>
+                    <Grid item xs={12} md={4} className={styles.right}>
                         <pre>HTTP 404 - NOT FOUND</pre>
                         <h1>This page doesn't exist.</h1>
                         <div className={styles.actions}>
