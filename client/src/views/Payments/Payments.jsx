@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles, Grid, Paper } from "@material-ui/core";
 import "./Payments.css";
+import RightWindow from "./RightWindow";
 
 const useStyles = makeStyles(theme => ({
     window: {
@@ -23,13 +24,7 @@ const Payments = props => {
                 <Grid container spacing={1} className={classes.window}>
                     <Grid item xs={12} md={4}>
                         <Paper className={classes.empty} elevation={1}>
-                            {/* put something here */}
-                        </Paper>
-                    </Grid>
-
-                    <Grid item xs={12} md={4}>
-                        <Paper className={classes.empty} elevation={1}>
-                            {/* put something here */}
+                            <RightWindow/>
                         </Paper>
                     </Grid>
                 </Grid>
