@@ -1,22 +1,71 @@
-import React from 'react';
-import { Route, Switch, Redirect  } from 'react-router-dom';
-import Home from "./views/Home/Home";
-import NotFound from "./views/NotFound";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/Header/NavBar";
+import Home from "./views/Home/Home";
+import testimonials from "./views/testimonials";
+import NotFound from "./views/404/NotFound";
+import Payments from "./views/Payments/Payments";
+import Services from "./views/Services/Services";
+import Login from "./views/Login/Login";
+import { useUserAuth } from "./hooks";
+
+const routes = [
+    {
+        exact: true,
+        path: "/",
+        component: Home,
+    },
+    {
+        exact: false,
+        path: "/services",
+        component: Services,
+    },
+    {
+        exact: false,
+        path: "/book",
+        component: NotFound,
+    },
+    {
+        exact: false,
+        path: "/payments",
+        component: Payments,
+    },
+    {
+        exact: false,
+        path: "/testimonials",
+        component: testimonials,
+    },
+    {
+        exact: false,
+        path: "/login",
+        component: Login,
+    },
+];
 
 const App = () => {
-  return (
-    <div>
-      <NavBar />
-      <Switch>
-        <Route exact path="/Home" component={Home} />
-        <Route exact path="/">
-          <Redirect to="/Home" />
-        </Route>
-        <Route component={NotFound}/>
-      </Switch>
-    </div>
-  );
-}
+    const userAuth = useUserAuth();
+
+    React.useEffect(() => {
+        // Initial update - get user status
+        userAuth.updateInfo();
+    }, []);
+
+    return (
+        <>
+            <NavBar />
+            <Switch>
+                {routes.map(r => (
+                    <Route
+                        key={r.path}
+                        exact={!!r.exact}
+                        path={r.path}
+                        component={r.component}
+                    />
+                ))}
+                <Route component={NotFound} />
+            </Switch>
+        </>
+    );
+};
 
 export default App;

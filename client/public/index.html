@@ -1,21 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="logo192.png" />
-    <!--
+    <script type="text/javascript">
+        // <![CDATA[
+        var colour = "#E7A1AF";
+        var sparkles = 120;
+
+        /****************************
+         *  Tinkerbell Magic Sparkle *
+         * (c) 2005 mf2fm web-design *
+         *  http://www.mf2fm.com/rv  *
+         * DON'T EDIT BELOW THIS BOX *
+         ****************************/
+        var x = (ox = 400);
+        var y = (oy = 300);
+        var swide = 800;
+        var shigh = 600;
+        var sleft = (sdown = 0);
+        var tiny = new Array();
+        var star = new Array();
+        var starv = new Array();
+        var starx = new Array();
+        var stary = new Array();
+        var tinyx = new Array();
+        var tinyy = new Array();
+        var tinyv = new Array();
+
+        window.onload = function() {
+            if (document.getElementById) {
+                var i, rats, rlef, rdow, rcont;
+                rcont = document.createElement("div");
+                rcont.style.height = "100vh";
+                rcont.style.width = "100vw";
+                rcont.style.top = "0";
+                rcont.style.left = "0";
+                rcont.style.position = "fixed";
+                rcont.style["pointer-events"] = "none";
+                rcont.style["overflow"] = "hidden";
+                document.body.appendChild(rcont);
+
+                for (var i = 0; i < sparkles; i++) {
+                    var rats = createDiv(3, 3);
+                    rats.style.visibility = "hidden";
+                    rcont.appendChild((tiny[i] = rats));
+                    starv[i] = 0;
+                    tinyv[i] = 0;
+                    var rats = createDiv(5, 5);
+                    rats.style.backgroundColor = "transparent";
+                    rats.style.visibility = "hidden";
+                    var rlef = createDiv(1, 5);
+                    var rdow = createDiv(5, 1);
+                    rats.appendChild(rlef);
+                    rats.appendChild(rdow);
+                    rlef.style.top = "2px";
+                    rlef.style.left = "0px";
+                    rdow.style.top = "0px";
+                    rdow.style.left = "2px";
+                    rcont.appendChild((star[i] = rats));
+                }
+                set_width();
+                sparkle();
+            }
+        };
+
+        function sparkle() {
+            var c;
+            if (x != ox || y != oy) {
+                ox = x;
+                oy = y;
+                for (c = 0; c < sparkles; c++)
+                    if (!starv[c]) {
+                        star[c].style.left = (starx[c] = x) + "px";
+                        star[c].style.top = (stary[c] = y) + "px";
+                        star[c].style.clip = "rect(0px, 5px, 5px, 0px)";
+                        star[c].style.visibility = "visible";
+                        star[c].style["pointer-events"] = "none";
+                        starv[c] = 50;
+                        break;
+                    }
+            }
+
+            for (c = 0; c < sparkles; c++) {
+                if (starv[c]) update_star(c);
+                if (tinyv[c]) update_tiny(c);
+            }
+            setTimeout("sparkle()", 40);
+        }
+
+        function update_star(i) {
+            if (--starv[i] == 25)
+                star[i].style.clip = "rect(1px, 4px, 4px, 1px)";
+            if (starv[i]) {
+                stary[i] += 1 + Math.random() * 3;
+                if (stary[i] < shigh + sdown) {
+                    star[i].style.top = stary[i] + "px";
+                    starx[i] += ((i % 5) - 2) / 5;
+                    star[i].style.left = starx[i] + "px";
+                } else {
+                    star[i].style.visibility = "hidden";
+                    starv[i] = 0;
+                    return;
+                }
+            } else {
+                tinyv[i] = 50;
+                tiny[i].style.top = (tinyy[i] = stary[i]) + "px";
+                tiny[i].style.left = (tinyx[i] = starx[i]) + "px";
+                tiny[i].style.width = "2px";
+                tiny[i].style.height = "2px";
+                star[i].style.visibility = "hidden";
+                tiny[i].style.visibility = "visible";
+            }
+        }
+
+        function update_tiny(i) {
+            if (--tinyv[i] == 25) {
+                tiny[i].style.width = "1px";
+                tiny[i].style.height = "1px";
+            }
+            if (tinyv[i]) {
+                tinyy[i] += 1 + Math.random() * 3;
+                if (tinyy[i] < shigh + sdown) {
+                    tiny[i].style.top = tinyy[i] + "px";
+                    tinyx[i] += ((i % 5) - 2) / 5;
+                    tiny[i].style.left = tinyx[i] + "px";
+                } else {
+                    tiny[i].style.visibility = "hidden";
+                    tinyv[i] = 0;
+                    return;
+                }
+            } else tiny[i].style.visibility = "hidden";
+        }
+
+        document.onmousemove = mouse;
+        function mouse(e) {
+            set_scroll();
+            y = e ? e.pageY - window.scrollY : event.y;
+            x = e ? e.pageX - window.scrollX : event.x;
+        }
+
+        function set_scroll() {
+            if (typeof self.pageYOffset == "number") {
+                sdown = self.pageYOffset;
+                sleft = self.pageXOffset;
+            } else if (document.body.scrollTop || document.body.scrollLeft) {
+                sdown = document.body.scrollTop;
+                sleft = document.body.scrollLeft;
+            } else if (
+                document.documentElement &&
+                (document.documentElement.scrollTop ||
+                    document.documentElement.scrollLeft)
+            ) {
+                sleft = document.documentElement.scrollLeft;
+                sdown = document.documentElement.scrollTop;
+            } else {
+                sdown = 0;
+                sleft = 0;
+            }
+        }
+
+        window.onresize = set_width;
+        function set_width() {
+            if (typeof self.innerWidth == "number") {
+                swide = self.innerWidth;
+                shigh = self.innerHeight;
+            } else if (
+                document.documentElement &&
+                document.documentElement.clientWidth
+            ) {
+                swide = document.documentElement.clientWidth;
+                shigh = document.documentElement.clientHeight;
+            } else if (document.body.clientWidth) {
+                swide = document.body.clientWidth;
+                shigh = document.body.clientHeight;
+            }
+        }
+
+        function createDiv(height, width) {
+            var div = document.createElement("div");
+            div.style.position = "absolute";
+            div.style.height = height + "px";
+            div.style.width = width + "px";
+            div.style.overflow = "hidden";
+            div.style.backgroundColor = colour;
+            return div;
+        }
+        // ]]>
+    </script>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#000000" />
+        <meta
+            name="description"
+            content="Web site created using create-react-app"
+        />
+        <link rel="apple-touch-icon" href="logo192.png" />
+        <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
+        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+        <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -24,12 +209,16 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
+        <link
+            href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Satisfy|Material+Icons|Pacifico|Galada|Roboto:400,500,700&display=swap"
+            rel="stylesheet"
+        />
+        <title>Attractions Salon</title>
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root"></div>
+        <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -38,6 +227,5 @@
 
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+    --></body>
 </html>

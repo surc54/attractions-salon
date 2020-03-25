@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    height: 100%;
+
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 1.6rem;
+        height: 100%;
+
+        div#root {
+            height: 100%;
+        }
+    }
+}
+
+.spacer {
+    flex: 1 0 auto;
+}
+
+div.mat-ui-snackbar-root * {
+    font-size: 1.4rem;
+}

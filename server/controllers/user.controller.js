@@ -1,5 +1,4 @@
 const express = require("express");
-const config = require("../config/config");
 const validator = require("validator").default;
 const passport = require("passport");
 const {
@@ -11,6 +10,7 @@ const {
 const User = require("../models/user.model");
 
 const UID_REGEX = /[A-Za-z0-9\-_]+/;
+const ACCOUNTS_PER_PAGE = 10;
 
 /*
  * HTTP STATUS CODES
@@ -36,11 +36,24 @@ module.exports.info = (req, res) => {
 
 /** @type {express.RequestHandler[]} */
 module.exports.signIn = [
-    passport.authenticate("local"),
+    (req, res, next) => {
+        if (!!req.user) {
+            send_code_error(res, 400, "auth/sign-in/already-signed-in");
+        } else {
+            next();
+        }
+    },
+    passport.authenticate("local", {
+        failWithError: true,
+    }),
     (req, res) => {
-        send_code_success(res, 200, "auth/sign-in/success", {
-            user: req.user,
-        });
+        if (!!req.user) {
+            send_code_success(res, 200, "auth/sign-in/success", {
+                user: req.user,
+            });
+        } else {
+            send_code_error(res, 401, "auth/sign-in/failure");
+        }
     },
 ];
 
@@ -113,8 +126,8 @@ module.exports.admin.list = (req, res) => {
     const pageNum = Number(page) || 0;
 
     User.find({}, "-password", {
-        limit: config.options.admin.accountsPerPage,
-        skip: (pageNum * config.options.admin.accountsPerPage),
+        limit: ACCOUNTS_PER_PAGE,
+        skip: (pageNum * ACCOUNTS_PER_PAGE),
     })
         .then(response => {
             send_code_success(res, 200, "admin/auth/list/success", {
