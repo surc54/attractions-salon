@@ -1,103 +1,99 @@
-import React from "react";
-import styles from "./InitialLoader.module.scss";
 import {
-    LinearProgress,
-    Container,
-    Typography,
     Button,
-    Icon,
+    Container,
+    LinearProgress,
+    Tooltip,
+    Typography,
 } from "@material-ui/core";
-import { useUserAuth } from "../../../hooks";
+import clsx from "clsx";
+import React from "react";
+import ReactDOM from "react-dom";
+import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
-import { useHistory } from "react-router-dom";
-import { useSnackbar } from "notistack";
-import AdminBase from "../Base";
+import { useUserAuth } from "../../../hooks";
+import styles from "./InitialLoader.module.scss";
 
-const ROLES_ALLOWED = ["Admin", "Owner"];
-
-const InitialLoader: React.FC = () => {
+const InitialLoader: React.FC<InitialLoaderProps> = ({
+    status,
+    className,
+    error,
+    onRetry,
+    ...others
+}) => {
     const userAuth = useUserAuth();
-    const snack = useSnackbar();
-    const history = useHistory();
 
-    React.useEffect(() => {
-        if (!userAuth.loading) {
-            const { user, signedIn, error } = userAuth;
-            if (
-                !error &&
-                (!signedIn ||
-                    !user ||
-                    !ROLES_ALLOWED.includes("Admin" || user.role))
-            ) {
-                snack.enqueueSnackbar("You're not allowed here.", {
-                    variant: "error",
-                });
-                history.push("/");
-            }
-        }
-    }, [userAuth]);
+    if (!document.getElementById("admin-loader")) {
+        const div = document.createElement("div");
+        div.id = "admin-loader";
+        document.querySelector("body")?.appendChild(div);
+    }
 
-    const tryAgain = () => userAuth.updateInfo();
-    console.log("f");
-
-    return (
-        <>
-            <CSSTransition
-                in={userAuth.loading || !!userAuth.error}
-                timeout={300}
-                classNames={styles.wrapper}
-                unmountOnExit
-            >
-                <div className={styles.wrapper}>
-                    <Container className={styles.container}>
-                        <CSSTransition
-                            in={userAuth.loading}
-                            timeout={300}
-                            classNames={styles.header}
-                            unmountOnExit
+    return ReactDOM.createPortal(
+        <div className={clsx(styles.wrapper, className)} {...others}>
+            <Container className={styles.container}>
+                <CSSTransition
+                    in={userAuth.loading}
+                    timeout={300}
+                    classNames={styles.header}
+                    unmountOnExit
+                >
+                    <Container className={styles.header}>
+                        <h1>Attractions Salon</h1>
+                        <LinearProgress
+                            variant="indeterminate"
+                            className={styles.progressBar}
+                        />
+                        <Typography
+                            align="center"
+                            variant="button"
+                            className={styles.statusText}
                         >
-                            <div className={styles.header}>
-                                <h1>Attractions Salon</h1>
-                                <LinearProgress
-                                    variant="indeterminate"
-                                    className={styles.progressBar}
-                                />
-                            </div>
-                        </CSSTransition>
-                        <CSSTransition
-                            in={!userAuth.loading && !!userAuth.error}
-                            timeout={300}
-                            classNames={styles.errorWrapper}
-                            unmountOnExit
-                        >
-                            <div className={styles.errorWrapper}>
-                                <Typography
-                                    variant="body1"
-                                    color="error"
-                                    className={styles.error}
-                                >
-                                    {userAuth.error || "Unknown Error"}
-                                </Typography>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={tryAgain}
-                                >
-                                    Try again
-                                </Button>
-                            </div>
-                        </CSSTransition>
+                            {status || <>&nbsp;</>}
+                        </Typography>
                     </Container>
-                </div>
-            </CSSTransition>
-            {!userAuth.loading &&
-                !userAuth.error &&
-                userAuth.signedIn &&
-                ROLES_ALLOWED.includes(
-                    "Admin" || userAuth.user?.role || ""
-                ) && <AdminBase />}
-        </>
+                </CSSTransition>
+                <CSSTransition
+                    in={!userAuth.loading && !!userAuth.error}
+                    timeout={300}
+                    classNames={styles.errorWrapper}
+                    unmountOnExit
+                >
+                    <Container className={styles.errorWrapper}>
+                        <Tooltip title="Go to the home page" enterDelay={300}>
+                            <Button color="primary" component={Link} to="/">
+                                <h1 className={styles.noGutter}>
+                                    Attractions Salon
+                                </h1>
+                            </Button>
+                        </Tooltip>
+                        <Typography
+                            variant="body1"
+                            color="error"
+                            className={styles.error}
+                        >
+                            {error}
+                        </Typography>
+                        {onRetry && (
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={onRetry}
+                            >
+                                Try again
+                            </Button>
+                        )}
+                    </Container>
+                </CSSTransition>
+            </Container>
+        </div>,
+        document.getElementById("admin-loader") as Element
     );
 };
+
+export interface InitialLoaderProps extends React.HTMLProps<HTMLDivElement> {
+    status?: string;
+    error?: string;
+    onRetry?: () => void;
+}
 
 export default InitialLoader;

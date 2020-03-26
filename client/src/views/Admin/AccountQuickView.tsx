@@ -10,22 +10,26 @@ import {
     useTheme,
     ThemeProvider,
     createMuiTheme,
+    Menu,
+    MenuItem,
 } from "@material-ui/core";
 import { useUserAuth } from "../../hooks";
 import styles from "./AccountQuickView.module.scss";
 import Config from "../../models/Config";
 import InfoDialog from "../../components/GenericDialogs/InfoDialog";
 import { emsg } from "../../tools";
-import { Redirect, useHistory, Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { getUserInitials } from "../../models/User";
 import { useSnackbar } from "notistack";
 
-const ROLES_ALLOWED = ["Admin", "Owner"];
-
-const AccountQuickView: React.FC<AccountQuickViewProps> = () => {
+const AccountQuickView: React.FC<AccountQuickViewProps> = ({
+    onLogout,
+    extraMenuOptions,
+}) => {
     const userAuth = useUserAuth();
-    const snack = useSnackbar();
-    const history = useHistory();
+    const [moreMenuAnchor, setMoreMenuAnchor] = React.useState<any | null>(
+        null
+    );
     const [errDialog, setErrDialog] = React.useState<{
         open: boolean;
         message: string;
@@ -41,20 +45,6 @@ const AccountQuickView: React.FC<AccountQuickViewProps> = () => {
     const closeErrDialog = () => {
         setErrDialog({ ...errDialog, open: false });
     };
-
-    // React.useEffect(() => {
-    //     if (
-    //         !userAuth.loading &&
-    //         (!userAuth.signedIn ||
-    //             !userAuth.user ||
-    //             !ROLES_ALLOWED.includes(userAuth.user.role))
-    //     ) {
-    //         snack.enqueueSnackbar("You're not allowed here.", {
-    //             variant: "error",
-    //         });
-    //         history.push("/");
-    //     }
-    // }, [userAuth]);
 
     return (
         <>
@@ -116,7 +106,13 @@ const AccountQuickView: React.FC<AccountQuickViewProps> = () => {
                                 </Typography>
                             </div>
                             <span className="spacer"></span>
-                            <IconButton className={styles.button} size="small">
+                            <IconButton
+                                className={styles.button}
+                                size="small"
+                                onClick={e =>
+                                    setMoreMenuAnchor(e.currentTarget)
+                                }
+                            >
                                 <Icon>more_vert</Icon>
                             </IconButton>
                         </>
@@ -152,10 +148,21 @@ const AccountQuickView: React.FC<AccountQuickViewProps> = () => {
             >
                 {errDialog.message}
             </InfoDialog>
+            <Menu
+                open={!!moreMenuAnchor}
+                anchorEl={moreMenuAnchor}
+                onClose={() => setMoreMenuAnchor(null)}
+            >
+                {extraMenuOptions}
+                <MenuItem onClick={onLogout}>Logout</MenuItem>
+            </Menu>
         </>
     );
 };
 
-export interface AccountQuickViewProps {}
+export interface AccountQuickViewProps {
+    extraMenuOptions?: Element[];
+    onLogout: () => void;
+}
 
 export default AccountQuickView;

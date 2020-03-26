@@ -12,12 +12,13 @@ import {
     Divider,
 } from "@material-ui/core";
 import clsx from "clsx";
-import { useLocation } from "react-router-dom";
 import { Location } from "history";
 import bottomImg from "../../assets/admin-sidebar-bottom.svg";
 import styles from "./Sidebar.module.scss";
 import history from "../../models/history";
 import AccountQuickView from "./AccountQuickView";
+import { useUserAuth } from "../../hooks";
+import { useSnackbar } from "notistack";
 
 const items: SidebarItem[] = [
     {
@@ -182,18 +183,55 @@ const mapSidebarItemsToJSX = (
     });
 };
 
-const AdminSidebar: React.FC<AdminSidebarProps> = () => {
-    const location = useLocation();
+const goHome = () => {
+    history.push("/");
+};
+
+const goBack = () => {
+    if (history.length === 0) {
+        goHome();
+    } else {
+        history.goBack();
+    }
+};
+
+const AdminSidebar: React.FC<AdminSidebarProps> = ({
+    className,
+    ...others
+}) => {
+    const userAuth = useUserAuth();
+    const snack = useSnackbar();
+
+    const onLogout = () => {
+        userAuth
+            .logout()
+            .then(() => {
+                history.push("/");
+                snack.enqueueSnackbar("Logged out successfully.", {
+                    autoHideDuration: 5000,
+                });
+            })
+            .catch(err => {
+                history.push("/");
+                snack.enqueueSnackbar(
+                    "Something went wrong. There is a possibility that you were not logged out.",
+                    {
+                        autoHideDuration: 10000,
+                        variant: "error",
+                    }
+                );
+            });
+    };
 
     return (
-        <div className={styles.wrapper}>
+        <div className={clsx(styles.wrapper, className)} {...others}>
             <header className={styles.header}>
                 <Tooltip title="Go back" enterDelay={300}>
-                    <IconButton>
+                    <IconButton onClick={goBack}>
                         <Icon>arrow_back</Icon>
                     </IconButton>
                 </Tooltip>
-                <Button>
+                <Button onClick={goHome}>
                     <h1>Attractions Salon</h1>
                 </Button>
             </header>
@@ -201,13 +239,13 @@ const AdminSidebar: React.FC<AdminSidebarProps> = () => {
                 <List>{mapSidebarItemsToJSX(items)}</List>
             </div>
             <div className={styles.account}>
-                <AccountQuickView />
+                <AccountQuickView onLogout={onLogout} />
             </div>
             <img src={bottomImg} className={styles.bottomBgImage} />
         </div>
     );
 };
 
-export interface AdminSidebarProps {}
+export interface AdminSidebarProps extends React.HTMLProps<HTMLDivElement> {}
 
 export default AdminSidebar;

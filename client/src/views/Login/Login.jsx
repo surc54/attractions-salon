@@ -23,6 +23,7 @@ import LoginRedirect from "./LoginRedirect";
 import SignUpForm from "./SignUpForm";
 import { useSnackbar } from "notistack";
 import { emsg } from "../../tools";
+import Config from "../../models/Config";
 
 const goBack = history => {
     if (history.length !== 0) {
@@ -271,6 +272,20 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
                                         >
                                             Go to your profile
                                         </Link>
+                                        {Config.adminPage.rolesAllowed.includes(
+                                            userAuth.user.role
+                                        ) && (
+                                            <Link
+                                                component={RouterLink}
+                                                to="/admin"
+                                                onClick={() => {
+                                                    if (closeModal)
+                                                        closeModal();
+                                                }}
+                                            >
+                                                Go to Admin Panel
+                                            </Link>
+                                        )}
                                     </div>
                                 )}
                             </>
