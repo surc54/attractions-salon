@@ -1,9 +1,77 @@
 import React from "react";
-import { makeStyles, TextField, Button } from "@material-ui/core";
+import { makeStyles, TextField, Button, ButtonBase } from "@material-ui/core";
 import "./Payments.css";
 import PayPalButton from "./PayPalButton";
-import PaypalLogo from "./images/Paypal-Logo.png"
-import SquareLogo from "./images/Square-Logo.png"
+import PaypalLogo from "./images/Paypal-Logo.png";
+import SquareLogo from "./images/Square-Logo.png";
+
+const RightWindow = props => {
+    const inStyle = useStyles();
+
+    return (
+        <div className="bigDiv">
+            <h2 style={{ marginTop: "0px" }}>Pay Now</h2>
+
+            <p>
+                <b>Please enter your Booking Number:</b>
+            </p>
+
+            <TextField
+                id="outlined-basic"
+                label="Booking Number"
+                variant="outlined"
+            />
+            <p style={{ marginTop: "0px" }}>
+                <b>
+                    Or if you have an account: <a>Login</a>
+                </b>
+            </p>
+
+            <p>
+                <b>Select your prefered Payment Method</b>
+            </p>
+
+            <div className="paymentButtons">
+                <ButtonBase className={inStyle.customButton}>
+                    <span>Pay with</span>
+                    <span style={{ width: "5px" }} />
+                    <img
+                        src={PaypalLogo}
+                        alt="Paypal"
+                        className={inStyle.img}
+                    ></img>
+                </ButtonBase>
+                <ButtonBase className={inStyle.customButton}>
+                    <span>Pay with</span>
+                    <img
+                        src={SquareLogo}
+                        alt="Square"
+                        className={inStyle.img}
+                    ></img>
+                </ButtonBase>
+            </div>
+
+            <p>
+                <b>See your order - Pay when you arrive</b>
+            </p>
+            <div className="paymentButtons">
+                <Button variant="outlined" className={inStyle.button}>
+                    Pay when you arrive
+                </Button>
+            </div>
+
+            <div style={{ position: "absolute", bottom: "0" }}>
+                <b style={{ display: "block" }}>
+                    Don't have an Appointment Number?
+                </b>
+
+                <b style={{ display: "block" }}>
+                    Click here to shop for services and book an appointment
+                </b>
+            </div>
+        </div>
+    );
+};
 
 const useStyles = makeStyles(theme => ({
     paypalButton: {
@@ -29,8 +97,8 @@ const useStyles = makeStyles(theme => ({
         maxHeight: "40px",
         color: "black",
     },
-    customButton:{
-        display:"flex",
+    customButton: {
+        display: "flex",
         width: "50%",
         height: "40px",
         background: "#ffc439",
@@ -39,7 +107,7 @@ const useStyles = makeStyles(theme => ({
         alignItems: "center",
         margin: "5px",
     },
-    img:{
+    img: {
         width: "40%",
     },
     empty: {
@@ -47,75 +115,5 @@ const useStyles = makeStyles(theme => ({
         height: "50rem",
     },
 }));
-
-const images = [
-    {
-      url: '/images/Paypal-Logo.png',
-      title: 'Paypal',
-      width: '40%',
-    },
-    {
-        url: '/images/Square-Logo.png',
-        title: 'Square',
-        width: '40%',
-    },
-]
-
-const RightWindow = props => {
-    const inStyle = useStyles();
-
-    return (
-        <div className="bigDiv">
-            <h2>Pay Now</h2>
-            <p>
-                <b>Enter your Booking Number</b>
-            </p>
-            <TextField
-                id="outlined-basic"
-                label="Booking Number"
-                variant="outlined"
-            />
-
-            <p>
-                <b>Select your Payment Method</b>
-            </p>
-
-            <div className="paymentButtons">
-                {/*<PayPalButton inStyle={inStyle.button} />*/}
-                <div role="button" className={inStyle.customButton}>
-                    <span>Pay with</span>
-                    <img src={PaypalLogo} alt="Paypal" className={inStyle.img}></img>
-                </div>
-                <div role="button" className={inStyle.customButton}>
-                    <span>Pay with</span>
-                    <img src={SquareLogo} alt="Square" className={inStyle.img}></img>
-                </div>
-            </div>
-
-            <p>
-                <b>Confirm your appointment - Pay when you arrive</b>
-            </p>
-            <div className="paymentButtons">
-                <Button variant="outlined" className={inStyle.button}>
-                    Pay when you arrive
-                </Button>
-            </div>
-
-            <div style={{ display: "flex", flexDirection: "column" }}>
-                <div className="spacerDiv"></div>
-            </div>
-            <div className="questionDiv">
-                <p>
-                    <b>Don't have an Appointment Number?</b>
-                </p>
-                <p>
-                    <b>
-                        Click here to shop for services and book an appointment
-                    </b>
-                </p>
-            </div>
-        </div>
-    );
-};
 
 export default RightWindow;

@@ -20,7 +20,7 @@ const Payments = props => {
     const classes = useStyles();
     return (
         <div className="Payments">
-            <div>
+            
                 <Grid container spacing={1} className={classes.window}>
                     <Grid item xs={12} md={4}>
                         <Paper className={classes.empty} elevation={1}>
@@ -28,7 +28,7 @@ const Payments = props => {
                         </Paper>
                     </Grid>
                 </Grid>
-            </div>
+            
             
         </div>
     );
