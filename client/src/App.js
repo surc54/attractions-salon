@@ -8,7 +8,7 @@ import Payments from "./views/Payments/Payments";
 import Services from "./views/Services/Services";
 import Login from "./views/Login/Login";
 import { useUserAuth } from "./hooks";
-import InitialLoader from "./views/Admin/initial-loader/InitialLoader";
+import AdminBase from "./views/Admin/Base";
 
 const routes = [
     {
@@ -44,7 +44,7 @@ const routes = [
     {
         exact: false,
         path: "/admin",
-        component: InitialLoader,
+        component: AdminBase,
     },
 ];
 

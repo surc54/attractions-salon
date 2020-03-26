@@ -18,6 +18,10 @@ interface IConfig {
     theme: {
         [desc: string]: any;
     };
+    adminPage: {
+        rolesAllowed: string[];
+        [tag: string]: any;
+    };
     [tag: string]: any;
 }
 
@@ -63,6 +67,9 @@ const Config: IConfig = {
         typography: {
             htmlFontSize: 10,
         },
+    },
+    adminPage: {
+        rolesAllowed: ["Admin", "Owner"],
     },
 };
 
