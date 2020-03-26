@@ -1,36 +1,17 @@
 import React from "react";
-import { makeStyles, TextField, Button, ButtonBase } from "@material-ui/core";
+import { makeStyles, Button, ButtonBase } from "@material-ui/core";
 import "./Payments.css";
 import PayPalButton from "./PayPalButton";
 import PaypalLogo from "./images/Paypal-Logo.png";
 import SquareLogo from "./images/Square-Logo.png";
 
-const RightWindow = props => {
+const AmountDueWindow = props => {
     const inStyle = useStyles();
-
     return (
-        <div className="bigDiv">
-            <h2 style={{ marginTop: "0px" }}>Pay Now</h2>
-
-            <p>
-                <b>Please enter your Booking Number:</b>
-            </p>
- 
-            <TextField
-                id="outlined-basic"
-                label="Booking Number"
-                variant="outlined"
-            />
-            <p style={{ marginTop: "0px" }}>
-                <b>
-                    Or if you have an account: <a>Login</a>
-                </b>
-            </p>
-
-            <p>
-                <b>Select your prefered Payment Method</b>
-            </p>
-
+        <div className="amountDueWindow">
+            <h2>Amount Due</h2>
+            <h1 className="amountDue">$420.00</h1>
+            <p className="sentence"><b>Pay in advance</b></p>
             <div className="paymentButtons">
                 <ButtonBase className={inStyle.customButton}>
                     <span>Pay with</span>
@@ -50,25 +31,7 @@ const RightWindow = props => {
                     ></img>
                 </ButtonBase>
             </div>
-
-            <p>
-                <b>See your order - Pay when you arrive</b>
-            </p>
-            <div className="paymentButtons">
-                <Button variant="outlined" className={inStyle.button}>
-                    Pay when you arrive
-                </Button>
-            </div>
-
-            <div style={{ position: "absolute", bottom: "0" }}>
-                <b style={{ display: "block" }}>
-                    Don't have an Appointment Number?
-                </b>
-
-                <b style={{ display: "block" }}>
-                    Click here to shop for services and book an appointment
-                </b>
-            </div>
+            <p><b>Or pay in-store</b></p>
         </div>
     );
 };
@@ -116,4 +79,4 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default RightWindow;
+export default AmountDueWindow;

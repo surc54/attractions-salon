@@ -9,7 +9,7 @@ const PayPalButton = props => {
             <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
 
                 <Button variant = "outlined" color = "primary" className = "paypalButton">PayPal</Button>
-                
+                 
 
 
             {/* // paypal.Buttons({
