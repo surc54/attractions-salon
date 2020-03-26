@@ -11,12 +11,14 @@
         overflow-y: auto;
         overflow-x: hidden;
 
-        &:global(-enter) {
+        &:global(-enter),
+        &:global(-appear) {
             opacity: 0;
             transform: translateX(350px);
         }
 
-        &:global(-enter-active) {
+        &:global(-enter-active),
+        &:global(-appear-active) {
             opacity: 1;
             transform: translateX(0);
 
@@ -52,12 +54,14 @@
 }
 
 .sidebar {
-    &:global(-enter) {
+    &:global(-enter),
+    &:global(-appear) {
         opacity: 0;
         transform: translateX(-350px);
     }
 
-    &:global(-enter-active) {
+    &:global(-enter-active),
+    &:global(-appear-active) {
         opacity: 1;
         transform: translateX(0);
 
