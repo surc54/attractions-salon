@@ -1,4 +1,7 @@
-
+.Payments{
+    background-image: url(https://images.pexels.com/photos/1831234/pexels-photo-1831234.jpeg?cs=srgb&dl=pink-clouds-1831234.jpg&fm=jpg);
+    height:100%;
+}
 .paymentButtons {
     display: flex;
     align-items: center;
@@ -15,16 +18,12 @@
     width: 50%;
 }
 
-.squareButton {
-}
-
 .bigDiv {
     padding: 5px;
+    position: relative;
+    height: 100%;
 }
 
-.spacerDiv {
-    flex: 1;
-}
-
-.questionDiv{
+.verticalSpacer {
+    flex: 1 0;
 }
