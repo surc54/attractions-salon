@@ -72,6 +72,7 @@ const AdminBase: React.FC<AdminBaseProps> = () => {
                 classNames={styles.sidebar}
                 unmountOnExit
                 mountOnEnter
+                appear
                 timeout={300}
             >
                 <AdminSidebar className={styles.sidebar} />
@@ -81,6 +82,7 @@ const AdminBase: React.FC<AdminBaseProps> = () => {
                 classNames={styles.content}
                 unmountOnExit
                 mountOnEnter
+                appear
                 timeout={300}
             >
                 <main className={styles.content}>
