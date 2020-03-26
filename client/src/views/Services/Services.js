@@ -19,25 +19,25 @@ const services = [
         "items": [
             {
                 "name": "Single Process Color",
-                "price": "55.00",
+                "price": "55",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Single Process/Cut",
-                "price": "70.00",
+                "price": "70",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Double Process Color",
-                "price": "85.00",
+                "price": "85",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Double Process/Cut",
-                "price": "100.00",
+                "price": "100",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             }
@@ -48,25 +48,25 @@ const services = [
         "items": [
             {
                 "name": "Full Highlights",
-                "price": "85.00",
+                "price": "85",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Full Highlights/Cut",
-                "price": "100.00",
+                "price": "100",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Partial Highlights",
-                "price": "65.00",
+                "price": "65",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Partial Highlights/Cut",
-                "price": "80.00",
+                "price": "80",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             }
@@ -76,56 +76,57 @@ const services = [
         "groupName": "Treatments",
         "items": [
             {
-                "name": "Color Rinse (after relaxer)",
-                "price": "25.00",
+                "name": "Color Rinse",
+                "price": "25",
                 "description": "",
+                "subtitle": "(after relaxer)",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Relaxer",
-                "price": "65.00",
+                "price": "65",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Relaxer/cut",
-                "price": "75.00",
+                "price": "75",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Partial Relaxer",
-                "price": "35.00",
+                "price": "35",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Partial Relaxer/Cut",
-                "price": "50.00",
+                "price": "50",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Texturizer",
-                "price": "65.00",
+                "price": "65",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Texturizer/Cut",
-                "price": "75.00",
+                "price": "75",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Keratin Treatment",
-                "price": "200.00",
+                "price": "200",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Keratin Treatment/Cut",
-                "price": "215.00",
+                "price": "215",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             }
@@ -136,26 +137,26 @@ const services = [
         "items": [
             {
                 "name": "Haircuts",
-                "price": "30.00",
+                "price": "30",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Haircut Blow-dry",
-                "price": "38.00",
+                "price": "38",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Men's Cut",
-                "price": "18.00",
+                "price": "18",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Kid's cut",
                 "subtitle": "10 and under",
-                "price": "15.00",
+                "price": "15",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             }
@@ -166,49 +167,49 @@ const services = [
         "items": [
             {
                 "name": "Shampoo",
-                "price": "20.00",
+                "price": "20",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Shampoo blow-dry",
-                "price": "30.00",
+                "price": "30",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Shampoo set",
-                "price": "30.00",
+                "price": "30",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Spiral set",
-                "price": "50.00",
+                "price": "50",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Natural blowouts",
-                "price": "75.00",
+                "price": "75",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Natural blowouts/cut",
-                "price": "85.00",
+                "price": "85",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Deep conditioners",
-                "price": "15.00",
+                "price": "15",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Flat Irons",
-                "price": "15.00",
+                "price": "15",
                 "subtitle": "(Additional with any other hair service)(not sold alone)",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
@@ -260,19 +261,19 @@ const services = [
         "items": [
             {
                 "name": "Lips",
-                "price": "6.00",
+                "price": "6",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Eyebrows",
-                "price": "12.00",
+                "price": "12",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
                 "name": "Chin",
-                "price": "7.00",
+                "price": "7",
                 "description": "",
                 "imgURL":"https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             }

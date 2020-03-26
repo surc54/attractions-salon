@@ -47,7 +47,7 @@ const SideBar = props => {
                         className="SideBarTitle"
                         value="???"
                         control={
-                            <Button className="checkBoxes" size="small" style={{float: "right"}}>
+                            <Button className="clearButton" size="small" style={{float: "right"}}>
                                 Clear
                             </Button>
                         }
@@ -64,9 +64,9 @@ const SideBar = props => {
                         variant="filled"
                         autoComplete="off"
                         value={props.filterText}
-                        /*onChange={event => {
+                        onChange={event => {
                             props.setFilterText(event.target.value);
-                        }}*/
+                        }}
                         style={{ width: "100%" }}
                     />
                 </div>

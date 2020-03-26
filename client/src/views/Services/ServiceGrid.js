@@ -9,8 +9,7 @@ import SideBar from "./SideBar";
 
 const useStyles = makeStyles(theme => ({
     window: {
-        marginTop: 64,
-        width: "100%",
+        paddingTop: 64,
     },
     container:{
         display: "flex",
@@ -23,15 +22,16 @@ const useStyles = makeStyles(theme => ({
         marginTop: 5,
     },
     serviceWindow: {
-        height: 600,
+        height: "600px",
         marginTop: 5,
         overflow: "auto",
         scrollBehavior: "smooth",
     },
 }));
 
-const ServiceGrid = props => {
+const ServiceGrid = ({services}) => {
     const [filterText, setFilterText] = useState("");
+    const [filterData, setFilterData] = useState(services)
     const classes = useStyles();
 
     return (
@@ -40,13 +40,18 @@ const ServiceGrid = props => {
             <Grid container spacing={0} className={classes.container}>
             <Grid item xs={12} md={2}>
                 <Paper className={classes.sideBar} elevation={0}>
-                    <SideBar />
+                    <SideBar 
+                        filterText={filterText}
+                        setFilterText={setFilterText}
+                        filterData={filterData}
+                        setFilterData={setFilterData}
+                    />
                 </Paper>
             </Grid>
 
             <Grid item xs={12} md={9}>
                 <Paper className={classes.serviceWindow} elevation={0}>
-                    <ServiceWindow services={props.services} />
+                    <ServiceWindow services={services} />
                 </Paper>
             </Grid>
             </Grid>
