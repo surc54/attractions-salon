@@ -61,7 +61,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
                 className={styles.input}
                 label="Email"
                 placeholder="member@example.com"
-                type="text"
+                type="email"
                 variant="outlined"
                 fullWidth
                 required
@@ -126,7 +126,7 @@ interface LoginFormProps {
 }
 
 export default React.memo(LoginForm, (prev, next) => {
-    return ["defaultEmail", "defaultPassword", "loading", "onSubmit"].some(
+    return !["defaultEmail", "defaultPassword", "loading", "onSubmit"].some(
         m => prev[m as keyof LoginFormProps] !== next[m as keyof LoginFormProps]
     );
 });

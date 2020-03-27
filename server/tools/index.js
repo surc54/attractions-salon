@@ -4,7 +4,7 @@ module.exports.mongoErrors = mongoErrors;
 
 module.exports.std_error_old = (message, err = null) => {
     return {
-        status: "fail",
+        status: "error",
         message,
         ...(err ? { error: err } : {}),
     };
@@ -28,7 +28,7 @@ module.exports.send_code_success = (res, status, code, extra = {}) => {
 
 module.exports.std_error = (err = {}, backupMessage = "Unknown error") => {
     return {
-        status: "fail",
+        status: "error",
         error:
             (err &&
                 err.message &&
@@ -39,24 +39,42 @@ module.exports.std_error = (err = {}, backupMessage = "Unknown error") => {
     };
 };
 
-module.exports.requiredBody = (requiredList, /** @type {String} */ message) => (
-    req,
-    res,
-    realNext
-) => {
+module.exports.requiredBody = (
+    /** @type {String[]} */ requiredList,
+    /** @type {String} */ message,
+    code = null
+) => (req, res, realNext) => {
     if (!req.body && requiredList.length !== 0) {
-        res.send(
-            module.exports.std_error_old(
-                message.replace("%s", requiredList[0] + "")
-            )
+        res.status(400).send(
+            code
+                ? {
+                      status: "error",
+                      code: code.replace(
+                          "%s",
+                          requiredList[0].replace(/\s+/, "-")
+                      ),
+                  }
+                : module.exports.std_error_old(
+                      message.replace("%s", requiredList[0] + "")
+                  )
         );
     }
 
     for (let i = 0; i < requiredList.length; i++) {
         const item = requiredList[i];
         if (!req.body[item]) {
-            res.send(
-                module.exports.std_error_old(message.replace("%s", item + ""))
+            res.status(400).send(
+                code
+                    ? {
+                          status: "error",
+                          code: code.replace(
+                              "%s",
+                              requiredList[0].replace(/\s+/, "-")
+                          ),
+                      }
+                    : module.exports.std_error_old(
+                          message.replace("%s", item + "")
+                      )
             );
             return;
         }

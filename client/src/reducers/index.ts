@@ -1,4 +1,4 @@
-import { combineReducers, Reducer } from "redux";
+import { combineReducers } from "redux";
 import _loginReducer, { UserState } from "./_loginReducer";
 
 export default combineReducers<ReduxState>({

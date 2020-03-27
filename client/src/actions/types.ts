@@ -46,6 +46,14 @@ export interface AuthLogoutEnd {
     };
 }
 
+export const AUTH_SIGNUP_END = "AUTH_SIGNUP_END";
+export interface AuthSignUpEnd {
+    type: typeof AUTH_SIGNUP_END;
+    payload?: {
+        error?: any;
+    };
+}
+
 // export type Type = keyof Payload;
 
 // export interface Action<T extends Type> {
@@ -59,7 +67,11 @@ export interface ActionCallback {
     // finally?: () => void;
 }
 
-export type UserActions = GetAuthInfoStart | GetAuthInfoEnd | AuthLogoutEnd;
+export type UserActions =
+    | GetAuthInfoStart
+    | GetAuthInfoEnd
+    | AuthLogoutEnd
+    | AuthSignUpEnd;
 
 export type ThAction<A extends Action<any>> = ThunkAction<
     void,

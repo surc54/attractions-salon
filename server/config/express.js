@@ -1,4 +1,3 @@
-require("./config_setup");
 const path = require("path"),
     express = require("express"),
     mongoose = require("mongoose"),
@@ -10,8 +9,7 @@ const path = require("path"),
     exampleRouter = require("../routes/examples.server.routes"),
     servicesRouter = require("../routes/services.routes"),
     accountRouter = require("../routes/account.routes"),
-    adminRouter = require("../routes/admin/index.routes"),
-    config = require("./config");
+    adminRouter = require("../routes/admin/index.routes");
 
 const { send_code_error } = require("../tools/index");
 
@@ -35,7 +33,8 @@ module.exports.init = () => {
 
     app.use(
         session({
-            secret: config.cookie.secret,
+            secret:
+                process.env.COOKIE_SECRET || require("./config").cookie.secret,
             cookie: {
                 maxAge: 86400000,
             },
@@ -53,6 +52,10 @@ module.exports.init = () => {
     require("./passport_setup")();
     app.use(passport.initialize());
     app.use(passport.session());
+
+    if (process.env.DELAY_BACKEND) {
+        app.use((req, res, next) => setTimeout(next, 1000));
+    }
 
     // add a router
     app.use("/api/example", exampleRouter);

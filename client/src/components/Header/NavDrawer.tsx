@@ -126,7 +126,10 @@ const NavDrawer: React.FunctionComponent<NavDrawerProps> = ({
                     (userAuth.signedIn ? (
                         <ListItem
                             button
-                            onClick={() => onMenuClick?.()}
+                            onClick={() => {
+                                onMenuClick?.();
+                                history.push("/login");
+                            }}
                             style={{
                                 paddingLeft: isXs ? 32 : 40,
                                 paddingRight: isXs ? 32 : 40,
