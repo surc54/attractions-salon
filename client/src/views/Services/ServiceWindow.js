@@ -49,7 +49,10 @@ const MediaCard = props => {
             {props.services.map(group => {
                 return group.items.map(item => {
                     return (
-                        <Card classes={{ root: classes.root }}>
+                        <Card 
+                            classes={{ root: classes.root }}
+                            key={item.name}
+                        >
                             <CardActionArea>
                                 <CardMedia
                                     className={classes.media}

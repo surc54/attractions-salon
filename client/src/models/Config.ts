@@ -57,6 +57,14 @@ const Config: IConfig = {
                 ...noCache,
             },
         },
+        "get services info": {
+            url: "/api/services",
+            method: "GET",
+            headers: {
+                ...noCache,
+            },
+        },
+        
     },
     theme: {
         palette: {

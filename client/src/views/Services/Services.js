@@ -1,33 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Services.css";
 import ServiceGrid from "./ServiceGrid";
-
-import services from "../../../../server/models/services.model";
+import { getServices } from "../../actions/serviceActions";
 
 const Services = props => {
+    const [serviceInfo, setServiceInfo] = useState([]);
+    const [initialLoad, setInitialLoad] = useState(true);
+
     return (
         <div className="empty">
+            {doInitialLoad(initialLoad, setInitialLoad, setServiceInfo)}
             <ServiceGrid
-                services={servicesFile}
-                servicesFromDB={servicesFromDB}
+                services={serviceInfo}
+                servicesJSON={servicesJSON}
             ></ServiceGrid>
-
-            {/*<SpacingGrid></SpacingGrid>*/}
+            {console.log(serviceInfo)}
         </div>
     );
 };
 
-// const servicesFromDB = () => {
-//     services
-//         .find({})
-//         .then(value => {
-//             return value;
-//         })
-//         .catch(reason => throw reason;
-//         );
-// };
+const doInitialLoad = (initialLoad, setInitialLoad, setServiceInfo) => {
+    if(initialLoad){
+        setInitialLoad(false);
+        updateServices(setServiceInfo);
+    }
+}
 
-const servicesFile = [
+const updateServices = setServiceInfo => {
+    getServices()
+        .then(value => setServiceInfo(value))
+        .catch(() => setServiceInfo(servicesJSON));
+};
+
+const servicesJSON = [
     {
         groupName: "Process Color",
         items: [
@@ -261,7 +266,7 @@ const servicesFile = [
         ],
     },
     {
-        groupName: "Hair externsions",
+        groupName: "Hair extensions",
         items: [
             {
                 name: "Sew ins",

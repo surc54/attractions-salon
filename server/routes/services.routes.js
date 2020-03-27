@@ -14,7 +14,7 @@ router.get("/", ServiceController.list);
 router.get("/:id", ServiceController.read);
 
 // Add service
-router.post("/", ServiceController.create);
+router.post("/", ServiceController.create); // unsure if POST = create or update
 
 // Modify service
 router.put("/:id", ServiceController.update);
