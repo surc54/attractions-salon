@@ -3,7 +3,6 @@ const path = require("path");
 
 ///////////////// Testing
 const services = require("../models/services.model.js");
-const serviceItem = require("../models/item.model.js");
 /////////////////
 
 //Load data from JSON file. Delete when switching to database.
