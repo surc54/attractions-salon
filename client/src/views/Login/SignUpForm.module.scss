@@ -1,0 +1,32 @@
+.form {
+    .input {
+        margin-bottom: 1rem;
+    }
+
+    .recaptcha {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+
+        min-height: 78px;
+
+        > * {
+            width: auto;
+        }
+    }
+
+    .actions {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: stretch;
+        align-items: center;
+
+        margin-top: 1.6rem;
+        width: 100%;
+
+        .submitButton {
+            height: 5.6rem;
+        }
+    }
+}

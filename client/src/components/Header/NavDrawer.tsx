@@ -1,25 +1,43 @@
-import React from "react";
 import {
-    Drawer,
     AppBar,
-    Toolbar,
+    Avatar,
+    CircularProgress,
     Container,
-    Typography,
-    IconButton,
-    Icon,
+    Drawer,
     DrawerProps,
+    Icon,
+    IconButton,
     List,
     ListItem,
+    ListItemAvatar,
     ListItemText,
+    Toolbar,
+    Typography,
+    useMediaQuery,
+    useTheme,
 } from "@material-ui/core";
-import { Link, useLocation } from "react-router-dom";
-import styles from "./NavBar.module.scss";
 import clsx from "clsx";
-import NavItem from "../../models/NavItem";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useUserAuth } from "../../hooks";
 import history from "../../models/history";
+import NavItem from "../../models/NavItem";
+import User from "../../models/User";
+import styles from "./NavBar.module.scss";
 
-const goToExternal = (link: string) => {
+const getUserInitials = (user?: User | null) => {
+    let initials = (user?.fullName || "?")
+        .split(" ")
+        .map(x => x.substr(0, 1))
+        .join("")
+        .trim()
+        .substr(0, 2);
+    return initials;
+};
+
+const goToExternal = (link: string, closeNavbar?: Function) => {
     history.push(link);
+    closeNavbar?.();
 };
 
 const NavDrawer: React.FunctionComponent<NavDrawerProps> = ({
@@ -27,9 +45,13 @@ const NavDrawer: React.FunctionComponent<NavDrawerProps> = ({
     items,
     className,
     classes,
+    goToLogin,
     ...others
 }) => {
     const location = useLocation();
+    const userAuth = useUserAuth();
+    const theme = useTheme();
+    const isXs = useMediaQuery(theme.breakpoints.only("xs"));
 
     return (
         <Drawer
@@ -68,7 +90,10 @@ const NavDrawer: React.FunctionComponent<NavDrawerProps> = ({
 
                     const inside = (
                         <Container>
-                            <ListItemText primary={item.name} />
+                            <ListItemText
+                                primary={item.name}
+                                secondary={item.desc}
+                            />
                         </Container>
                     );
 
@@ -90,19 +115,61 @@ const NavDrawer: React.FunctionComponent<NavDrawerProps> = ({
                                 component={Link}
                                 to={item.path}
                                 selected={matched}
+                                onClick={() => onMenuClick()}
                             >
                                 {inside}
                             </ListItem>
                         );
                     }
                 })}
+                {!userAuth.loading &&
+                    (userAuth.signedIn ? (
+                        <ListItem
+                            button
+                            onClick={() => {
+                                onMenuClick?.();
+                                history.push("/login");
+                            }}
+                            style={{
+                                paddingLeft: isXs ? 32 : 40,
+                                paddingRight: isXs ? 32 : 40,
+                            }}
+                        >
+                            <ListItemAvatar>
+                                <Avatar>
+                                    {getUserInitials(userAuth.user)}
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary={userAuth?.user?.fullName}
+                                secondary={"view profile, sign out, etc."}
+                            />
+                        </ListItem>
+                    ) : (
+                        <ListItem
+                            button
+                            onClick={() => {
+                                onMenuClick?.();
+                                goToLogin?.();
+                            }}
+                        >
+                            <Container>
+                                <ListItemText
+                                    primary="Login"
+                                    secondary="see your profile, past appointments, etc."
+                                />
+                            </Container>
+                        </ListItem>
+                    ))}
             </List>
+            {userAuth.loading ? <CircularProgress size={24} /> : null}
         </Drawer>
     );
 };
 
 export interface NavDrawerProps extends DrawerProps {
-    onMenuClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    onMenuClick: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+    goToLogin?: () => void;
     items: NavItem[];
 }
 
