@@ -14,10 +14,10 @@ router.get("/", ServiceController.list);
 router.get("/:id", ServiceController.read);
 
 // Add service
-router.put("/", ServiceController.create);
+router.post("/", ServiceController.create); // unsure if POST = create or update
 
 // Modify service
-router.post("/:id", ServiceController.update);
+router.put("/:id", ServiceController.update);
 
 // Remove service
 router.delete("/:id", ServiceController.delete);
