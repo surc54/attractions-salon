@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const SideBar = props => {
+const SideBar = (props) => {
     const classes = useStyles();
     return (
         <div>
@@ -47,7 +47,15 @@ const SideBar = props => {
                         className="SideBarTitle"
                         value="???"
                         control={
-                            <Button className="clearButton" size="small" style={{float: "right"}}>
+                            <Button
+                                className="clearButton"
+                                size="small"
+                                style={{ float: "right" }}
+                                onClick={() => {
+                                    props.setFilterText("");
+                                    props.setFilterCat("");
+                                }}
+                            >
                                 Clear
                             </Button>
                         }
@@ -66,6 +74,12 @@ const SideBar = props => {
                         value={props.filterText}
                         onChange={event => {
                             props.setFilterText(event.target.value);
+
+                            // props.setFilterData(
+                            //     props.services.filter(item =>
+                            //         item.name.includes(event.target.value)
+                            //     )
+                            // );
                         }}
                         style={{ width: "100%" }}
                     />
@@ -135,7 +149,7 @@ const SideBar = props => {
                 >
                     Request an appointment
                 </Button>
-                <CartList/>
+                <CartList />
             </div>
         </div>
     );

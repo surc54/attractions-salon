@@ -1,266 +1,277 @@
 [
     {
         "groupName": "Process Color",
-        "items": [
-            {
-                "name": "Single Process Color",
-                "price": "55.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "name": "Single Process/Cut",
-                "price": "70.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "name": "Double Process Color",
-                "price": "85.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "name": "Double Process/Cut",
-                "price": "100.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            }
-        ]
+        "name": "Single Process Color",
+        "price": "55",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Process Color",
+        "name": "Single Process/Cut",
+        "price": "70",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Process Color",
+        "name": "Double Process Color",
+        "price": "85",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Process Color",
+        "name": "Double Process/Cut",
+        "price": "100",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+
+    {
+        "groupName": "Highlights",
+        "name": "Full Highlights",
+        "price": "85",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
     },
     {
         "groupName": "Highlights",
-        "items": [
-            {
-                "name": "Full Highlights",
-                "price": "85.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "name": "Full Highlights/Cut",
-                "price": "100.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "name": "Partial Highlights",
-                "price": "65.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "name": "Partial Highlights/Cut",
-                "price": "80.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            }
-        ]
+        "name": "Full Highlights/Cut",
+        "price": "100",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Highlights",
+        "name": "Partial Highlights",
+        "price": "65",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Highlights",
+        "name": "Partial Highlights/Cut",
+        "price": "80",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+
+    {
+        "groupName": "Treatments",
+        "name": "Color Rinse",
+        "price": "25",
+        "description": "",
+        "subtitle": "(after relaxer)",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
     },
     {
         "groupName": "Treatments",
-        "items": [
-            {
-                "name": "Color Rinse (after relaxer)",
-                "price": "25.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "name": "Relaxer",
-                "price": "65.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "name": "Relaxer/cut",
-                "price": "75.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "name": "Partial Relaxer",
-                "price": "35.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "name": "Partial Relaxer/Cut",
-                "price": "50.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Texturizer",
-                "price": "65.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Texturizer/Cut",
-                "price": "75.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Keratin Treatment",
-                "price": "200.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Keratin Treatment/Cut",
-                "price": "215.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            }
-        ]
+        "name": "Relaxer",
+        "price": "65",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Treatments",
+        "name": "Relaxer/cut",
+        "price": "75",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Treatments",
+        "name": "Partial Relaxer",
+        "price": "35",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Treatments",
+        "name": "Partial Relaxer/Cut",
+        "price": "50",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Treatments",
+        "name": "Texturizer",
+        "price": "65",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Treatments",
+        "name": "Texturizer/Cut",
+        "price": "75",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Treatments",
+        "name": "Keratin Treatment",
+        "price": "200",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Treatments",
+        "name": "Keratin Treatment/Cut",
+        "price": "215",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+
+    {
+        "groupName": "Hair Cuts",
+        "name": "Haircuts",
+        "price": "30",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
     },
     {
         "groupName": "Hair Cuts",
-        "items": [
-            {
-                "name": "Haircuts",
-                "price": "30.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Haircut Blow-dry",
-                "price": "38.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Men's Cut",
-                "price": "18.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Kid's cut",
-                "subtitle": "10 and under",
-                "price": "15.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            }
-        ]
+        "name": "Haircut Blow-dry",
+        "price": "38",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Hair Cuts",
+        "name": "Men's Cut",
+        "price": "18",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Hair Cuts",
+        "name": "Kid's cut",
+        "subtitle": "10 and under",
+        "price": "15",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+
+    {
+        "groupName": "Hair Care",
+        "name": "Shampoo",
+        "price": "20",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
     },
     {
         "groupName": "Hair Care",
-        "items": [
-            {
-                "name": "Shampoo",
-                "price": "20.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Shampoo blow-dry",
-                "price": "30.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Shampoo set",
-                "price": "30.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Spiral set",
-                "price": "50.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Natural blowouts",
-                "price": "75.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Natural blowouts/cut",
-                "price": "85.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Deep conditioners",
-                "price": "15.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Flat Irons",
-                "price": "15.00",
-                "subtitle": "(Additional with any other hair service)(not sold alone)",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            }
-        ]
+        "name": "Shampoo blow-dry",
+        "price": "30",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
     },
     {
-        "groupName": "Hair externsions",
-        "items": [
-            {
-                "name": "Sew ins",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Ponytails",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Clip ins",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Locks ",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Crochet ",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Braids",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Sisterlock",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            }
-        ]
+        "groupName": "Hair Care",
+        "name": "Shampoo set",
+        "price": "30",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Hair Care",
+        "name": "Spiral set",
+        "price": "50",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Hair Care",
+        "name": "Natural blowouts",
+        "price": "75",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Hair Care",
+        "name": "Natural blowouts/cut",
+        "price": "85",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Hair Care",
+        "name": "Deep conditioners",
+        "price": "15",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Hair Care",
+        "name": "Flat Irons",
+        "price": "15",
+        "subtitle": "(Additional with any other hair service)(not sold alone)",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+
+    {
+        "groupName": "Hair extensions",
+        "name": "Sew ins",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Hair extensions",
+        "name": "Ponytails",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Hair extensions",
+        "name": "Clip ins",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Hair extensions",
+        "name": "Locks ",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Hair extensions",
+        "name": "Crochet ",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Hair extensions",
+        "name": "Braids",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Hair extensions",
+        "name": "Sisterlock",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+
+    {
+        "groupName": "Waxing",
+        "name": "Lips",
+        "price": "6",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
     },
     {
         "groupName": "Waxing",
-        "items": [
-            {
-                "name": "Lips",
-                "price": "6.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Eyebrows",
-                "price": "12.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            },
-            {
-                "name": "Chin",
-                "price": "7.00",
-                "description": "",
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            }
-        ]
+        "name": "Eyebrows",
+        "price": "12",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "groupName": "Waxing",
+        "name": "Chin",
+        "price": "7",
+        "description": "",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
     }
 ]

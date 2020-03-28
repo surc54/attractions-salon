@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+import {
+    Card,
+    CardActionArea,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Button,
+    Typography,
+} from "@material-ui/core";
 
 const useStyles = makeStyles({
     root: {
@@ -42,17 +44,16 @@ const useStyles = makeStyles({
     },
 });
 
-const MediaCard = props => {
+const MediaCard = ({ services, filterText, filterCat }) => {
     const classes = useStyles();
+
     return (
         <div className="serviceEntries">
-            {props.services.map(group => {
-                return group.items.map(item => {
+            {services
+                .filter(item => item.name.toLowerCase().includes(filterText))
+                .map(item => {
                     return (
-                        <Card 
-                            classes={{ root: classes.root }}
-                            key={item.name}
-                        >
+                        <Card classes={{ root: classes.root }} key={item.name}>
                             <CardActionArea>
                                 <CardMedia
                                     className={classes.media}
@@ -71,7 +72,7 @@ const MediaCard = props => {
                                                 variant="h6"
                                                 className={classes.serviceGroup}
                                             >
-                                                {group.groupName}
+                                                {item.groupName}
                                             </Typography>
                                             <Typography
                                                 variant="h5"
@@ -108,19 +109,23 @@ const MediaCard = props => {
                             </CardActions>
                         </Card>
                     );
-                });
-            })}
+                })}
         </div>
     );
 };
 
-const ServiceWindow = props => {
+const ServiceWindow = ({ services, filterText, filterCat }) => {
     return (
         <div className="empty">
-            <MediaCard services={props.services} />
+            <MediaCard
+                services={services}
+                filterText={filterText}
+                filterCat={filterCat}
+            />
         </div>
     );
 };
+
 export default ServiceWindow;
 
 // function NestedList() {

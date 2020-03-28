@@ -25,12 +25,16 @@ const TEMP_DATA_LIST_FILE = path.resolve(
 }
 
 module.exports.list = (req, res) => {
-    ////
-    //// initialize database
-    // servicesArray.forEach(group => {
+    //
+    // initialize database
+    // servicesArray.forEach(item => {
     //     // this works
-    //     newGroup = new services(group);
+    //     let newGroup = new services(item);
     //     newGroup.save();
+    // });
+    // res.send({
+    //     status: "ok",
+    //     data: servicesArray,
     // });
     services
         .find({})
