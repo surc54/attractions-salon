@@ -2,8 +2,21 @@
     margin: 100px 50px;
 }
 
+.modal-title {
+    color: white !important;
+    margin: 0px;
+    font-size: 24px !important;
+    padding: 10px;
+    font-family: "Pacifico", cursive !important;
+}
+
+.modal {
+    width: 500px;
+    padding: 0px !important;
+}
+
 .title {
-    font-family: Pacifico, sans-serif;
+    font-family: "Pacifico", cursive !important;
     display: inline-block;
 }
 
@@ -23,4 +36,8 @@
     height: 40px;
     border-radius: 3px;
     margin: 10px;
+}
+
+.ratings {
+    color: pink !important;
 }
