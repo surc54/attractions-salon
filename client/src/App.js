@@ -6,6 +6,8 @@ import testimonials from "./views/Testimonials/Testimonials";
 import NotFound from "./views/NotFound";
 import Payments from "./views/Payments/Payments";
 import Services from "./views/Services/Services";
+import Login from "./views/Login/Login";
+import { useUserAuth } from "./hooks";
 
 const routes = [
     {
@@ -33,11 +35,23 @@ const routes = [
         path: "/testimonials",
         component: testimonials,
     },
+    {
+        exact: false,
+        path: "/login",
+        component: Login,
+    },
 ];
 
 const App = () => {
+    const userAuth = useUserAuth();
+
+    React.useEffect(() => {
+        // Initial update - get user status
+        userAuth.updateInfo();
+    }, []);
+
     return (
-        <div>
+        <>
             <NavBar />
             <Switch>
                 {routes.map(r => (
@@ -50,7 +64,7 @@ const App = () => {
                 ))}
                 <Route component={NotFound} />
             </Switch>
-        </div>
+        </>
     );
 };
 

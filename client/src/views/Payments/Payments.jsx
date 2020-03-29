@@ -1,77 +1,106 @@
-import React from "react";
-import Rectangle from "react-rectangle";
-import {
-    Button,
-    Card,
-    Container,
-    Header,
-    Input,
-    Segment,
-} from "semantic-ui-react";
-//import homepic from '../../assets/attractions_salon_photo.jpeg';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import {Stepper, Step, StepLabel, Button, Typography} from '@material-ui/core';
 import "./Payments.css";
 
-function Payments() {
+import FirstStep from "./FirstStep";
+import SecondStep from "./SecondStep";
+
+const useStyles = makeStyles(theme => ({
+    root: {
+      width: '100%',
+    },
+    backButton: {
+      marginRight: theme.spacing(1),
+    },
+    instructions: {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+    },
+  }));
+
+const Payments = props => {
+    const classes = useStyles();
     return (
         <div className="Payments">
-            <Rectangle className="topRectangle"></Rectangle>
-            <div align="center" className="inputBox">
-                <Card fluid centered color="pink">
-                    <Card.Content>
-                        <Container textAlign="left">
-                            <Header as="h2">Pay Now</Header>
-                            <Card.Description>
-                                <font size="3">Enter your booking number</font>
-                            </Card.Description>
-                            <Card.Description>
-                                <Input
-                                    size="mini"
-                                    focus
-                                    placeholder="Booking Number"
-                                ></Input>
-                            </Card.Description>
-                            <Card.Description>
-                                <font size="3">Select your Payment Method</font>
-                            </Card.Description>
-                            {/* <img src="square-picture.jpg" alt="Simply Easy Learning" width="200" height="80"/> */}
-                            <Segment.Group horizontal>
-                                <Segment>Square button</Segment>
-                                <Segment>Paypal button</Segment>
-                                <Segment>CashApp button</Segment>
-                            </Segment.Group>
-                            <Button>
-                                Confirm your appointment - Pay when you arrive
-                            </Button>
-                        </Container>
-
-                        {/* <Card.Header>{'Pay Now'}</Card.Header>
-                        <Card.Description>Enter Your Booking Number</Card.Description>
-                        <Card.Description><Input focus placeholder = "Booking Number"></Input></Card.Description> */}
-                    </Card.Content>
-                    <Card.Content extra textAlign="left">
-                        <font size="2">
-                            Don't have an appointment number? Click here to shop
-                            for services and book an appointment
-                        </font>
-                    </Card.Content>
-                </Card>
-            </div>
-
-            <Rectangle className="bigBottomRectangle"></Rectangle>
-            <Rectangle className="bottomRectangle1"></Rectangle>
-            <Rectangle className="bottomRectangle2"></Rectangle>
-
-            <linearGradient className="lingrad"></linearGradient>
-            <linearGradient className="rect"></linearGradient>
-
-            <Header as="h5" className="Sitemap">
-                Sitemap
-            </Header>
-            <Header as="h5" className="credit">
-                Attractions Salon © 2020
-            </Header>
+            <HorizontalLabelPositionBelowStepper/>
         </div>
     );
-}
+};
 
 export default Payments;
+
+
+
+
+
+function getSteps() {
+  return ['Select master blaster campaign settings', 'Create an ad group', 'Create an ad'];
+}
+
+function getStepContent(stepIndex) {
+  switch (stepIndex) {
+    case 0:
+      return <FirstStep/>;
+    case 1:
+      return <SecondStep/>;
+    case 2:
+      return 'This is the bit I really care about!';
+    default:
+      return 'Unknown stepIndex';
+  }
+}
+
+const HorizontalLabelPositionBelowStepper = () => {
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const steps = getSteps();
+
+  const handleNext = () => {
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+
+  return (
+    <div className={classes.root}>
+      <Stepper activeStep={activeStep} alternativeLabel>
+        {steps.map(label => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      <div>
+        {activeStep === steps.length ? (
+          <div>
+            <Typography className={classes.instructions}>All steps completed</Typography>
+            <Button onClick={handleReset}>Reset</Button>
+          </div>
+        ) : (
+          <div>
+            {getStepContent(activeStep)}
+            <div>
+              <Button
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                className={classes.backButton}
+              >
+                Back
+              </Button>
+              <Button variant="contained" color="primary" onClick={handleNext}>
+                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
