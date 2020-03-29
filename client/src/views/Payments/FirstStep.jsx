@@ -5,20 +5,21 @@ import LogInWindow from "./LogInWindow";
 
 const useStyles = makeStyles(theme => ({
     window: {
-        height: "100%",
+        height: "48rem",
         display: "flex",
         justifyContent: "center",
     },
     empty: {
         width: "auto",
+        height: "100%"
     },
 }));
 
 const FirstStep = props => {
     const classes = useStyles();
     return (
-        <Grid container spacing={1} className={classes.window}>
-            <Grid item xs={12} md={4}>
+        <Grid container className={classes.window}>
+            <Grid item xs={12} md={8}>
                 <Paper className={classes.empty} elevation={1}>
                     <LogInWindow />
                 </Paper>

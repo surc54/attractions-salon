@@ -1,8 +1,5 @@
-.Payments{
-    background-image: url(https://images.pexels.com/photos/1831234/pexels-photo-1831234.jpeg?cs=srgb&dl=pink-clouds-1831234.jpg&fm=jpg);
-    height:100%;
-    padding-top: 7rem;
-}
+ /*background-image: url(https://images.pexels.com/photos/1831234/pexels-photo-1831234.jpeg?cs=srgb&dl=pink-clouds-1831234.jpg&fm=jpg);
+ */
 .paymentButtons {
     display: flex;
     align-items: center;
@@ -10,7 +7,7 @@
     flex-direction: column;
     width: 100%;
 }
- 
+
 .paypalButton {
     background: #ffc439;
     height: 40px;
@@ -21,8 +18,10 @@
 
 .bigDiv {
     padding: 5px;
-    position: relative;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .verticalSpacer {
@@ -38,15 +37,14 @@
 }
 
 .quickLinksWindow {
-
 }
 
 .scheduleButton {
     /* float: right; */
     position: absolute;
-    top:-30px;
-    right:-500px;
-    background-color: #79E827;
+    top: -30px;
+    right: -500px;
+    background-color: #79e827;
     border: green;
 }
 
@@ -62,4 +60,11 @@
     vertical-align: middle;
 }
 
+.titleInitialPage{
+    display: flex;
+    justify-content: center;
+    color: #E7A1AF;
+    font-family: Pacifico;
+    font-size: 2rem;
+}
 
