@@ -53,6 +53,10 @@ module.exports.init = () => {
     app.use(passport.initialize());
     app.use(passport.session());
 
+    if (process.env.DELAY_BACKEND) {
+        app.use((req, res, next) => setTimeout(next, 1000));
+    }
+
     // add a router
     app.use("/api/example", exampleRouter);
     app.use("/api/services", servicesRouter);

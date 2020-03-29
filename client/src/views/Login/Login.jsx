@@ -20,6 +20,10 @@ import LayeredBackground from "./LayeredBackground";
 import styles from "./Login.module.scss";
 import LoginForm from "./LoginForm";
 import LoginRedirect from "./LoginRedirect";
+import SignUpForm from "./SignUpForm";
+import { useSnackbar } from "notistack";
+import { emsg } from "../../tools";
+import Config from "../../models/Config";
 
 const goBack = history => {
     if (history.length !== 0) {
@@ -37,12 +41,15 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
     const history = useHistory();
     const location = useLocation();
     const userAuth = useUserAuth();
+    const snack = useSnackbar();
     const [redirectCancelled, setRedirectCancelled] = React.useState(false);
     const [initialLoading, setInitialLoading] = React.useState(true);
     const [paperHeight, setPaperHeight] = React.useState(0);
-    const [fr, forceRender] = React.useReducer(state => state + 1, 0);
+    const [, forceRender] = React.useReducer(state => state + 1, 0);
     const [ofy, setOfy] = React.useState(true);
     const mainRef = React.createRef();
+
+    const signUpMode = /login\/signup([?#].*|\/.*)?$/i.test(location.pathname);
 
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down("xs"));
@@ -52,7 +59,7 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
         const newHeight =
             mainRef.current.offsetHeight + 6 + (!modalMode ? 64 : 0);
         let timer;
-        if (newHeight == paperHeight) {
+        if (newHeight === paperHeight) {
             timer = setTimeout(() => {
                 setOfy(false);
             }, 300);
@@ -71,6 +78,7 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
         return () => {
             if (timer) clearTimeout(timer);
         };
+        // eslint-disable-next-line
     }, [mainRef, userAuth.loading, modalMode]);
 
     // INITIAL LOAD ANIMATION
@@ -80,9 +88,10 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
         if (!userAuth.loading) {
             setInitialLoading(false);
         }
+        // eslint-disable-next-line
     }, [userAuth.loading]);
 
-    const onFormSubmit = (email, password) => {
+    const onFormSubmit = React.useCallback((email, password) => {
         if (userAuth.signedIn) {
             userAuth
                 .logout()
@@ -91,12 +100,10 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
                 })
                 .catch(e => {
                     console.error(e);
-                    alert(
-                        "Error: " +
-                            (e.message ||
-                                (typeof e === "string" && e) ||
-                                "unknown")
-                    );
+                    snack.enqueueSnackbar("Error: " + emsg(e), {
+                        variant: "error",
+                        autoHideDuration: 5000,
+                    });
                 });
         } else {
             userAuth
@@ -106,15 +113,14 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
                 })
                 .catch(e => {
                     console.error(e);
-                    alert(
-                        "Error: " +
-                            (e.message ||
-                                (typeof e === "string" && e) ||
-                                "unknown")
-                    );
+                    snack.enqueueSnackbar("Error: " + emsg(e), {
+                        variant: "error",
+                        autoHideDuration: 5000,
+                    });
                 });
         }
-    };
+        // eslint-disable-next-line
+    }, []);
 
     const onSignOut = () => {
         userAuth.logout();
@@ -141,6 +147,7 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
                 }
             );
         };
+        // eslint-disable-next-line
     }, []);
 
     return (
@@ -265,8 +272,43 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
                                         >
                                             Go to your profile
                                         </Link>
+                                        {Config.adminPage.rolesAllowed.includes(
+                                            userAuth.user.role
+                                        ) && (
+                                            <Link
+                                                component={RouterLink}
+                                                to="/admin"
+                                                onClick={() => {
+                                                    if (closeModal)
+                                                        closeModal();
+                                                }}
+                                            >
+                                                Go to Admin Panel
+                                            </Link>
+                                        )}
                                     </div>
                                 )}
+                            </>
+                        ) : signUpMode ? (
+                            <>
+                                <Typography
+                                    className={styles.subtitle}
+                                    variant="h2"
+                                >
+                                    Let's get set up!
+                                </Typography>
+                                <SignUpForm forceRender={forceRender} />
+                                <div className={styles.textActions}>
+                                    <Typography>
+                                        Already have an account?{" "}
+                                        <Link
+                                            component={RouterLink}
+                                            to="/login"
+                                        >
+                                            Sign in!
+                                        </Link>
+                                    </Typography>
+                                </div>
                             </>
                         ) : (
                             <>
@@ -278,24 +320,30 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
                                 </Typography>
 
                                 <LoginForm
+                                    defaultEmail={
+                                        location &&
+                                        location.state &&
+                                        location.state.email
+                                    }
                                     forceRender={forceRender}
                                     onSubmit={onFormSubmit}
                                     loading={userAuth.loading}
                                 />
 
                                 <div className={styles.textActions}>
-                                    <Link
+                                    {/* <Link
                                         component={RouterLink}
                                         to="/account/forgot"
                                     >
                                         Forgot your password?
                                     </Link>
-                                    <br />
+                                    <br /> */}
+                                    {/* <br /> */}
                                     <Typography>
                                         Don't have an account?{" "}
                                         <Link
                                             component={RouterLink}
-                                            to="/account/signup"
+                                            to="/login/signup"
                                         >
                                             Create one!
                                         </Link>
@@ -310,22 +358,22 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
     );
 };
 
-const Warning = ({ children, icon, elevation, className, ...others }) => {
-    return (
-        <Paper
-            elevation={elevation || 0}
-            className={clsx(styles.warningWrapper, className)}
-            {...others}
-        >
-            {icon && (
-                <div className={styles.icon}>
-                    <Icon>warning</Icon>
-                </div>
-            )}
-            <div className={styles.content}>{children}</div>
-        </Paper>
-    );
-};
+// const Warning = ({ children, icon, elevation, className, ...others }) => {
+//     return (
+//         <Paper
+//             elevation={elevation || 0}
+//             className={clsx(styles.warningWrapper, className)}
+//             {...others}
+//         >
+//             {icon && (
+//                 <div className={styles.icon}>
+//                     <Icon>warning</Icon>
+//                 </div>
+//             )}
+//             <div className={styles.content}>{children}</div>
+//         </Paper>
+//     );
+// };
 
 export default props => {
     // const [start, setStart] = React.useState(false);

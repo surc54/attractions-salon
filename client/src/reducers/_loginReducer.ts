@@ -1,6 +1,11 @@
 import { Reducer } from "redux";
 import User from "../models/User";
-import { UserActions, GetAuthInfoEnd, AuthLogoutEnd } from "../actions/types";
+import {
+    UserActions,
+    GetAuthInfoEnd,
+    AuthLogoutEnd,
+    AuthSignUpEnd,
+} from "../actions/types";
 
 const INIT: UserState = {
     loading: true,
@@ -15,7 +20,7 @@ const reducer: Reducer<UserState, UserActions> = (state = INIT, action) => {
             return { ...state, loading: true };
         }
         case "GET_AUTH_INFO_END": {
-            const { payload } = <GetAuthInfoEnd>action;
+            const { payload } = action as GetAuthInfoEnd;
             return {
                 ...state,
                 loading: false,
@@ -25,7 +30,18 @@ const reducer: Reducer<UserState, UserActions> = (state = INIT, action) => {
             };
         }
         case "AUTH_LOGOUT_END": {
-            const { payload } = <AuthLogoutEnd>action;
+            const { payload } = action as AuthLogoutEnd;
+            return {
+                ...state,
+                loading: false,
+                signedIn: false,
+                user: null,
+                error: payload?.error,
+            };
+        }
+        case "AUTH_SIGNUP_END": {
+            const { payload } = action as AuthSignUpEnd;
+
             return {
                 ...state,
                 loading: false,

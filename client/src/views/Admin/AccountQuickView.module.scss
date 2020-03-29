@@ -1,0 +1,38 @@
+div.wrapper {
+    height: 64px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+
+    padding: 8px;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    .avatar {
+        background-color: rgba(0, 0, 0, 0.3);
+        color: white;
+        margin-right: 8px;
+    }
+
+    div.details {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: flex-start;
+
+        .name {
+            line-height: 20px;
+        }
+
+        .title {
+            line-height: 20px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+    }
+
+    .button {
+        color: white;
+    }
+}

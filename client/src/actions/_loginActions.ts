@@ -5,6 +5,7 @@ import {
     GetAuthInfoResponse,
     LogoutResponse,
     LoginResponse,
+    SignUpResponse,
 } from "../models/ResponseTypes";
 import { axios_error, emsg } from "../tools";
 import {
@@ -15,6 +16,7 @@ import {
     ThAction,
     UserActions,
 } from "./types";
+import { SignUpData } from "../models/User";
 
 /**
  * Planned Actions:
@@ -111,10 +113,10 @@ export const login = (
                     throw new Error("Unexpected status code");
                 }
 
-                const { code, status, data, error, user } = resp.data;
+                const { code, error, user } = resp.data;
 
                 if (error || code !== "auth/sign-in/success") {
-                    throw { response: resp };
+                    throw new NonSuccessError(resp);
                 }
 
                 dispatch({
@@ -155,14 +157,12 @@ export const logout = (
                 ...Config.apiUrls["logout user"],
             })
             .then(resp => {
-                if (resp.status != 200) {
+                if (resp.status !== 200) {
                     throw new Error(`Unexpected status code (${resp.status})`);
                 }
 
                 if (resp.data.code !== "auth/sign-out/success") {
-                    throw {
-                        response: resp,
-                    };
+                    throw new NonSuccessError(resp);
                 }
 
                 dispatch({
@@ -185,3 +185,57 @@ export const logout = (
             });
     };
 };
+
+export const signUp = (
+    info: SignUpData & { recaptchaToken: any },
+    callbacks: ActionCallback = {}
+): ThAction<UserActions> => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: "GET_AUTH_INFO_START",
+        });
+
+        axios
+            .request<SignUpResponse>({
+                ...Config.apiUrls["signup user"],
+                data: info || {},
+            })
+            .then(resp => {
+                if (resp.status !== 201) {
+                    throw new Error(`Unexpected status code (${resp.status})`);
+                }
+
+                if (resp.data.code !== "auth/sign-up/success") {
+                    throw new NonSuccessError(resp);
+                }
+
+                dispatch({
+                    type: "AUTH_SIGNUP_END",
+                });
+
+                callbacks?.then?.();
+            })
+            .catch(err => {
+                dispatch({
+                    type: "AUTH_SIGNUP_END",
+                    payload: {
+                        error: axios_error(err),
+                    },
+                });
+
+                callbacks?.catch?.({
+                    message: axios_error(err),
+                });
+            });
+    };
+};
+
+class NonSuccessError extends Error {
+    response: any;
+
+    constructor(x: any) {
+        super(x);
+        this.response = x;
+        this.message = "";
+    }
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Stepper, Step, StepLabel, Button, Typography} from '@material-ui/core';
 import "./Payments.css";
+import RightWindow from "./RightWindow";
 
 import FirstStep from "./FirstStep";
 import SecondStep from "./SecondStep";

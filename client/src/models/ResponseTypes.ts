@@ -40,3 +40,10 @@ export type LogoutResponse = GenericApiResponse<
     undefined,
     "auth/sign-out/success" | "auth/sign-out/not-signed-in"
 >;
+
+export type SignUpResponse = GenericApiResponse<
+    undefined,
+    | "auth/sign-up/email-illegal-format"
+    | "auth/sign-up/success"
+    | "auth/sign-up/unknown-error"
+>;

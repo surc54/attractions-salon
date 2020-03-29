@@ -1,4 +1,3 @@
-import axios from "./axios";
 import { AxiosRequestConfig } from "axios";
 
 type HttpMethod =
@@ -15,6 +14,13 @@ type HttpMethod =
 interface IConfig {
     apiUrls: {
         [desc: string]: AxiosRequestConfig & { url: string };
+    };
+    theme: {
+        [desc: string]: any;
+    };
+    adminPage: {
+        rolesAllowed: string[];
+        [tag: string]: any;
     };
     [tag: string]: any;
 }
@@ -44,6 +50,26 @@ const Config: IConfig = {
                 ...noCache,
             },
         },
+        "signup user": {
+            url: "/api/account",
+            method: "PUT",
+            headers: {
+                ...noCache,
+            },
+        },
+    },
+    theme: {
+        palette: {
+            primary: {
+                main: "#E7A1AF",
+            },
+        },
+        typography: {
+            htmlFontSize: 10,
+        },
+    },
+    adminPage: {
+        rolesAllowed: ["Admin", "Owner"],
     },
 };
 

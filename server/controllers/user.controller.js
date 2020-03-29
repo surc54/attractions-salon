@@ -1,6 +1,7 @@
 const express = require("express");
 const validator = require("validator").default;
 const passport = require("passport");
+const axios = require("axios").default;
 const {
     requiredBody,
     mongoErrors,
@@ -8,6 +9,7 @@ const {
     send_code_success,
 } = require("../tools");
 const User = require("../models/user.model");
+const querystring = require("querystring");
 
 const UID_REGEX = /[A-Za-z0-9\-_]+/;
 const ACCOUNTS_PER_PAGE = 10;
@@ -70,15 +72,17 @@ module.exports.signOut = (req, res) => {
 
 module.exports.create = [
     requiredBody(
-        ["email", "password", "firstName", "lastName"],
+        ["email", "password", "firstName", "lastName", "recaptchaToken"],
+        undefined,
         "auth/sign-up/missing-%s"
     ),
-    (req, res) => {
+    async (req, res) => {
         const {
             email,
             password,
             firstName: raw_firstName,
             lastName: raw_lastName,
+            recaptchaToken,
         } = req.body;
 
         if (!validator.isEmail(email)) {
@@ -88,6 +92,35 @@ module.exports.create = [
 
         const firstName = validator.escape(raw_firstName);
         const lastName = validator.escape(raw_lastName);
+
+        let recaptchaResult = null;
+
+        try {
+            recaptchaResult = await axios.post(
+                "https://www.google.com/recaptcha/api/siteverify",
+                querystring.stringify({
+                    secret:
+                        process.env.RECAPTCHA_SECRET ||
+                        require("../config/config").recaptcha.v2.secretKey,
+                    response: recaptchaToken,
+                })
+            );
+        } catch (e) {
+            send_code_error(res, 502, "auth/sign-up/recaptcha-failed");
+            return;
+        }
+
+        if (
+            !recaptchaResult ||
+            recaptchaResult.status !== 200 ||
+            !recaptchaResult.data ||
+            !recaptchaResult.data.success
+        ) {
+            send_code_error(res, 502, "auth/sign-up/recaptcha-failed");
+            return;
+        }
+
+        // recaptcha passed!
 
         const user = new User({
             name: {

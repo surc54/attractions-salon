@@ -46,6 +46,7 @@ const LoginRedirect: React.FC<LoginRedirectProps> = ({
         return () => {
             if (timer) clearInterval(timer);
         };
+        // eslint-disable-next-line
     }, [progress, cancel]);
 
     return (
