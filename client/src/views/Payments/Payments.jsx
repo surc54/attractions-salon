@@ -46,9 +46,9 @@ function getSteps() {
 function getStepContent(stepIndex) {
     switch (stepIndex) {
         case 0:
-            return <FirstStep />;
-        case 1:
             return <SecondStep />;
+        case 1:
+            return <FirstStep />;
         case 2:
             return "This is the bit I really care about!";
         default:

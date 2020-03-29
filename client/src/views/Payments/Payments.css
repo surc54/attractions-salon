@@ -28,36 +28,9 @@
     flex: 1 0;
 }
 
-.appointmentWindow {
-    position: relative;
-}
-
-.amountDueWindow {
-    position: relative;
-}
-
-.quickLinksWindow {
-}
-
 .scheduleButton {
-    /* float: right; */
-    position: absolute;
-    top: -30px;
-    right: -500px;
     background-color: #79e827;
     border: green;
-}
-
-.amountDue {
-    position: absolute;
-    top: -10px;
-    right: 5px;
-}
-
-.sentence {
-    justify-content: center;
-    align-items: center;
-    vertical-align: middle;
 }
 
 .titleInitialPage{
@@ -68,3 +41,21 @@
     font-size: 2rem;
 }
 
+.page2Title{
+    margin: 4px;
+}
+
+.paperHeader{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+.p2Paper{
+    padding: 10px;
+}
+
+.linkPaper{
+    padding: 10px;
+    margin-top: 10px;
+}

@@ -9,20 +9,18 @@ const AmountDueWindow = props => {
     const inStyle = useStyles();
     return (
         <div className="amountDueWindow">
-            <h2>Amount Due</h2>
-            <h1 className="amountDue">$420.00</h1>
-            <p className="sentence"><b>Pay in advance</b></p>
-            <div className="paymentButtons">
-                <ButtonBase className={inStyle.customButton}>
-                    <span>Pay with</span>
-                    <span style={{ width: "5px" }} />
-                    <img
-                        src={PaypalLogo}
-                        alt="Paypal"
-                        className={inStyle.img}
-                    ></img>
+            <div className="paperHeader">
+                <h2 className="page2Title">Amount Due</h2>
+                <ButtonBase className="scheduleButton">
+                    <h2 style={{margin: "4px"}}>$425.00</h2>
                 </ButtonBase>
-                <ButtonBase className={inStyle.customButton}>
+            </div>
+
+
+
+            <b>Choose your prefered payment method:</b>
+            <div className="paymentButtons">
+                <ButtonBase className={inStyle.squareButton}>
                     <span>Pay with</span>
                     <img
                         src={SquareLogo}
@@ -31,27 +29,50 @@ const AmountDueWindow = props => {
                     ></img>
                 </ButtonBase>
             </div>
-            <p><b>Or pay in-store</b></p>
+
+            <b>Or pay in-store</b>
+            <div className="paymentButtons">
+                <ButtonBase className={inStyle.customButton}>
+                    <span>Pay when you arrive</span>
+                </ButtonBase>
+            </div>
         </div>
     );
 };
 
+/**
+ * <ButtonBase className={inStyle.paypalButton}>
+                    <span>Pay with</span>
+                    <span style={{ width: "5px" }} />
+                    <img
+                        src={PaypalLogo}
+                        alt="Paypal"
+                        className={inStyle.img}
+                    ></img>
+    </ButtonBase>
+ */
+
 const useStyles = makeStyles(theme => ({
     paypalButton: {
+        display: "flex",
         width: "50%",
         height: "40px",
-        minHeight: "40px",
         background: "#ffc439",
-        maxHeight: "40px",
-        color: "blue",
+        borderRadius: "10px",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "5px",
     },
     squareButton: {
+        display: "flex",
         width: "50%",
         height: "40px",
-        minHeight: "40px",
-        background: "#000000",
-        maxHeight: "40px",
-        color: "white",
+        background: "#ffffff",
+        borderRadius: "10px",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "5px",
+        border: "solid black",
     },
     button: {
         width: "50%",
@@ -64,11 +85,12 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         width: "50%",
         height: "40px",
-        background: "#ffc439",
+        background: "#ffffff",
         borderRadius: "10px",
         justifyContent: "center",
         alignItems: "center",
         margin: "5px",
+        border: "solid black",
     },
     img: {
         width: "40%",

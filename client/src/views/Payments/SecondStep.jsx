@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
 
 import AppointmentWindow from "./AppointmentWindow";
@@ -7,29 +7,29 @@ import QuickLinksWindow from "./QuickLinksWindow";
 import AmountDueWindow from "./AmountDueWindow";
 
 const useStyles = makeStyles(theme => ({
-
+    page2: {
+        justifyContent: "center", 
+        height: "48rem",
+    },
 }));
 
 const SecondStep = props => {
     const classes = useStyles();
     return (
-        <Grid container spacing={2} justify="space-evenly" direction="row">
-            <Grid item xs={4}>
-                <Paper className={classes.paper} elevation={1}>
+        <Grid container classes={{container: classes.page2}}>
+            {/**            use soemthing else to make it more responsive */}
+            <Grid item xs={4} spacing={1} style={{marginRight: "60px"}}>
+                <Paper elevation={1} className="p2Paper">
                     <AppointmentWindow />
                 </Paper>
             </Grid>
-            <Grid container alignItems="flex-end" spacing={2} justify="center">
-                <Grid item xs={4}>
-                    <Paper className={classes.paper} elevation={1}>
-                        <AmountDueWindow />
-                    </Paper>
-                </Grid>
-                <Grid item xs={4}>
-                    <Paper className={classes.paper} elevation={1}>
-                        <QuickLinksWindow />
-                    </Paper>
-                </Grid>
+            <Grid item xs={4} spacing={1}>
+                <Paper elevation={1} className="p2Paper">
+                    <AmountDueWindow />
+                </Paper>
+                <Paper elevation={1} className="linkPaper">
+                    <QuickLinksWindow />
+                </Paper>
             </Grid>
         </Grid>
     );
