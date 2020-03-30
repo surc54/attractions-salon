@@ -90,7 +90,7 @@ const AdminBase: React.FC<AdminBaseProps> = () => {
                     <Router history={history}>
                         <Switch>
                             <Route
-                                path="/admin/misc/services"
+                                path="/admin/page/services"
                                 component={ServiceSettings}
                             />
                             <Route
