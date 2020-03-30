@@ -6,13 +6,17 @@
 .checkBoxes{
     padding-right: 10px;
 }
+.clearButton{
+    padding-right: 10px;
+    float: right;
+}
 .checkBoxName{
     margin-left: 5px;
     color: #E7A1AF;
 }
 .SideBarTitle{
     font-weight: 500;
-    justify-content: space-between;
+    margin-right: 5px;
 }
 
 .titleBox{
