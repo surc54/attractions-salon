@@ -7,7 +7,7 @@ const QuickLinksWindow = props => {
     return (
         <div className="quickLinksWindow">
             <h2 className="page2Title">Quick Links</h2>
-            <a className="quickLinks" href="#">Cancel your appointment</a>
+            <a className="quickLinks" href="./Book">Cancel your appointment</a>
             <br></br>
             <a className="quickLinks" href="./Book">How does scheduling work?</a>
             <br></br>

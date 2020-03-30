@@ -28,10 +28,10 @@ const RightWindow = () => {
                     display: "flex",
                     height: "60%",
                     padding: "8px",
-                    justifyContent: "space-around",
+                    justifyContent: "space-around"
                 }}
             >
-                <div>
+                <div style={{width: "70%", textAlign: "center"}}>
                     <h4>
                         Please enter your Booking Number:
                     </h4>
@@ -49,7 +49,7 @@ const RightWindow = () => {
                     classeName={{ root: classes.root }}
                 />
 
-                <div>
+                <div style={{width: "70%", textAlign: "center"}}>
                     <h4>
                         Or use your account information:
                     </h4>

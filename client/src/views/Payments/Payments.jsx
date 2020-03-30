@@ -75,7 +75,6 @@ const HorizontalLabelPositionBelowStepper = () => {
     };
 
     return (
-        <body background="./images/Rectangle1.png">
         <div className={classes.root}>
             <Stepper activeStep={activeStep} alternativeLabel>
                 {steps.map(label => (
@@ -123,6 +122,5 @@ const HorizontalLabelPositionBelowStepper = () => {
                 )}
             </div>
         </div>
-        </body>
     );
 };
