@@ -22,6 +22,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    /* background-image: url("./images/Rectangle1.png"), url("./images/Rectangle2.png"); */
+}
+
+body {
+    background-image: url("./images/Rectangle1.png"), url("./images/Rectangle2.png");
+    background-repeat: no-repeat;
+    background-position: bottom;
 }
 
 .verticalSpacer {
@@ -34,6 +41,14 @@
 }
 
 .titleInitialPage{
+    display: flex;
+    justify-content: center;
+    color: #E7A1AF;
+    font-family: Pacifico;
+    font-size: 4rem;
+}
+
+.titleInitialPage2{
     display: flex;
     justify-content: center;
     color: #E7A1AF;
@@ -58,4 +73,21 @@
 .linkPaper{
     padding: 10px;
     margin-top: 10px;
+}
+
+.servicesLink{
+    color: #E7A1AF;
+    text-decoration: none;
+}
+
+.servicesLink:hover {
+    text-decoration: underline;
+}
+
+.quickLinks{
+    color: #E7A1AF;
+    text-decoration: none;
+}
+.quickLinks:hover {
+    text-decoration: underline;
 }

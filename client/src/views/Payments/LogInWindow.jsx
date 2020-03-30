@@ -39,7 +39,7 @@ const RightWindow = () => {
                     <TextField
                         label="Booking Number"
                         variant="outlined"
-                        style={{marginLeft: "5px"}}
+                        style={{ marginLeft: "5px" }}
                     />
                 </div>
 
@@ -57,20 +57,20 @@ const RightWindow = () => {
                     <TextField
                         label="Email"
                         variant="outlined"
-                        style={{marginBottom: "5px", marginLeft: "5px"}}
+                        style={{ marginBottom: "5px", marginLeft: "5px" }}
                     />
-                    <br/>
+                    <br />
                     <TextField
                         label="Password"
                         variant="outlined"
-                        style={{marginLeft: "5px"}}
+                        style={{ marginLeft: "5px" }}
                     />
                 </div>
             </div>
 
-            <div className="titleInitialPage">
-                Don't have an Appointment Number? Click here to shop for
-                services and book an appointment
+            <div className="titleInitialPage2">
+                Don't have an Appointment Number? <a className="servicesLink" href="./Services">Click here to shop for
+                services and book an appointment</a>
             </div>
         </div>
     );
