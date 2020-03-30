@@ -27,6 +27,9 @@ const useStyles = makeStyles(theme => ({
         marginLeft: 5,
         paddingTop: 5,
         paddingBottom: 5,
+        display: "flex",
+        justifyContent: "space-between",
+        marginRight: "5px",
     },
     root: {
         border: "1px solid rgba(0, 0, 0, 0.17)",
@@ -34,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const SideBar = props => {
+const SideBar = (props) => {
     const classes = useStyles();
     return (
         <div>
@@ -44,7 +47,15 @@ const SideBar = props => {
                         className="SideBarTitle"
                         value="???"
                         control={
-                            <Button className="checkBoxes" size="small" style={{float: "right"}}>
+                            <Button
+                                className="clearButton"
+                                size="small"
+                                style={{ float: "right" }}
+                                onClick={() => {
+                                    props.setFilterText("");
+                                    props.setFilterCat("");
+                                }}
+                            >
                                 Clear
                             </Button>
                         }
@@ -61,9 +72,15 @@ const SideBar = props => {
                         variant="filled"
                         autoComplete="off"
                         value={props.filterText}
-                        /*onChange={event => {
+                        onChange={event => {
                             props.setFilterText(event.target.value);
-                        }}*/
+
+                            // props.setFilterData(
+                            //     props.services.filter(item =>
+                            //         item.name.includes(event.target.value)
+                            //     )
+                            // );
+                        }}
                         style={{ width: "100%" }}
                     />
                 </div>
@@ -132,7 +149,7 @@ const SideBar = props => {
                 >
                     Request an appointment
                 </Button>
-                <CartList/>
+                <CartList />
             </div>
         </div>
     );
