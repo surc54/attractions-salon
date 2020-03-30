@@ -133,14 +133,14 @@ body {
         margin-bottom: 80px; // Separation for bottom
 
         .left {
-            .sliderr {
+            .slideshow {
                 // top: -10vh; // only usable with absolute or other positioning
                 // left: 40%;
 
                 // width: 600px;
                 width: 100%; // set width to 100% of container
                 height: 500px; // increased to look better
-                background: #e1e1e1;
+                // background: #e1e1e1;
 
                 // Add some flex for centering
                 display: flex;
@@ -575,3 +575,5 @@ h2.sectionTitle {
     overflow: hidden;
     background: rgba(231, 161, 175, 0.35);
 }
+
+
