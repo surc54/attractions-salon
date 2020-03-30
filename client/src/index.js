@@ -3,6 +3,7 @@ import "./components/global.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Router } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
 import history from "./models/history";
 import * as serviceWorker from "./serviceWorker";
 import App from "./App";
@@ -11,17 +12,9 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import reduxThunk from "redux-thunk";
 import reducers from "./reducers";
+import Config from "./models/Config";
 
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: "#E7A1AF",
-        },
-    },
-    typography: {
-        htmlFontSize: 10,
-    },
-});
+const theme = createMuiTheme(Config.theme);
 
 const composeEnhancers =
     typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -37,9 +30,15 @@ const store = createStore(reducers, enhancer);
 ReactDOM.render(
     <Provider store={store}>
         <ThemeProvider theme={theme}>
-            <Router history={history}>
-                <App />
-            </Router>
+            <SnackbarProvider
+                max={3}
+                hideIconVariant
+                classes={{ root: "mat-ui-snackbar-root" }}
+            >
+                <Router history={history}>
+                    <App />
+                </Router>
+            </SnackbarProvider>
         </ThemeProvider>
     </Provider>,
     document.getElementById("root")

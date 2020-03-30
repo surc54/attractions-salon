@@ -7,9 +7,6 @@ const AccountMenu: React.FC<AccountMenuProps> = ({
     open,
     ...others
 }) => {
-    const onMenuItemClick = () => {
-        onClose();
-    };
     const theme = useTheme();
 
     return (
