@@ -9,9 +9,13 @@
     margin-top: 64
 } */
 
-.bigDiv {
-    margin-top: 95px;
-    padding: 50px;
+.content {
+    padding: 150px;
     position: relative;
     height: 100%;
+}
+
+.title {
+    font-family: "Pacifico, sans-serif";
+    display: inline-block;
 }
