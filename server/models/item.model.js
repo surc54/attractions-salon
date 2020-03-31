@@ -12,4 +12,6 @@ const serviceItem = new mongoose.Schema({
 
 });
 
+{/**afdgdfbdfdbfd */}
+
 module.exports = mongoose.model('serviceItem', serviceItem);
