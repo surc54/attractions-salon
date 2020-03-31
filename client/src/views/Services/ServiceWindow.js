@@ -46,7 +46,7 @@ const MediaCard = props => {
                                   variant="h6"
                                   component="h2"
                               >
-                                  {group.groupName}
+                                  {group.groupName} 
                               </Typography>
                               <Typography
                                   gutterBottom

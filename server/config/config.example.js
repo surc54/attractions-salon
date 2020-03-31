@@ -3,6 +3,6 @@
 
 module.exports = {
     db: {
-        uri: 'mongodb+srv://user:test@cen3031-spring-2020-0ulto.mongodb.net/test?retryWrites=true&w=majority', //place the URI of your mongo database here.
+        uri: "", //place the URI of your mongo database here.
     },
 };

@@ -1,5 +1,4 @@
 import "normalize.css/normalize.css";
-import "semantic-ui-css/semantic.min.css";
 import "./components/global.scss";
 import React from "react";
 import ReactDOM from "react-dom";
