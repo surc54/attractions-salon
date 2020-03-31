@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, TextField, Typography } from '@material-ui/core';
+import { Button, Grid, TextField, Typography } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import "./Book.css";
@@ -13,13 +13,16 @@ const Book = props => {
     
     return (
         <div className="content">
-            <Typography color="primary" variant="h4" className="title">
-                Book an Appointment
-            </Typography>
             <form noValidate>
-                <Grid container spacing={0}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <Typography color="primary" variant="h4" style={styles.title}>
+                            Book an Appointment
+                        </Typography>
+                    </Grid>
                     <Grid item xs={6}>
                         <TextField
+                        fullWidth
                         required
                         id="outlined-required"
                         label="Name"
@@ -28,6 +31,7 @@ const Book = props => {
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
+                        fullWidth
                         required
                         id="outlined-required"
                         label="Phone"
@@ -40,7 +44,7 @@ const Book = props => {
                                 <KeyboardDatePicker
                                 margin="normal"
                                 id="date-picker-dialog"
-                                label="Date picker dialog"
+                                label="Select date"
                                 format="MM/dd/yyyy"
                                 value={selectedDate}
                                 onChange={handleDateChange}
@@ -51,7 +55,7 @@ const Book = props => {
                                 <KeyboardTimePicker
                                 margin="normal"
                                 id="time-picker"
-                                label="Time picker"
+                                label="Select time"
                                 value={selectedDate}
                                 onChange={handleDateChange}
                                 KeyboardButtonProps={{
@@ -61,10 +65,24 @@ const Book = props => {
                             </Grid>
                         </MuiPickersUtilsProvider>
                     </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                        key={"Request an appointment"}
+                        variant="contained"
+                        color="primary"
+                        style={{ width: "100%", marginTop: 15, marginBottom: 20 }}>Submit</Button>
+                    </Grid>
                 </Grid>
             </form>
         </div>
     );
+};
+
+const styles = {
+    title: {
+        fontFamily: "Pacifico, sans-serif",
+        display: "inline-block"
+    }
 };
 
 export default Book;
