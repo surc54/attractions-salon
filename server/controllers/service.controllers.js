@@ -25,7 +25,7 @@ const TEMP_DATA_LIST_FILE = path.resolve(
 }
 
 module.exports.list = (req, res) => {
-    //
+    
     // initialize database
     // servicesArray.forEach(item => {
     //     // this works
