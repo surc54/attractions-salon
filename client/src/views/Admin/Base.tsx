@@ -16,6 +16,7 @@ import Config from "../../models/Config";
 import { useSnackbar } from "notistack";
 import NotFound from "../404/NotFound";
 import UserSettings from "./pages/UserSettings";
+import ServiceSettings from "./pages/ServiceSettings";
 
 /**
  * Purpose:
@@ -88,6 +89,10 @@ const AdminBase: React.FC<AdminBaseProps> = () => {
                 <main className={styles.content}>
                     <Router history={history}>
                         <Switch>
+                            <Route
+                                path="/admin/page/services"
+                                component={ServiceSettings}
+                            />
                             <Route
                                 path="/admin/misc/users"
                                 component={UserSettings}
