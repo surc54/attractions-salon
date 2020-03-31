@@ -46,7 +46,7 @@ const AppointmentWindow = props => {
                     Scheduled
                 </Button>
             </div>
-            <p>March 28, 2020 at 2:30 PM</p>
+            <p>March 31, 2020 at 2:30 PM</p>
             <h4>Scheduled Items</h4>
             <List>
                 <ListItem button onClick={handleClick}>

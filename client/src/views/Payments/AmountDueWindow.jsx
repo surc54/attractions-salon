@@ -16,8 +16,6 @@ const AmountDueWindow = props => {
                 </ButtonBase>
             </div>
 
-
-
             <b>Choose your prefered payment method:</b>
             <div className="paymentButtons">
                 <ButtonBase className={inStyle.squareButton}>
