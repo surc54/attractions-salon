@@ -1,0 +1,17 @@
+/* .Book {
+    background-image: url(https://images.pexels.com/photos/1831234/pexels-photo-1831234.jpeg?cs=srgb&dl=pink-clouds-1831234.jpg&fm=jpg);
+    height:100%;
+}
+
+
+
+.window {
+    margin-top: 64
+} */
+
+.bigDiv {
+    margin-top: 95px;
+    padding: 50px;
+    position: relative;
+    height: 100%;
+}
