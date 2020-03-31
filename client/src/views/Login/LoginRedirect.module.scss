@@ -1,0 +1,14 @@
+.wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin-top: 24px;
+    width: 100%;
+
+    > .text {
+        margin-left: 16px;
+        margin-right: 10px;
+    }
+}

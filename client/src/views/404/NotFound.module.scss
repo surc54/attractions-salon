@@ -1,0 +1,61 @@
+div.wrapper {
+    padding: 72px 0 8px 0;
+    min-height: 100%;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+    div.container {
+        img {
+            width: 100%;
+        }
+
+        div.actions {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+
+            button {
+                :global(.spacer) {
+                    min-width: 18px;
+                    flex: 0;
+                }
+
+                justify-content: flex-start;
+
+                max-width: 100%;
+                width: 300px;
+
+                margin-bottom: 12px;
+            }
+        }
+    }
+
+    &.small {
+        div.container {
+            .left {
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    width: 300px;
+                    max-width: 100%;
+                }
+            }
+
+            .right {
+                padding-top: 24px;
+                text-align: center;
+
+                .actions {
+                    align-items: center;
+                }
+            }
+        }
+    }
+}
