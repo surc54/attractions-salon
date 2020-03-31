@@ -1,11 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
+import styles from "./Home.module.scss";
 import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(theme => ({
@@ -31,7 +27,7 @@ export default function SpacingGrid() {
         <Grid container justify="center" spacing={spacing}>
           {[0, 1, 2].map(value => (
             <Grid key={value} item>
-              <Paper className='stylist1' />
+              <Paper className={styles["stylist1"]} />
             </Grid>
           ))}
         </Grid>
