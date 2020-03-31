@@ -11,15 +11,23 @@ const UNIMPLEMENTED = {
 router.get("/", ServiceController.list);
 
 // Get info about specific service
-router.get("/:id", ServiceController.read);
+router.get("/:id", (req, res) => {
+    res.send(UNIMPLEMENTED);
+});
 
 // Add service
-router.post("/", ServiceController.create); // unsure if POST = create or update
+router.put("/", (req, res) => {
+    res.send(UNIMPLEMENTED);
+});
 
 // Modify service
-router.put("/:id", ServiceController.update);
+router.post("/:id", (req, res) => {
+    res.send(UNIMPLEMENTED);
+});
 
 // Remove service
-router.delete("/:id", ServiceController.delete);
+router.delete("/:id", (req, res) => {
+    res.send(UNIMPLEMENTED);
+});
 
 module.exports = router;
