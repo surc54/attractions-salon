@@ -7,25 +7,17 @@ const QuickLinksWindow = props => {
     return (
         <div className="quickLinksWindow">
             <h2 className="page2Title">Quick Links</h2>
-            <Typography>
-                <Link href="#" onClick={preventDefault} component="button">
-                    Cancel your appointment
-                </Link>
-                <br></br>
-                <Link href="#" onClick={preventDefault} component="button">
-                    How does scheduling work?
-                </Link>
-                <br></br>
-                <Link href="#" onClick={preventDefault} component="button">
-                    Where will my appointment take place?
-                </Link>
-                <br></br>
-                <Link href="#" onClick={preventDefault} component="button">
-                    Call Attractions Salon
-                </Link>
-            </Typography>
-        </div>
+            <a className="quickLinks" href="./Book">Cancel your appointment</a>
+            <br></br>
+            <a className="quickLinks" href="./Book">How does scheduling work?</a>
+            <br></br>
+            <a className="quickLinks" href="..">Where will my appointment take place?</a>
+            <br></br>
+            <a className="quickLinks" href="..">Call Attractions Salon</a>
+        </div >
     );
 };
 
 export default QuickLinksWindow;
+
+//Where do we direct users to when they want to cancel the appointment?

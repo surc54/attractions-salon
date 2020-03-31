@@ -1,29 +1,25 @@
 import React, { Component } from "react";
 import "./styles.css";
+import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import TextField from '@material-ui/core/TextField';
+
 
 const styles = {
   name: {
-    verticalAlign: "top",
-    display: "none",
-    margin: 0,
-    border: "none",
-    fontSize: "16px",
-    fontFamily: "Helvetica Neue",
-    padding: "16px",
-    color: "#373F4A",
-    backgroundColor: "transparent",
-    lineHeight: "1.15em",
-    placeholderColor: "#000",
-    _webkitFontSmoothing: "antialiased",
-    _mozOsxFontSmoothing: "grayscale"
+    fontSize: '16px',
+    lineHeight: '24px',
+    padding: '16px',
+    placeholderColor: '#a0a0a0',
+    backgroundColor: 'transparent',
   },
   leftCenter: {
-    float: "left",
-    textAlign: "center"
+    color: "#000000"
   },
   blockRight: {
     display: "block",
-    float: "right"
+    float: "right",
+    color: "#56cef0"
   },
   center: {
     textAlign: "center"
@@ -49,21 +45,18 @@ export default class PaymentForm extends Component {
 
   componentDidMount() {
     const config = {
-      applicationId: "sq0idp-rARHLPiahkGtp6mMz2OeCA",
+      // applicationId: "sq0idp-rARHLPiahkGtp6mMz2OeCA",
+      applicationId: "sandbox-sq0idb-DCGr-WwXIDnp-bFL5LHROw", //For testing
       locationId: "GMT96A77XABR1",
       inputClass: "sq-input",
       autoBuild: false,
       inputStyles: [
         {
-          fontSize: "16px",
-          fontFamily: "Helvetica Neue",
-          padding: "16px",
-          color: "#373F4A",
-          backgroundColor: "transparent",
-          lineHeight: "1.15em",
-          placeholderColor: "#000",
-          _webkitFontSmoothing: "antialiased",
-          _mozOsxFontSmoothing: "grayscale"
+          fontSize: '16px',
+          lineHeight: '24px',
+          padding: '16px',
+          placeholderColor: '#a0a0a0',
+          backgroundColor: 'transparent',
         }
       ],
       applePay: {
@@ -77,7 +70,8 @@ export default class PaymentForm extends Component {
       },
       cardNumber: {
         elementId: "sq-card-number",
-        placeholder: "• • • •  • • • •  • • • •  • • • •"
+        // placeholder: "• • • •  • • • •  • • • •  • • • •"
+        placeholder: "Card Number"
       },
       cvv: {
         elementId: "sq-cvv",
@@ -134,7 +128,7 @@ export default class PaymentForm extends Component {
           if (errors) {
             // Log errors from nonce generation to the Javascript console
             console.log("Encountered errors:");
-            errors.forEach(function(error) {
+            errors.forEach(function (error) {
               console.log("  " + error.message);
             });
 
@@ -142,9 +136,9 @@ export default class PaymentForm extends Component {
           }
           this.setState({
             nonce: nonce
-          });
+          })
         },
-        unsupportedBrowserDetected: () => {},
+        unsupportedBrowserDetected: () => { },
         inputEventReceived: inputEvent => {
           switch (inputEvent.eventType) {
             case "focusClassAdded":
@@ -152,8 +146,7 @@ export default class PaymentForm extends Component {
             case "focusClassRemoved":
               break;
             case "errorClassAdded":
-              document.getElementById("error").innerHTML =
-                "Please fix card information errors before continuing.";
+              document.getElementById("error").innerHTML = "<span style='color: red;'>Please fix card information errors before continuing</span>";
               break;
             case "errorClassRemoved":
               document.getElementById("error").style.display = "none";
@@ -175,7 +168,7 @@ export default class PaymentForm extends Component {
               break;
           }
         },
-        paymentFormLoaded: function() {
+        paymentFormLoaded: function () {
           document.getElementById("name").style.display = "inline-flex";
         }
       }
@@ -208,25 +201,28 @@ export default class PaymentForm extends Component {
           </div>
 
           <div id="sq-ccbox">
-            <p>
-              <span style={styles.leftCenter}>Enter Card Info Below </span>
-              <span style={styles.blockRight}>
-                {this.state.cardBrand.toUpperCase()}
-              </span>
-            </p>
-            <div id="cc-field-wrapper">
-              <div id="sq-card-number" />
-              <input type="hidden" id="card-nonce" name="nonce" />
-              <div id="sq-expiration-date" />
-              <div id="sq-cvv" />
+            <div className="textThirdStep">
+              <p>
+                <span style={styles.leftCenter}>Enter Card Info Below </span>
+                <span style={styles.blockRight}>
+                  {this.state.cardBrand.toUpperCase()}
+                </span>
+              </p>
             </div>
-            <input
-              id="name"
-              style={styles.name}
-              type="text"
-              placeholder="Name"
-            />
-            <div id="sq-postal-code" />
+
+            <div className="nameDiv">  
+              <TextField
+                id="name"
+                variant="outlined"
+                type="text"
+                placeholder="Name"
+              />
+            </div>
+            <div id="sq-card-number"></div>
+            <input type="hidden" id="card-nonce" name="nonce" />
+            <div className="third" id="sq-expiration-date" />
+            <div className="third" id="sq-cvv" />
+            <div className="third" id="sq-postal-code" />
           </div>
           <button
             className="button-credit-card"
@@ -237,6 +233,6 @@ export default class PaymentForm extends Component {
         </div>
         <p style={styles.center} id="error" />
       </div>
-    );
+    )
   }
 }

@@ -1,7 +1,7 @@
-#sq-cvv {
-    width: 60px;
+  #sq-cvv {
+      width: 60px;
   }
-  
+   
   #sq-expiration-date {
     width: 75px;
   }
@@ -25,11 +25,11 @@
     transition: all 400ms linear;
     width: 365px;
     height: 200px;
-    background-color: rgb(60, 121, 253);
+    background-color: rgb(255, 255, 255);
     padding: 10px;
     margin: 0 auto;
     color: #ccc;
-    font-weight: 600;
+    font-weight: normal;
   }
   
   #sq-walletbox {
@@ -39,30 +39,40 @@
   }
   
   #sq-card-number {
-    width: 200px;
+    /* width: 200px; */
+    margin-bottom: 16px;
   }
-  
+
   #cc-field-wrapper {
-    padding-top: 50px;
+    padding-top: 10px;
     margin: 0;
     display: inline-flex;
   }
   
   button.button-credit-card {
+    width: 100%;
+    height: 56px;
+    margin-top: 10px;
+    background: #4A90E2;
+    border-radius: 6px;
+    cursor: pointer;
     display: block;
-    line-height: 1.25em;
-    vertical-align: middle;
-    height: 45px;
-    width: 385px;
-    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    letter-spacing: 0;
     text-align: center;
-    margin: 5px auto;
-    font-size: 22px;
-    font-weight: 600;
-    background-color: #000;
-    color: #fff;
+    -webkit-transition: background .2s ease-in-out;
+       -moz-transition: background .2s ease-in-out;
+        -ms-transition: background .2s ease-in-out;
+            transition: background .2s ease-in-out;
   }
   
+  button.button-credit-card:hover {
+    background-color: #4281CB;
+  }
+
   button.wallet-button {
     display: block;
     margin: 5px auto;
@@ -76,6 +86,10 @@
   
   #form-container {
     width: 100%;
+    position: relative;
+    /* width: 380px; */
+    margin: 0 auto;
+    /* top: 50%; */
   }
   
   /* Customize the Apple Pay on the Web button */
@@ -135,16 +149,62 @@
       0 1px 3px 1px rgba(60, 64, 67, 0.15);
     cursor: pointer;
   }
-  
+
   input::placeholder {
     color: #000;
   }
   
   .sq-input--focus {
-    outline: -webkit-focus-ring-color auto 5px;
+    /* outline: -webkit-focus-ring-color auto 5px; */
+    border: 1px solid #4A90E2;
   }
   
   .sq-input--error {
-    box-shadow: inset 0px 0px 0px 3px rgba(255, 0, 0, 0.5);
+    /* box-shadow: inset 0px 0px 0px 3px rgba(255, 0, 0, 0.5); */
+    border: 1px solid #E02F2F;
   }
   
+  .sq-input {
+    height: 56px;
+    box-sizing: border-box;
+    border: 1px solid #E0E2E3;
+    background-color: white;
+    border-radius: 6px;
+    display: inline-block;
+    -webkit-transition: border-color .2s ease-in-out;
+       -moz-transition: border-color .2s ease-in-out;
+        -ms-transition: border-color .2s ease-in-out;
+            transition: border-color .2s ease-in-out;
+  }
+
+  .third {
+    float: left;
+    width: calc((100% - 32px) / 3);
+    padding: 0;
+    margin: 0 16px 16px 0;
+  }
+  
+  .third:last-of-type {
+    margin-right: 0;
+  }
+
+  #name {
+    height: 56px;
+    box-sizing: border-box;
+    border: 1px solid #E0E2E3;
+    background-color: white;
+    border-radius: 6px;
+    display: inline-block;
+    -webkit-transition: border-color .2s ease-in-out;
+       -moz-transition: border-color .2s ease-in-out;
+        -ms-transition: border-color .2s ease-in-out;
+            transition: border-color .2s ease-in-out;
+  }
+
+  .nameDiv {
+    margin-bottom: 16px;
+  }
+
+  .textThirdStep {
+    margin-bottom: 16px;
+  }

@@ -12,7 +12,7 @@ import RightWindow from "./RightWindow";
 
 import FirstStep from "./FirstStep";
 import SecondStep from "./SecondStep";
-import App from "./SquareAPI/App";
+import ThirdStep from "./ThirdStep";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -52,7 +52,7 @@ function getStepContent(stepIndex) {
         case 1:
             return <SecondStep />;
         case 2:
-            return <App></App>;
+            return <ThirdStep />;
         default:
             return "Unknown stepIndex";
     }

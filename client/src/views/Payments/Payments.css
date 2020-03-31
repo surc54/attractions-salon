@@ -24,6 +24,20 @@
     justify-content: space-around;
 }
 
+body {
+    background-image: 
+        url("./images/Rectangle1.png"), 
+        url("./images/Rectangle2.png");
+    background-position: 
+        bottom, 
+        bottom;
+    background-size: 
+        auto,
+        auto;       
+    background-repeat: no-repeat;
+}
+
+
 .verticalSpacer {
     flex: 1 0;
 }
@@ -34,6 +48,14 @@
 }
 
 .titleInitialPage{
+    display: flex;
+    justify-content: center;
+    color: #E7A1AF;
+    font-family: Pacifico;
+    font-size: 4rem;
+}
+
+.titleInitialPage2{
     display: flex;
     justify-content: center;
     color: #E7A1AF;
@@ -59,3 +81,23 @@
     padding: 10px;
     margin-top: 10px;
 }
+<<<<<<< HEAD
+=======
+
+.servicesLink{
+    color: #E7A1AF;
+    text-decoration: none;
+}
+
+.servicesLink:hover {
+    text-decoration: underline;
+}
+
+.quickLinks{
+    color: #E7A1AF;
+    text-decoration: none;
+}
+.quickLinks:hover {
+    text-decoration: underline;
+}
+>>>>>>> d0a8f069572f56d9788b7e0948df8e2fd68b651f

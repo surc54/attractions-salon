@@ -4,6 +4,7 @@ import NavBar from "./components/Header/NavBar";
 import Home from "./views/Home/Home";
 import Testimonials from "./views/Testimonials/Testimonials";
 import NotFound from "./views/404/NotFound";
+import Book from "./views/Book/Book.jsx";
 import Payments from "./views/Payments/Payments";
 import Services from "./views/Services/Services";
 import Login from "./views/Login/Login";
@@ -24,7 +25,7 @@ const routes = [
     {
         exact: false,
         path: "/book",
-        component: NotFound,
+        component: Book,
     },
     {
         exact: false,

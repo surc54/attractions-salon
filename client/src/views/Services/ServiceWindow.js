@@ -109,7 +109,7 @@ const MediaCard = ({ services, filterText, filterCat }) => {
                             </CardActions>
                         </Card>
                     );
-                })}
+                })} {/**afdgdfbdfdbfd */}
         </div>
     );
 };
