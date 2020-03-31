@@ -27,14 +27,11 @@
 body {
     background-image: 
         url("./images/Rectangle1.png"), 
-        url("./images/Rectangle2.png"), 
-        url("./images/Rectangle3.png");
+        url("./images/Rectangle2.png");
     background-position: 
         bottom, 
-        bottom, 
-        top;
+        bottom;
     background-size: 
-        auto,
         auto,
         auto;       
     background-repeat: no-repeat;
