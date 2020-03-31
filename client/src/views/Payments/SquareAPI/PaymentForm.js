@@ -7,19 +7,6 @@ import TextField from '@material-ui/core/TextField';
 
 const styles = {
   name: {
-    // verticalAlign: "top",
-    // display: "none",
-    // margin: 0,
-    // border: "none",
-    // fontSize: "16px",
-    // fontFamily: "Helvetica Neue",
-    // padding: "16px",
-    // color: "#373F4A",
-    // backgroundColor: "transparent",
-    // lineHeight: "1.15em",
-    // placeholderColor: "#000",
-    // _webkitFontSmoothing: "antialiased",
-    // _mozOsxFontSmoothing: "grayscale"
     fontSize: '16px',
     lineHeight: '24px',
     padding: '16px',
@@ -65,15 +52,6 @@ export default class PaymentForm extends Component {
       autoBuild: false,
       inputStyles: [
         {
-          // fontSize: "16px",
-          // fontFamily: "Helvetica Neue",
-          // padding: "16px",
-          // color: "#373F4A",
-          // backgroundColor: "transparent",
-          // lineHeight: "1.15em",
-          // placeholderColor: "#000",
-          // _webkitFontSmoothing: "antialiased",
-          // _mozOsxFontSmoothing: "grayscale"
           fontSize: '16px',
           lineHeight: '24px',
           padding: '16px',
@@ -158,7 +136,7 @@ export default class PaymentForm extends Component {
           }
           this.setState({
             nonce: nonce
-          });
+          })
         },
         unsupportedBrowserDetected: () => { },
         inputEventReceived: inputEvent => {
@@ -231,21 +209,8 @@ export default class PaymentForm extends Component {
                 </span>
               </p>
             </div>
-            {/* <TextField
-              id="name"
-              variant="outlined"
-              type="text"
-              style={styles.name}
-              placeholder="Name"
-            /> */}
-            {/* <div id="cc-field-wrapper">
-              <div id="sq-card-number" />
-              <input type="hidden" id="card-nonce" name="nonce" />
-              <div className="third" id="sq-expiration-date" />
-              <div className="third" id="sq-cvv" />
-            </div> */}
-            <div className="nameDiv">
-              
+
+            <div className="nameDiv">  
               <TextField
                 id="name"
                 variant="outlined"
@@ -268,6 +233,6 @@ export default class PaymentForm extends Component {
         </div>
         <p style={styles.center} id="error" />
       </div>
-    );
+    )
   }
 }

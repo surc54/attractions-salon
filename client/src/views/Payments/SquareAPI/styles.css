@@ -1,6 +1,6 @@
-#sq-cvv {
-    width: 60px;
-}
+  #sq-cvv {
+      width: 60px;
+  }
    
   #sq-expiration-date {
     width: 75px;
@@ -50,18 +50,6 @@
   }
   
   button.button-credit-card {
-    /* display: block;
-    line-height: 1.25em;
-    vertical-align: middle;
-    height: 45px;
-    width: 385px;
-    border-radius: 5px;
-    text-align: center;
-    margin: 5px auto;
-    font-size: 22px;
-    font-weight: 600;
-    background-color: #000;
-    color: #fff; */
     width: 100%;
     height: 56px;
     margin-top: 10px;
