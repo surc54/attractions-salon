@@ -81,3 +81,20 @@ body {
     padding: 10px;
     margin-top: 10px;
 }
+
+.servicesLink{
+    color: #E7A1AF;
+    text-decoration: none;
+}
+
+.servicesLink:hover {
+    text-decoration: underline;
+}
+
+.quickLinks{
+    color: #E7A1AF;
+    text-decoration: none;
+}
+.quickLinks:hover {
+    text-decoration: underline;
+}
