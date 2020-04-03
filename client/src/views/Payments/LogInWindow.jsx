@@ -28,13 +28,11 @@ const RightWindow = () => {
                     display: "flex",
                     height: "60%",
                     padding: "8px",
-                    justifyContent: "space-around"
+                    justifyContent: "space-around",
                 }}
             >
-                <div style={{width: "70%", textAlign: "center"}}>
-                    <h4>
-                        Please enter your Booking Number:
-                    </h4>
+                <div style={{ width: "70%", textAlign: "center" }}>
+                    <h4>Please enter your Booking Number:</h4>
 
                     <TextField
                         label="Booking Number"
@@ -46,13 +44,11 @@ const RightWindow = () => {
                 <Divider
                     orientation="vertical"
                     flexItem
-                    classeName={{ root: classes.root }}
+                    classes={{ root: classes.root }}
                 />
 
-                <div style={{width: "70%", textAlign: "center"}}>
-                    <h4>
-                        Or use your account information:
-                    </h4>
+                <div style={{ width: "70%", textAlign: "center" }}>
+                    <h4>Or use your account information:</h4>
 
                     <TextField
                         label="Email"
@@ -69,8 +65,10 @@ const RightWindow = () => {
             </div>
 
             <div className="titleInitialPage2">
-                Don't have an Appointment Number? <a className="servicesLink" href="./Services">Click here to shop for
-                services and book an appointment</a>
+                Don't have an Appointment Number?{" "}
+                <a className="servicesLink" href="./Services">
+                    Click here to shop for services and book an appointment
+                </a>
             </div>
         </div>
     );

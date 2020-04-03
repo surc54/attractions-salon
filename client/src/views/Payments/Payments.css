@@ -1,4 +1,4 @@
- /*background-image: url(https://images.pexels.com/photos/1831234/pexels-photo-1831234.jpeg?cs=srgb&dl=pink-clouds-1831234.jpg&fm=jpg);
+/*background-image: url(https://images.pexels.com/photos/1831234/pexels-photo-1831234.jpeg?cs=srgb&dl=pink-clouds-1831234.jpg&fm=jpg);
  */
 .paymentButtons {
     display: flex;
@@ -24,7 +24,12 @@
     justify-content: space-around;
 }
 
-body {
+/* DONT USE GLOBAL STYLES */
+/* DONT USE GLOBAL STYLES */
+/* DONT USE GLOBAL STYLES */
+/* ffs */
+
+/* body {
     background-image: 
         url("./images/Rectangle1.png"), 
         url("./images/Rectangle2.png");
@@ -35,8 +40,7 @@ body {
         auto,
         auto;       
     background-repeat: no-repeat;
-}
-
+} */
 
 .verticalSpacer {
     flex: 1 0;
@@ -47,43 +51,43 @@ body {
     border: green;
 }
 
-.titleInitialPage{
+.titleInitialPage {
     display: flex;
     justify-content: center;
-    color: #E7A1AF;
+    color: #e7a1af;
     font-family: Pacifico;
     font-size: 4rem;
 }
 
-.titleInitialPage2{
+.titleInitialPage2 {
     display: flex;
     justify-content: center;
-    color: #E7A1AF;
+    color: #e7a1af;
     font-family: Pacifico;
     font-size: 2rem;
 }
 
-.page2Title{
+.page2Title {
     margin: 4px;
 }
 
-.paperHeader{
+.paperHeader {
     display: flex;
     justify-content: space-between;
     padding-bottom: 20px;
 }
 
-.p2Paper{
+.p2Paper {
     padding: 10px;
 }
 
-.linkPaper{
+.linkPaper {
     padding: 10px;
     margin-top: 10px;
 }
 
-.servicesLink{
-    color: #E7A1AF;
+.servicesLink {
+    color: #e7a1af;
     text-decoration: none;
 }
 
@@ -91,8 +95,8 @@ body {
     text-decoration: underline;
 }
 
-.quickLinks{
-    color: #E7A1AF;
+.quickLinks {
+    color: #e7a1af;
     text-decoration: none;
 }
 .quickLinks:hover {
