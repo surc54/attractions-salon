@@ -17,6 +17,7 @@ import { useSnackbar } from "notistack";
 import NotFound from "../404/NotFound";
 import UserSettings from "./pages/UserSettings";
 import ServiceSettings from "./pages/ServiceSettings";
+import TestimonialsSettings from "./pages/TestimonialsSettings";
 
 /**
  * Purpose:
@@ -92,6 +93,10 @@ const AdminBase: React.FC<AdminBaseProps> = () => {
                             <Route
                                 path="/admin/page/services"
                                 component={ServiceSettings}
+                            />
+                            <Route
+                                path="/admin/page/testimonials"
+                                component={TestimonialsSettings}
                             />
                             <Route
                                 path="/admin/misc/users"
