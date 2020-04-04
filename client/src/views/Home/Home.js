@@ -11,17 +11,20 @@ import {
 
 // This library lets you chain classNames together without
 // the string manipulation hassle
+import Carousel from 'react-material-ui-carousel'
 import clsx from "clsx";
 
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import homepic from "../../assets/attractions_salon_photo.jpeg";
-
+import SpacingGrid from "./SpacingGrid"
+import SpacingGrid2 from "./SpacingGrid2"
 // This "styles" object is the only way to set styles from
 // your scss file now (because of modularity)
 import styles from "./Home.module.scss";
 
 import InfoPiece from "./InfoPiece";
+import Slideshow from "./Slideshow";
 
 /*
  Changes to note
@@ -165,7 +168,8 @@ const Home = () => {
                         {/* overrides the "xs" prop only on medium devices and up, saying it */}
                         {/* should take 8/12 of the screen */}
 
-                        <div className={styles["sliderr"]}>
+                        <Slideshow></Slideshow>
+                        {/* <div className={styles["slideshow"]}>
                             <p
                                 style={{
                                     fontSize: "25px",
@@ -174,7 +178,7 @@ const Home = () => {
                             >
                                 Slideshow
                             </p>
-                        </div>
+                        </div> */}
                     </Grid>
                     <Grid
                         item
@@ -205,6 +209,8 @@ const Home = () => {
                             variant="outlined"
                             color="primary"
                             className={styles.readMoreButton}
+                            component={Link} 
+                            to="/"
                         >
                             Read more
                             <Icon>chevron_right</Icon>
@@ -260,7 +266,14 @@ const Home = () => {
                 {/* Use container to get padding on the sides */}
                 <Container>
                     <h2 className={styles.sectionTitle}>Stylists</h2>
-                    <pre>Someone else do this</pre>
+                    <h2>
+
+                    </h2>
+                    <SpacingGrid className={styles["stylist1"]}></SpacingGrid>
+                    {/* <p style = {{color: 'white'}}>h</p> */}
+                    <SpacingGrid2 className={styles["stylist-box"]}>
+                    Jane Doe
+                    </SpacingGrid2>
                 </Container>
             </section>
 
@@ -275,7 +288,7 @@ const Home = () => {
                     <Grid container spacing={5}>
                         <Grid item xs={12} md={4} className={styles.left}>
                             <h2 className={styles.sectionTitle}>
-                                Get in touch
+                                Get in Touch
                             </h2>
                             <div className={styles.information}>
                                 <InfoPiece
