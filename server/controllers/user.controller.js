@@ -10,6 +10,8 @@ const {
 } = require("../tools");
 const User = require("../models/user.model");
 const querystring = require("querystring");
+const sanitize = require("mongo-sanitize");
+const _ = require("lodash");
 
 const UID_REGEX = /[A-Za-z0-9\-_]+/;
 const ACCOUNTS_PER_PAGE = 10;
@@ -39,7 +41,7 @@ module.exports.info = (req, res) => {
 /** @type {express.RequestHandler[]} */
 module.exports.signIn = [
     (req, res, next) => {
-        if (!!req.user) {
+        if (req.user) {
             send_code_error(res, 400, "auth/sign-in/already-signed-in");
         } else {
             next();
@@ -49,7 +51,7 @@ module.exports.signIn = [
         failWithError: true,
     }),
     (req, res) => {
-        if (!!req.user) {
+        if (req.user) {
             send_code_success(res, 200, "auth/sign-in/success", {
                 user: req.user,
             });
@@ -132,10 +134,10 @@ module.exports.create = [
         });
 
         user.save()
-            .then(resp => {
+            .then((resp) => {
                 send_code_success(res, 201, "auth/sign-up/success");
             })
-            .catch(err => {
+            .catch((err) => {
                 send_code_error(res, 500, "auth/sign-up/unknown-error", {
                     error:
                         err && err.name && err.name === "MongoError" && err.code
@@ -155,20 +157,35 @@ module.exports.admin = {};
 /** @type {express.RequestHandler} */
 module.exports.admin.list = (req, res) => {
     const { page = 0 } = req.query;
+    const { filter: filterRaw = {} } = req.body;
+
+    // Pick the one's we trust from filter to prevent leaks
+    let filter = _.pick(filterRaw, "name.first", "name.last", "email") || {};
+
+    // Add more fields here for regex-based matching (instead of strict equality)
+    if (filter["name.first"]) {
+        filter["name.first"] = new RegExp(filter["name.first"], "i");
+    } else if (filter["name.last"]) {
+        filter["name.last"] = new RegExp(filter["name.last"], "i");
+    } else if (filter["email"]) {
+        filter["email"] = new RegExp(filter["email"], "i");
+    }
 
     const pageNum = Number(page) || 0;
 
-    User.find({}, "-password", {
+    User.find(sanitize(filter), "-password", {
         limit: ACCOUNTS_PER_PAGE,
-        skip: (pageNum * ACCOUNTS_PER_PAGE),
+        skip: pageNum * ACCOUNTS_PER_PAGE,
     })
-        .then(response => {
-            send_code_success(res, 200, "admin/auth/list/success", {
-                data: response.map(x => x.toObject({ virtuals: true })),
+        .then((response) => {
+            send_code_success(res, 200, "admin/user/list/success", {
+                data: response.map((x) =>
+                    x.toObject({ virtuals: true, versionKey: false })
+                ),
             });
         })
-        .catch(err => {
-            send_code_error(res, 500, "admin/auth/list/unknown-error", {
+        .catch((err) => {
+            send_code_error(res, 500, "admin/user/list/unknown-error", {
                 error: err,
             });
         });
@@ -179,24 +196,103 @@ module.exports.admin.info = (req, res) => {
     const { uid } = req.params;
 
     if (!uid) {
-        send_code_error(res, 400, "admin/auth/info/missing-uid");
+        send_code_error(res, 400, "admin/user/info/missing-uid");
         return;
     }
 
     if (!UID_REGEX.test(uid)) {
-        send_code_error(res, 400, "admin/auth/info/uid-illegal-format");
+        send_code_error(res, 400, "admin/user/info/uid-illegal-format");
         return;
     }
 
     User.findById(uid, "-password")
-        .then(response => {
-            send_code_success(res, 200, "admin/auth/info/success", {
-                data: response.toObject({ virtuals: true }),
+        .then((response) => {
+            send_code_success(res, 200, "admin/user/info/success", {
+                data: response.toObject({ virtuals: true, versionKey: false }),
             });
         })
-        .catch(err =>
-            send_code_error(res, 500, "admin/auth/info/unknown-error", {
+        .catch((err) =>
+            send_code_error(res, 500, "admin/user/info/error", {
                 error: err,
             })
         );
+};
+
+/** @type {express.RequestHandler} */
+module.exports.admin.update = async (req, res) => {
+    try {
+        const { uid } = req.params;
+
+        if (!req.body) {
+            send_code_error(res, 400, "admin/user/update/body-required");
+            return;
+        }
+
+        let newData = _.pick(
+            sanitize(req.body),
+            "name.first",
+            "name.last",
+            "email",
+            "role"
+        );
+
+        const original = await User.findById(uid, "-password -_id");
+
+        newData = _.defaultsDeep(
+            newData,
+            original.toObject({ versionKey: false })
+        );
+
+        await User.updateOne(
+            {
+                _id: uid,
+            },
+            {
+                $set: newData,
+            }
+        );
+
+        const newUser = await User.findById(uid, "-password");
+
+        send_code_success(res, 200, "admin/user/update/success", {
+            data: newUser.toObject({
+                virtuals: true,
+                versionKey: false,
+            }),
+        });
+    } catch (err) {
+        send_code_error(res, 500, "admin/user/update/error", {
+            error: err,
+        });
+    }
+};
+
+/** @type {express.RequestHandler} */
+module.exports.admin.delete = async (req, res) => {
+    try {
+        const { uid } = req.params;
+
+        if (!uid) {
+            send_code_error(res, 400, "admin/user/delete/missing-uid");
+            return;
+        }
+
+        const deleted = await User.findById(uid, "-password");
+
+        if (!deleted) {
+            send_code_error(res, 400, "admin/user/delete/no-user");
+            return;
+        }
+
+        await User.findByIdAndDelete(uid);
+
+        send_code_success(res, 200, "admin/user/delete/success", {
+            data: deleted.toObject({ virtuals: true, versionKey: false }),
+        });
+    } catch (e) {
+        console.error("Could not delete user:", e);
+        send_code_error(res, 500, "admin/user/delete/error", {
+            error: e,
+        });
+    }
 };

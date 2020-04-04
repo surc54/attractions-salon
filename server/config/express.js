@@ -68,7 +68,7 @@ module.exports.init = () => {
         app.use(express.static(path.join(__dirname, "../../client/build")));
 
         // Handle React routing, return all requests to React app
-        app.get("*", function(req, res) {
+        app.get("*", function (req, res) {
             res.sendFile(
                 path.join(__dirname, "../../client/build", "index.html")
             );
@@ -77,8 +77,11 @@ module.exports.init = () => {
 
     // Auth Error Handling
     app.use((err, req, res, next) => {
-        if (err && err.name && err.name === "AuthenticationError") {
-            send_code_error(res, 401, "auth/sign-in/failure");
+        if (err && err.name) {
+            if (err.name === "AuthenticationError")
+                send_code_error(res, 401, "auth/sign-in/failure");
+            else if (err.name === "NoPermsErr")
+                send_code_error(res, 403, "forbidden");
         } else next(err);
     });
 
