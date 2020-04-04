@@ -15,6 +15,7 @@ import {
     GET_AUTH_INFO_START,
     ThAction,
     UserActions,
+    NonSuccessError,
 } from "./types";
 import { SignUpData } from "../models/User";
 
@@ -38,7 +39,7 @@ export const getUserAuthInfo = (
             .request<GetAuthInfoResponse>({
                 ...Config.apiUrls["get account info"],
             })
-            .then(resp => {
+            .then((resp) => {
                 if (resp.status !== 200) {
                     console.error("Status code was not 200", resp);
                     throw new Error("Unexpected status code");
@@ -74,7 +75,7 @@ export const getUserAuthInfo = (
 
                 callbacks?.then?.();
             })
-            .catch(err => {
+            .catch((err) => {
                 dispatch({
                     type: GET_AUTH_INFO_END,
                     payload: {
@@ -107,7 +108,7 @@ export const login = (
                     password,
                 },
             })
-            .then(resp => {
+            .then((resp) => {
                 if (resp.status !== 200) {
                     console.error("Status code was not 200", resp);
                     throw new Error("Unexpected status code");
@@ -129,7 +130,7 @@ export const login = (
 
                 callbacks?.then?.();
             })
-            .catch(err => {
+            .catch((err) => {
                 dispatch({
                     type: AUTH_LOGOUT_END,
                     payload: {
@@ -156,7 +157,7 @@ export const logout = (
             .request<LogoutResponse>({
                 ...Config.apiUrls["logout user"],
             })
-            .then(resp => {
+            .then((resp) => {
                 if (resp.status !== 200) {
                     throw new Error(`Unexpected status code (${resp.status})`);
                 }
@@ -171,7 +172,7 @@ export const logout = (
 
                 callbacks?.then?.();
             })
-            .catch(err => {
+            .catch((err) => {
                 dispatch({
                     type: AUTH_LOGOUT_END,
                     payload: {
@@ -200,7 +201,7 @@ export const signUp = (
                 ...Config.apiUrls["signup user"],
                 data: info || {},
             })
-            .then(resp => {
+            .then((resp) => {
                 if (resp.status !== 201) {
                     throw new Error(`Unexpected status code (${resp.status})`);
                 }
@@ -215,7 +216,7 @@ export const signUp = (
 
                 callbacks?.then?.();
             })
-            .catch(err => {
+            .catch((err) => {
                 dispatch({
                     type: "AUTH_SIGNUP_END",
                     payload: {
@@ -229,13 +230,3 @@ export const signUp = (
             });
     };
 };
-
-class NonSuccessError extends Error {
-    response: any;
-
-    constructor(x: any) {
-        super(x);
-        this.response = x;
-        this.message = "";
-    }
-}

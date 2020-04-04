@@ -1,6 +1,6 @@
 export interface GenericApiResponse<Data = any, Code = string> {
     status: "ok" | "error";
-    code: Code | "error";
+    code: Code | "error" | "forbidden";
     data?: Data;
     error?: any;
 }
@@ -46,4 +46,34 @@ export type SignUpResponse = GenericApiResponse<
     | "auth/sign-up/email-illegal-format"
     | "auth/sign-up/success"
     | "auth/sign-up/unknown-error"
+>;
+
+// admin user setting types
+
+export type AdminUserList = GenericApiResponse<
+    ApiResponseUser[],
+    "admin/user/list/success" | "admin/user/list/error"
+>;
+
+export type AdminUserInfo = GenericApiResponse<
+    ApiResponseUser,
+    | "admin/user/info/missing-uid"
+    | "admin/user/info/uid-illegal-format"
+    | "admin/user/info/success"
+    | "admin/user/info/error"
+>;
+
+export type AdminUserUpdate = GenericApiResponse<
+    ApiResponseUser,
+    | "admin/user/update/body-required"
+    | "admin/user/update/success"
+    | "admin/user/update/error"
+>;
+
+export type AdminUserDelete = GenericApiResponse<
+    ApiResponseUser,
+    | "admin/user/delete/missing-uid"
+    | "admin/user/delete/no-user"
+    | "admin/user/delete/success"
+    | "admin/user/delete/error"
 >;

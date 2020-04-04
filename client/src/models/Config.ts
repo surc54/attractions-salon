@@ -57,6 +57,13 @@ const Config: IConfig = {
                 ...noCache,
             },
         },
+        "admin - get user list": {
+            url: "/api/admin/account",
+            method: "GET",
+            headers: {
+                ...noCache,
+            },
+        },
         "get services info": {
             url: "/api/services",
             method: "GET",
@@ -64,7 +71,6 @@ const Config: IConfig = {
                 ...noCache,
             },
         },
-        
     },
     theme: {
         palette: {

@@ -185,7 +185,7 @@ module.exports.admin.list = (req, res) => {
             });
         })
         .catch((err) => {
-            send_code_error(res, 500, "admin/user/list/unknown-error", {
+            send_code_error(res, 500, "admin/user/list/error", {
                 error: err,
             });
         });
