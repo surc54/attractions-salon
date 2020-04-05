@@ -6,14 +6,11 @@ import { getServices } from "../../actions/serviceActions";
 const Services = () => {
     const [initialLoad, setInitialLoad] = useState(true);
     const [serviceInfo, setServiceInfo] = useState([]);
-    // filtered data set in serviceGrid
-    {/**afdgdfbdfdbfd */}
     return (
         <div className="empty">
             {/** inefficient, should get modified */}
             {doInitialLoad(initialLoad, setInitialLoad, setServiceInfo)}
             <ServiceGrid services={serviceInfo}></ServiceGrid>
-            {/** use updateServices when admin updates database */}
         </div>
     );
 };

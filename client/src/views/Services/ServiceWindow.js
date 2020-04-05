@@ -12,7 +12,7 @@ import {
 
 const useStyles = makeStyles({
     root: {
-        height: "fit-content",
+        flexGrow: "1",
         width: "24%",
         border: "1px solid rgba(0, 0, 0, 0.17)",
         boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.1)",
@@ -116,13 +116,13 @@ const MediaCard = ({ services, filterText, filterCat }) => {
 
 const ServiceWindow = ({ services, filterText, filterCat }) => {
     return (
-        <div className="empty">
+        <>
             <MediaCard
                 services={services}
                 filterText={filterText}
                 filterCat={filterCat}
             />
-        </div>
+        </>
     );
 };
 

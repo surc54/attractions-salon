@@ -12,30 +12,28 @@ const UserSettings: React.FC = () => {
 
     return (
         <>
-            <div>
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        marginBottom: "20px",
-                    }}
-                >
-                    <ButtonGroup variant="contained" color="primary">
-                        <Button onClick={() => setPageNum(0)}>
-                            Add a new service
-                        </Button>
-                        <Button onClick={() => setPageNum(1)}>
-                            Update a service
-                        </Button>
-                        <Button onClick={() => setPageNum(2)}>
-                            Delete a service
-                        </Button>
-                    </ButtonGroup>
-                    <Divider orientation="horizontal" />
-                </div>
-
-                {getChoiceView(pageNum)}
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: "20px",
+                }}
+            >
+                <ButtonGroup variant="contained" color="primary">
+                    <Button onClick={() => setPageNum(0)}>
+                        Add a new service
+                    </Button>
+                    <Button onClick={() => setPageNum(1)}>
+                        Update a service
+                    </Button>
+                    <Button onClick={() => setPageNum(2)}>
+                        Delete a service
+                    </Button>
+                </ButtonGroup>
+                <Divider orientation="horizontal" />
             </div>
+
+            {getChoiceView(pageNum)}
         </>
     );
 };
