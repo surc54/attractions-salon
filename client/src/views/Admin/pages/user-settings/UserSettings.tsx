@@ -40,8 +40,6 @@ const UserSettings: React.FC = () => {
         }
     }, [page]);
 
-    console.log(userSettings);
-
     const currentPage = userSettings.users.slice(
         page * ITEMS_PER_PAGE,
         page * ITEMS_PER_PAGE + 10
@@ -59,10 +57,15 @@ const UserSettings: React.FC = () => {
             </header>
 
             <Toolbar
-                onClearFilter={() => {}}
+                onClearFilter={() => {
+                    userSettings.resetQuery({ search: "" }).then(() => {
+                        if (page === 0) {
+                            userSettings.getUserList({}, page);
+                        } else setPage(0);
+                    });
+                }}
                 onRefresh={() => {
                     userSettings.resetQuery().then(() => {
-                        console.log(page);
                         if (page === 0) {
                             userSettings.getUserList(userSettings.query, page);
                         } else setPage(0);

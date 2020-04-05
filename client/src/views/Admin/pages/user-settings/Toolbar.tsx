@@ -10,6 +10,7 @@ import {
 import clsx from "clsx";
 import { useSnackbar } from "notistack";
 import React, { HTMLProps } from "react";
+import _ from "lodash";
 import { useAdminUserSettings } from "../../../../hooks";
 import styles from "./Toolbar.module.scss";
 
@@ -32,6 +33,11 @@ const Toolbar: React.FC<ToolbarProps> = ({
         snack.enqueueSnackbar("Feature is not implemented", {
             autoHideDuration: 5000,
         });
+    };
+
+    const __onClearFilter = () => {
+        setSearch("");
+        onClearFilter?.();
     };
 
     return (
@@ -64,7 +70,10 @@ const Toolbar: React.FC<ToolbarProps> = ({
 
             <Tooltip title="Clear filters">
                 <span>
-                    <IconButton disabled>
+                    <IconButton
+                        disabled={userSettings.loading}
+                        onClick={__onClearFilter}
+                    >
                         <Icon>filter_list</Icon>
                     </IconButton>
                 </span>

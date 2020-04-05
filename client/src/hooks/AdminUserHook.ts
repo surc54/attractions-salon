@@ -38,9 +38,11 @@ export const useAdminUserSettings = (): AdminUserHook => {
             return Promise.reject("unimplemented");
         },
 
-        resetQuery: () => {
+        resetQuery: (newState) => {
             return new Promise((resolve, reject) => {
-                dispatch(resetQuery({ then: resolve, catch: reject }));
+                dispatch(
+                    resetQuery(newState, { then: resolve, catch: reject })
+                );
             });
         },
     });
@@ -69,5 +71,5 @@ export interface AdminUserHook extends AdminUserSettingsState {
     deleteUser(uid: string): Promise<undefined>;
 
     // Helpers
-    resetQuery(): Promise<undefined>;
+    resetQuery(newState?: any): Promise<undefined>;
 }

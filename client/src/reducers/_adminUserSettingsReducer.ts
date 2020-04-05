@@ -69,11 +69,6 @@ const reducer: Reducer<AdminUserSettingsState, AdminUserSettingsActions> = (
             };
         }
         case "ADMIN_USER_UPDATE_QUERY": {
-            console.log(
-                state.query,
-                action.payload,
-                _.isEqual(action.payload, state.query)
-            );
             if (state.query && _.isEqual(action.payload, state.query)) {
                 return state;
             }

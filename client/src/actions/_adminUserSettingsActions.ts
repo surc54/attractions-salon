@@ -27,15 +27,23 @@ const error = (error: any): AdminUserError => ({
 });
 
 export const resetQuery = (
+    newState?: any,
     callbacks: ActionCallback = {}
 ): ThAction<AdminUserUpdateQuery> => {
     return (dispatch, getState) => {
-        dispatch({
-            type: "ADMIN_USER_UPDATE_QUERY",
-            payload: {
+        let payload;
+        if (newState) {
+            payload = newState;
+        } else {
+            payload = {
                 ...(getState().adminUserSettings.query || {}),
                 __random: Math.random(),
-            },
+            };
+        }
+
+        dispatch({
+            type: "ADMIN_USER_UPDATE_QUERY",
+            payload,
         });
         callbacks.then?.();
     };
