@@ -16,6 +16,7 @@ const ServiceWindow = ({ services, filterText, filterCat }) => {
     return (
         <div className="serviceEntries">
             {services
+                //.filter((item) => item.serviceGroup.includes(filterCat))
                 .filter((item) => item.name.toLowerCase().includes(filterText))
                 .map((item) => {
                     return (
@@ -83,6 +84,7 @@ const ServiceWindow = ({ services, filterText, filterCat }) => {
 const useStyles = makeStyles({
     root: {
         flexGrow: "1",
+        alignSelf: "flex-start",
         width: "24%",
         border: "1px solid rgba(0, 0, 0, 0.17)",
         boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.1)",
