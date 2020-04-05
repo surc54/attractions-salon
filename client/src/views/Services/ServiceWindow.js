@@ -10,40 +10,6 @@ import {
     Typography,
 } from "@material-ui/core";
 
-const useStyles = makeStyles({
-    root: {
-        flexGrow: "1",
-        width: "24%",
-        border: "1px solid rgba(0, 0, 0, 0.17)",
-        boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.1)",
-        borderRadius: "5px",
-        marginRight: "10px",
-        marginBottom: "20px",
-    },
-    content: {
-        paddingLeft: "8px",
-    },
-    serviceGroup: {
-        lineHeight: "1",
-        fontSize: "1.6rem",
-    },
-    serviceTitle: {
-        fontWeight: "600",
-        fontSize: "2.1rem",
-    },
-    servicePrice: {
-        fontWeight: "600",
-        fontSize: "2.5rem",
-        float: "right",
-    },
-    serviceStyle: {
-        padding: "8px",
-    },
-    media: {
-        height: 180,
-    },
-});
-
 const MediaCard = ({ services, filterText, filterCat }) => {
     const classes = useStyles();
 
@@ -109,7 +75,7 @@ const MediaCard = ({ services, filterText, filterCat }) => {
                             </CardActions>
                         </Card>
                     );
-                })} {/**afdgdfbdfdbfd */}
+                })}
         </div>
     );
 };
@@ -125,6 +91,40 @@ const ServiceWindow = ({ services, filterText, filterCat }) => {
         </>
     );
 };
+
+const useStyles = makeStyles({
+    root: {
+        flexGrow: "1",
+        width: "24%",
+        border: "1px solid rgba(0, 0, 0, 0.17)",
+        boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.1)",
+        borderRadius: "5px",
+        marginRight: "10px",
+        marginBottom: "20px",
+    },
+    content: {
+        paddingLeft: "8px",
+    },
+    serviceGroup: {
+        lineHeight: "1",
+        fontSize: "1.6rem",
+    },
+    serviceTitle: {
+        fontWeight: "600",
+        fontSize: "2.1rem",
+    },
+    servicePrice: {
+        fontWeight: "600",
+        fontSize: "2.5rem",
+        float: "right",
+    },
+    serviceStyle: {
+        padding: "8px",
+    },
+    media: {
+        height: 180,
+    },
+});
 
 export default ServiceWindow;
 

@@ -6,12 +6,16 @@ import {
     TextField,
     TextareaAutosize,
 } from "@material-ui/core";
+import { getServices } from "../../../actions/serviceActions";
 
-const UserSettings: React.FC = () => {
+const UserSettings: React.TA = () => {
     const [pageNum, setPageNum] = useState(0);
+    const [initialLoad, setInitialLoad] = useState(true);
+    const [serviceInfo, setServiceInfo] = useState([]);
 
     return (
         <>
+            {doInitialLoad(initialLoad, setInitialLoad, setServiceInfo)}
             <div
                 style={{
                     display: "flex",
@@ -33,19 +37,19 @@ const UserSettings: React.FC = () => {
                 <Divider orientation="horizontal" />
             </div>
 
-            {getChoiceView(pageNum)}
+            {getChoiceView(pageNum, serviceInfo)}
         </>
     );
 };
 
-const getChoiceView = (pageNum: number) => {
+const getChoiceView = (pageNum, serviceInfo) => {
     switch (pageNum) {
         case 0:
             return <ServiceCreationForm />;
         case 1:
-            return <ServiceUpdateView />;
+            return <ServiceUpdateView services={serviceInfo} />;
         case 2:
-            return <ServiceDeleteView />;
+            return <ServiceDeleteView services={serviceInfo} />;
         default:
             return "Unknown pageView";
     }
@@ -71,9 +75,9 @@ const ServiceCreationForm = () => {
     );
 };
 
-const ServiceUpdateView = () => {
+const ServiceUpdateView = ({ services }) => {
     return (
-        <div>
+        <div style={{ height: "90%" }}>
             <div
                 style={{
                     display: "flex",
@@ -85,18 +89,24 @@ const ServiceUpdateView = () => {
             </div>
             <Divider orientation="horizontal" />
             <ServicesForm />
-            <p>
-                Add services here like in the services page, allow to select one
-                and prefill boxes above this, then when form is submitted,
-                update selected service
-            </p>
+            <div style={{ height: "100%", overflow: "auto" }}>
+                {services.map((item) => {
+                    return (
+                        <div>
+                            {item.groupName}
+                            {item.name}
+                            {item.subtitle}${item.price}
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 };
 
-const ServiceDeleteView = () => {
+const ServiceDeleteView = ({ services }) => {
     return (
-        <div>
+        <div style={{ height: "90%" }}>
             <div
                 style={{
                     display: "flex",
@@ -107,10 +117,17 @@ const ServiceDeleteView = () => {
                 <Button>Delete</Button>
             </div>
             <Divider orientation="horizontal" />
-            <p>
-                Add services here like in the services page, allow to select
-                one, then, delete selected service when form is submitted
-            </p>
+            <div style={{ height: "100%", overflow: "auto" }}>
+                {services.map((item) => {
+                    return (
+                        <div>
+                            {item.groupName}
+                            {item.name}
+                            {item.subtitle}${item.price}
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 };
@@ -118,57 +135,74 @@ const ServiceDeleteView = () => {
 const ServicesForm = () => {
     return (
         <>
-            <TextField
-                label="Group Name"
-                placeholder="Hair Extensions"
-                variant="outlined"
-                autoComplete="off"
-                style={{ margin: "10px" }}
-                required
-            />
+            <div>
+                <TextField
+                    label="Group Name"
+                    placeholder="Hair Extensions"
+                    variant="outlined"
+                    autoComplete="off"
+                    style={{ margin: "10px" }}
+                    required
+                />
 
-            <TextField
-                label="Service Name"
-                placeholder="Locks"
-                variant="outlined"
-                autoComplete="off"
-                style={{ margin: "10px" }}
-                required
-            />
+                <TextField
+                    label="Service Name"
+                    placeholder="Locks"
+                    variant="outlined"
+                    autoComplete="off"
+                    style={{ margin: "10px" }}
+                    required
+                />
+            </div>
 
-            <TextField
-                label="Service Price"
-                placeholder="10"
-                variant="outlined"
-                autoComplete="off"
-                style={{ margin: "10px" }}
-                required
-            />
+            <div>
+                <TextField
+                    label="Service Price"
+                    placeholder="Ex: 0"
+                    variant="outlined"
+                    autoComplete="off"
+                    style={{ margin: "10px" }}
+                    required
+                />
 
-            <TextField
-                label="Image URL"
-                placeholder="Experimenting for local"
-                variant="outlined"
-                autoComplete="off"
-                style={{ margin: "10px" }}
-                required
-            />
+                <TextField
+                    label="Subtitle"
+                    placeholder="Ex: Not sold alone"
+                    variant="outlined"
+                    autoComplete="off"
+                    style={{ margin: "10px" }}
+                />
 
-            <TextField
-                label="Subtitle"
-                placeholder="Not sold alone"
-                variant="outlined"
-                autoComplete="off"
-                style={{ margin: "10px" }}
-            />
+                <TextField
+                    label="Image URL"
+                    placeholder="Experimenting for local"
+                    variant="outlined"
+                    autoComplete="off"
+                    style={{ margin: "10px" }}
+                />
+            </div>
 
             <TextareaAutosize
                 rowsMin={4}
                 style={{ margin: "10px" }}
                 placeholder="Enter longer description here"
+                style={{ width: "50%", margin: "10px" }}
             />
         </>
     );
+};
+
+const doInitialLoad = (initialLoad, setInitialLoad, setServiceInfo) => {
+    if (initialLoad) {
+        setInitialLoad(false);
+        updateServices(setServiceInfo);
+    }
+};
+
+const updateServices = (setServiceInfo) => {
+    getServices()
+        .then((value) => setServiceInfo(value))
+        .catch((reason) => console.log(reason));
 };
 
 export default UserSettings;
