@@ -39,23 +39,24 @@ const useStyles = makeStyles((theme) => ({
 const SideBar = (props) => {
     const classes = useStyles();
     const [checked, setChecked] = React.useState({
-        hairCare: false,
-        nailCare: false,
-        hairExte: false,
-        hairCuts: false,
-        waxing: false,
+        "Hair Care": false,
+        "Nail Care": false,
+        "Hair extensions": false,
+        "Hair Cuts": false,
+        "Waxing": false,
     });
 
     const handleChange = (event) => {
         setChecked(false);
         setChecked({ ...checked, [event.target.name]: event.target.checked });
-        if(event.target.checked === true) props.setFilterCat(event.target.filter);
-        else if(event.target.checked === false) props.setFilterCat("");
+        if (event.target.checked === true)
+            props.setFilterCat(event.target.name);
+        else if (event.target.checked === false) props.setFilterCat("");
     };
 
     const clearChecks = () => {
         setChecked(false);
-    }
+    };
 
     return (
         <div>
@@ -91,7 +92,9 @@ const SideBar = (props) => {
                         autoComplete="off"
                         value={props.filterText}
                         onChange={(event) => {
-                            props.setFilterText(event.target.value);
+                            props.setFilterText(
+                                event.target.value.toLowerCase()
+                            );
                         }}
                         style={{ width: "100%" }}
                     />
@@ -105,11 +108,9 @@ const SideBar = (props) => {
                         control={
                             <Checkbox
                                 color="secondary"
-                                name="hairCare"
-                                filter="Hair Care"
-                                checked={checked.hairCare}
+                                name="Hair Care"
+                                checked={checked["Hair Care"]}
                                 onChange={handleChange}
-                                
                             />
                         }
                     />
@@ -121,10 +122,9 @@ const SideBar = (props) => {
                         className="checkBoxName"
                         control={
                             <Checkbox
-                            name="hairCuts"
+                                name="Hair Cuts"
                                 color="secondary"
-                                filter="Haircuts"
-                                checked={checked.hairCuts}
+                                checked={checked["Hair Cuts"]}
                                 onChange={handleChange}
                             />
                         }
@@ -137,11 +137,9 @@ const SideBar = (props) => {
                         className="checkBoxName"
                         control={
                             <Checkbox
-                            name="nailCare"
+                                name="Nail Care"
                                 color="secondary"
-                                
-                                filter="Nail care"
-                                checked={checked.nailCare}
+                                checked={checked["Nail Care"]}
                                 onChange={handleChange}
                             />
                         }
@@ -155,10 +153,9 @@ const SideBar = (props) => {
                         className="checkBoxName"
                         control={
                             <Checkbox
-                            name="hairExte"
-                            filter="Hair Extensions"
+                                name="Hair extensions"
                                 color="secondary"
-                                checked={checked.hairExte}
+                                checked={checked["Hair extensions"]}
                                 onChange={handleChange}
                             />
                         }
@@ -172,10 +169,9 @@ const SideBar = (props) => {
                         className="checkBoxName"
                         control={
                             <Checkbox
-                            name="waxing"
-                            filter="Waxing"
+                                name="Waxing"
                                 color="secondary"
-                                checked={checked.waxing}
+                                checked={checked.Waxing}
                                 onChange={handleChange}
                             />
                         }

@@ -10,14 +10,21 @@ import {
     Typography,
 } from "@material-ui/core";
 
+const check = (item, filterText, filterCat) => {
+    //console.log(item);
+    //console.log(filterText);
+    //console.log(filterCat);
+    if(filterCat !== "") return item.name.toLowerCase().includes(filterText) && item.groupName.includes(filterCat)
+    else return item.name.toLowerCase().includes(filterText)
+}
+
 const ServiceWindow = ({ services, filterText, filterCat }) => {
     const classes = useStyles();
 
     return (
         <div className="serviceEntries">
             {services
-                //.filter((item) => item.serviceGroup.includes(filterCat))
-                .filter((item) => item.name.toLowerCase().includes(filterText))
+                .filter((item) =>  check(item, filterText, filterCat))
                 .map((item) => {
                     return (
                         <Card classes={{ root: classes.root }} key={item.name}>

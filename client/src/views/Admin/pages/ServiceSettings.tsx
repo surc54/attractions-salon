@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { getServices } from "../../../actions/serviceActions";
 
-const UserSettings: React.FC = () => {
+const ServiceSettings: React.FC = () => {
     const [pageNum, setPageNum] = useState(0);
     const [initialLoad, setInitialLoad] = useState(true);
     const [serviceInfo, setServiceInfo] = useState([]);
@@ -272,4 +272,4 @@ const useStyles = makeStyles({
     },
 });
 
-export default UserSettings;
+export default ServiceSettings;

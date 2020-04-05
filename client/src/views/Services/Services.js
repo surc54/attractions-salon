@@ -1,17 +1,56 @@
 import React, { useState } from "react";
-import "./Services.css";
-import ServiceGrid from "./ServiceGrid";
+import { makeStyles, Grid, Paper, CircularProgress } from "@material-ui/core";
 import { getServices } from "../../actions/serviceActions";
+import ServiceWindow from "./ServiceWindow";
+import SideBar from "./SideBar";
+import "./Services.css";
 
 const Services = () => {
     const [initialLoad, setInitialLoad] = useState(true);
     const [serviceInfo, setServiceInfo] = useState([]);
+    const [filterCat, setFilterCat] = useState("");
+    const [filterText, setFilterText] = useState("");
+    const classes = useStyles();
+
     return (
-        <div className="empty">
+        <>
             {/** inefficient, should get modified */}
             {doInitialLoad(initialLoad, setInitialLoad, setServiceInfo)}
-            <ServiceGrid services={serviceInfo}></ServiceGrid>
-        </div>
+            <div className={classes.window}>
+                <Grid container spacing={0} className={classes.container}>
+                    <Grid item xs={12} md={2}>
+                        <Paper className={classes.sideBar} elevation={0}>
+                            <SideBar
+                                services={serviceInfo}
+                                filterCat={filterCat}
+                                filterText={filterText}
+                                setFilterCat={setFilterCat}
+                                setFilterText={setFilterText}
+                            />
+                        </Paper>
+                    </Grid>
+
+                    <Grid item xs={12} md={9}>
+                        <Paper className={classes.serviceWindow} elevation={0}>
+                            {initialLoad ? (
+                                <>
+                                <p>loading</p>
+                                <CircularProgress />
+                                </>
+                            ) : (
+                                <>
+                                    <ServiceWindow
+                                        services={serviceInfo}
+                                        filterCat={filterCat}
+                                        filterText={filterText}
+                                    />
+                                </>
+                            )}
+                        </Paper>
+                    </Grid>
+                </Grid>
+            </div>
+        </>
     );
 };
 
@@ -22,11 +61,33 @@ const doInitialLoad = (initialLoad, setInitialLoad, setServiceInfo) => {
     }
 };
 
-const updateServices = setServiceInfo => {
+const updateServices = (setServiceInfo) => {
     getServices()
-        .then(value => setServiceInfo(value))
+        .then((value) => setServiceInfo(value))
         .catch(() => setServiceInfo(servicesJSON));
 };
+
+const useStyles = makeStyles((theme) => ({
+    window: {
+        paddingTop: 64,
+    },
+    container: {
+        display: "flex",
+        flexGrow: 1,
+        flexDirection: "row",
+        justifyContent: "space-around",
+    },
+    sideBar: {
+        height: "auto",
+        marginTop: 5,
+    },
+    serviceWindow: {
+        height: "600px",
+        marginTop: 5,
+        overflow: "auto",
+        scrollBehavior: "smooth",
+    },
+}));
 
 const servicesJSON = [
     {
