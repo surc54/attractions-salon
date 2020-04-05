@@ -6,11 +6,8 @@ import {
     TextField,
     TextareaAutosize,
     FormControlLabel,
-    Card,
-    CardActionArea,
-    CardContent,
-    CardMedia,
     makeStyles,
+    TableRow,
 } from "@material-ui/core";
 import { getServices } from "../../../actions/serviceActions";
 
@@ -135,18 +132,18 @@ const ServiceCards = ({ services }) => {
                         price: number;
                     }) => {
                         return (
-                            <Card key={item.name} style={{margin: "2px"}}>
-                                <CardActionArea>
-                                    <CardContent>
-                                        <tr className={classes.service}>
-                                            <td>{item.groupName}</td>
-                                            <td>{item.name}</td>
-                                            <td>{item.subtitle}</td>
-                                            <td>${item.price}</td>
-                                        </tr>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
+                            <TableRow
+                                className={classes.service}
+                                key={item.name}
+                                hover
+                            >
+                                <td>{item.groupName}</td>
+                                <td>{item.name}</td>
+                                <td className={classes.subtitle}>
+                                    {item.subtitle}
+                                </td>
+                                <td className={classes.price}>${item.price}</td>
+                            </TableRow>
                         );
                     }
                 )}
@@ -162,7 +159,7 @@ const ServicesForm = () => {
                 <FormControlLabel
                     control={
                         <TextField
-                            placeholder="Hair Extensions"
+                            placeholder="Ex: Hair Extensions"
                             variant="outlined"
                             autoComplete="off"
                             style={{ margin: "10px" }}
@@ -176,7 +173,7 @@ const ServicesForm = () => {
                 <FormControlLabel
                     control={
                         <TextField
-                            placeholder="Locks"
+                            placeholder="Ex: Locks"
                             variant="outlined"
                             autoComplete="off"
                             style={{ margin: "10px" }}
@@ -257,17 +254,22 @@ const updateServices = (setServiceInfo) => {
 };
 
 const useStyles = makeStyles({
-    service: {
-        display: "flex",  
-        justifyContent: "space-between"     
-    },
-    element: {
-        margin: "3px"
-    },
     table: {
         width: "100%",
         tableLayout: "fixed",
-    }
+    },
+    service: {
+        height: "40px",
+    },
+    subtitle: {
+        overflow: "hidden",
+    },
+    price: {
+        textAlign: "right",
+    },
+    spacer: {
+        flex: "1 0",
+    },
 });
 
 export default UserSettings;
