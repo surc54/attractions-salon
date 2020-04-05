@@ -10,14 +10,14 @@ import {
     Typography,
 } from "@material-ui/core";
 
-const MediaCard = ({ services, filterText, filterCat }) => {
+const ServiceWindow = ({ services, filterText, filterCat }) => {
     const classes = useStyles();
 
     return (
         <div className="serviceEntries">
             {services
-                .filter(item => item.name.toLowerCase().includes(filterText))
-                .map(item => {
+                .filter((item) => item.name.toLowerCase().includes(filterText))
+                .map((item) => {
                     return (
                         <Card classes={{ root: classes.root }} key={item.name}>
                             <CardActionArea>
@@ -77,18 +77,6 @@ const MediaCard = ({ services, filterText, filterCat }) => {
                     );
                 })}
         </div>
-    );
-};
-
-const ServiceWindow = ({ services, filterText, filterCat }) => {
-    return (
-        <>
-            <MediaCard
-                services={services}
-                filterText={filterText}
-                filterCat={filterCat}
-            />
-        </>
     );
 };
 

@@ -5,10 +5,16 @@ import {
     ButtonGroup,
     TextField,
     TextareaAutosize,
+    FormControlLabel,
+    Card,
+    CardActionArea,
+    CardContent,
+    CardMedia,
+    makeStyles,
 } from "@material-ui/core";
 import { getServices } from "../../../actions/serviceActions";
 
-const UserSettings: React.TA = () => {
+const UserSettings: React.FC = () => {
     const [pageNum, setPageNum] = useState(0);
     const [initialLoad, setInitialLoad] = useState(true);
     const [serviceInfo, setServiceInfo] = useState([]);
@@ -42,7 +48,7 @@ const UserSettings: React.TA = () => {
     );
 };
 
-const getChoiceView = (pageNum, serviceInfo) => {
+const getChoiceView = (pageNum: number, serviceInfo: never[]) => {
     switch (pageNum) {
         case 0:
             return <ServiceCreationForm />;
@@ -88,17 +94,8 @@ const ServiceUpdateView = ({ services }) => {
                 <Button>Update</Button>
             </div>
             <Divider orientation="horizontal" />
-            <ServicesForm />
             <div style={{ height: "100%", overflow: "auto" }}>
-                {services.map((item) => {
-                    return (
-                        <div>
-                            {item.groupName}
-                            {item.name}
-                            {item.subtitle}${item.price}
-                        </div>
-                    );
-                })}
+                <ServiceCards services={services} />
             </div>
         </div>
     );
@@ -118,17 +115,43 @@ const ServiceDeleteView = ({ services }) => {
             </div>
             <Divider orientation="horizontal" />
             <div style={{ height: "100%", overflow: "auto" }}>
-                {services.map((item) => {
-                    return (
-                        <div>
-                            {item.groupName}
-                            {item.name}
-                            {item.subtitle}${item.price}
-                        </div>
-                    );
-                })}
+                <ServiceCards services={services} />
             </div>
         </div>
+    );
+};
+
+const ServiceCards = ({ services }) => {
+    const classes = useStyles();
+    return (
+        <>
+            <table className={classes.table}>
+                {services.map(
+                    (item: {
+                        name: string;
+                        imgURL: string;
+                        groupName: string;
+                        subtitle: string;
+                        price: number;
+                    }) => {
+                        return (
+                            <Card key={item.name} style={{margin: "2px"}}>
+                                <CardActionArea>
+                                    <CardContent>
+                                        <tr className={classes.service}>
+                                            <td>{item.groupName}</td>
+                                            <td>{item.name}</td>
+                                            <td>{item.subtitle}</td>
+                                            <td>${item.price}</td>
+                                        </tr>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                        );
+                    }
+                )}
+            </table>
+        </>
     );
 };
 
@@ -136,55 +159,79 @@ const ServicesForm = () => {
     return (
         <>
             <div>
-                <TextField
+                <FormControlLabel
+                    control={
+                        <TextField
+                            placeholder="Hair Extensions"
+                            variant="outlined"
+                            autoComplete="off"
+                            style={{ margin: "10px" }}
+                            required
+                        />
+                    }
                     label="Group Name"
-                    placeholder="Hair Extensions"
-                    variant="outlined"
-                    autoComplete="off"
-                    style={{ margin: "10px" }}
-                    required
+                    labelPlacement="start"
                 />
 
-                <TextField
+                <FormControlLabel
+                    control={
+                        <TextField
+                            placeholder="Locks"
+                            variant="outlined"
+                            autoComplete="off"
+                            style={{ margin: "10px" }}
+                            required
+                        />
+                    }
                     label="Service Name"
-                    placeholder="Locks"
-                    variant="outlined"
-                    autoComplete="off"
-                    style={{ margin: "10px" }}
-                    required
+                    labelPlacement="start"
                 />
             </div>
 
             <div>
-                <TextField
-                    label="Service Price"
-                    placeholder="Ex: 0"
-                    variant="outlined"
-                    autoComplete="off"
-                    style={{ margin: "10px" }}
-                    required
+                <FormControlLabel
+                    control={
+                        <TextField
+                            variant="outlined"
+                            autoComplete="off"
+                            placeholder="Ex: $10"
+                            style={{ margin: "10px", width: "90px" }}
+                            required
+                        />
+                    }
+                    label="Price"
+                    labelPlacement="start"
                 />
 
-                <TextField
+                <FormControlLabel
+                    control={
+                        <TextField
+                            placeholder="Ex: Not sold alone"
+                            variant="outlined"
+                            autoComplete="off"
+                            style={{ margin: "10px" }}
+                        />
+                    }
                     label="Subtitle"
-                    placeholder="Ex: Not sold alone"
-                    variant="outlined"
-                    autoComplete="off"
-                    style={{ margin: "10px" }}
+                    labelPlacement="start"
                 />
 
-                <TextField
+                <FormControlLabel
+                    control={
+                        <TextField
+                            placeholder="Soon drag'n drop"
+                            variant="outlined"
+                            autoComplete="off"
+                            style={{ margin: "10px" }}
+                        />
+                    }
                     label="Image URL"
-                    placeholder="Experimenting for local"
-                    variant="outlined"
-                    autoComplete="off"
-                    style={{ margin: "10px" }}
+                    labelPlacement="start"
                 />
             </div>
 
             <TextareaAutosize
                 rowsMin={4}
-                style={{ margin: "10px" }}
                 placeholder="Enter longer description here"
                 style={{ width: "50%", margin: "10px" }}
             />
@@ -192,7 +239,11 @@ const ServicesForm = () => {
     );
 };
 
-const doInitialLoad = (initialLoad, setInitialLoad, setServiceInfo) => {
+const doInitialLoad = (
+    initialLoad: boolean,
+    setInitialLoad,
+    setServiceInfo
+) => {
     if (initialLoad) {
         setInitialLoad(false);
         updateServices(setServiceInfo);
@@ -204,5 +255,19 @@ const updateServices = (setServiceInfo) => {
         .then((value) => setServiceInfo(value))
         .catch((reason) => console.log(reason));
 };
+
+const useStyles = makeStyles({
+    service: {
+        display: "flex",  
+        justifyContent: "space-between"     
+    },
+    element: {
+        margin: "3px"
+    },
+    table: {
+        width: "100%",
+        tableLayout: "fixed",
+    }
+});
 
 export default UserSettings;
