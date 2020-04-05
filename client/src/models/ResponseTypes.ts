@@ -50,10 +50,16 @@ export type SignUpResponse = GenericApiResponse<
 
 // admin user setting types
 
-export type AdminUserList = GenericApiResponse<
-    ApiResponseUser[],
-    "admin/user/list/success" | "admin/user/list/error"
->;
+export interface AdminUserList
+    extends GenericApiResponse<
+        ApiResponseUser[],
+        | "admin/user/list/success"
+        | "admin/user/list/invalid-search"
+        | "admin/user/list/error"
+    > {
+    page?: number;
+    count?: number;
+}
 
 export type AdminUserInfo = GenericApiResponse<
     ApiResponseUser,

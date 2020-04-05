@@ -59,7 +59,7 @@ const Config: IConfig = {
         },
         "admin - get user list": {
             url: "/api/admin/account",
-            method: "GET",
+            method: "POST",
             headers: {
                 ...noCache,
             },

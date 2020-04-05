@@ -90,6 +90,34 @@ export interface AdminUserDeleteOne {
     payload: string;
 }
 
+export const ADMIN_USER_UPDATE_QUERY = "ADMIN_USER_UPDATE_QUERY";
+export interface AdminUserUpdateQuery {
+    type: typeof ADMIN_USER_UPDATE_QUERY;
+    payload: any;
+}
+
+export const ADMIN_USER_ADD_LOADED_PAGE = "ADMIN_USER_ADD_LOADED_PAGE";
+export interface AdminUserAddLoadedPage {
+    type: typeof ADMIN_USER_ADD_LOADED_PAGE;
+    payload: number;
+}
+
+export const ADMIN_USER_SET_COUNT = "ADMIN_USER_SET_COUNT";
+export interface AdminUserSetCount {
+    type: typeof ADMIN_USER_SET_COUNT;
+    payload: number;
+}
+
+export const ADMIN_USER_ADD_PAGE = "ADMIN_USER_ADD_PAGE";
+export interface AdminUserAddPage {
+    type: typeof ADMIN_USER_ADD_PAGE;
+    payload: {
+        users: User[];
+        count: number;
+        page: number;
+    };
+}
+
 // export type Type = keyof Payload;
 
 // export interface Action<T extends Type> {
@@ -115,7 +143,11 @@ export type AdminUserSettingsActions =
     | AdminUserUpdateList
     | AdminUserUpdateOne
     | AdminUserDeleteOne
-    | AdminUserError;
+    | AdminUserUpdateQuery
+    | AdminUserError
+    | AdminUserAddLoadedPage
+    | AdminUserSetCount
+    | AdminUserAddPage;
 
 export type ThAction<A extends Action<any>> = ThunkAction<
     void,

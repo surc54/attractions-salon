@@ -155,40 +155,79 @@ module.exports.create = [
 module.exports.admin = {};
 
 /** @type {express.RequestHandler} */
-module.exports.admin.list = (req, res) => {
-    const { page = 0 } = req.query;
-    const { filter: filterRaw = {} } = req.body;
+module.exports.admin.list = async (req, res) => {
+    try {
+        const { page = 0 } = req.query;
+        const { filter: filterRaw, search } = req.body;
 
-    // Pick the one's we trust from filter to prevent leaks
-    let filter = _.pick(filterRaw, "name.first", "name.last", "email") || {};
+        let mongoFilter = {};
 
-    // Add more fields here for regex-based matching (instead of strict equality)
-    if (filter["name.first"]) {
-        filter["name.first"] = new RegExp(filter["name.first"], "i");
-    } else if (filter["name.last"]) {
-        filter["name.last"] = new RegExp(filter["name.last"], "i");
-    } else if (filter["email"]) {
-        filter["email"] = new RegExp(filter["email"], "i");
-    }
+        if (filterRaw && !_.isEmpty(filterRaw)) {
+            // Pick the one's we trust from filter to prevent leaks
+            let filter =
+                _.pick(filterRaw, "name.first", "name.last", "email") || {};
 
-    const pageNum = Number(page) || 0;
+            // Add more fields here for regex-based matching (instead of strict equality)
+            if (filter["name.first"]) {
+                filter["name.first"] = new RegExp(filter["name.first"], "i");
+            } else if (filter["name.last"]) {
+                filter["name.last"] = new RegExp(filter["name.last"], "i");
+            } else if (filter["email"]) {
+                filter["email"] = new RegExp(filter["email"], "i");
+            }
 
-    User.find(sanitize(filter), "-password", {
-        limit: ACCOUNTS_PER_PAGE,
-        skip: pageNum * ACCOUNTS_PER_PAGE,
-    })
-        .then((response) => {
-            send_code_success(res, 200, "admin/user/list/success", {
-                data: response.map((x) =>
-                    x.toObject({ virtuals: true, versionKey: false })
-                ),
-            });
+            mongoFilter = sanitize(filter);
+        } else if (search) {
+            if (typeof search !== "string" || /\$/.test(search)) {
+                send_code_error(res, 400, "admin/user/list/invalid-search");
+                return;
+            }
+
+            mongoFilter = {
+                $or: [
+                    {
+                        "name.first": new RegExp(search, "i"),
+                    },
+                    {
+                        "name.last": new RegExp(search, "i"),
+                    },
+                    {
+                        email: new RegExp(search, "i"),
+                    },
+                ],
+            };
+        }
+
+        const pageNum = Number(page) || 0;
+
+        const count = await User.find(
+            mongoFilter,
+            "-password"
+        ).countDocuments();
+
+        User.find(mongoFilter, "-password", {
+            limit: ACCOUNTS_PER_PAGE,
+            skip: pageNum * ACCOUNTS_PER_PAGE,
         })
-        .catch((err) => {
-            send_code_error(res, 500, "admin/user/list/error", {
-                error: err,
+            .then((response) => {
+                send_code_success(res, 200, "admin/user/list/success", {
+                    data: response.map((x) =>
+                        x.toObject({ virtuals: true, versionKey: false })
+                    ),
+                    page: pageNum,
+                    count,
+                });
+            })
+            .catch((err) => {
+                send_code_error(res, 500, "admin/user/list/error", {
+                    error: err,
+                });
             });
+    } catch (err) {
+        send_code_error(res, 500, "admin/user/list/error", {
+            error: err,
         });
+    }
 };
 
 /** @type {express.RequestHandler} */

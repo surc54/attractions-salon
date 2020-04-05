@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsersList } from "../actions/_adminUserSettingsActions";
+import { getUsersList, resetQuery } from "../actions/_adminUserSettingsActions";
 import User from "../models/User";
 import { ReduxState } from "../reducers";
 import { AdminUserSettingsState } from "../reducers/_adminUserSettingsReducer";
@@ -13,10 +13,12 @@ export const useAdminUserSettings = (): AdminUserHook => {
     const [ret, setRet] = React.useState<AdminUserHook>({
         ...adminUserState,
 
-        getUserList: () => {
+        getUserList: (options = {}, page = 0) => {
+            const { filter, search } = options;
+
             return new Promise((resolve, reject) => {
                 dispatch(
-                    getUsersList({
+                    getUsersList(search, page, filter, {
                         then: resolve,
                         catch: reject,
                     })
@@ -35,6 +37,12 @@ export const useAdminUserSettings = (): AdminUserHook => {
         deleteUser: () => {
             return Promise.reject("unimplemented");
         },
+
+        resetQuery: () => {
+            return new Promise((resolve, reject) => {
+                dispatch(resetQuery({ then: resolve, catch: reject }));
+            });
+        },
     });
 
     React.useEffect(() => {
@@ -50,10 +58,16 @@ export const useAdminUserSettings = (): AdminUserHook => {
 
 export interface AdminUserHook extends AdminUserSettingsState {
     // Get list of users
-    getUserList(): Promise<undefined>;
+    getUserList(
+        options?: { search?: string; filter?: any },
+        page?: number
+    ): Promise<undefined>;
 
     // Read/Update/Delete
     getUserInfo(uid: string): Promise<undefined>;
     updateUser(uid: string, data: User): Promise<undefined>;
     deleteUser(uid: string): Promise<undefined>;
+
+    // Helpers
+    resetQuery(): Promise<undefined>;
 }

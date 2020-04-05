@@ -28,6 +28,7 @@ const UNIMPLEMENTED = (req, res) =>
 
 // Get list of all users
 router.get("/", UserController.admin.list);
+router.post("/", UserController.admin.list);
 
 // Get info on one user
 router.get("/:uid", UserController.admin.info);

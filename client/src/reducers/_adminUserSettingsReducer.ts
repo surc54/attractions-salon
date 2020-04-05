@@ -1,18 +1,17 @@
-import { Reducer } from "redux";
-import User from "../models/User";
-import {
-    UserActions,
-    GetAuthInfoEnd,
-    AuthLogoutEnd,
-    AuthSignUpEnd,
-    AdminUserSettingsActions,
-} from "../actions/types";
 import _ from "lodash";
+import { Reducer } from "redux";
+import { AdminUserSettingsActions } from "../actions/types";
+import User from "../models/User";
 
 const INIT: AdminUserSettingsState = {
     loading: true,
     users: [],
     error: null,
+    query: {
+        search: "",
+    },
+    loadedPages: [],
+    count: -1,
 };
 
 const reducer: Reducer<AdminUserSettingsState, AdminUserSettingsActions> = (
@@ -37,6 +36,22 @@ const reducer: Reducer<AdminUserSettingsState, AdminUserSettingsActions> = (
             return {
                 ...state,
                 users: action.payload,
+                loadedPages: [],
+            };
+        }
+        case "ADMIN_USER_ADD_PAGE": {
+            const { users, count, page } = action.payload;
+            return {
+                ...state,
+                users: _.uniqBy([...state.users, ...users], "id"),
+                count,
+                loadedPages: _.uniq([...state.loadedPages, page]),
+            };
+        }
+        case "ADMIN_USER_SET_COUNT": {
+            return {
+                ...state,
+                count: action.payload,
             };
         }
         case "ADMIN_USER_UPDATE_ONE": {
@@ -51,6 +66,24 @@ const reducer: Reducer<AdminUserSettingsState, AdminUserSettingsActions> = (
             return {
                 ...state,
                 users: state.users.filter((x) => x.id !== action.payload),
+            };
+        }
+        case "ADMIN_USER_UPDATE_QUERY": {
+            console.log(
+                state.query,
+                action.payload,
+                _.isEqual(action.payload, state.query)
+            );
+            if (state.query && _.isEqual(action.payload, state.query)) {
+                return state;
+            }
+
+            return {
+                ...state,
+                users: [],
+                query: action.payload,
+                loadedPages: [],
+                count: -1,
             };
         }
         case "ADMIN_USER_ERROR": {
@@ -70,4 +103,7 @@ export interface AdminUserSettingsState {
     loading: boolean;
     error?: any | null;
     users: User[];
+    query?: any;
+    loadedPages: number[];
+    count: number;
 }

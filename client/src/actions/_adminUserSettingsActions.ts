@@ -1,16 +1,17 @@
+import axios from "../models/axios";
+import Config from "../models/Config";
+import { AdminUserList } from "../models/ResponseTypes";
+import { axios_error } from "../tools";
 import {
     ActionCallback,
-    ThAction,
+    AdminUserError,
     AdminUserSettingsActions,
     AdminUserStart,
     AdminUserStop,
-    AdminUserError,
+    AdminUserUpdateQuery,
     NonSuccessError,
+    ThAction,
 } from "./types";
-import axios from "../models/axios";
-import Config from "../models/Config";
-import { AdminUserInfo, AdminUserList } from "../models/ResponseTypes";
-import { axios_error } from "../tools";
 
 const start: AdminUserStart = {
     type: "ADMIN_USER_START",
@@ -25,14 +26,45 @@ const error = (error: any): AdminUserError => ({
     payload: error,
 });
 
+export const resetQuery = (
+    callbacks: ActionCallback = {}
+): ThAction<AdminUserUpdateQuery> => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: "ADMIN_USER_UPDATE_QUERY",
+            payload: {
+                ...(getState().adminUserSettings.query || {}),
+                __random: Math.random(),
+            },
+        });
+        callbacks.then?.();
+    };
+};
+
 export const getUsersList = (
+    search?: string,
+    page: number = 0,
+    filter?: any,
     callbacks: ActionCallback = {}
 ): ThAction<AdminUserSettingsActions> => {
     return (dispatch, getState) => {
         dispatch(start);
+        dispatch({
+            type: "ADMIN_USER_UPDATE_QUERY",
+            payload: { search, filter },
+        });
 
         axios
-            .request<AdminUserList>(Config.apiUrls["admin - get user list"])
+            .request<AdminUserList>({
+                ...Config.apiUrls["admin - get user list"],
+                params: {
+                    page,
+                },
+                data: {
+                    search,
+                    filter,
+                },
+            })
             .then((resp) => {
                 if (resp.status !== 200) {
                     console.error("Status code was not 200", resp);
@@ -52,9 +84,24 @@ export const getUsersList = (
                 }
 
                 dispatch({
-                    type: "ADMIN_USER_UPDATE_LIST",
-                    payload: resp.data.data,
+                    type: "ADMIN_USER_ADD_PAGE",
+                    payload: {
+                        users: resp.data.data,
+                        count: resp.data.count || -1,
+                        page: page,
+                    },
                 });
+
+                // dispatch({
+                //     type: "ADMIN_USER_ADD_LOADED_PAGE",
+                //     payload: page,
+                // });
+
+                // dispatch({
+                //     type: "ADMIN_USER_SET_COUNT",
+                //     payload: resp.data.count || -1,
+                // });
+
                 callbacks?.then?.();
             })
             .catch((err) => {

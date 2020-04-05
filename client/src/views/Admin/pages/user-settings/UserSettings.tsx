@@ -1,57 +1,137 @@
-import React from "react";
 import {
-    IconButton,
+    Chip,
     Icon,
-    TableContainer,
-    Table,
-    TableHead,
-    TableBody,
-    TableRow,
-    TableCell,
+    IconButton,
     Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TablePagination,
+    TableRow,
 } from "@material-ui/core";
+import React from "react";
+import { useAdminUserSettings, useUserAuth } from "../../../../hooks";
+import Toolbar from "./Toolbar";
 import styles from "./UserSettings.module.scss";
-import { useAdminUserSettings } from "../../../../hooks";
+
+const ITEMS_PER_PAGE = 10;
 
 const UserSettings: React.FC = () => {
-    const adminUserSettings = useAdminUserSettings();
+    const [page, setPage] = React.useState<number>(0);
+    const userSettings = useAdminUserSettings();
+    const userAuth = useUserAuth();
 
     React.useEffect(() => {
-        adminUserSettings.getUserList();
+        userSettings.getUserList();
     }, []);
 
-    console.log(adminUserSettings);
+    React.useEffect(() => {
+        // Reset the page to 0 when the query changes!
+        setPage(0);
+    }, [userSettings.query]);
+
+    React.useEffect(() => {
+        if (userSettings.loading) return;
+
+        if (!userSettings.loadedPages.includes(page)) {
+            userSettings.getUserList(userSettings.query, page);
+        }
+    }, [page]);
+
+    console.log(userSettings);
+
+    const currentPage = userSettings.users.slice(
+        page * ITEMS_PER_PAGE,
+        page * ITEMS_PER_PAGE + 10
+    );
 
     return (
         <div className={styles.wrapper}>
             <header className="__admin_header">
                 {/* Special class __admin_header to get consistent styles */}
                 {/* Imports not required for this. */}
-                <h1>User Settings</h1>
+                <h1>User Accounts</h1>
                 <IconButton>
                     <Icon>help</Icon>
                 </IconButton>
             </header>
 
-            <TableContainer component={Paper}>
+            <Toolbar
+                onClearFilter={() => {}}
+                onRefresh={() => {
+                    userSettings.resetQuery().then(() => {
+                        console.log(page);
+                        if (page === 0) {
+                            userSettings.getUserList(userSettings.query, page);
+                        } else setPage(0);
+                    });
+                }}
+            />
+
+            <TableContainer component={Paper} elevation={0}>
                 <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell>Name</TableCell>
-                            <TableCell align="right">Email</TableCell>
+                            <TableCell>Email</TableCell>
+                            <TableCell align="right">Role</TableCell>
+                            <TableCell align="right"></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {adminUserSettings.users.map((row) => (
+                        {currentPage.length === 0 && (
+                            <TableRow>
+                                <TableCell colSpan={4}>
+                                    {userSettings.loading
+                                        ? "Loading. Please wait..."
+                                        : "Nothing's here"}
+                                </TableCell>
+                            </TableRow>
+                        )}
+                        {currentPage.map((row) => (
                             <TableRow key={row.id}>
                                 <TableCell component="th" scope="row">
                                     {row.fullName}
+                                    {row.id === userAuth.user?.id ? (
+                                        <>
+                                            {" "}
+                                            <Chip
+                                                label="you"
+                                                size="small"
+                                                color="primary"
+                                            />
+                                        </>
+                                    ) : (
+                                        ""
+                                    )}
                                 </TableCell>
-                                <TableCell align="right">{row.email}</TableCell>
+                                <TableCell>{row.email}</TableCell>
+                                <TableCell align="right">
+                                    <Chip label={row.role} size="small" />
+                                </TableCell>
+                                <TableCell align="right">
+                                    <IconButton size="small">
+                                        <Icon>more_vert</Icon>
+                                    </IconButton>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
+                <TablePagination
+                    component="div"
+                    count={userSettings.count}
+                    rowsPerPage={ITEMS_PER_PAGE}
+                    rowsPerPageOptions={[ITEMS_PER_PAGE]}
+                    page={page}
+                    onChangePage={(e, i) => {
+                        if (!userSettings.loading) {
+                            setPage(i);
+                        }
+                    }}
+                />
             </TableContainer>
         </div>
     );
