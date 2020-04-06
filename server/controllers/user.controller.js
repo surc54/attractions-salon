@@ -72,6 +72,25 @@ module.exports.signOut = (req, res) => {
     }
 };
 
+const toPhoneNum = (x) => {
+    const numOnly = x
+        .split("")
+        .filter((y) => !isNaN(Number(y)))
+        .join("");
+
+    if (numOnly.length !== 10) {
+        throw new Error("Phone number not 10 digits");
+    }
+
+    return (
+        numOnly.substr(0, 3) +
+        "-" +
+        numOnly.substr(3, 3) +
+        "-" +
+        numOnly.substr(6, 4)
+    );
+};
+
 module.exports.create = [
     requiredBody(
         ["email", "password", "firstName", "lastName", "recaptchaToken"],
@@ -84,6 +103,7 @@ module.exports.create = [
             password,
             firstName: raw_firstName,
             lastName: raw_lastName,
+            phone,
             recaptchaToken,
         } = req.body;
 
@@ -94,6 +114,16 @@ module.exports.create = [
 
         const firstName = validator.escape(raw_firstName);
         const lastName = validator.escape(raw_lastName);
+
+        let phoneNum = null;
+        if (phone) {
+            try {
+                phoneNum = toPhoneNum(phone);
+            } catch (e) {
+                send_code_error(res, 400, "auth/sign-up/phone-invalid");
+                return;
+            }
+        }
 
         let recaptchaResult = null;
 
@@ -129,6 +159,7 @@ module.exports.create = [
                 first: firstName,
                 last: lastName,
             },
+            phone: phone ? phoneNum : undefined,
             email,
             password: User.hashPassword(password),
         });

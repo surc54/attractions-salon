@@ -46,6 +46,7 @@ export type SignUpResponse = GenericApiResponse<
     | "auth/sign-up/email-illegal-format"
     | "auth/sign-up/success"
     | "auth/sign-up/unknown-error"
+    | "auth/sign-up/phone-invalid"
 >;
 
 // admin user setting types
