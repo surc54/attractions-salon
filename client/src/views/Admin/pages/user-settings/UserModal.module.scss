@@ -1,0 +1,89 @@
+.dialog {
+    .dialogPaper {
+        .dialogContent {
+            padding: 36px;
+
+            header.header {
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: flex-start;
+                align-items: center;
+
+                margin-bottom: 32px;
+
+                .title {
+                    font-size: 2.4rem;
+                    font-weight: bold;
+                }
+            }
+
+            section {
+                > h2 {
+                    color: rgba(0, 0, 0, 0.7);
+                    margin-top: 32px;
+                    margin-bottom: 12px;
+                }
+            }
+
+            section.contactInfo {
+                div.content {
+                    display: flex;
+                    flex-flow: row wrap;
+                    justify-content: flex-start;
+                    align-items: center;
+
+                    > * {
+                        margin-right: 8px;
+                        margin-bottom: 8px;
+                    }
+                }
+            }
+
+            section.adminTasks {
+                .selectAdminTask {
+                    min-width: 250px;
+                }
+
+                .description {
+                    margin-top: 24px;
+                    margin-bottom: 24px;
+                }
+
+                .actions {
+                    > * {
+                        margin-right: 12px;
+                    }
+                }
+            }
+
+            section.dialogActions {
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: flex-end;
+                align-items: center;
+            }
+        }
+    }
+}
+
+button.contactItem,
+a.contactItem {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-items: flex-start;
+
+    padding: 0 18px;
+    height: 64px;
+
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+
+    transition: box-shadow 0.15s;
+
+    overflow: hidden;
+
+    > .icon {
+        margin-right: 18px;
+    }
+}
