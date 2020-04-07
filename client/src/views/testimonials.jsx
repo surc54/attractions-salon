@@ -138,7 +138,7 @@ const testimonials = props => {
 
 const styles = {
     body: {
-        margin: "100px 50px",
+        padding: "100px 50px",
     },
     title: {
         fontFamily: "Pacifico, sans-serif",

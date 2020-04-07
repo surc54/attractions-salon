@@ -2,10 +2,14 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/Header/NavBar";
 import Home from "./views/Home/Home";
-import testimonials from "./views/testimonials";
-import NotFound from "./views/NotFound";
+import Testimonials from "./views/Testimonials/Testimonials";
+import NotFound from "./views/404/NotFound";
+import Book from "./views/Book/Book.jsx";
 import Payments from "./views/Payments/Payments";
 import Services from "./views/Services/Services";
+import Login from "./views/Login/Login";
+import { useUserAuth } from "./hooks";
+import AdminBase from "./views/Admin/Base";
 
 const routes = [
     {
@@ -21,7 +25,7 @@ const routes = [
     {
         exact: false,
         path: "/book",
-        component: Home,
+        component: Book,
     },
     {
         exact: false,
@@ -31,13 +35,30 @@ const routes = [
     {
         exact: false,
         path: "/testimonials",
-        component: testimonials,
+        component: Testimonials,
+    },
+    {
+        exact: false,
+        path: "/login",
+        component: Login,
+    },
+    {
+        exact: false,
+        path: "/admin",
+        component: AdminBase,
     },
 ];
 
 const App = () => {
+    const userAuth = useUserAuth();
+
+    React.useEffect(() => {
+        // Initial update - get user status
+        setTimeout(() => userAuth.updateInfo(), 1000);
+    }, []);
+
     return (
-        <div>
+        <>
             <NavBar />
             <Switch>
                 {routes.map(r => (
@@ -50,7 +71,7 @@ const App = () => {
                 ))}
                 <Route component={NotFound} />
             </Switch>
-        </div>
+        </>
     );
 };
 

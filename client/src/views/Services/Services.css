@@ -3,21 +3,20 @@
     flex: 1 0 auto;
 }
 
-.filter{
-    width: 412.69px; 
-}
 .checkBoxes{
     padding-right: 10px;
+}
+.clearButton{
+    padding-right: 10px;
+    float: right;
 }
 .checkBoxName{
     margin-left: 5px;
     color: #E7A1AF;
-    width: 250px;
 }
 .SideBarTitle{
     font-weight: 500;
-    width: 240px;
-    justify-content: space-between;
+    margin-right: 5px;
 }
 
 .titleBox{
@@ -27,7 +26,7 @@
 .itemBox{
     height: 47px;
 }
-
+{/**afdgdfbdfdbfd */}
 .SideBar{
     display: flex;
     flex-direction: column;
