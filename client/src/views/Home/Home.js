@@ -11,9 +11,7 @@ import {
 
 // This library lets you chain classNames together without
 // the string manipulation hassle
-import Carousel from 'react-material-ui-carousel'
 import clsx from "clsx";
-
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import homepic from "../../assets/attractions_salon_photo.jpeg";
@@ -39,10 +37,6 @@ import Slideshow from "./Slideshow";
       you have a parent element that can restrain the child. 
  */
 
-const defaultProps = {
-    center: { lat: 29.6728, lng: -82.39131 },
-    zoom: 12,
-};
 
 // Changed this to an ES6 function
 const Home = () => {
