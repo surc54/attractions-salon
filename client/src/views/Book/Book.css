@@ -1,6 +1,15 @@
-.content {
-    padding: 150px;
-    position: relative;
-    width: 850px;
-    height: 100%;
+main {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 64px 14px;
+    padding-top: 10px;
+}
+
+.form-container {
+    flex-basis: content;
+}
+
+.box-wrapper {
+    padding: 20px;
 }
