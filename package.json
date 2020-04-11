@@ -44,6 +44,7 @@
     "react-hook-form": "^5.1.3",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
+    "redux-form": "^8.3.3",
     "redux-thunk": "^2.3.0",
     "should": "^13.2.3",
     "supertest": "^4.0.2",
@@ -58,8 +59,4 @@
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0"
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 7c092b7c9cfcbee450bf91a7dd30507add4e004b

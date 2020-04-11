@@ -21,7 +21,7 @@ const tempTestimonials = [
         rating: 1,
         testimonial:
             "Fantastic, I'm totally blown away by Testimonial Generator.",
-        date: "",
+        date: "07/08/80",
     },
     {
         id: 2,
@@ -31,7 +31,7 @@ const tempTestimonials = [
         rating: 4,
         testimonial:
             "Fantastic, I'm totally blown away by Testimonial Generator.",
-        date: "",
+        date: "07/08/80",
     },
     {
         id: 3,
@@ -41,7 +41,7 @@ const tempTestimonials = [
         rating: 1,
         testimonial:
             "Fantastic, I'm totally blown away by Testimonial Generator.",
-        date: "",
+        date: "07/08/80",
     },
     {
         id: 4,
@@ -51,7 +51,7 @@ const tempTestimonials = [
         rating: 4,
         testimonial:
             "Fantastic, I'm totally blown away by Testimonial Generator.",
-        date: "",
+        date: "07/08/80",
     },
     {
         id: 5,
@@ -61,7 +61,7 @@ const tempTestimonials = [
         rating: 4,
         testimonial:
             "Fantastic, I'm totally blown away by Testimonial Generator.",
-        date: "",
+        date: "07/08/80",
     },
     {
         id: 6,
@@ -71,7 +71,7 @@ const tempTestimonials = [
         rating: 4,
         testimonial:
             "Fantastic, I'm totally blown away by Testimonial Generator.",
-        date: "",
+        date: "07/08/80",
     },
 ];
 
@@ -110,7 +110,7 @@ const Testimonials = () => {
                                             />
                                         }
                                         title={testimonial.name}
-                                        subheader="07/08/80"
+                                        subheader={testimonial.date}
                                     />
                                     <CardContent>
                                         <Typography
