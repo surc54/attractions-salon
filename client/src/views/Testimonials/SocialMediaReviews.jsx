@@ -1,9 +1,5 @@
 import React from "react";
-import {
-    Typography,
-    GridList,
-    GridListTile,
-} from "@material-ui/core";
+import { Typography, GridList, GridListTile } from "@material-ui/core";
 
 const tempSocialMediaReviews = [
     {
@@ -40,7 +36,7 @@ const SocialMediaReviews = () => {
                 Social Media Reviews
             </Typography>
             <GridList cellHeight="auto">
-                {tempSocialMediaReviews.map(review => {
+                {tempSocialMediaReviews.map((review) => {
                     return (
                         <GridListTile
                             key={review.id}
@@ -52,6 +48,7 @@ const SocialMediaReviews = () => {
                                     border: "none",
                                     overflow: "hidden",
                                 }}
+                                title={review.URL}
                                 src={review.URL}
                                 width={review.width}
                                 height={review.height}

@@ -7,7 +7,6 @@ import {
     IconButton,
     CircularProgress,
     Button,
-    useTheme,
     ThemeProvider,
     createMuiTheme,
     Menu,
@@ -18,9 +17,8 @@ import styles from "./AccountQuickView.module.scss";
 import Config from "../../models/Config";
 import InfoDialog from "../../components/GenericDialogs/InfoDialog";
 import { emsg } from "../../tools";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getUserInitials } from "../../models/User";
-import { useSnackbar } from "notistack";
 
 const AccountQuickView: React.FC<AccountQuickViewProps> = ({
     onLogout,

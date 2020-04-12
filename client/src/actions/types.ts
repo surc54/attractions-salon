@@ -115,3 +115,5 @@ export type ThAction<A extends Action<any>> = ThunkAction<
 //         error: ""
 //     }
 // };
+
+export const ADD_TESTIMONIAL = 'ADD_TESTIMONIAL';

@@ -42,7 +42,7 @@ const NotFound: React.FC<NotFoundProps> = () => {
                     justify="center"
                 >
                     <Grid item xs={12} md={8} className={styles.left}>
-                        <img src={pic} />
+                        <img src={pic} alt="pic" />
                     </Grid>
                     <Grid item xs={12} md={4} className={styles.right}>
                         <pre>HTTP 404 - NOT FOUND</pre>

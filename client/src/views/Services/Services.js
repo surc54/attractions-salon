@@ -7,7 +7,6 @@ const Services = () => {
     const [initialLoad, setInitialLoad] = useState(true);
     const [serviceInfo, setServiceInfo] = useState([]);
     // filtered data set in serviceGrid
-    {/**afdgdfbdfdbfd */}
     return (
         <div className="empty">
             {/** inefficient, should get modified */}

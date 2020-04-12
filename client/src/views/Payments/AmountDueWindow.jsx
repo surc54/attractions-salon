@@ -1,8 +1,6 @@
 import React from "react";
-import { makeStyles, Button, ButtonBase } from "@material-ui/core";
+import { makeStyles, ButtonBase } from "@material-ui/core";
 import "./Payments.css";
-import PayPalButton from "./PayPalButton";
-import PaypalLogo from "./images/Paypal-Logo.png";
 import SquareLogo from "./images/Square-Logo.png";
 
 const AmountDueWindow = props => {

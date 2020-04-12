@@ -1,11 +1,5 @@
 import React from "react";
-import {
-    useHistory,
-    useLocation,
-    Router,
-    Switch,
-    Route,
-} from "react-router-dom";
+import { useHistory, Router, Switch, Route } from "react-router-dom";
 import AdminSidebar from "./Sidebar";
 import styles from "./Base.module.scss";
 import { useUserAuth } from "../../hooks";
