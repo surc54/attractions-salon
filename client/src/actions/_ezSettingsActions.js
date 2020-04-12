@@ -9,7 +9,7 @@ import { axios_error } from "../tools";
  * @param {String} key The key of the setting you want
  * @param {{then: () => void, catch: (err) => void}} callbacks
  */
-const getSetting = (key, callbacks) => (dispatch, getState) => {
+export const getSetting = (key, callbacks) => (dispatch, getState) => {
     // grab callbacks and set default values
     const { then = () => false, catch: catchF = () => false } = callbacks || {};
 
@@ -59,7 +59,7 @@ const getSetting = (key, callbacks) => (dispatch, getState) => {
                 },
             });
 
-            then();
+            then(data.data ? data.data.value : null);
         })
         .catch((err) => {
             dispatch({
@@ -82,7 +82,7 @@ const getSetting = (key, callbacks) => (dispatch, getState) => {
  * @param {String} value The value you want to set it to.
  * @param {{then: () => void, catch: (err) => void}} callbacks
  */
-const getSetting = (key, value, callbacks) => (dispatch, getState) => {
+export const setSetting = (key, value, callbacks) => (dispatch, getState) => {
     // grab callbacks and set default values
     const { then = () => false, catch: catchF = () => false } = callbacks || {};
 
@@ -133,7 +133,7 @@ const getSetting = (key, value, callbacks) => (dispatch, getState) => {
                 },
             });
 
-            then();
+            then(data.data ? data.data.value : null);
         })
         .catch((err) => {
             dispatch({

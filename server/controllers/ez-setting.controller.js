@@ -64,10 +64,13 @@ module.exports.set = [
             }
         }
 
-        EzSetting.create({
-            key,
-            value,
-        })
+        EzSetting.updateOne(
+            {
+                key,
+            },
+            { key, value },
+            { upsert: true }
+        )
             .then((resp) => {
                 send_code_success(res, 200, "ez-settings/set/success", {
                     data: { key, value },

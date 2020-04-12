@@ -9,11 +9,13 @@ export default combineReducers<ReduxState>({
 
 export interface ReduxState {
     login: UserState;
-    ezSettings: {
-        [key: string]: {
-            loading?: boolean;
-            value?: string;
-            error?: any;
-        };
+    ezSettings: EzSettingsState;
+}
+
+export interface EzSettingsState {
+    [key: string]: {
+        loading?: boolean;
+        value?: string;
+        error?: any;
     };
 }
