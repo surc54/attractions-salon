@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 
 
-const HomeSettings: React.FC = () => {
+const HomeSettings = (props) => {
     const [pageNum, setPageNum] = useState(0);
 
     return (
@@ -35,18 +35,20 @@ const HomeSettings: React.FC = () => {
                     <Divider orientation="horizontal" />
                 </div>
 
-                {getChoiceView(pageNum)}
+                {getChoiceView(pageNum,props.aboutBox, props.setAboutBox)}
             </div>
         </>
     );
 };
 
-const getChoiceView = (pageNum: number) => {
+const getChoiceView = (pageNum, aboutBox, setAboutBox) => {
     switch (pageNum) {
         case 0:
             return <AddPhoto />;
         case 1:
-            return <HomeUpdateAboutView />;
+            return <HomeUpdateAboutView 
+            aboutBox = {aboutBox}
+            setAboutBox = {setAboutBox}/>;
         case 2:
             return <HomeUpdateStylistForm />;
         default:
@@ -74,7 +76,7 @@ const AddPhoto = () => {
     );
 };
 
-const HomeUpdateAboutView = () => {
+const HomeUpdateAboutView = (props) => {
     return (
         <div>
             <div
@@ -87,7 +89,9 @@ const HomeUpdateAboutView = () => {
                 <Button >Update</Button>
             </div>
             <Divider orientation="horizontal" />
-            <HomeAboutForm />
+            <HomeAboutForm 
+            aboutBox = {props.aboutBox}
+            setAboutBox = {props.setAboutBox}/>
             <p>
                 Please enter new text for "About Us" section.
             </p>
@@ -116,42 +120,38 @@ const HomeUpdateStylistForm = () => {
     );
 };
 
-interface Props {
- } 
-
-const HomeAboutForm = (props: Props) => {
-    const [aboutBox, setAboutBox] = useState("")
-    // const handleSubmit = event => {
-    //     const {name, value } = event.target;
-        
-    //     // setAboutBox({...aboutBox, [name]: value})
-    // }
+const HomeAboutForm = (props) => {
+    const handleInputChange = event => {
+        console.log('handle input change')
+        const box = event.target;
+        props.setAboutBox({ ...props.aboutBox,box})
+        }
     return (
-        <>
+        <form>
             <TextField 
-                onSubmit = { event => {
-                    event.preventDefault();
-                    if (!aboutBox) return
-                    const aboutbox = aboutBox
-                    setAboutBox(aboutbox)
+             onSubmit = { event => {
+                event.preventDefault();
+                if (!props.aboutBox) return
+                const box = event.target;
+                props.setAboutBox({ ...props.aboutBox,box})
+                console.log(props.aboutBox)
                 }}
                 placeholder="Enter new text for About Section here"
                 multiline
-                value={aboutBox}  
-                onChange={event => setAboutBox(event.target.value)}   
+                value={props.aboutBox}   
                 variant="outlined"
                 rows={4}
                 style={{ margin: "10px", width: '600px' }}
                 rowsMax={6}
                 required
+                input type="text" name="name" value={props.aboutBox} onChange={handleInputChange}
                 >
+                <input type="text" name="name" value={props.aboutBox} onChange={handleInputChange} />
                 </TextField>
                 <p></p>
-                {<Button> Submit </Button>} 
-                <p></p>
-                
-            
-        </>
+                <input type="submit" value="Submit" /> 
+    
+            </form>  
     );
 };
 
