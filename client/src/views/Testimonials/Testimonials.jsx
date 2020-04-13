@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import PropTypes from "prop-types";
 import {
     Card,
@@ -11,71 +11,20 @@ import Rating from "@material-ui/lab/Rating";
 import "./Testimonials.css";
 import SocialMediaReviews from "./SocialMediaReviews";
 import AddTestimonial from "./AddTestimonial";
+import axios from "axios";
+import moment from "moment";
 
-const tempTestimonials = [
-    {
-        id: 1,
-        profilePic:
-            "https://d3kqdc25i4tl0t.cloudfront.net/articles/content/92_408268_151204profilepicture_hero.jpg",
-        name: "John",
-        rating: 1,
-        testimonial:
-            "Fantastic, I'm totally blown away by Testimonial Generator.",
-        date: "07/08/80",
-    },
-    {
-        id: 2,
-        profilePic:
-            "https://d3kqdc25i4tl0t.cloudfront.net/articles/content/92_408268_151204profilepicture_hero.jpg",
-        name: "John",
-        rating: 4,
-        testimonial:
-            "Fantastic, I'm totally blown away by Testimonial Generator.",
-        date: "07/08/80",
-    },
-    {
-        id: 3,
-        profilePic:
-            "https://d3kqdc25i4tl0t.cloudfront.net/articles/content/92_408268_151204profilepicture_hero.jpg",
-        name: "John",
-        rating: 1,
-        testimonial:
-            "Fantastic, I'm totally blown away by Testimonial Generator.",
-        date: "07/08/80",
-    },
-    {
-        id: 4,
-        profilePic:
-            "https://d3kqdc25i4tl0t.cloudfront.net/articles/content/92_408268_151204profilepicture_hero.jpg",
-        name: "John",
-        rating: 4,
-        testimonial:
-            "Fantastic, I'm totally blown away by Testimonial Generator.",
-        date: "07/08/80",
-    },
-    {
-        id: 5,
-        profilePic:
-            "https://d3kqdc25i4tl0t.cloudfront.net/articles/content/92_408268_151204profilepicture_hero.jpg",
-        name: "John",
-        rating: 4,
-        testimonial:
-            "Fantastic, I'm totally blown away by Testimonial Generator.",
-        date: "07/08/80",
-    },
-    {
-        id: 6,
-        profilePic:
-            "https://d3kqdc25i4tl0t.cloudfront.net/articles/content/92_408268_151204profilepicture_hero.jpg",
-        name: "John",
-        rating: 4,
-        testimonial:
-            "Fantastic, I'm totally blown away by Testimonial Generator.",
-        date: "07/08/80",
-    },
-];
+const tempTestimonials = [];
 
 const Testimonials = () => {
+    useEffect(() => {
+        axios.get("/api/testimonial").then((response) => {
+            response.data.data.map((testimonial) =>
+                tempTestimonials.push(testimonial)
+            );
+        });
+    }, []);
+
     return (
         <div className="body">
             <div>
@@ -86,43 +35,54 @@ const Testimonials = () => {
                 <Grid
                     container
                     spacing={2}
-                    justify="center"
+                    justify="flex-start"
                     direction="row"
                     alignItems="center"
                 >
-                    {tempTestimonials.map(testimonial => {
-                        return (
-                            <Grid key={testimonial.id} md={4} item>
-                                <Card elevation={3} className="card">
-                                    <CardHeader
-                                        avatar={
-                                            <img
-                                                src={testimonial.profilePic}
-                                                alt={testimonial.name}
-                                                className="picture"
-                                            />
-                                        }
-                                        action={
-                                            <Rating
-                                                value={testimonial.rating}
-                                                className="ratings"
-                                                readOnly
-                                            />
-                                        }
-                                        title={testimonial.name}
-                                        subheader={testimonial.date}
-                                    />
-                                    <CardContent>
-                                        <Typography
-                                            variant="body2"
-                                            component="p"
-                                        >
-                                            {testimonial.testimonial}
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        );
+                    {tempTestimonials.map((testimonial, idx) => {
+                        if (testimonial.approved) {
+                            const temp = moment(testimonial.createdAt).format(
+                                "L"
+                            );
+                            return (
+                                <Grid key={idx} md={4} item>
+                                    <Card elevation={3} className="card">
+                                        <CardHeader
+                                            avatar={
+                                                <img
+                                                    src={
+                                                        testimonial.profilePic ||
+                                                        "https://d3kqdc25i4tl0t.cloudfront.net/articles/content/92_408268_151204profilepicture_hero.jpg"
+                                                    }
+                                                    alt={
+                                                        testimonial.name ||
+                                                        "random"
+                                                    }
+                                                    className="picture"
+                                                />
+                                            }
+                                            action={
+                                                <Rating
+                                                    value={testimonial.rating}
+                                                    className="ratings"
+                                                    readOnly
+                                                />
+                                            }
+                                            title={testimonial.name}
+                                            subheader={temp}
+                                        />
+                                        <CardContent>
+                                            <Typography
+                                                variant="body2"
+                                                component="p"
+                                            >
+                                                {testimonial.feedback}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            );
+                        }
                     })}
                 </Grid>
             </div>

@@ -1,5 +1,6 @@
 import { ADD_TESTIMONIAL } from "../actions/types";
-import { TestimonialState, TestimonialTypes } from "../actions/_addTestimonial";
+import { TestimonialState, TestimonialTypes } from "../models/Testimonials";
+import axios from "axios";
 
 const INITIAL_STATE: TestimonialState = {
     data: [],
@@ -11,10 +12,31 @@ function testimonialReducer(
 ): TestimonialState {
     switch (action.type) {
         case ADD_TESTIMONIAL: {
-            return {
+            state = {
                 ...state,
-                data: [action.payload, ...state.data],
+                data: [
+                    {
+                        approved: false,
+                        name: action.payload.name,
+                        rating: parseInt(action.payload.rating),
+                        feedback: action.payload.feedback,
+                    },
+                    ...state.data,
+                ],
             };
+
+            axios
+                .post("/api/testimonial", {
+                    approved: false,
+                    name: action.payload.name,
+                    rating: parseInt(action.payload.rating),
+                    feedback: action.payload.feedback,
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+            return state;
         }
         default:
             return state;

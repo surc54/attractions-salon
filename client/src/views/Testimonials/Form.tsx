@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import { FormErrors } from "redux-form";
@@ -53,16 +53,36 @@ const renderTextField: React.FC = (field: any) => {
                 {...field.input}
             />
             {field.meta.touched && (
-                <p className="text-danger">{field.meta.error}</p>
+                <p style={{ color: "red", margin: "0px" }}>
+                    {field.meta.error}
+                </p>
+            )}
+        </div>
+    );
+};
+
+const renderRating: React.FC = (field: any) => {
+    return (
+        <div>
+            <Rating
+                name={field.input.name}
+                size={field.size}
+                className={field.className}
+                {...field.input}
+                value={parseInt(field.input.value)}
+                style={field.style}
+            />
+            {field.meta.touched && (
+                <p style={{ color: "red", margin: "0px" }}>
+                    {field.meta.error}
+                </p>
             )}
         </div>
     );
 };
 
 export const Form: React.FC = (props: any) => {
-    const { handleSubmit, pristine, submitting } = props;
-
-    const [open, setOpen] = useState(false);
+    const { handleSubmit, pristine, submitting, open, setOpen } = props;
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -98,24 +118,22 @@ export const Form: React.FC = (props: any) => {
                         <div style={{ margin: "0px 20px" }}>
                             <Field
                                 name="name"
-                                autoFocus
+                                // autoFocus
                                 label="Name"
                                 variant="outlined"
                                 margin="normal"
                                 component={renderTextField}
                             />
-                            {/* <Typography>
+                            <Typography>
                                 How would you rate your experience?
                             </Typography>
                             <Field
                                 name="rating"
-                                // value={parseInt(formState.rating)}
-                                // onChange={handleChange}
                                 className="ratings"
                                 size="large"
                                 style={{ marginBottom: "20px" }}
-                                component={Rating}
-                            /> */}
+                                component={renderRating}
+                            />
                             <Typography>
                                 Have some feedback? You can write it here:
                             </Typography>
@@ -141,7 +159,6 @@ export const Form: React.FC = (props: any) => {
                             style={{ color: "white" }}
                             type="submit"
                             disabled={pristine || submitting}
-                            onClick={handleClose}
                         >
                             Submit
                         </Button>
