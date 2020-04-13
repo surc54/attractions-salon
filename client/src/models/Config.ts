@@ -64,7 +64,20 @@ const Config: IConfig = {
                 ...noCache,
             },
         },
-        
+        "ez-settings - get": {
+            url: "/api/admin/ez-setting",
+            method: "GET",
+            headers: {
+                ...noCache,
+            },
+        },
+        "ez-settings - set": {
+            url: "/api/admin/ez-setting",
+            method: "PUT",
+            headers: {
+                ...noCache,
+            },
+        },
     },
     theme: {
         palette: {

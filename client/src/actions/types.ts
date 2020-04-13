@@ -54,6 +54,32 @@ export interface AuthSignUpEnd {
     };
 }
 
+export const EZS_LOADING = "EZS_LOADING";
+export interface EzsLoading {
+    type: typeof EZS_LOADING;
+    payload: {
+        key: string;
+    };
+}
+
+export const EZS_UPDATE_SETTING = "EZS_UPDATE_SETTING";
+export interface EzsUpdateSetting {
+    type: typeof EZS_UPDATE_SETTING;
+    payload: {
+        key: string;
+        value: string;
+    };
+}
+
+export const EZS_ERROR = "EZS_ERROR";
+export interface EzsError {
+    type: typeof EZS_ERROR;
+    payload: {
+        key: string;
+        error: any;
+    };
+}
+
 // export type Type = keyof Payload;
 
 // export interface Action<T extends Type> {
