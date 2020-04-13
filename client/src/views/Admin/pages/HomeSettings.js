@@ -6,6 +6,7 @@ import {
     TextField,
     TextareaAutosize,
 } from "@material-ui/core";
+import {useEzSettings} from "../../../hooks/EzSettingsHook";
 
 
 const HomeSettings = (props) => {
@@ -121,10 +122,15 @@ const HomeUpdateStylistForm = () => {
 };
 
 const HomeAboutForm = (props) => {
+    const ezSettings = useEzSettings();
     const handleInputChange = event => {
-        console.log('handle input change')
-        const box = event.target;
-        props.setAboutBox({ ...props.aboutBox,box})
+        // console.log('handle input change')
+        const box = event.target.value;
+        // props.setAboutBox({ ...props.aboutBox,box})
+        ezSettings
+        .set("home-about-us", box)
+        .then((res) => props.setAboutBox(res))
+        .catch((err) => console.log(err));
         }
     return (
         <form>

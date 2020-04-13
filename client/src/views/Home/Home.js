@@ -20,8 +20,8 @@ import SpacingGrid2 from "./SpacingGrid2"
 // This "styles" object is the only way to set styles from
 // your scss file now (because of modularity)
 import styles from "./Home.module.scss";
-// import HomeSettings from "../Admin/pages/HomeSettings";
-import HomeSettings2 from "../Admin/pages/HomeSettings[DOESNT_WORK]"
+import HomeSettings from "../Admin/pages/HomeSettings";
+import {useEzSettings} from "../../hooks/EzSettingsHook";
 import InfoPiece from "./InfoPiece";
 import Slideshow from "./Slideshow";
 
@@ -43,7 +43,23 @@ import Slideshow from "./Slideshow";
 const Home = () => {
     // Grab history object from react-router
     const [aboutBox, setAboutBox] = useState("")
+    const ezSettings = useEzSettings();
     const history = useHistory();
+
+    React.useEffect(() => {
+        ezSettings
+            .get("home-about-us")
+            .then((res) => {
+                console.log("setting", res);
+                setAboutBox(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        // the [] means only do when loading this component
+    }, 
+    []
+    );
 
     // Scroll detection hook provided by Material-UI
     const isScrolled = useScrollTrigger({
@@ -362,9 +378,10 @@ const Home = () => {
                 aboutBox = {aboutBox}
                 setAboutBox = {setAboutBox}
             /> */}
-            <HomeSettings2
+            <HomeSettings
                 aboutBox = {aboutBox}
                 setAboutBox = {setAboutBox}
+                ezSettings = {ezSettings}
             />
         </div>
     );
