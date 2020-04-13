@@ -303,15 +303,42 @@ module.exports.admin.update = async (req, res) => {
             "name.first",
             "name.last",
             "email",
+            "phone",
             "role"
         );
 
         const original = await User.findById(uid, "-password -_id");
 
+        if (
+            original.role.toString() !== newData.role.toString() &&
+            req.user.role !== "Owner"
+        ) {
+            send_code_error(
+                res,
+                403,
+                "admin/user/update/role-change-only-owner"
+            );
+            return;
+        }
+
         newData = _.defaultsDeep(
             newData,
             original.toObject({ versionKey: false })
         );
+
+        if (newData.phone) {
+            try {
+                newData.phone = toPhoneNum(newData.phone);
+            } catch (e) {
+                send_code_error(res, 400, "admin/user/update/phone-invalid");
+                return;
+            }
+        }
+
+        if (!newData.name.first || !newData.name.last || !newData.email) {
+            send_code_error(res, 400, "admin/user/update/invalid-values");
+            return;
+        }
 
         await User.updateOne(
             {
@@ -342,8 +369,21 @@ module.exports.admin.delete = async (req, res) => {
     try {
         const { uid } = req.params;
 
+        if (!req.user) {
+            // we should be logged in, but because we are using user, make sure.
+            throw {
+                name: "NoPermsErr",
+            };
+        }
+
         if (!uid) {
             send_code_error(res, 400, "admin/user/delete/missing-uid");
+            return;
+        }
+
+        // you need toString() to make it comparable
+        if (req.user._id.toString() === uid.toString()) {
+            send_code_error(res, 400, "admin/user/delete/cannot-delete-self");
             return;
         }
 

@@ -1,6 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsersList, resetQuery } from "../actions/_adminUserSettingsActions";
+import {
+    getUsersList,
+    resetQuery,
+    deleteUser,
+    updateUser,
+    getUserInfo,
+} from "../actions/_adminUserSettingsActions";
 import User from "../models/User";
 import { ReduxState } from "../reducers";
 import { AdminUserSettingsState } from "../reducers/_adminUserSettingsReducer";
@@ -26,17 +32,35 @@ export const useAdminUserSettings = (): AdminUserHook => {
             });
         },
 
-        getUserInfo: () => {
-            return Promise.reject("unimplemented");
-        },
+        getUserInfo: (uid) =>
+            new Promise((resolve, reject) => {
+                dispatch(
+                    getUserInfo(uid, {
+                        then: resolve,
+                        catch: reject,
+                    })
+                );
+            }),
 
-        updateUser: () => {
-            return Promise.reject("unimplemented");
-        },
+        updateUser: (uid, data) =>
+            new Promise((resolve, reject) => {
+                dispatch(
+                    updateUser(uid, data, {
+                        then: resolve,
+                        catch: reject,
+                    })
+                );
+            }),
 
-        deleteUser: () => {
-            return Promise.reject("unimplemented");
-        },
+        deleteUser: (uid) =>
+            new Promise((resolve, reject) => {
+                dispatch(
+                    deleteUser(uid, {
+                        then: resolve,
+                        catch: reject,
+                    })
+                );
+            }),
 
         resetQuery: (newState) => {
             return new Promise((resolve, reject) => {

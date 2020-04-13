@@ -24,9 +24,15 @@ const UserSettings: React.FC = () => {
     const [page, setPage] = React.useState<number>(0);
     const userSettings = useAdminUserSettings();
     const userAuth = useUserAuth();
-    const [selectedUser, setSelectedUser] = React.useState<User | null>(
-        userAuth.user as User
-    );
+    const [selectedUser, setSelectedUser] = React.useState<string | null>(null);
+
+    const refresh = () => {
+        userSettings.resetQuery().then(() => {
+            if (page === 0) {
+                userSettings.getUserList(userSettings.query, page);
+            } else setPage(0);
+        });
+    };
 
     React.useEffect(() => {
         userSettings.getUserList();
@@ -69,13 +75,7 @@ const UserSettings: React.FC = () => {
                         } else setPage(0);
                     });
                 }}
-                onRefresh={() => {
-                    userSettings.resetQuery().then(() => {
-                        if (page === 0) {
-                            userSettings.getUserList(userSettings.query, page);
-                        } else setPage(0);
-                    });
-                }}
+                onRefresh={refresh}
             />
 
             <TableContainer component={Paper} elevation={0}>
@@ -84,8 +84,8 @@ const UserSettings: React.FC = () => {
                         <TableRow>
                             <TableCell>Name</TableCell>
                             <TableCell>Email</TableCell>
+                            <TableCell>Phone</TableCell>
                             <TableCell align="right">Role</TableCell>
-                            <TableCell align="right"></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -102,7 +102,7 @@ const UserSettings: React.FC = () => {
                             <TableRow
                                 key={row.id}
                                 hover
-                                onClick={() => window.alert("hey!")}
+                                onClick={() => setSelectedUser(row.id)}
                             >
                                 <TableCell component="th" scope="row">
                                     {row.fullName}
@@ -120,16 +120,17 @@ const UserSettings: React.FC = () => {
                                     )}
                                 </TableCell>
                                 <TableCell>{row.email}</TableCell>
+                                <TableCell>{row.phone ?? "N/A"}</TableCell>
                                 <TableCell align="right">
-                                    <Chip label={row.role} size="small" />
-                                </TableCell>
-                                <TableCell align="right">
-                                    <IconButton
+                                    <Chip
+                                        label={row.role}
                                         size="small"
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        <Icon>more_vert</Icon>
-                                    </IconButton>
+                                        color={
+                                            row.role === "Guest"
+                                                ? undefined
+                                                : "primary"
+                                        }
+                                    />
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -148,7 +149,15 @@ const UserSettings: React.FC = () => {
                     }}
                 />
             </TableContainer>
-            <UserModal open user={selectedUser} />
+            <UserModal
+                open={Boolean(selectedUser)}
+                user={
+                    userSettings.users.find(
+                        (x) => x.id === selectedUser
+                    ) as User
+                }
+                onClose={() => setSelectedUser(null)}
+            />
         </div>
     );
 };

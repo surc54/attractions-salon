@@ -59,13 +59,14 @@ const reducer: Reducer<AdminUserSettingsState, AdminUserSettingsActions> = (
 
             return {
                 ...state,
-                users: [...state.users.filter((x) => x.id !== user.id), user],
+                users: state.users.map((x) => (x.id === user.id ? user : x)),
             };
         }
         case "ADMIN_USER_DELETE_ONE": {
             return {
                 ...state,
                 users: state.users.filter((x) => x.id !== action.payload),
+                count: state.count - 1,
             };
         }
         case "ADMIN_USER_UPDATE_QUERY": {

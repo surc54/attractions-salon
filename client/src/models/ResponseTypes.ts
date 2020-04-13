@@ -51,7 +51,7 @@ export type SignUpResponse = GenericApiResponse<
 
 // admin user setting types
 
-export interface AdminUserList
+export interface AdminUserListResponse
     extends GenericApiResponse<
         ApiResponseUser[],
         | "admin/user/list/success"
@@ -62,7 +62,7 @@ export interface AdminUserList
     count?: number;
 }
 
-export type AdminUserInfo = GenericApiResponse<
+export type AdminUserInfoResponse = GenericApiResponse<
     ApiResponseUser,
     | "admin/user/info/missing-uid"
     | "admin/user/info/uid-illegal-format"
@@ -70,17 +70,20 @@ export type AdminUserInfo = GenericApiResponse<
     | "admin/user/info/error"
 >;
 
-export type AdminUserUpdate = GenericApiResponse<
+export type AdminUserUpdateResponse = GenericApiResponse<
     ApiResponseUser,
     | "admin/user/update/body-required"
     | "admin/user/update/success"
     | "admin/user/update/error"
+    | "admin/user/update/invalid-values"
+    | "admin/user/update/phone-invalid"
 >;
 
-export type AdminUserDelete = GenericApiResponse<
+export type AdminUserDeleteResponse = GenericApiResponse<
     ApiResponseUser,
     | "admin/user/delete/missing-uid"
     | "admin/user/delete/no-user"
     | "admin/user/delete/success"
     | "admin/user/delete/error"
+    | "admin/user/delete/cannot-delete-self"
 >;
