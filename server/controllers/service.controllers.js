@@ -24,8 +24,6 @@ const TEMP_DATA_LIST_FILE = path.resolve(
     }
 }
 
-{/**afdgdfbdfdbfd */}
-
 module.exports.list = (req, res) => {
     
     // initialize database
@@ -38,6 +36,7 @@ module.exports.list = (req, res) => {
     //     status: "ok",
     //     data: servicesArray,
     // });
+
     services
         .find({})
         .then(value => {
@@ -67,6 +66,16 @@ module.exports.create = (req, res) => {
     /// assuming it looks like this ///
     let groupName = req.body.groupName;
     let items = req.body.items;
+    let items = req.body.items;
+
+    let {
+        groupName,
+        name,
+        price,
+        description, // how to deal with optional fields?
+        subtitle,
+        imgURL,
+    } = req.body;
 
     // need to allow to create an item
     // or an entirely new group
@@ -84,24 +93,21 @@ module.exports.create = (req, res) => {
     // if creating a new group
     data = {
         groupName: groupName,
-        items: items, // assuming both fields exist
+        name: name,
+        price: price,
+        description: description ? description : undefined,
+        subtitle: subtitle ? subtitle : undefined,
+        // no img URL yet
     };
-    // TO-DO
-    // Find by groupName, if found & equal => done
-    // Find by groupName, if found & unequal => what do I do?
-    // if not found, add new group
-
-    // should I check if same group already exists?
-    // to not create duplicates
 
     let newData = new services(data);
 
-    // newData
-    //     .save()
-    //     .then(successData => res.json(successData))
-    //     .catch(reason =>
-    //         res.status(200).send("Some message that indicates an error")
-    //     );
+    newData
+         .save()
+         .then(successData => res.json(successData))
+         .catch(reason =>
+             res.status(200).send("Some message that indicates an error")
+         );
 };
 
 module.exports.update = (req, res) => {

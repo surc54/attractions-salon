@@ -11,10 +11,19 @@ import {
 } from "@material-ui/core";
 import { getServices } from "../../../actions/serviceActions";
 
+type Services = {
+    groupName: String;
+    name: String;
+    price: Number;
+    subtitle: String;
+    description: String;
+    imgURL: String;
+}[] | undefined;
+
 const ServiceSettings: React.FC = () => {
     const [pageNum, setPageNum] = useState(0);
     const [initialLoad, setInitialLoad] = useState(true);
-    const [serviceInfo, setServiceInfo] = useState([]);
+    const [serviceInfo, setServiceInfo] = useState<Services>([]);
 
     return (
         <>
@@ -45,7 +54,10 @@ const ServiceSettings: React.FC = () => {
     );
 };
 
-const getChoiceView = (pageNum: number, serviceInfo: never[]) => {
+const getChoiceView = (
+    pageNum: number,
+    serviceInfo: Services
+) => {
     switch (pageNum) {
         case 0:
             return <ServiceCreationForm />;
@@ -78,7 +90,7 @@ const ServiceCreationForm = () => {
     );
 };
 
-const ServiceUpdateView = ({ services }) => {
+const ServiceUpdateView = ({ services } : Services) => {
     return (
         <div style={{ height: "90%" }}>
             <div
@@ -98,7 +110,7 @@ const ServiceUpdateView = ({ services }) => {
     );
 };
 
-const ServiceDeleteView = ({ services }) => {
+const ServiceDeleteView = ({ services } : Services) => {
     return (
         <div style={{ height: "90%" }}>
             <div
@@ -118,7 +130,7 @@ const ServiceDeleteView = ({ services }) => {
     );
 };
 
-const ServiceCards = ({ services }) => {
+const ServiceCards = ({ services } : Services) => {
     const classes = useStyles();
     return (
         <>
@@ -238,8 +250,8 @@ const ServicesForm = () => {
 
 const doInitialLoad = (
     initialLoad: boolean,
-    setInitialLoad,
-    setServiceInfo
+    setInitialLoad: React.Dispatch<React.SetStateAction<boolean>>,
+    setServiceInfo: React.Dispatch<React.SetStateAction<Services>>
 ) => {
     if (initialLoad) {
         setInitialLoad(false);
@@ -247,7 +259,11 @@ const doInitialLoad = (
     }
 };
 
-const updateServices = (setServiceInfo) => {
+const updateServices = (
+    setServiceInfo: React.Dispatch<
+        React.SetStateAction<Services>
+    >
+) => {
     getServices()
         .then((value) => setServiceInfo(value))
         .catch((reason) => console.log(reason));
