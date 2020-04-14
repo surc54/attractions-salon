@@ -13,15 +13,9 @@ import {
 import Rating from "@material-ui/lab/Rating";
 import "../../Testimonials/Testimonials.css";
 // import SocialMediaReviews from "./SocialMediaReviews";
-import axios from "axios";
 import moment from "moment";
 
 const TestimonialsSettings: React.FC = () => {
-    useEffect(() => {
-        axios.get("/api/testimonial").then((response) => {
-            console.log(response.data.data);
-        });
-    }, []);
 
     return (
         <div
@@ -48,48 +42,46 @@ const TestimonialsSettings: React.FC = () => {
                     direction="row"
                     alignItems="center"
                 >
-                    {/* {tempTestimonials.map((testimonial, idx) => {
-                            const temp = moment(testimonial.createdAt).format(
-                                "L"
-                            );
-                            return (
-                                <Grid key={idx} md={4} item>
-                                    <Card elevation={3} className="card">
-                                        <CardHeader
-                                            avatar={
-                                                <img
-                                                    src={
-                                                        testimonial.profilePic ||
-                                                        "https://d3kqdc25i4tl0t.cloudfront.net/articles/content/92_408268_151204profilepicture_hero.jpg"
-                                                    }
-                                                    alt={
-                                                        testimonial.name ||
-                                                        "random"
-                                                    }
-                                                    className="picture"
-                                                />
-                                            }
-                                            action={
-                                                <Rating
-                                                    value={testimonial.rating}
-                                                    className="ratings"
-                                                    readOnly
-                                                />
-                                            }
-                                            title={testimonial.name}
-                                            subheader={temp}
-                                        />
-                                        <CardContent>
-                                            <Typography
-                                                variant="body2"
-                                                component="p"
-                                            >
-                                                {testimonial.feedback}
-                                            </Typography>
-                                        </CardContent>
-                                    </Card>
-                                </Grid>
-                            );
+                    {/* {data.map((testimonial: any) => {
+                        const temp = moment(testimonial.createdAt).format("L");
+                        // console.log(testimonial);
+                        return (
+                            <Grid key={testimonial._id} md={4} item>
+                                <Card elevation={3} className="card">
+                                    <CardHeader
+                                        avatar={
+                                            <img
+                                                src={
+                                                    testimonial.profilePic ||
+                                                    "https://d3kqdc25i4tl0t.cloudfront.net/articles/content/92_408268_151204profilepicture_hero.jpg"
+                                                }
+                                                alt={
+                                                    testimonial.name || "random"
+                                                }
+                                                className="picture"
+                                            />
+                                        }
+                                        action={
+                                            <Rating
+                                                value={testimonial.rating}
+                                                className="ratings"
+                                                readOnly
+                                            />
+                                        }
+                                        title={testimonial.name}
+                                        subheader={temp}
+                                    />
+                                    <CardContent>
+                                        <Typography
+                                            variant="body2"
+                                            component="p"
+                                        >
+                                            {testimonial.feedback}
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        );
                     })} */}
                 </Grid>
             </div>

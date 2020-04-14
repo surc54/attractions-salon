@@ -9,7 +9,7 @@ import { CSSTransition } from "react-transition-group";
 import Config from "../../models/Config";
 import { useSnackbar } from "notistack";
 import NotFound from "../404/NotFound";
-import UserSettings from "./pages/UserSettings";
+import UserSettings from "./pages/user-settings/UserSettings";
 import ServiceSettings from "./pages/ServiceSettings";
 import TestimonialsSettings from "./pages/TestimonialsSettings";
 

@@ -1,5 +1,9 @@
 const mongoErrors = require("./mongo_errors");
 
+module.exports = {
+    ...require("./auth_control"),
+};
+
 module.exports.mongoErrors = mongoErrors;
 
 module.exports.std_error_old = (message, err = null) => {
@@ -67,10 +71,7 @@ module.exports.requiredBody = (
                 code
                     ? {
                           status: "error",
-                          code: code.replace(
-                              "%s",
-                              requiredList[0].replace(/\s+/, "-")
-                          ),
+                          code: code.replace("%s", item.replace(/\s+/, "-")),
                       }
                     : module.exports.std_error_old(
                           message.replace("%s", item + "")
