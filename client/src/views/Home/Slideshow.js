@@ -8,8 +8,6 @@ import photo5 from "../../assets/attractions_salon_photos/IMG_2868.jpeg";
 import photo6 from "../../assets/attractions_salon_photos/IMG_2869.jpeg";
 import photo7 from "../../assets/attractions_salon_photos/IMG_2875.jpeg";
 import MobileStepper from '@material-ui/core/MobileStepper';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
@@ -127,34 +125,3 @@ export default function Slideshow() {
         </div>
       )}
     
-// return (
-//     <div className={styles["slideshow"]} >
-//         <AutoRotatingCarousel open={true} className={styles["slideshow"]}>
-//             <Slide
-//             media ={<img src={photo2}></img>}>
-//             </Slide>
-//             <Slide 
-//             media ={<img src={photo3}></img>}>
-//             </Slide>
-//             <Slide 
-//             media ={<img src={photo4}></img>}>
-//             </Slide>
-//         </AutoRotatingCarousel>
-//     </div>
-// )}
-// <Carousel
-//   slidesPerPage={1}
-//   centered
-//   dots
-//   animationSpeed={0}
-//   className={styles["slideshow"]}
-// >
-//   <img src={photo3} />
-//   {/* <img src={photo1} /> */}
-//   <img src={photo2} />
-//   <img src = {photo7} />
-//   {/* <img src={photo4} /> */}
-//   {/* <img src={photo5} /> */}
-  
-// </Carousel>
-// )}
