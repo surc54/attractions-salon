@@ -11,6 +11,7 @@ const INIT: AdminUserSettingsState = {
         search: "",
     },
     loadedPages: [],
+    lastLoadTime: null,
     count: -1,
 };
 
@@ -37,6 +38,7 @@ const reducer: Reducer<AdminUserSettingsState, AdminUserSettingsActions> = (
                 ...state,
                 users: action.payload,
                 loadedPages: [],
+                lastLoadTime: new Date(),
             };
         }
         case "ADMIN_USER_ADD_PAGE": {
@@ -46,6 +48,7 @@ const reducer: Reducer<AdminUserSettingsState, AdminUserSettingsActions> = (
                 users: _.uniqBy([...state.users, ...users], "id"),
                 count,
                 loadedPages: _.uniq([...state.loadedPages, page]),
+                lastLoadTime: new Date(),
             };
         }
         case "ADMIN_USER_SET_COUNT": {
@@ -101,5 +104,6 @@ export interface AdminUserSettingsState {
     users: User[];
     query?: any;
     loadedPages: number[];
+    lastLoadTime: null | Date;
     count: number;
 }

@@ -1,12 +1,13 @@
 import axios from "../models/axios";
 import Config from "../models/Config";
 import {
-    AdminUserListResponse,
     AdminUserDeleteResponse,
-    AdminUserUpdateResponse,
     AdminUserInfoResponse,
+    AdminUserListResponse,
+    AdminUserUpdateResponse,
     ApiResponseUser,
 } from "../models/ResponseTypes";
+import User from "../models/User";
 import { axios_error } from "../tools";
 import {
     ActionCallback,
@@ -17,9 +18,7 @@ import {
     AdminUserUpdateQuery,
     NonSuccessError,
     ThAction,
-    UserActions,
 } from "./types";
-import User from "../models/User";
 import { getUserAuthInfo } from "./_loginActions";
 
 const start: AdminUserStart = {

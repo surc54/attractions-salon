@@ -1,7 +1,5 @@
 import {
     Chip,
-    Icon,
-    IconButton,
     Paper,
     Table,
     TableBody,
@@ -13,10 +11,10 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { useAdminUserSettings, useUserAuth } from "../../../../hooks";
-import Toolbar from "./Toolbar";
-import styles from "./UserSettings.module.scss";
-import UserModal from "./UserModal";
 import User from "../../../../models/User";
+import Toolbar from "./Toolbar";
+import UserModal from "./UserModal";
+import styles from "./UserSettings.module.scss";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -36,6 +34,7 @@ const UserSettings: React.FC = () => {
 
     React.useEffect(() => {
         userSettings.getUserList();
+        // eslint-disable-next-line
     }, []);
 
     React.useEffect(() => {
@@ -49,6 +48,7 @@ const UserSettings: React.FC = () => {
         if (!userSettings.loadedPages.includes(page)) {
             userSettings.getUserList(userSettings.query, page);
         }
+        // eslint-disable-next-line
     }, [page]);
 
     const currentPage = userSettings.users.slice(
@@ -62,9 +62,10 @@ const UserSettings: React.FC = () => {
                 {/* Special class __admin_header to get consistent styles */}
                 {/* Imports not required for this. */}
                 <h1>User Accounts</h1>
-                <IconButton>
+                {/* <IconButton>
                     <Icon>help</Icon>
-                </IconButton>
+                </IconButton> */}
+                {/* Incase we had plans to have a help page. Not likely. */}
             </header>
 
             <Toolbar

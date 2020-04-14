@@ -1,16 +1,14 @@
 import {
-    Button,
     CircularProgress,
     Divider,
     Icon,
     IconButton,
     TextField,
     Tooltip,
+    Typography,
 } from "@material-ui/core";
 import clsx from "clsx";
-import { useSnackbar } from "notistack";
 import React, { HTMLProps } from "react";
-import _ from "lodash";
 import { useAdminUserSettings } from "../../../../hooks";
 import styles from "./Toolbar.module.scss";
 
@@ -22,18 +20,17 @@ const Toolbar: React.FC<ToolbarProps> = ({
 }) => {
     const [search, setSearch] = React.useState<string>("");
     const userSettings = useAdminUserSettings();
-    const snack = useSnackbar();
 
     const onSearch = (e?: React.FormEvent) => {
         e?.preventDefault?.();
         userSettings.getUserList({ search });
     };
 
-    const unimplemented = () => {
-        snack.enqueueSnackbar("Feature is not implemented", {
-            autoHideDuration: 5000,
-        });
-    };
+    // const unimplemented = () => {
+    //     snack.enqueueSnackbar("Feature is not implemented", {
+    //         autoHideDuration: 5000,
+    //     });
+    // };
 
     const __onClearFilter = () => {
         setSearch("");
@@ -79,9 +76,17 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 </span>
             </Tooltip>
 
-            <Button onClick={unimplemented}>Advanced Filter</Button>
+            {/* In case of advanced filtering. I'm not doing it. */}
+            {/* <Button onClick={unimplemented}>Advanced Filter</Button> */}
 
             <span className="spacer"></span>
+
+            <Typography variant="button">
+                Last Loaded:{" "}
+                {!userSettings.lastLoadTime
+                    ? "Never"
+                    : userSettings.lastLoadTime.toLocaleTimeString()}
+            </Typography>
 
             {userSettings.loading ? (
                 <CircularProgress size={24} />

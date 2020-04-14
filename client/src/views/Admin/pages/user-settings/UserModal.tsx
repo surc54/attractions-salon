@@ -29,6 +29,7 @@ const UserModal: React.FC<UserModalProps> = ({
         if (!user) {
             onClose?.();
         }
+        // eslint-disable-next-line
     }, [user]);
 
     return (

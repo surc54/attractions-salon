@@ -2,7 +2,6 @@ import {
     Button,
     ButtonBase,
     ButtonBaseProps,
-    Chip,
     FormControl,
     Icon,
     IconButton,
