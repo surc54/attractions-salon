@@ -54,6 +54,70 @@ export interface AuthSignUpEnd {
     };
 }
 
+// Admin user settings
+
+export const ADMIN_USER_START = "ADMIN_USER_START";
+export interface AdminUserStart {
+    type: typeof ADMIN_USER_START;
+}
+
+export const ADMIN_USER_STOP = "ADMIN_USER_STOP";
+export interface AdminUserStop {
+    type: typeof ADMIN_USER_STOP;
+}
+
+export const ADMIN_USER_ERROR = "ADMIN_USER_ERROR";
+export interface AdminUserError {
+    type: typeof ADMIN_USER_ERROR;
+    payload: any;
+}
+
+export const ADMIN_USER_UPDATE_LIST = "ADMIN_USER_UPDATE_LIST";
+export interface AdminUserUpdateList {
+    type: typeof ADMIN_USER_UPDATE_LIST;
+    payload: User[];
+}
+
+export const ADMIN_USER_UPDATE_ONE = "ADMIN_USER_UPDATE_ONE";
+export interface AdminUserUpdateOne {
+    type: typeof ADMIN_USER_UPDATE_ONE;
+    payload: User;
+}
+
+export const ADMIN_USER_DELETE_ONE = "ADMIN_USER_DELETE_ONE";
+export interface AdminUserDeleteOne {
+    type: typeof ADMIN_USER_DELETE_ONE;
+    payload: string;
+}
+
+export const ADMIN_USER_UPDATE_QUERY = "ADMIN_USER_UPDATE_QUERY";
+export interface AdminUserUpdateQuery {
+    type: typeof ADMIN_USER_UPDATE_QUERY;
+    payload: any;
+}
+
+export const ADMIN_USER_ADD_LOADED_PAGE = "ADMIN_USER_ADD_LOADED_PAGE";
+export interface AdminUserAddLoadedPage {
+    type: typeof ADMIN_USER_ADD_LOADED_PAGE;
+    payload: number;
+}
+
+export const ADMIN_USER_SET_COUNT = "ADMIN_USER_SET_COUNT";
+export interface AdminUserSetCount {
+    type: typeof ADMIN_USER_SET_COUNT;
+    payload: number;
+}
+
+export const ADMIN_USER_ADD_PAGE = "ADMIN_USER_ADD_PAGE";
+export interface AdminUserAddPage {
+    type: typeof ADMIN_USER_ADD_PAGE;
+    payload: {
+        users: User[];
+        count: number;
+        page: number;
+    };
+}
+
 // export type Type = keyof Payload;
 
 // export interface Action<T extends Type> {
@@ -73,12 +137,34 @@ export type UserActions =
     | AuthLogoutEnd
     | AuthSignUpEnd;
 
+export type AdminUserSettingsActions =
+    | AdminUserStart
+    | AdminUserStop
+    | AdminUserUpdateList
+    | AdminUserUpdateOne
+    | AdminUserDeleteOne
+    | AdminUserUpdateQuery
+    | AdminUserError
+    | AdminUserAddLoadedPage
+    | AdminUserSetCount
+    | AdminUserAddPage;
+
 export type ThAction<A extends Action<any>> = ThunkAction<
     void,
     ReduxState,
     unknown,
     A
 >;
+
+export class NonSuccessError extends Error {
+    response: any;
+
+    constructor(x: any) {
+        super(x);
+        this.response = x;
+        this.message = "";
+    }
+}
 
 // export interface Action extends GenericAction<"GET_AUTH_INFO_START"> {
 //     payload?: undefined | null;

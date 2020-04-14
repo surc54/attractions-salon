@@ -1,0 +1,54 @@
+.wrapper {
+    div.toolbar {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: center;
+
+        padding-right: 10px;
+        margin-bottom: 16px;
+
+        min-height: 36px;
+
+        border: 1px solid;
+        border-color: #eeeeee;
+
+        border-radius: 5px;
+
+        overflow: hidden;
+
+        > button {
+            border-radius: 0;
+
+            &:first-child {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+            &:last-child {
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+        }
+
+        .searchTextField {
+            background: #eeeeee;
+            align-self: stretch;
+
+            border: none;
+            border-radius: 0;
+            outline: none;
+
+            padding: 0 12px;
+
+            font-size: 14px;
+
+            &::placeholder {
+                color: rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        .loadingText {
+            margin-right: 8px;
+        }
+    }
+}

@@ -25,7 +25,7 @@ import { useSnackbar } from "notistack";
 import { emsg } from "../../tools";
 import Config from "../../models/Config";
 
-const goBack = history => {
+const goBack = (history) => {
     if (history.length !== 0) {
         history.goBack();
     } else {
@@ -33,7 +33,7 @@ const goBack = history => {
     }
 };
 
-const goHome = history => {
+const goHome = (history) => {
     history.push("/");
 };
 
@@ -45,7 +45,7 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
     const [redirectCancelled, setRedirectCancelled] = React.useState(false);
     const [initialLoading, setInitialLoading] = React.useState(true);
     const [paperHeight, setPaperHeight] = React.useState(0);
-    const [, forceRender] = React.useReducer(state => state + 1, 0);
+    const [, forceRender] = React.useReducer((state) => state + 1, 0);
     const [ofy, setOfy] = React.useState(true);
     const mainRef = React.createRef();
 
@@ -95,10 +95,10 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
         if (userAuth.signedIn) {
             userAuth
                 .logout()
-                .then(res => {
-                    console.log("Logged out!");
+                .then((res) => {
+                    // console.log("Logged out!");
                 })
-                .catch(e => {
+                .catch((e) => {
                     console.error(e);
                     snack.enqueueSnackbar("Error: " + emsg(e), {
                         variant: "error",
@@ -108,10 +108,10 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
         } else {
             userAuth
                 .login(email, password)
-                .then(res => {
-                    console.log("Logged in!");
+                .then((res) => {
+                    // console.log("Logged in!");
                 })
-                .catch(e => {
+                .catch((e) => {
                     console.error(e);
                     snack.enqueueSnackbar("Error: " + emsg(e), {
                         variant: "error",
@@ -375,7 +375,7 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
 //     );
 // };
 
-export default props => {
+export default (props) => {
     // const [start, setStart] = React.useState(false);
 
     // React.useEffect(() => {
