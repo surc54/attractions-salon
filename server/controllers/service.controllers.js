@@ -5,27 +5,15 @@ const path = require("path");
 const services = require("../models/services.model.js");
 /////////////////
 
-//Load data from JSON file. Delete when switching to database.
-let servicesArray = [];
-const TEMP_DATA_LIST_FILE = path.resolve(
-    __dirname,
-    "../config",
-    "services.json"
-);
+// to import json from a file try this:
+// const export data = ...some data
+// import {data} from '../filepath'
 
-{
-    let fileData;
-    try {
-        fileData = fs.readFileSync(TEMP_DATA_LIST_FILE);
-        servicesArray = JSON.parse(fileData);
-    } catch (e) {
-        servicesArray = [];
-        console.error("Could not get services data: ", e);
-    }
-}
+// or export default { something }
+// then either import { something }
+// or import someImport -> someImport.something (?)
 
 module.exports.list = (req, res) => {
-    
     // initialize database
     // servicesArray.forEach(item => {
     //     // this works
@@ -39,35 +27,25 @@ module.exports.list = (req, res) => {
 
     services
         .find({})
-        .then(value => {
+        .then((value) => {
             res.send({
                 status: "ok",
                 data: value,
             });
         })
-        .catch(reason => res.status(200).send("Error when finding services"));
+        .catch((reason) => res.status(200).send("Error when finding services"));
 };
 
 module.exports.read = (req, res) => {
     services
         .findById({ _id: req.params.id })
-        .then(successData => res.json(successData || {}))
-        .catch(reason =>
+        .then((successData) => res.json(successData || {}))
+        .catch((reason) =>
             res.status(200).send("Error when finding a specific service")
         );
-
-    // res.send({
-    //     status: "ok",
-    //     data: servicesArray,
-    // });
 };
 
 module.exports.create = (req, res) => {
-    /// assuming it looks like this ///
-    let groupName = req.body.groupName;
-    let items = req.body.items;
-    let items = req.body.items;
-
     let {
         groupName,
         name,
@@ -76,15 +54,6 @@ module.exports.create = (req, res) => {
         subtitle,
         imgURL,
     } = req.body;
-
-    // need to allow to create an item
-    // or an entirely new group
-    // but I dont know the syntax
-
-    res.send({
-        status: "ok",
-        data: servicesArray,
-    });
 
     // experimental stuff below this
 
@@ -102,42 +71,54 @@ module.exports.create = (req, res) => {
 
     let newData = new services(data);
 
+    // check if it already exists
+
     newData
-         .save()
-         .then(successData => res.json(successData))
-         .catch(reason =>
-             res.status(200).send("Some message that indicates an error")
-         );
+        .save()
+        .then((successData) => res.json(successData))
+        .catch((reason) =>
+            res.status(200).send("Error when creating new service")
+        );
 };
 
 module.exports.update = (req, res) => {
-    const group = req.group;
+    let {
+        groupName,
+        name,
+        price,
+        description, // how to deal with optional fields?
+        subtitle,
+        imgURL,
+    } = req.body;
 
     /* Replace the listings's properties with the new properties found in req.body */
 
     let updateID = req.params.id;
-    let updatedInfo;
-
-    updatedInfo = {
+    
+    let updatedInfo = {
         $set: {
-            groupName: req.body.groupName,
-            items: req.body.items,
+            name: name ? name : undefined,
+            price: price ? price : undefined,
+            groupName: groupName ? groupName : undefined,
+            description: description ? description : undefined,
+            subtitle: subtitle ? subtitle : undefined,
+            // no imgURL yet
         },
     };
 
     Listing.updateOne({ _id: updateID }, updatedInfo)
-        .then(value =>
-            Listing.findById(updateID).then(successData =>
+        .then((value) =>
+            Listing.findById(updateID).then((successData) =>
                 res.json(successData)
             )
         )
-        .catch(reason => res.status(200).send("Error when updating"));
+        .catch((reason) => res.status(200).send("Error when updating"));
 };
 
 module.exports.delete = (req, res) => {
     let toRemove = req.params.id;
 
     Listing.findOneAndDelete({ _id: toRemove })
-        .then(value => res.json(value))
-        .catch(reason => res.status(200).send("Error when deleting"));
+        .then((value) => res.json(value))
+        .catch((reason) => res.status(200).send("Error when deleting"));
 };

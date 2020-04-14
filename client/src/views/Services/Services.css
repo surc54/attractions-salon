@@ -1,44 +1,43 @@
-
 .spacer {
     flex: 1 0 auto;
 }
 
-.checkBoxes{
+.checkBoxes {
     padding-right: 10px;
 }
-.clearButton{
+.clearButton {
     padding-right: 10px;
     float: right;
 }
-.checkBoxName{
+.checkBoxName {
     margin-left: 5px;
-    color: #E7A1AF;
+    color: #e7a1af;
 }
-.SideBarTitle{
+.SideBarTitle {
     font-weight: 500;
     margin-right: 5px;
 }
 
-.titleBox{
+.titleBox {
     height: 40px;
 }
 
-.itemBox{
+.itemBox {
     height: 47px;
 }
-{/**afdgdfbdfdbfd */}
-.SideBar{
+
+.SideBar {
     display: flex;
     flex-direction: column;
     border: 1px solid rgba(0, 0, 0, 0.17);
     border-radius: 2px;
 }
 
-.itemClass{
+.itemClass {
     border: 1px solid rgba(0, 0, 0, 0.17);
 }
 
-.serviceEntries{
+.serviceEntries {
     display: flex;
     flex-flow: wrap;
     flex-direction: row;

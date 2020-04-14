@@ -3,6 +3,9 @@ import { makeStyles, Grid, Paper, CircularProgress } from "@material-ui/core";
 import { getServices } from "../../actions/serviceActions";
 import ServiceWindow from "./ServiceWindow";
 import SideBar from "./SideBar";
+
+import bgImg1 from "../../assets/bg-wave-1.png"
+import bgImg2 from "../../assets/bg-wave-2.png"
 import "./Services.css";
 
 const Services = () => {
@@ -34,8 +37,8 @@ const Services = () => {
                         <Paper className={classes.serviceWindow} elevation={0}>
                             {initialLoad ? (
                                 <>
-                                <p>loading</p>
-                                <CircularProgress />
+                                    <p>loading</p>
+                                    <CircularProgress />
                                 </>
                             ) : (
                                 <>
@@ -50,6 +53,24 @@ const Services = () => {
                     </Grid>
                 </Grid>
             </div>
+            <img
+                src={bgImg1}
+                style={{
+                    position: "absolute",
+                    bottom: "0",
+                    width: "100%",
+                    zIndex: "-1",
+                }}
+            />
+            <img
+                src={bgImg2}
+                style={{
+                    position: "absolute",
+                    bottom: "0",
+                    width: "100%",
+                    zIndex: "-1",
+                }}
+            />
         </>
     );
 };
@@ -86,6 +107,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 5,
         overflow: "auto",
         scrollBehavior: "smooth",
+        background: "transparent",
     },
 }));
 

@@ -43,7 +43,7 @@ const SideBar = (props) => {
         "Nail Care": false,
         "Hair extensions": false,
         "Hair Cuts": false,
-        "Waxing": false,
+        Waxing: false,
     });
 
     const handleChange = (event) => {

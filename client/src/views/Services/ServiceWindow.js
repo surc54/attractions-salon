@@ -14,9 +14,13 @@ const check = (item, filterText, filterCat) => {
     //console.log(item);
     //console.log(filterText);
     //console.log(filterCat);
-    if(filterCat !== "") return item.name.toLowerCase().includes(filterText) && item.groupName.includes(filterCat)
-    else return item.name.toLowerCase().includes(filterText)
-}
+    if (filterCat !== "")
+        return (
+            item.name.toLowerCase().includes(filterText) &&
+            item.groupName.includes(filterCat)
+        );
+    else return item.name.toLowerCase().includes(filterText);
+};
 
 const ServiceWindow = ({ services, filterText, filterCat }) => {
     const classes = useStyles();
@@ -24,7 +28,7 @@ const ServiceWindow = ({ services, filterText, filterCat }) => {
     return (
         <div className="serviceEntries">
             {services
-                .filter((item) =>  check(item, filterText, filterCat))
+                .filter((item) => check(item, filterText, filterCat))
                 .map((item) => {
                     return (
                         <Card classes={{ root: classes.root }} key={item.name}>
