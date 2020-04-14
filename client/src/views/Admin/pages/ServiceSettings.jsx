@@ -11,19 +11,19 @@ import {
 } from "@material-ui/core";
 import { getServices } from "../../../actions/serviceActions";
 
-type Services = {
-    groupName: String;
-    name: String;
-    price: Number;
-    subtitle: String;
-    description: String;
-    imgURL: String;
-}[] | undefined;
+// type serviceType = {
+//     groupName: String;
+//     name: String;
+//     price: Number;
+//     subtitle: String;
+//     description: String;
+//     imgURL: String;
+// }[];
 
-const ServiceSettings: React.FC = () => {
+const ServiceSettings = () => {
     const [pageNum, setPageNum] = useState(0);
     const [initialLoad, setInitialLoad] = useState(true);
-    const [serviceInfo, setServiceInfo] = useState<Services>([]);
+    const [serviceInfo, setServiceInfo] = useState([]);
 
     return (
         <>
@@ -54,10 +54,7 @@ const ServiceSettings: React.FC = () => {
     );
 };
 
-const getChoiceView = (
-    pageNum: number,
-    serviceInfo: Services
-) => {
+const getChoiceView = (pageNum, serviceInfo) => {
     switch (pageNum) {
         case 0:
             return <ServiceCreationForm />;
@@ -90,7 +87,7 @@ const ServiceCreationForm = () => {
     );
 };
 
-const ServiceUpdateView = ({ services } : Services) => {
+const ServiceUpdateView = ({ services }) => {
     return (
         <div style={{ height: "90%" }}>
             <div
@@ -110,7 +107,7 @@ const ServiceUpdateView = ({ services } : Services) => {
     );
 };
 
-const ServiceDeleteView = ({ services } : Services) => {
+const ServiceDeleteView = ({ services }) => {
     return (
         <div style={{ height: "90%" }}>
             <div
@@ -130,31 +127,29 @@ const ServiceDeleteView = ({ services } : Services) => {
     );
 };
 
-const ServiceCards = ({ services } : Services) => {
+const ServiceCards = ({ services }) => {
     const classes = useStyles();
     return (
         <>
             <table className={classes.table}>
                 {services.map(
-                    (item: {
-                        name: string;
-                        imgURL: string;
-                        groupName: string;
-                        subtitle: string;
-                        price: number;
+                    ({
+                        name,
+                        //imgURL,
+                        groupName,
+                        subtitle,
+                        price,
                     }) => {
                         return (
                             <TableRow
                                 className={classes.service}
-                                key={item.name}
+                                key={name}
                                 hover
                             >
-                                <td>{item.groupName}</td>
-                                <td>{item.name}</td>
-                                <td className={classes.subtitle}>
-                                    {item.subtitle}
-                                </td>
-                                <td className={classes.price}>${item.price}</td>
+                                <td>{groupName}</td>
+                                <td>{name}</td>
+                                <td className={classes.subtitle}>{subtitle}</td>
+                                <td className={classes.price}>${price}</td>
                             </TableRow>
                         );
                     }
@@ -248,22 +243,14 @@ const ServicesForm = () => {
     );
 };
 
-const doInitialLoad = (
-    initialLoad: boolean,
-    setInitialLoad: React.Dispatch<React.SetStateAction<boolean>>,
-    setServiceInfo: React.Dispatch<React.SetStateAction<Services>>
-) => {
+const doInitialLoad = (initialLoad, setInitialLoad, setServiceInfo) => {
     if (initialLoad) {
         setInitialLoad(false);
         updateServices(setServiceInfo);
     }
 };
 
-const updateServices = (
-    setServiceInfo: React.Dispatch<
-        React.SetStateAction<Services>
-    >
-) => {
+const updateServices = (setServiceInfo) => {
     getServices()
         .then((value) => setServiceInfo(value))
         .catch((reason) => console.log(reason));
