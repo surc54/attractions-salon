@@ -7,13 +7,18 @@ const QuickLinksWindow = props => {
     return (
         <div className="quickLinksWindow">
             <h2 className="page2Title">Quick Links</h2>
-            <a className="quickLinks" href="./Book">Cancel your appointment</a>
-            <br></br>
-            <a className="quickLinks" href="./Book">How does scheduling work?</a>
-            <br></br>
-            <a className="quickLinks" href="..">Where will my appointment take place?</a>
-            <br></br>
-            <a className="quickLinks" href="..">Call Attractions Salon</a>
+            <div className="quickLinksWindowDiv">
+                <a className="quickLinks" href="./Book">Cancel your appointment</a>
+            </div>
+            <div className="quickLinksWindowDiv">
+                <a className="quickLinks" href="./Book">How does scheduling work?</a>
+            </div>
+            <div className="quickLinksWindowDiv">
+                <a className="quickLinks" href="..">Where will my appointment take place?</a>
+            </div>
+            <div className="quickLinksWindowDiv">
+                <a className="quickLinks" href="..">Call Attractions Salon</a>
+            </div>
         </div >
     );
 };

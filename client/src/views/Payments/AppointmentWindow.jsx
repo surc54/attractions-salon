@@ -15,9 +15,42 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "./Payments.css";
 
-const useStyles1 = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({
     nested: {
         paddingLeft: theme.spacing(4),
+    },
+
+    status: {
+        "Cancelled":{
+            backGroundColor: "white",
+            border: "2px solid red",
+            borderRadius: "10px",
+            width: "25%",
+        },
+        "Pending":{
+            backGroundColor: "white",
+            border: "2px solid red",
+            borderRadius: "10px",
+            width: "25%",
+        },
+        "Scheduled": {
+            backGroundColor: "white",
+            border: "2px solid #79e827",
+            borderRadius: "10px",
+            width: "25%",
+        },
+        "Completed":{
+            backGroundColor: "white",
+            border: "2px solid #79e827",
+            borderRadius: "10px",
+            width: "25%",
+        },
+        "Past Due":{
+            backGroundColor: "white",
+            border: "2px solid red",
+            borderRadius: "10px",
+            width: "25%",
+        },
     },
 
     scheduleButton: {
@@ -29,66 +62,30 @@ const useStyles1 = makeStyles(theme => ({
 }));
 
 const AppointmentWindow = props => {
-    const classes = useStyles1();
-    const [open, setOpen] = React.useState(false);
-    const handleClick = () => {
-        setOpen(!open);
-    };
-    const handleClick1 = () => {
-        setOpen(!open);
-    };
-
+    const classes = useStyles();
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const dateString = days[props.appointment.date.getDay()] + ", " + months[props.appointment.date.getMonth()] + " " + props.appointment.date.getDate()
+                        + ", " + props.appointment.date.getFullYear();
     return (
         <div className="appointmentWindow">
             <div className="paperHeader">
                 <h2 className="page2Title">Appointment</h2>
-                <Button className="scheduleButton" variant="outlined" size="small">
-                    Scheduled
+                <Button classes={{root: classes.status[props.appointment.status]}}size="small" variant="outlined">
+                    {props.appointment.status}
                 </Button>
             </div>
-            <p>March 31, 2020 at 2:30 PM</p>
+            <p>{dateString}</p>
             <h4>Scheduled Items</h4>
-            <List>
-                <ListItem button onClick={handleClick}>
-                    <ListItemText>Full Highlight</ListItemText>
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        <ListItem button className={classes.nested}>
-                            <ListItemText>Full Highlight info</ListItemText>
-                        </ListItem>
-                    </List>
-                </Collapse>
+            {props.appointment.services.map(service => {
+                return (
+                    <div className="appointmentInfoDiv">
+                        {service.name}
+                        <div style={{ float: "right" }}>${service.price}</div>
+                    </div>
+                );
+            })}
 
-                <Divider />
-
-                <ListItem button onClick={handleClick1}>
-                    <ListItemText>Full Highlight 2</ListItemText>
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        <ListItem button className={classes.nested}>
-                            <ListItemText>Full Highlight 2 info</ListItemText>
-                        </ListItem>
-                    </List>
-                </Collapse>
-
-                <Divider />
-
-                <ListItem button onClick={handleClick}>
-                    <ListItemText>Full Highlight 3</ListItemText>
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        <ListItem button className={classes.nested}>
-                            <ListItemText>Full Highlight 3 info</ListItemText>
-                        </ListItem>
-                    </List>
-                </Collapse>
-            </List>
         </div>
     );
 };
