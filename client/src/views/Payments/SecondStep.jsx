@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme => ({
     page2: {
         justifyContent: "center",
         //height: "48rem",
+        //height: "48rem",
     },
 }));
 
