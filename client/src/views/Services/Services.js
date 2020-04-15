@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { makeStyles, Grid, Paper, CircularProgress } from "@material-ui/core";
-import { services } from "../../actions/serviceActions";
+//import { services } from "../../actions/serviceActions";
 import ServiceWindow from "./ServiceWindow";
+import { useServices } from "../../hooks/ServiceHooks";
 import SideBar from "./SideBar";
 
 import bgImg1 from "../../assets/bg-wave-1.png"
@@ -13,18 +14,20 @@ const Services = () => {
     const [serviceInfo, setServiceInfo] = useState([]);
     const [filterCat, setFilterCat] = useState("");
     const [filterText, setFilterText] = useState("");
+    const theBigTEST = useServices(); 
     const classes = useStyles();
 
     return (
         <>
             {/** inefficient, should get modified */}
-            {doInitialLoad(initialLoad, setInitialLoad, setServiceInfo)}
+            {doInitialLoad(initialLoad, setInitialLoad, setServiceInfo, theBigTEST)}
             <div className={classes.window}>
                 <Grid container spacing={0} className={classes.container}>
                     <Grid item xs={12} md={2}>
                         <Paper className={classes.sideBar} elevation={0}>
                             <SideBar
                                 services={servicesJSON}
+                                dummy={serviceInfo}
                                 filterCat={filterCat}
                                 filterText={filterText}
                                 setFilterCat={setFilterCat}
@@ -55,6 +58,7 @@ const Services = () => {
             </div>
             <img
                 src={bgImg1}
+                alt="needBG1"
                 style={{
                     position: "absolute",
                     bottom: "0",
@@ -64,6 +68,7 @@ const Services = () => {
             />
             <img
                 src={bgImg2}
+                alt="needBG2"
                 style={{
                     position: "absolute",
                     bottom: "0",
@@ -75,10 +80,11 @@ const Services = () => {
     );
 };
 
-const doInitialLoad = (initialLoad, setInitialLoad, setServiceInfo) => {
+const doInitialLoad = (initialLoad, setInitialLoad, setServiceInfo, theBigTEST) => {
     if (initialLoad) {
         setInitialLoad(false);
         updateServices(setServiceInfo);
+        console.log(theBigTEST)
     }
 };
 

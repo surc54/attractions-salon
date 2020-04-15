@@ -7,6 +7,7 @@ import {
 } from "./types";
 
 export const services = () => {
+    console.log("ebtrnymui,untbrvfe")
     return (dispatch, getState) => {
         dispatch({
             type: GET_SERVICES_INFO_START,
@@ -39,11 +40,12 @@ export const services = () => {
                     },
                 });
 
-                console.log(response.data.data)
+                //console.log(response.data.data)
             })
             .catch((reason) => {
                 // I should do something that makes it easier to debug
                 console.log(reason);
+                throw new Error("Unexpected error @GET_SERVICES_INFO");
             });
     };
 };

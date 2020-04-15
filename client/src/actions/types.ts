@@ -205,6 +205,9 @@ export class NonSuccessError extends Error {
 /**
  * BIG MEME
  */
+export type ServiceActions =
+    | GetServicesInfoStart
+    | GetServicesInfoEnd
 
 export const GET_SERVICES_INFO_START = "GET_SERVICES_INFO_START";
 export interface GetServicesInfoStart {
