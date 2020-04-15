@@ -77,16 +77,18 @@ const testimonialCards = () => {
                         />
                         <CardContent>
                             <Typography variant="body2" component="p">
+                                {console.log(testimonial.feedback)}
                                 {testimonial.feedback}
                             </Typography>
                         </CardContent>
                     </Card>
                 </Grid>
             );
-        } else {
-            return <h3>There are no testimonials at this time.</h3>;
         }
     });
+    if (!tempTestimonials) {
+        return <h3>There are no testimonials at this time.</h3>;
+    }
 };
 
 // testimonials.propTypes = {};
