@@ -9,7 +9,7 @@ import {
     makeStyles,
     TableRow,
 } from "@material-ui/core";
-import { getServices } from "../../../actions/serviceActions";
+//import { services } from "../../../actions/serviceActions";
 
 // type serviceType = {
 //     groupName: String;
@@ -251,9 +251,9 @@ const doInitialLoad = (initialLoad, setInitialLoad, setServiceInfo) => {
 };
 
 const updateServices = (setServiceInfo) => {
-    getServices()
-        .then((value) => setServiceInfo(value))
-        .catch((reason) => console.log(reason));
+    //getServices()
+    //.then((value) => setServiceInfo(value))
+    //.catch((reason) => console.log(reason));
 };
 
 const useStyles = makeStyles({

@@ -1,17 +1,21 @@
 import React from "react";
 
-import { Button, makeStyles } from "@material-ui/core";
-import Checkbox from "@material-ui/core/Checkbox";
-import TextField from "@material-ui/core/TextField";
-import Collapse from "@material-ui/core/Collapse";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
+import {
+    Button,
+    makeStyles,
+    Checkbox,
+    TextField,
+    Collapse,
+    FormControlLabel,
+    List,
+    ListItem,
+    ListItemText,
+} from "@material-ui/core";
 
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+
+import { Link } from "react-router-dom";
 
 import "./Services.css";
 
@@ -186,6 +190,8 @@ const SideBar = (props) => {
                     variant="contained"
                     color="primary"
                     style={{ width: "100%", marginTop: 15, marginBottom: 20 }}
+                    component={Link}
+                    to={"/book"}
                 >
                     Request an appointment
                 </Button>
@@ -207,6 +213,7 @@ const CartList = () => {
     return (
         <List component="nav" className={classes.root} disablePadding>
             <ListItem button onClick={handleClick} className="itemClass">
+                <ShoppingCartIcon style={{ marginRight: "10px" }} />
                 <ListItemText primary="Your Cart" />
                 {open ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
@@ -217,7 +224,6 @@ const CartList = () => {
                         return (
                             <ListItem>
                                 <ListItemText primary="filler" />
-                                <ListItemIcon></ListItemIcon>
                             </ListItem>
                         );
                     })}

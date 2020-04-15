@@ -1,25 +1,49 @@
 import axios from "../models/axios";
 import Config from "../models/Config";
 
-export const getServices = async () => {
-    let returnVal;
+import {
+    GET_SERVICES_INFO_START,
+    GET_SERVICES_INFO_END,
+} from "./types";
 
-    await axios
-        .request({
-            ...Config.apiUrls["get services info"],
-        })
-        .then(value => {
-            returnVal = value.data.data; 
-            //why so much? check later
-            // maybe one for axios
-            // maybe one for router (+ status)
-            // also, gets executed a lot of times (why?)
-            console.log(value.data.data)
-            return returnVal;
-        })
-        .catch(reason => {    // I should do something that makes it easier to debug
-            console.log(reason);
+export const services = () => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: GET_SERVICES_INFO_START,
         });
 
-    return returnVal;
+        axios
+            .request({
+                ...Config.apiUrls["get services info"],
+            })
+            .then((response) => {
+                // current issues:
+                // ignoring errors
+                //      - no error checking
+                // dont know shape of "response"
+                //      - console.log, and then see what can I use
+
+                //returnVal = value.data.data;
+                //console.log(response.data.data)
+
+                if (response.status !== 200) {
+                    console.error("Status code was not 200", response);
+                    throw new Error("Unexpected status code");
+                }
+
+                dispatch({
+                    type: GET_SERVICES_INFO_END,
+                    payload: {
+                        error: response.data.error,
+                        services: response.data.data,
+                    },
+                });
+
+                console.log(response.data.data)
+            })
+            .catch((reason) => {
+                // I should do something that makes it easier to debug
+                console.log(reason);
+            });
+    };
 };

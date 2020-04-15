@@ -201,3 +201,22 @@ export class NonSuccessError extends Error {
 //         error: ""
 //     }
 // };
+
+/**
+ * BIG MEME
+ */
+
+export const GET_SERVICES_INFO_START = "GET_SERVICES_INFO_START";
+export interface GetServicesInfoStart {
+    type: typeof GET_SERVICES_INFO_START;
+    payload?: undefined;
+}
+
+export const GET_SERVICES_INFO_END = "GET_SERVICES_INFO_END";
+export interface GetServicesInfoEnd {
+    type: typeof GET_SERVICES_INFO_END;
+    payload: {
+        error?: any;
+        services?: any;
+    };
+}

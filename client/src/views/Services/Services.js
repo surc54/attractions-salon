@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles, Grid, Paper, CircularProgress } from "@material-ui/core";
-import { getServices } from "../../actions/serviceActions";
+import { services } from "../../actions/serviceActions";
 import ServiceWindow from "./ServiceWindow";
 import SideBar from "./SideBar";
 
@@ -24,7 +24,7 @@ const Services = () => {
                     <Grid item xs={12} md={2}>
                         <Paper className={classes.sideBar} elevation={0}>
                             <SideBar
-                                services={serviceInfo}
+                                services={servicesJSON}
                                 filterCat={filterCat}
                                 filterText={filterText}
                                 setFilterCat={setFilterCat}
@@ -43,7 +43,7 @@ const Services = () => {
                             ) : (
                                 <>
                                     <ServiceWindow
-                                        services={serviceInfo}
+                                        services={servicesJSON}
                                         filterCat={filterCat}
                                         filterText={filterText}
                                     />
@@ -83,9 +83,9 @@ const doInitialLoad = (initialLoad, setInitialLoad, setServiceInfo) => {
 };
 
 const updateServices = (setServiceInfo) => {
-    getServices()
-        .then((value) => setServiceInfo(value))
-        .catch(() => setServiceInfo(servicesJSON));
+    //getServices()
+    //    .then((value) => setServiceInfo(value))
+    //    .catch(() => setServiceInfo(servicesJSON));
 };
 
 const useStyles = makeStyles((theme) => ({
