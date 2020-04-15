@@ -69,3 +69,32 @@
         z-index: -1;
     }
 }
+
+div.portal {
+    > .backdrop {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: stretch;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+
+        > .portalBg {
+            height: 100%;
+            background: white;
+
+            transition: transform 0.25s;
+        }
+    }
+
+    &.collapsed {
+        > .backdrop {
+            > .portalBg {
+                transform: translateX(-350px);
+            }
+        }
+    }
+}
