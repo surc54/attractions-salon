@@ -35,7 +35,7 @@ const AdminBase: React.FC<AdminBaseProps> = () => {
     const userAuth = useUserAuth();
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
-    const [overlayOpen, setOverlayOpen] = React.useState<boolean>(true);
+    const [overlayOpen, setOverlayOpen] = React.useState<boolean>(false);
 
     React.useEffect(disableNavbarForPage(history), []);
 
