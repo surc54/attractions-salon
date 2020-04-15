@@ -14,7 +14,10 @@ const styles = {
     backgroundColor: 'transparent',
   },
   leftCenter: {
-    color: "#000000"
+    color: "#000000",
+    fontSize: '16px',
+    fontWeight: "bold",
+    fontFamiliy: "Arial Black, Gadget, sans-serif", 
   },
   blockRight: {
     display: "block",
@@ -252,7 +255,7 @@ export default class PaymentForm extends Component {
             className="button-credit-card"
             onClick={this.requestCardNonce}
           >
-            Pay
+            Pay 
           </button>
         </div>
         <p style={styles.center} id="error" />

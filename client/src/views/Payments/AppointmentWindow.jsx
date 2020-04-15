@@ -73,7 +73,7 @@ const AppointmentWindow = props => {
                 <h2 className="page2Title">Appointment</h2>
                 <Button classes={{root: classes.status[props.appointment.status]}}size="small" variant="outlined">
                     {props.appointment.status}
-                </Button>
+                </Button>    
             </div>
             <p>{dateString}</p>
             <h4>Scheduled Items</h4>

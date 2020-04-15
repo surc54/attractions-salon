@@ -1,10 +1,10 @@
 /*background-image: url(https://images.pexels.com/photos/1831234/pexels-photo-1831234.jpeg?cs=srgb&dl=pink-clouds-1831234.jpg&fm=jpg);
  */
 .paymentButtons {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    /* flex-direction: column; */
     width: 100%;
 }
 
