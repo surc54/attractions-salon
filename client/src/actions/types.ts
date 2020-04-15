@@ -6,6 +6,7 @@
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
 import User from "../models/User";
+import { TestimonialData as Testimonial } from "../models/Testimonials";
 import { ReduxState } from "../reducers";
 
 // export default ActionTypes_old;
@@ -118,6 +119,42 @@ export interface AdminUserAddPage {
     };
 }
 
+// ADMIN TESTIMONIAL PAGE
+
+export const ADMIN_TESTIMONIAL_START = "ADMIN_TESTIMONIAL_START";
+export interface AdminTestimonialStart {
+    type: typeof ADMIN_TESTIMONIAL_START;
+}
+
+export const ADMIN_TESTIMONIAL_STOP = "ADMIN_TESTIMONIAL_STOP";
+export interface AdminTestimonialStop {
+    type: typeof ADMIN_TESTIMONIAL_STOP;
+}
+
+export const ADMIN_TESTIMONIAL_ERROR = "ADMIN_TESTIMONIAL_ERROR";
+export interface AdminTestimonialError {
+    type: typeof ADMIN_TESTIMONIAL_ERROR;
+    payload: any;
+}
+
+export const ADMIN_TESTIMONIAL_UPDATE_LIST = "ADMIN_TESTIMONIAL_UPDATE_LIST";
+export interface AdminTestimonialUpdateList {
+    type: typeof ADMIN_TESTIMONIAL_UPDATE_LIST;
+    payload: Testimonial[];
+}
+
+// export const ADMIN_TESTIMONIAL_UPDATE_ONE = "ADMIN_TESTIMONIAL_UPDATE_ONE";
+// export interface AdminTestimonialUpdateOne {
+//     type: typeof ADMIN_TESTIMONIAL_UPDATE_ONE;
+//     payload: Testimonial;
+// }
+
+export const ADMIN_TESTIMONIAL_DELETE_ONE = "ADMIN_TESTIMONIAL_DELETE_ONE";
+export interface AdminTestimonialDeleteOne {
+    type: typeof ADMIN_TESTIMONIAL_DELETE_ONE;
+    payload: string;
+}
+
 // export type Type = keyof Payload;
 
 // export interface Action<T extends Type> {
@@ -148,6 +185,14 @@ export type AdminUserSettingsActions =
     | AdminUserAddLoadedPage
     | AdminUserSetCount
     | AdminUserAddPage;
+
+export type AdminTestimonialSettingsActions =
+    | AdminTestimonialStart
+    | AdminTestimonialStop
+    | AdminTestimonialUpdateList
+    // | AdminTestimonialUpdateOne
+    | AdminTestimonialDeleteOne
+    | AdminTestimonialError;
 
 export type ThAction<A extends Action<any>> = ThunkAction<
     void,
@@ -202,4 +247,4 @@ export class NonSuccessError extends Error {
 //     }
 // };
 
-export const ADD_TESTIMONIAL = 'ADD_TESTIMONIAL';
+export const ADD_TESTIMONIAL = "ADD_TESTIMONIAL";

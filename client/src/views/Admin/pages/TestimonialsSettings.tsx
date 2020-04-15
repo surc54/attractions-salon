@@ -11,11 +11,20 @@ import {
     ButtonGroup,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
+import { useAdminTestimonialSettings } from "../../../hooks";
 import "../../Testimonials/Testimonials.css";
 // import SocialMediaReviews from "./SocialMediaReviews";
 import moment from "moment";
 
 const TestimonialsSettings: React.FC = () => {
+    const testimonialSettings = useAdminTestimonialSettings();
+
+    useEffect(() => {
+        // if (testimonialSettings.loading) return;
+
+        testimonialSettings.getTestimonialList();
+        // console.log(testimonialSettings);
+    }, []);
 
     return (
         <div
@@ -25,16 +34,10 @@ const TestimonialsSettings: React.FC = () => {
                 marginBottom: "20px",
             }}
         >
-            <ButtonGroup variant="contained" color="primary">
-                <Button>Approve New Testimonial</Button>
-                <Button>Add New Social Media Review</Button>
-                <Button>Delete Testimonials/Reviews</Button>
-            </ButtonGroup>
-            <Divider orientation="horizontal" />
+            <header className="__admin_header">
+                <h1>Testimonials</h1>
+            </header>
             <div>
-                <Typography color="primary" variant="h4" className="title">
-                    Testimonials
-                </Typography>
                 <Grid
                     container
                     spacing={2}

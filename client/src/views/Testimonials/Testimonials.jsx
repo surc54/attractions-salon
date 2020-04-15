@@ -39,56 +39,54 @@ const Testimonials = () => {
                     direction="row"
                     alignItems="center"
                 >
-                    {tempTestimonials.map((testimonial, idx) => {
-                        if (testimonial.approved) {
-                            const temp = moment(testimonial.createdAt).format(
-                                "L"
-                            );
-                            return (
-                                <Grid key={idx} md={4} item>
-                                    <Card elevation={3} className="card">
-                                        <CardHeader
-                                            avatar={
-                                                <img
-                                                    src={
-                                                        testimonial.profilePic ||
-                                                        "https://d3kqdc25i4tl0t.cloudfront.net/articles/content/92_408268_151204profilepicture_hero.jpg"
-                                                    }
-                                                    alt={
-                                                        testimonial.name ||
-                                                        "random"
-                                                    }
-                                                    className="picture"
-                                                />
-                                            }
-                                            action={
-                                                <Rating
-                                                    value={testimonial.rating}
-                                                    className="ratings"
-                                                    readOnly
-                                                />
-                                            }
-                                            title={testimonial.name}
-                                            subheader={temp}
-                                        />
-                                        <CardContent>
-                                            <Typography
-                                                variant="body2"
-                                                component="p"
-                                            >
-                                                {testimonial.feedback}
-                                            </Typography>
-                                        </CardContent>
-                                    </Card>
-                                </Grid>
-                            );
-                        }
-                    })}
+                    {testimonialCards()}
                 </Grid>
             </div>
             <SocialMediaReviews />
         </div>
     );
+};
+
+const testimonialCards = () => {
+    tempTestimonials.map((testimonial, idx) => {
+        if (testimonial.approved) {
+            const temp = moment(testimonial.createdAt).format("L");
+            return (
+                <Grid key={idx} md={4} item>
+                    <Card elevation={3} className="card">
+                        <CardHeader
+                            avatar={
+                                <img
+                                    src={
+                                        testimonial.profilePic ||
+                                        "https://d3kqdc25i4tl0t.cloudfront.net/articles/content/92_408268_151204profilepicture_hero.jpg"
+                                    }
+                                    alt={testimonial.name || "random"}
+                                    className="picture"
+                                />
+                            }
+                            action={
+                                <Rating
+                                    value={testimonial.rating}
+                                    className="ratings"
+                                    readOnly
+                                />
+                            }
+                            title={testimonial.name}
+                            subheader={temp}
+                        />
+                        <CardContent>
+                            <Typography variant="body2" component="p">
+                                {testimonial.feedback}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
+            );
+        } else {
+            return <h3>There are no testimonials at this time.</h3>;
+        }
+    });
 };
 
 // testimonials.propTypes = {};

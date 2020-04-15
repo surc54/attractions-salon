@@ -1,4 +1,5 @@
 export interface TestimonialData {
+    id: string;
     approved: boolean;
     name: string;
     rating: number;

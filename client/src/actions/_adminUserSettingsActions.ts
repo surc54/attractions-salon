@@ -82,6 +82,7 @@ export const getUsersList = (
                 },
             })
             .then((resp) => {
+                console.log(resp);
                 if (resp.status !== 200) {
                     console.error("Status code was not 200", resp);
                     throw new Error("Unexpected status code");

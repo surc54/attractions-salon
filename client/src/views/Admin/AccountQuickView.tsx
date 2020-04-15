@@ -1,18 +1,14 @@
 import {
     Avatar,
     Button,
-<<<<<<< HEAD
     ThemeProvider,
-=======
     CircularProgress,
->>>>>>> 8cdfa1ad123cd6692a3fc259d4ead8be64ce1ae0
     createMuiTheme,
     Icon,
     IconButton,
     Menu,
     MenuItem,
     Paper,
-    ThemeProvider,
     Typography,
 } from "@material-ui/core";
 import React from "react";
@@ -20,16 +16,9 @@ import { Link } from "react-router-dom";
 import InfoDialog from "../../components/GenericDialogs/InfoDialog";
 import { useUserAuth } from "../../hooks";
 import Config from "../../models/Config";
-<<<<<<< HEAD
-import InfoDialog from "../../components/GenericDialogs/InfoDialog";
 import { emsg } from "../../tools";
-import { Link } from "react-router-dom";
 import { getUserInitials } from "../../models/User";
-=======
-import { getUserInitials } from "../../models/User";
-import { emsg } from "../../tools";
 import styles from "./AccountQuickView.module.scss";
->>>>>>> 8cdfa1ad123cd6692a3fc259d4ead8be64ce1ae0
 
 const AccountQuickView: React.FC<AccountQuickViewProps> = ({
     onLogout,
