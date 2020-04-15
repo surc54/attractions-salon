@@ -1,23 +1,27 @@
-import React from "react";
 import {
-    useHistory,
-    useLocation,
-    Router,
-    Switch,
-    Route,
-} from "react-router-dom";
-import AdminSidebar from "./Sidebar";
-import styles from "./Base.module.scss";
-import { useUserAuth } from "../../hooks";
-import { disableNavbarForPage } from "../../tools";
-import InitialLoader from "./initial-loader/InitialLoader";
-import { CSSTransition } from "react-transition-group";
-import Config from "../../models/Config";
+    AppBar,
+    Icon,
+    IconButton,
+    Toolbar,
+    Typography,
+    useMediaQuery,
+    useTheme,
+} from "@material-ui/core";
+import clsx from "clsx";
 import { useSnackbar } from "notistack";
+import React from "react";
+import { Route, Router, Switch, useHistory } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
+import { useUserAuth } from "../../hooks";
+import Config from "../../models/Config";
+import { disableNavbarForPage } from "../../tools";
 import NotFound from "../404/NotFound";
-import UserSettings from "./pages/user-settings/UserSettings";
+import styles from "./Base.module.scss";
+import InitialLoader from "./initial-loader/InitialLoader";
 import ServiceSettings from "./pages/ServiceSettings";
 import TestimonialsSettings from "./pages/TestimonialsSettings";
+import UserSettings from "./pages/user-settings/UserSettings";
+import AdminSidebar from "./Sidebar";
 
 /**
  * Purpose:
@@ -29,6 +33,9 @@ const AdminBase: React.FC<AdminBaseProps> = () => {
     const history = useHistory();
     const snack = useSnackbar();
     const userAuth = useUserAuth();
+    const theme = useTheme();
+    const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
+    const [overlayOpen, setOverlayOpen] = React.useState<boolean>(true);
 
     React.useEffect(disableNavbarForPage(history), []);
 
@@ -48,6 +55,7 @@ const AdminBase: React.FC<AdminBaseProps> = () => {
             });
             history.push("/");
         }
+        // eslint-disable-next-line
     }, [userAuth]);
 
     return (
@@ -70,6 +78,26 @@ const AdminBase: React.FC<AdminBaseProps> = () => {
                 />
             </CSSTransition>
             <CSSTransition
+                in={!unverified && isSmall}
+                classNames={styles.sidebar}
+                unmountOnExit
+                mountOnEnter
+                appear
+                timeout={300}
+            >
+                <AppBar className={styles.appBar} elevation={0}>
+                    <Toolbar>
+                        <IconButton
+                            edge="start"
+                            onClick={() => setOverlayOpen(true)}
+                        >
+                            <Icon>menu</Icon>
+                        </IconButton>
+                        <Typography variant="h6">Admin Panel</Typography>
+                    </Toolbar>
+                </AppBar>
+            </CSSTransition>
+            <CSSTransition
                 in={!unverified}
                 classNames={styles.sidebar}
                 unmountOnExit
@@ -77,7 +105,12 @@ const AdminBase: React.FC<AdminBaseProps> = () => {
                 appear
                 timeout={300}
             >
-                <AdminSidebar className={styles.sidebar} />
+                <AdminSidebar
+                    overlayMode={isSmall}
+                    overlayOpen={overlayOpen}
+                    setOverlayOpen={setOverlayOpen}
+                    className={styles.sidebar}
+                />
             </CSSTransition>
             <CSSTransition
                 in={!unverified}
@@ -87,7 +120,11 @@ const AdminBase: React.FC<AdminBaseProps> = () => {
                 appear
                 timeout={300}
             >
-                <main className={styles.content}>
+                <main
+                    className={clsx(styles.content, {
+                        [styles.small]: isSmall,
+                    })}
+                >
                     <Router history={history}>
                         <Switch>
                             <Route
@@ -102,7 +139,7 @@ const AdminBase: React.FC<AdminBaseProps> = () => {
                                 path="/admin/misc/users"
                                 component={UserSettings}
                             />
-                            <Route component={NotFound} />
+                            <Route render={() => <NotFound equalSplit />} />
                         </Switch>
                     </Router>
                 </main>

@@ -1,24 +1,26 @@
-import React from "react";
 import {
-    Container,
-    IconButton,
-    Icon,
+    Backdrop,
     Button,
-    Tooltip,
+    Divider,
+    Icon,
+    IconButton,
     List,
     ListItem,
     ListItemText,
     ListSubheader,
-    Divider,
+    Tooltip,
+    useTheme,
 } from "@material-ui/core";
 import clsx from "clsx";
 import { Location } from "history";
+import { useSnackbar } from "notistack";
+import React from "react";
+import ReactDOM from "react-dom";
 import bottomImg from "../../assets/admin-sidebar-bottom.svg";
-import styles from "./Sidebar.module.scss";
+import { useUserAuth } from "../../hooks";
 import history from "../../models/history";
 import AccountQuickView from "./AccountQuickView";
-import { useUserAuth } from "../../hooks";
-import { useSnackbar } from "notistack";
+import styles from "./Sidebar.module.scss";
 
 const items: SidebarItem[] = [
     {
@@ -112,9 +114,10 @@ const spacer = (val: number) => {
 
 const mapSidebarItemsToJSX = (
     items: SidebarItem[],
-    depth: number = 0
+    depth: number = 0,
+    onClick?: Function
 ): any[] => {
-    return items.map(item => {
+    return items.map((item) => {
         if (item.type === "section") {
             return [
                 <Divider key="" />,
@@ -125,7 +128,7 @@ const mapSidebarItemsToJSX = (
                 >
                     {item.text}
                 </ListSubheader>,
-                ...mapSidebarItemsToJSX(item.items, depth + 1),
+                ...mapSidebarItemsToJSX(item.items, depth + 1, onClick),
             ];
         } else {
             let selected = false;
@@ -143,13 +146,14 @@ const mapSidebarItemsToJSX = (
                     button
                     selected={selected}
                     key={item.key || item.path}
-                    onClick={e => {
+                    onClick={(e) => {
                         e.preventDefault();
                         if (item.external) {
                             window.location.href = item.path;
                         } else {
                             history.push(item.path);
                         }
+                        onClick?.();
                     }}
                 >
                     {typeof item.text === "string" ? (
@@ -197,10 +201,14 @@ const goBack = () => {
 
 const AdminSidebar: React.FC<AdminSidebarProps> = ({
     className,
+    overlayMode,
+    overlayOpen,
+    setOverlayOpen,
     ...others
 }) => {
     const userAuth = useUserAuth();
     const snack = useSnackbar();
+    const theme = useTheme();
 
     const onLogout = () => {
         userAuth
@@ -211,7 +219,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({
                     autoHideDuration: 5000,
                 });
             })
-            .catch(err => {
+            .catch((err) => {
                 history.push("/");
                 snack.enqueueSnackbar(
                     "Something went wrong. There is a possibility that you were not logged out.",
@@ -223,12 +231,50 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({
             });
     };
 
-    return (
+    const toggleOverlayOpen = () => {
+        setOverlayOpen?.(!overlayOpen);
+    };
+
+    React.useLayoutEffect(() => {
+        const portalRoot = document.getElementById("admin-sidebar");
+        if (portalRoot) {
+            portalRoot.className = clsx(styles.portal, {
+                [styles.collapsed]: !overlayOpen,
+            });
+        }
+    }, [overlayOpen]);
+
+    // // currently broken
+    // React.useEffect(() => {
+    //     if (overlayMode && overlayOpen) {
+    //         const { pathname, search, hash, state } = history.location;
+    //         history.push(pathname + search + "#sidebar", state);
+    //         const unlisten = history.listen((loc, act) => {
+    //             if (act === "POP") {
+    //                 setOverlayOpen(false);
+
+    //                 history.replace(loc);
+    //             }
+    //         });
+
+    //         return () => {
+    //             unlisten();
+    //         };
+    //     }
+
+    //     if (!overlayMode && history.location.hash.toString() === "sidebar") {
+    //         history.goBack();
+    //     }
+    // }, [overlayMode, overlayOpen]);
+
+    const ret = (
         <div className={clsx(styles.wrapper, className)} {...others}>
             <header className={styles.header}>
                 <Tooltip title="Go back" enterDelay={300}>
-                    <IconButton onClick={goBack}>
-                        <Icon>arrow_back</Icon>
+                    <IconButton
+                        onClick={overlayMode ? toggleOverlayOpen : goBack}
+                    >
+                        <Icon>{overlayMode ? "menu" : "arrow_back"}</Icon>
                     </IconButton>
                 </Tooltip>
                 <Button onClick={goHome}>
@@ -236,16 +282,44 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({
                 </Button>
             </header>
             <div className={clsx(styles.content, "scroll-bar")}>
-                <List>{mapSidebarItemsToJSX(items)}</List>
+                <List>
+                    {mapSidebarItemsToJSX(items, 0, () =>
+                        setOverlayOpen?.(false)
+                    )}
+                </List>
             </div>
             <div className={styles.account}>
                 <AccountQuickView onLogout={onLogout} />
             </div>
-            <img src={bottomImg} className={styles.bottomBgImage} />
+            <img alt="" src={bottomImg} className={styles.bottomBgImage} />
         </div>
     );
+
+    if (overlayMode) {
+        if (!document.getElementById("admin-sidebar")) {
+            let div = document.createElement("div");
+            div.id = "admin-sidebar";
+            div.className = styles.portal;
+            document.querySelector("body")?.appendChild(div);
+        }
+
+        return ReactDOM.createPortal(
+            <Backdrop
+                open={Boolean(overlayOpen)}
+                className={styles.backdrop}
+                style={{ zIndex: theme.zIndex.appBar + 1 }}
+            >
+                <div className={styles.portalBg}>{ret}</div>
+            </Backdrop>,
+            document.getElementById("admin-sidebar") as Element
+        );
+    } else return ret;
 };
 
-export interface AdminSidebarProps extends React.HTMLProps<HTMLDivElement> {}
+export interface AdminSidebarProps extends React.HTMLProps<HTMLDivElement> {
+    overlayMode?: boolean;
+    overlayOpen?: boolean;
+    setOverlayOpen?: Function;
+}
 
 export default AdminSidebar;
