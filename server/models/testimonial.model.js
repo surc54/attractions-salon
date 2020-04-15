@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const TestimonialSchema = new Schema(
     {
-        id: Number,
+        id: String,
         approved: Boolean,
         name: String,
         rating: Number,
