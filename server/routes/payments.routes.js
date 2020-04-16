@@ -33,7 +33,7 @@ router.post('/process-payment', async (req, res) => {
     const request_body = {
         source_id: request_params.nonce,
         amount_money: {
-            amount: 100, // in cents. Return an integer value
+            amount: request_params.amount*100, // in cents. Return an integer value
             currency: 'USD'
         },
         idempotency_key: idempotency_key

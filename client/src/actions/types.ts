@@ -202,29 +202,12 @@ export class NonSuccessError extends Error {
 //     }
 // };
 
-/**
- * BIG MEME
- */
-// export type ServiceActions =
-//     | GetServicesInfoStart
-//     | GetServicesInfoEnd
-
-// js doesnt need that anymore
-
-export const GET_SERVICES_INFO_START = "GET_SERVICES_INFO_START";
-// export interface GetServicesInfoStart {
-//     type: typeof GET_SERVICES_INFO_START;
-//     payload?: undefined;
-// }
+export const START_SERVICES_LOAD = "START_SERVICES_LOAD";
+export const UPDATE_SERVICE_END = "UPDATE_SERVICE_END";
+export const DELETE_SERVICE_END = "DELETE_SERVICE_END";
+export const CREATE_SERVICE_END = "CREATE_SERVICE_END";
 
 export const GET_SERVICES_INFO_END = "GET_SERVICES_INFO_END";
-// export interface GetServicesInfoEnd {
-//     type: typeof GET_SERVICES_INFO_END;
-//     payload: {
-//         error?: any;
-//         services?: any;
-//     };
-// }
 
 export const SERVICE_ADD_TO_CART = "SERVICE_ADD_TO_CART";
 export const SERVICE_REMOVE_FROM_CART = "SERVICE_REMOVE_FROM_CART";

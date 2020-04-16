@@ -1,9 +1,7 @@
-const fs = require("fs");
-const path = require("path");
+//const fs = require("fs");
+//const path = require("path");
 
-///////////////// Testing
 const services = require("../models/services.model.js");
-/////////////////
 
 // to import json from a file try this:
 // const export data = ...some data
@@ -45,43 +43,17 @@ module.exports.read = (req, res) => {
         );
 };
 
-module.exports.create = (req, res) => {
-    let {
-        groupName,
-        name,
-        price,
-        description, // how to deal with optional fields?
-        subtitle,
-        imgURL,
-    } = req.body;
+module.exports.admin = {};
 
-    // experimental stuff below this
+module.exports.admin.delete = () => {
+    let toRemove = req.params.id;
 
-    let data;
-
-    // if creating a new group
-    data = {
-        groupName: groupName,
-        name: name,
-        price: price,
-        description: description ? description : undefined,
-        subtitle: subtitle ? subtitle : undefined,
-        // no img URL yet
-    };
-
-    let newData = new services(data);
-
-    // check if it already exists
-
-    newData
-        .save()
-        .then((successData) => res.json(successData))
-        .catch((reason) =>
-            res.status(400).send("Error when creating new service")
-        );
+    Listing.findOneAndDelete({ _id: toRemove })
+        .then((value) => res.json(value))
+        .catch((reason) => res.status(400).send("Error when deleting"));
 };
 
-module.exports.update = (req, res) => {
+module.exports.admin.update = () => {
     let {
         groupName,
         name,
@@ -115,10 +87,38 @@ module.exports.update = (req, res) => {
         .catch((reason) => res.status(400).send("Error when updating"));
 };
 
-module.exports.delete = (req, res) => {
-    let toRemove = req.params.id;
+module.exports.admin.create = () => {
+    let {
+        groupName,
+        name,
+        price,
+        description,
+        subtitle,
+        imgURL,
+    } = req.body;
 
-    Listing.findOneAndDelete({ _id: toRemove })
-        .then((value) => res.json(value))
-        .catch((reason) => res.status(400).send("Error when deleting"));
+    // experimental stuff below this
+
+    let data;
+
+    // if creating a new group
+    data = {
+        groupName: groupName,
+        name: name,
+        price: price,
+        description: description ? description : undefined,
+        subtitle: subtitle ? subtitle : undefined,
+        // no img URL yet
+    };
+
+    let newData = new services(data);
+
+    // check if it already exists
+
+    newData
+        .save()
+        .then((successData) => res.json(successData))
+        .catch((reason) =>
+            res.status(500).send("Error when creating new service")
+        );
 };

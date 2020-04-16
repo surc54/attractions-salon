@@ -92,6 +92,27 @@ const Config: IConfig = {
                 ...noCache,
             },
         },
+        "update a service": {
+            url: "/api/admin/services",
+            method: "POST",
+            headers: {
+                ...noCache,
+            },
+        },
+        "create a service": {
+            url: "/api/admin/services",
+            method: "GET",
+            headers: {
+                ...noCache,
+            },
+        },
+        "delete a service": {
+            url: "/api/admin/services",
+            method: "GET",
+            headers: {
+                ...noCache,
+            },
+        },
     },
     theme: {
         palette: {

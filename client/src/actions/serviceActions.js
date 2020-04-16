@@ -3,17 +3,16 @@ import Config from "../models/Config";
 import {axios_error} from "../tools"
 
 import {
-    GET_SERVICES_INFO_START,
+    START_SERVICES_LOAD,
     GET_SERVICES_INFO_END,
     SERVICE_ADD_TO_CART,
     SERVICE_REMOVE_FROM_CART
 } from "./types";
 
-// Rename to getServicesList() or something
 export const getServicesList = () => {
     return (dispatch, getState) => {
         dispatch({
-            type: GET_SERVICES_INFO_START,
+            type: START_SERVICES_LOAD,
         });
 
 
@@ -22,15 +21,6 @@ export const getServicesList = () => {
                 ...Config.apiUrls["get services info"],
             })
             .then((response) => {
-                // current issues:
-                // ignoring errors
-                //      - no error checking
-                // dont know shape of "response"
-                //      - console.log, and then see what can I use
-
-                //returnVal = value.data.data;
-                //console.log(response.data.data)
-
                 // i put this out of habit, but really not necessary lol - surc
                 if (response.status !== 200) {
                     console.error("Status code was not 200", response);
@@ -61,7 +51,6 @@ export const getServicesList = () => {
                         error: axios_error(reason)
                     }
                 })
-                // throw new Error("Unexpected error @GET_SERVICES_INFO");
             });
     };
 };

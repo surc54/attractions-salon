@@ -74,7 +74,7 @@ const ServiceWindow = ({ services, filterText, filterCat, cart, setCart }) => {
                                             color="primary"
                                             className={classes.servicePrice}
                                         >
-                                            ${item.price}
+                                            {item.price ? `$${item.price}` : "*"}
                                         </Typography>
                                     </div>
                                 </CardContent>
