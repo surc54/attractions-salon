@@ -25,7 +25,9 @@
 }
 
 .card {
-    width: 400px;
+    min-width: 300px;
+    width: 35vw;
+    max-width: 100%;
     margin: 25px 10px;
     min-height: 300px;
     display: inline-block;
@@ -40,4 +42,5 @@
 
 .ratings {
     color: pink !important;
+    padding-top: 20px;
 }

@@ -8,6 +8,7 @@ import { ThunkAction } from "redux-thunk";
 import User from "../models/User";
 import { TestimonialData as Testimonial } from "../models/Testimonials";
 import { ReduxState } from "../reducers";
+import { addTestimonial } from "./_addTestimonial";
 
 // export default ActionTypes_old;
 
@@ -131,6 +132,12 @@ export interface AdminTestimonialStop {
     type: typeof ADMIN_TESTIMONIAL_STOP;
 }
 
+export const ADMIN_TESTIMONIALS_GET_LIST = "ADMIN_TESTIMONIALS_GET_LIST";
+export interface adminTestimonialGetList {
+    type: typeof ADMIN_TESTIMONIALS_GET_LIST;
+    payload: any;
+}
+
 export const ADMIN_TESTIMONIAL_ERROR = "ADMIN_TESTIMONIAL_ERROR";
 export interface AdminTestimonialError {
     type: typeof ADMIN_TESTIMONIAL_ERROR;
@@ -174,6 +181,8 @@ export type UserActions =
     | AuthLogoutEnd
     | AuthSignUpEnd;
 
+export type TestimonialActions = AddTestimonial;
+
 export type AdminUserSettingsActions =
     | AdminUserStart
     | AdminUserStop
@@ -190,8 +199,8 @@ export type AdminTestimonialSettingsActions =
     | AdminTestimonialStart
     | AdminTestimonialStop
     | AdminTestimonialUpdateList
-    // | AdminTestimonialUpdateOne
     | AdminTestimonialDeleteOne
+    | adminTestimonialGetList
     | AdminTestimonialError;
 
 export type ThAction<A extends Action<any>> = ThunkAction<
@@ -248,3 +257,8 @@ export class NonSuccessError extends Error {
 // };
 
 export const ADD_TESTIMONIAL = "ADD_TESTIMONIAL";
+
+export interface AddTestimonial {
+    type: typeof ADD_TESTIMONIAL;
+    payload: any;
+}

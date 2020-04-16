@@ -22,7 +22,6 @@ export interface ApiResponseUser {
 
 export interface ApiResponseTestimonial {
     name: string;
-    _id: string;
     rating: number;
     __v?: number;
     feedback: string;

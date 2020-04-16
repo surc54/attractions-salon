@@ -43,7 +43,6 @@ export const getTestimonialsList = (
                 ...Config.apiUrls["admin - get testimonial list"],
             })
             .then((resp) => {
-                console.log(resp);
 
                 if (resp.status !== 200) {
                     console.error("Status code was not 200", resp);
@@ -63,6 +62,14 @@ export const getTestimonialsList = (
                         "Did not receive data (for testimonial list)"
                     );
                 }
+
+                dispatch({
+                    type: "ADMIN_TESTIMONIALS_GET_LIST",
+                    payload: {
+                        data: resp.data.data,
+                    },
+                });
+
                 callbacks?.then?.();
             })
             .catch((err) => {
@@ -98,7 +105,7 @@ export const deleteTestimonial = (
 
             dispatch({
                 type: "ADMIN_TESTIMONIAL_DELETE_ONE",
-                payload: resp.data?.data?._id as string,
+                payload: resp.data?.data?.id as string,
             });
 
             callbacks?.then?.();

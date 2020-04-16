@@ -45,6 +45,15 @@ const reducer: Reducer<
         //         ),
         //     };
         // }
+        case "ADMIN_TESTIMONIALS_GET_LIST": {
+            const { data } = action.payload;
+            console.log(data);
+            return {
+                ...state,
+                Testimonials: data,
+                lastLoadTime: new Date(),
+            };
+        }
         case "ADMIN_TESTIMONIAL_DELETE_ONE": {
             return {
                 ...state,

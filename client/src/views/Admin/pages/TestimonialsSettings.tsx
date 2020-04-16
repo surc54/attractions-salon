@@ -6,9 +6,7 @@ import {
     CardContent,
     Typography,
     Grid,
-    Divider,
     Button,
-    ButtonGroup,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import { useAdminTestimonialSettings } from "../../../hooks";
@@ -18,22 +16,17 @@ import moment from "moment";
 
 const TestimonialsSettings: React.FC = () => {
     const testimonialSettings = useAdminTestimonialSettings();
+    // console.log(testimonialSettings);
 
     useEffect(() => {
-        // if (testimonialSettings.loading) return;
-
         testimonialSettings.getTestimonialList();
         // console.log(testimonialSettings);
     }, []);
 
+    const data = testimonialSettings.Testimonials;
+
     return (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                marginBottom: "20px",
-            }}
-        >
+        <div>
             <header className="__admin_header">
                 <h1>Testimonials</h1>
             </header>
@@ -45,11 +38,11 @@ const TestimonialsSettings: React.FC = () => {
                     direction="row"
                     alignItems="center"
                 >
-                    {/* {data.map((testimonial: any) => {
+                    {data.map((testimonial: any) => {
                         const temp = moment(testimonial.createdAt).format("L");
                         // console.log(testimonial);
                         return (
-                            <Grid key={testimonial._id} md={4} item>
+                            <Grid key={testimonial.id} md={4} item>
                                 <Card elevation={3} className="card">
                                     <CardHeader
                                         avatar={
@@ -85,7 +78,7 @@ const TestimonialsSettings: React.FC = () => {
                                 </Card>
                             </Grid>
                         );
-                    })} */}
+                    })}
                 </Grid>
             </div>
         </div>
