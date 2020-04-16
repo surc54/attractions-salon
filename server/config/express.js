@@ -8,6 +8,7 @@ const path = require("path"),
     passport = require("passport"),
     exampleRouter = require("../routes/examples.server.routes"),
     servicesRouter = require("../routes/services.routes"),
+    photosRouter = require("../routes/photos.routes"),
     accountRouter = require("../routes/account.routes"),
     adminRouter = require("../routes/admin/index.routes");
 
@@ -62,6 +63,7 @@ module.exports.init = () => {
     app.use("/api/services", servicesRouter);
     app.use("/api/account", accountRouter);
     app.use("/api/admin", adminRouter);
+    app.use("/api/photos", photosRouter);
 
     if (process.env.NODE_ENV === "production") {
         // Serve any static files

@@ -7,13 +7,19 @@ import {
     TextareaAutosize,
 } from "@material-ui/core";
 import {useEzSettings} from "../../../hooks/EzSettingsHook";
+import { getPhotos, addPhotos } from "../../../actions/photosActions";
+import axios from 'axios';
+
 
 
 const HomeSettings = (props) => {
+    const [initialLoad, setInitialLoad] = useState(true);
+    const [photoInfo, setPhotoInfo] = useState([]);
     const [pageNum, setPageNum] = useState(0);
 
     return (
         <>
+            {/* {doInitialLoad(initialLoad, setInitialLoad, setPhotoInfo)} */}
             <div>
                 <div
                     style={{
@@ -24,7 +30,7 @@ const HomeSettings = (props) => {
                 >
                     <ButtonGroup variant="contained" color="primary">
                         <Button onClick={() => setPageNum(0)}>
-                            Add photos
+                            Add Photos
                         </Button>
                         <Button onClick={() => setPageNum(1)}>
                             Update About Section
@@ -58,6 +64,36 @@ const getChoiceView = (pageNum, aboutBox, setAboutBox) => {
 };
 
 const AddPhoto = () => {
+    const [image, setImage] = useState({preview: '', raw: ''})
+    const [idCount, setidCount] = useState(10);
+    const displayPhoto = false;
+
+    const handleChange = (e) => {
+        setImage({
+          preview: URL.createObjectURL(e.target.files[0]),
+          raw: e.target.files[0]
+        })
+        
+      }
+
+    const handleUpload = (e) => {
+        //ensure way to handle if !image / hasn't been uploaded
+        e.preventDefault()
+        if (!image.imgURL) return;
+        image.id = idCount;
+        setidCount(idCount+1);
+        const formData = new FormData()
+        formData.append('image', image.raw)
+        const config = { headers: { 'content-type': 'multipart/form-data' } }
+        
+        axios.post('/api/services', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+          })
+          
+        // await uploadToBackend('endpoint', {image: image.raw}, config)
+    }
+
+
     return (
         <div>
             <div
@@ -70,8 +106,28 @@ const AddPhoto = () => {
                 <Button>Submit</Button>
             </div>
             <Divider orientation="horizontal" />
+            <div><img src={ image.preview } width="500" height="300" /></div>
+            <div>Upload a preview of your photo, then click "Submit" to add to Slideshow.</div>
             <div>
-                {/* <ServicesForm /> */}
+                <input
+                accept="image/*"
+                style={{ display: 'none' }}
+                id="slideshow-photo"
+                onChange={handleChange}
+                multiple
+                type="file"
+                />
+                <label htmlFor="slideshow-photo">
+                <Button variant="raised" color="pink" component="span"
+                // onClick={handleUpload}
+                >
+                    Upload
+                </Button>
+                </label> 
+                <Button 
+                    variant="raised" color="pink" component="span"
+                    onClick={handleUpload}>
+                Submit</Button>
             </div>
         </div>
     );
@@ -160,5 +216,22 @@ const HomeAboutForm = (props) => {
             </form>  
     );
 };
+
+// const doInitialLoad = (
+//     initialLoad,
+//     setInitialLoad,
+//     setPhotoInfo
+// ) => {
+//     if (initialLoad) {
+//         setInitialLoad(false);
+//         updatePhotos(setPhotoInfo);
+//     }
+// };
+
+// const updatePhotos = (setPhotoInfo) => {
+//     addPhotos()
+//         .then((value) => setPhotoInfo(value))
+//         .catch((reason) => console.log(reason));
+// };
 
 export default HomeSettings;

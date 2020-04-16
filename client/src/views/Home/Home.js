@@ -67,6 +67,17 @@ const Home = () => {
         threshold: 64,
     });
 
+    const passProps = () => (
+        <div>
+            <HomeSettings
+                aboutBox = {aboutBox}
+                setAboutBox = {setAboutBox}
+                ezSettings = {ezSettings}
+            />
+        </div>
+    )
+
+
     // Grab the Theme from Material-UI
     const theme = useTheme();
 
@@ -373,16 +384,11 @@ const Home = () => {
             {/* This footer was at the top of the page. */}
             {/* Better to rewrite completely. */}
             {/* <div className={styles["footer"]}></div> */}
-            {/* </div> */}
             {/* <HomeSettings
                 aboutBox = {aboutBox}
                 setAboutBox = {setAboutBox}
-            /> */}
-            <HomeSettings
-                aboutBox = {aboutBox}
-                setAboutBox = {setAboutBox}
                 ezSettings = {ezSettings}
-            />
+            /> */}
         </div>
     );
 };

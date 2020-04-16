@@ -64,6 +64,20 @@ const Config: IConfig = {
                 ...noCache,
             },
         },
+        "get photos info": {
+            url: "/api/photos",
+            method: "GET",
+            headers: {
+                ...noCache,
+            }
+        },
+        "add photos info": {
+            url: "/api/photos",
+            method: "POST",
+            headers: {
+                ...noCache,
+            }
+        },
         "ez-settings - get": {
             url: "/api/admin/ez-setting",
             method: "GET",

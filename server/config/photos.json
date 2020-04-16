@@ -2,27 +2,27 @@
     {
         "items": [
             {
-                "name": "Photo 1",
+                "id": 1,
                 "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
-                "name": "Photo 2",
+                "id": 2,
                 "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
-                "name": "Photo 3",
+                "id": 3,
                 "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
-                "name": "Photo 4",
+                "id": 4,
                 "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
-                "name": "Photo 5",
+                "id": 5,
                 "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             },
             {
-                "name": "Photo 6",
+                "id": 6,
                 "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
             }
         ]
