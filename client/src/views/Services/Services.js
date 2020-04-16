@@ -1,35 +1,123 @@
 import React, { useState } from "react";
+import { makeStyles, Grid, Paper, CircularProgress } from "@material-ui/core";
+//import { services } from "../../actions/serviceActions";
+import ServiceWindow from "./ServiceWindow";
+import { useServices } from "../../hooks";
+import SideBar from "./SideBar";
+
+import bgImg1 from "../../assets/bg-wave-1.png"
+import bgImg2 from "../../assets/bg-wave-2.png"
 import "./Services.css";
-import ServiceGrid from "./ServiceGrid";
-import { getServices } from "../../actions/serviceActions";
 
 const Services = () => {
-    const [initialLoad, setInitialLoad] = useState(true);
-    const [serviceInfo, setServiceInfo] = useState([]);
-    // filtered data set in serviceGrid
-    {/**afdgdfbdfdbfd */}
+    const [cart, setCart] = React.useState([]);
+    const [filterCat, setFilterCat] = useState("");
+    const [filterText, setFilterText] = useState("");
+    const services = useServices(); 
+    const classes = useStyles();
+ 
+    React.useEffect(() => {         // useEffect is for side-effects (aka, loading services list)
+        services.getServicesList(); // it isnt directly affecting rendering
+    }, []);                         // the [] means it will run only on component load
+
     return (
-        <div className="empty">
-            {/** inefficient, should get modified */}
-            {doInitialLoad(initialLoad, setInitialLoad, setServiceInfo)}
-            <ServiceGrid services={serviceInfo}></ServiceGrid>
-            {/** use updateServices when admin updates database */}
-        </div>
+        <>
+            <div className={classes.window}>
+                <Grid container spacing={0} className={classes.container}>
+                    <Grid item xs={12} md={2} style={{minWidth: 250}}>
+                        <Paper className={classes.sideBar} elevation={0}>
+                            <SideBar
+                                filterCat={filterCat}
+                                filterText={filterText}
+                                setFilterCat={setFilterCat}
+                                setFilterText={setFilterText}
+                                cart={cart}
+                                setCart={setCart}
+                            />
+                        </Paper>
+                    </Grid>
+
+                    <Grid item xs={12} md={9}>
+                        <Paper className={classes.serviceWindow} elevation={0}>
+                            {services.loading ? (
+                                <>
+                                    <CircularProgress/>
+                                </>
+                            ) : (
+                                <>
+                                    <ServiceWindow
+                                        cart={cart}
+                                        setCart={setCart}
+                                        services={services.services}
+                                        filterCat={filterCat}
+                                        filterText={filterText}
+                                    />
+                                </>
+                            )}
+                        </Paper>
+                    </Grid>
+                </Grid>
+            </div>
+            <img
+                src={bgImg1}
+                alt="needBG1"
+                style={{
+                    position: "absolute",
+                    bottom: "0",
+                    width: "100%",
+                    zIndex: "-1",
+                }}
+            />
+            <img
+                src={bgImg2}
+                alt="needBG2"
+                style={{
+                    position: "absolute",
+                    bottom: "0",
+                    width: "100%",
+                    zIndex: "-1",
+                }}
+            />
+        </>
     );
 };
 
-const doInitialLoad = (initialLoad, setInitialLoad, setServiceInfo) => {
-    if (initialLoad) {
-        setInitialLoad(false);
-        updateServices(setServiceInfo);
-    }
-};
+// const doInitialLoad = (initialLoad, setInitialLoad, setServiceInfo, theBigTEST) => {
+//     if (initialLoad) {
+//         setInitialLoad(false);
+//         updateServices(setServiceInfo);
+//         //console.log(theBigTEST)
+//     }
+// };
 
-const updateServices = setServiceInfo => {
-    getServices()
-        .then(value => setServiceInfo(value))
-        .catch(() => setServiceInfo(servicesJSON));
-};
+// const updateServices = (setServiceInfo) => {
+//     //getServices()
+//     //    .then((value) => setServiceInfo(value))
+//     //    .catch(() => setServiceInfo(servicesJSON));
+// };
+
+const useStyles = makeStyles((theme) => ({
+    window: {
+        paddingTop: 64,
+    },
+    container: {
+        display: "flex",
+        flexGrow: 1,
+        flexDirection: "row",
+        justifyContent: "space-around",
+    },
+    sideBar: {
+        height: "auto",
+        marginTop: 5,
+    },
+    serviceWindow: {
+        height: "calc(100vh - 100px);",
+        marginTop: 5,
+        overflow: "auto",
+        scrollBehavior: "smooth",
+        background: "transparent",
+    },
+}));
 
 const servicesJSON = [
     {

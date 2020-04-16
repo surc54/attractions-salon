@@ -1,4 +1,5 @@
 interface User {
+    id: string;
     name: {
         first: string;
         last: string;
@@ -18,7 +19,7 @@ export const getUserInitials = (user?: User | null) => {
 
     let initials = user.fullName
         .split(" ")
-        .map(x => x.substr(0, 1))
+        .map((x) => x.substr(0, 1))
         .join("")
         .trim()
         .substr(0, 2);

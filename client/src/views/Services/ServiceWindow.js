@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useServices } from "../../hooks";
 import {
     Card,
     CardActionArea,
@@ -10,48 +11,29 @@ import {
     Typography,
 } from "@material-ui/core";
 
-const useStyles = makeStyles({
-    root: {
-        height: "fit-content",
-        width: "24%",
-        border: "1px solid rgba(0, 0, 0, 0.17)",
-        boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.1)",
-        borderRadius: "5px",
-        marginRight: "10px",
-        marginBottom: "20px",
-    },
-    content: {
-        paddingLeft: "8px",
-    },
-    serviceGroup: {
-        lineHeight: "1",
-        fontSize: "1.6rem",
-    },
-    serviceTitle: {
-        fontWeight: "600",
-        fontSize: "2.1rem",
-    },
-    servicePrice: {
-        fontWeight: "600",
-        fontSize: "2.5rem",
-        float: "right",
-    },
-    serviceStyle: {
-        padding: "8px",
-    },
-    media: {
-        height: 180,
-    },
-});
 
-const MediaCard = ({ services, filterText, filterCat }) => {
+const check = (item, filterText, filterCat) => {
+    //console.log(item);
+    //console.log(filterText);
+    //console.log(filterCat);
+    if (filterCat !== "")
+        return (
+            item.name.toLowerCase().includes(filterText) &&
+            item.groupName.includes(filterCat)
+        );
+    else return item.name.toLowerCase().includes(filterText);
+};
+
+const ServiceWindow = ({ services, filterText, filterCat, cart, setCart }) => {
     const classes = useStyles();
+    const servicesHook = useServices(); 
 
     return (
         <div className="serviceEntries">
             {services
-                .filter(item => item.name.toLowerCase().includes(filterText))
-                .map(item => {
+                .filter((item) => check(item, filterText, filterCat))
+                .map((item) => {
+                    //const addText = item.added ? "Added" : "Add"
                     return (
                         <Card classes={{ root: classes.root }} key={item.name}>
                             <CardActionArea>
@@ -103,28 +85,70 @@ const MediaCard = ({ services, filterText, filterCat }) => {
                                 <Button size="small" color="primary">
                                     Learn More
                                 </Button>
-                                <Button size="small" color="secondary">
-                                    Add
-                                </Button>
+                                {item.inCart ? (
+                                    <Button size="small" color="secondary" onClick={()=> handleRemove(item, servicesHook)}>
+                                        Remove 
+                                    </Button>
+                                )
+                                : (
+                                    <Button size="small" color="secondary" onClick={()=> handleAdd(item, servicesHook)}>
+                                        Add 
+                                    </Button>
+                                )
+                                }
                             </CardActions>
                         </Card>
                     );
-                })} {/**afdgdfbdfdbfd */}
+                })}
         </div>
     );
 };
 
-const ServiceWindow = ({ services, filterText, filterCat }) => {
-    return (
-        <div className="empty">
-            <MediaCard
-                services={services}
-                filterText={filterText}
-                filterCat={filterCat}
-            />
-        </div>
-    );
-};
+const handleAdd = (item, services) => {
+    // services in database dont have this field yet
+    // if(!item.added) item.added = true;
+    services.addToCart(item._id);
+}
+const handleRemove = (item, services) => {
+    // services in database dont have this field yet
+    // if(!item.added) item.added = true;
+    services.removeFromCart(item._id);
+}
+
+const useStyles = makeStyles({
+    root: {
+        flexGrow: "1",
+        alignSelf: "flex-start",
+        width: "24%",
+        border: "1px solid rgba(0, 0, 0, 0.17)",
+        boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.1)",
+        borderRadius: "5px",
+        marginRight: "10px",
+        marginBottom: "20px",
+    },
+    content: {
+        paddingLeft: "8px",
+    },
+    serviceGroup: {
+        lineHeight: "1",
+        fontSize: "1.6rem",
+    },
+    serviceTitle: {
+        fontWeight: "600",
+        fontSize: "2.1rem",
+    },
+    servicePrice: {
+        fontWeight: "600",
+        fontSize: "2.5rem",
+        float: "right",
+    },
+    serviceStyle: {
+        padding: "8px",
+    },
+    media: {
+        height: 180,
+    },
+});
 
 export default ServiceWindow;
 
