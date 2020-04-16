@@ -4,7 +4,7 @@ import _adminUserSettingsReducer, {
     AdminUserSettingsState,
 } from "./_adminUserSettingsReducer";
 
-import servicesReducer, { ServicesState } from "./servicesReducer"
+import servicesReducer from "./servicesReducer"
 
 export default combineReducers<ReduxState>({
     login: _loginReducer,
@@ -15,5 +15,5 @@ export default combineReducers<ReduxState>({
 export interface ReduxState {
     login: UserState;
     adminUserSettings: AdminUserSettingsState;
-    services: ServicesState;
+    services: any;
 }

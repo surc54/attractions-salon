@@ -7,6 +7,7 @@ const serviceGroup = new mongoose.Schema({
     price: { type: Number, min: 0 },
     description: { type: String },
     subtitle: { type: String },
+    added: {type: Boolean, default: false},
     imgURL: {
         type: String,
         default:

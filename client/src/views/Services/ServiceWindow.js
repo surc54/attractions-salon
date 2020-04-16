@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useServices } from "../../hooks";
 import {
     Card,
     CardActionArea,
@@ -23,14 +24,16 @@ const check = (item, filterText, filterCat) => {
     else return item.name.toLowerCase().includes(filterText);
 };
 
-const ServiceWindow = ({ services, filterText, filterCat }) => {
+const ServiceWindow = ({ services, filterText, filterCat, cart, setCart }) => {
     const classes = useStyles();
+    const servicesHook = useServices(); 
 
     return (
         <div className="serviceEntries">
             {services
                 .filter((item) => check(item, filterText, filterCat))
                 .map((item) => {
+                    //const addText = item.added ? "Added" : "Add"
                     return (
                         <Card classes={{ root: classes.root }} key={item.name}>
                             <CardActionArea>
@@ -82,9 +85,17 @@ const ServiceWindow = ({ services, filterText, filterCat }) => {
                                 <Button size="small" color="primary">
                                     Learn More
                                 </Button>
-                                <Button size="small" color="secondary">
-                                    Add
-                                </Button>
+                                {item.inCart ? (
+                                    <Button size="small" color="secondary" onClick={()=> handleRemove(item, servicesHook)}>
+                                        Remove 
+                                    </Button>
+                                )
+                                : (
+                                    <Button size="small" color="secondary" onClick={()=> handleAdd(item, servicesHook)}>
+                                        Add 
+                                    </Button>
+                                )
+                                }
                             </CardActions>
                         </Card>
                     );
@@ -92,6 +103,17 @@ const ServiceWindow = ({ services, filterText, filterCat }) => {
         </div>
     );
 };
+
+const handleAdd = (item, services) => {
+    // services in database dont have this field yet
+    // if(!item.added) item.added = true;
+    services.addToCart(item._id);
+}
+const handleRemove = (item, services) => {
+    // services in database dont have this field yet
+    // if(!item.added) item.added = true;
+    services.removeFromCart(item._id);
+}
 
 const useStyles = makeStyles({
     root: {

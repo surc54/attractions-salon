@@ -4,13 +4,15 @@ import {
     Button,
     makeStyles,
     Checkbox,
-    TextField,
     Collapse,
     FormControlLabel,
+    Typography,
     List,
     ListItem,
     ListItemText,
 } from "@material-ui/core";
+
+import clsx from "clsx";
 
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -38,6 +40,25 @@ const useStyles = makeStyles((theme) => ({
         border: "1px solid rgba(0, 0, 0, 0.17)",
         borderRadius: "5px",
     },
+    searchBox: {
+        height: 64,
+        background: "rgba(0, 0, 0, 0.05)",
+        border: "none",
+        outline: "none",
+        color: "rgba(0, 0, 0, 0.75)",
+        paddingLeft: 14,
+        paddingRight: 14,
+    },
+    sidebarHeader: {
+        display: "flex",
+        flexFlow: "row nowrap",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        padding: "6px 14px"
+    },
+    selectedCheckbox: {
+        color: theme.palette.primary.main
+    }
 }));
 
 const SideBar = (props) => {
@@ -51,7 +72,7 @@ const SideBar = (props) => {
     });
 
     const handleChange = (event) => {
-        setChecked(false);
+        // setChecked(false);
         setChecked({ ...checked, [event.target.name]: event.target.checked });
         if (event.target.checked === true)
             props.setFilterCat(event.target.name);
@@ -59,14 +80,37 @@ const SideBar = (props) => {
     };
 
     const clearChecks = () => {
-        setChecked(false);
+        setChecked({
+            "Hair Care": false,
+            "Nail Care": false,
+            "Hair extensions": false,
+            "Hair Cuts": false,
+            Waxing: false,
+        });
     };
 
     return (
         <div>
             <div className="SideBar">
                 <div className="titleBox">
-                    <FormControlLabel
+                    <div className={classes.sidebarHeader}>
+                        <Typography variant="button">Filter Services</Typography>
+                        <span className="spacer" />
+                        <Button
+                            className="clearButton"
+                            size="small"
+                            color="primary"
+                            style={{ float: "right" }}
+                            onClick={() => {
+                                props.setFilterText("");
+                                props.setFilterCat("");
+                                clearChecks();
+                            }}
+                        >
+                            Clear
+                        </Button>
+                    </div>
+                    {/* <FormControlLabel
                         className="SideBarTitle"
                         control={
                             <Button
@@ -76,7 +120,7 @@ const SideBar = (props) => {
                                 onClick={() => {
                                     props.setFilterText("");
                                     props.setFilterCat("");
-                                    //clearChecks();
+                                    clearChecks();
                                 }}
                             >
                                 Clear
@@ -85,11 +129,21 @@ const SideBar = (props) => {
                         label="Filter by:"
                         labelPlacement="start"
                         classes={{ root: classes.title }}
-                    />
+                    /> */}
                 </div>
 
                 <div>
-                    <TextField
+                    <input
+                        id="search"
+                        className={classes.searchBox}
+                        placeholder="Type here to search"
+                        type="text"
+                        autoComplete="off"
+                        value={props.filterText}
+                        onChange={e => props.setFilterText(e.target.value.toLowerCase())}
+                        style={{ width: "100%" }}
+                    />
+                    {/* <TextField
                         id="search"
                         label="Search services here"
                         variant="filled"
@@ -101,13 +155,15 @@ const SideBar = (props) => {
                             );
                         }}
                         style={{ width: "100%" }}
-                    />
+                    /> */}
                 </div>
 
                 <div className="itemBox">
                     <FormControlLabel
                         label="Hair Care"
-                        className="checkBoxName"
+                        className={clsx("checkBoxName", {
+                            [classes.selectedCheckbox]: checked["Hair Care"]
+                        })}
                         classes={{ root: classes.options }}
                         control={
                             <Checkbox
@@ -123,7 +179,9 @@ const SideBar = (props) => {
                 <div className="itemBox">
                     <FormControlLabel
                         label="Haircuts"
-                        className="checkBoxName"
+                        className={clsx("checkBoxName", {
+                            [classes.selectedCheckbox]: checked["Hair Cuts"]
+                        })}
                         control={
                             <Checkbox
                                 name="Hair Cuts"
@@ -138,7 +196,9 @@ const SideBar = (props) => {
 
                 <div className="itemBox">
                     <FormControlLabel
-                        className="checkBoxName"
+                        className={clsx("checkBoxName", {
+                            [classes.selectedCheckbox]: checked["Nail Care"]
+                        })}
                         control={
                             <Checkbox
                                 name="Nail Care"
@@ -154,7 +214,9 @@ const SideBar = (props) => {
 
                 <div className="itemBox">
                     <FormControlLabel
-                        className="checkBoxName"
+                        className={clsx("checkBoxName", {
+                            [classes.selectedCheckbox]: checked["Hair extensions"]
+                        })}
                         control={
                             <Checkbox
                                 name="Hair extensions"
@@ -170,7 +232,9 @@ const SideBar = (props) => {
 
                 <div className="itemBox">
                     <FormControlLabel
-                        className="checkBoxName"
+                        className={clsx("checkBoxName", {
+                            [classes.selectedCheckbox]: checked["Waxing"]
+                        })}
                         control={
                             <Checkbox
                                 name="Waxing"
@@ -195,16 +259,18 @@ const SideBar = (props) => {
                 >
                     Request an appointment
                 </Button>
-                <CartList />
+                <CartList cart={props.cart} setCart={props.setCart}/>
             </div>
         </div>
     );
 };
-
-const CartList = () => {
+/////////////// {cart, setCart}
+const CartList = ({cart, setCart}) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [cart, setCart] = React.useState([]);
+
+    // change to modify the state so we can use redux later
+    // to pass the cart items and such
 
     const handleClick = () => {
         setOpen(!open);
@@ -213,7 +279,7 @@ const CartList = () => {
     return (
         <List component="nav" className={classes.root} disablePadding>
             <ListItem button onClick={handleClick} className="itemClass">
-                <ShoppingCartIcon style={{ marginRight: "10px" }} />
+                <ShoppingCartIcon style={{ marginRight: "10px", color: "pink" }} />
                 <ListItemText primary="Your Cart" />
                 {open ? <ExpandLess /> : <ExpandMore />}
             </ListItem>

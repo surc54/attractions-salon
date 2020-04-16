@@ -33,7 +33,7 @@ module.exports.list = (req, res) => {
                 data: value,
             });
         })
-        .catch((reason) => res.status(200).send("Error when finding services"));
+        .catch((reason) => res.status(400).send("Error when finding services"));
 };
 
 module.exports.read = (req, res) => {
@@ -41,7 +41,7 @@ module.exports.read = (req, res) => {
         .findById({ _id: req.params.id })
         .then((successData) => res.json(successData || {}))
         .catch((reason) =>
-            res.status(200).send("Error when finding a specific service")
+            res.status(400).send("Error when finding a specific service")
         );
 };
 
@@ -77,7 +77,7 @@ module.exports.create = (req, res) => {
         .save()
         .then((successData) => res.json(successData))
         .catch((reason) =>
-            res.status(200).send("Error when creating new service")
+            res.status(400).send("Error when creating new service")
         );
 };
 
@@ -112,7 +112,7 @@ module.exports.update = (req, res) => {
                 res.json(successData)
             )
         )
-        .catch((reason) => res.status(200).send("Error when updating"));
+        .catch((reason) => res.status(400).send("Error when updating"));
 };
 
 module.exports.delete = (req, res) => {
@@ -120,5 +120,5 @@ module.exports.delete = (req, res) => {
 
     Listing.findOneAndDelete({ _id: toRemove })
         .then((value) => res.json(value))
-        .catch((reason) => res.status(200).send("Error when deleting"));
+        .catch((reason) => res.status(400).send("Error when deleting"));
 };

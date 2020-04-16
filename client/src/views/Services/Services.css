@@ -11,7 +11,8 @@
 }
 .checkBoxName {
     margin-left: 5px;
-    color: #e7a1af;
+    color: rgba(0, 0, 0, 0.75);
+    /* color: #e7a1af; */
 }
 .SideBarTitle {
     font-weight: 500;
@@ -19,18 +20,26 @@
 }
 
 .titleBox {
-    height: 40px;
+    /* height: 40px; */
 }
 
 .itemBox {
-    height: 47px;
+    height: 56px;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.itemBox:first-child {
+    margin-top: 24px;
 }
 
 .SideBar {
     display: flex;
     flex-direction: column;
     border: 1px solid rgba(0, 0, 0, 0.17);
-    border-radius: 2px;
+    border-radius: 5px;
 }
 
 .itemClass {

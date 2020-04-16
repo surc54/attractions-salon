@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { makeStyles, Grid, Paper, CircularProgress } from "@material-ui/core";
 //import { services } from "../../actions/serviceActions";
 import ServiceWindow from "./ServiceWindow";
-import { useServices } from "../../hooks/ServiceHooks";
+import { useServices } from "../../hooks";
 import SideBar from "./SideBar";
 
 import bgImg1 from "../../assets/bg-wave-1.png"
@@ -10,43 +10,45 @@ import bgImg2 from "../../assets/bg-wave-2.png"
 import "./Services.css";
 
 const Services = () => {
-    const [initialLoad, setInitialLoad] = useState(true);
-    const [serviceInfo, setServiceInfo] = useState([]);
+    const [cart, setCart] = React.useState([]);
     const [filterCat, setFilterCat] = useState("");
     const [filterText, setFilterText] = useState("");
-    const theBigTEST = useServices(); 
+    const services = useServices(); 
     const classes = useStyles();
+ 
+    React.useEffect(() => {         // useEffect is for side-effects (aka, loading services list)
+        services.getServicesList(); // it isnt directly affecting rendering
+    }, []);                         // the [] means it will run only on component load
 
     return (
         <>
-            {/** inefficient, should get modified */}
-            {doInitialLoad(initialLoad, setInitialLoad, setServiceInfo, theBigTEST)}
             <div className={classes.window}>
                 <Grid container spacing={0} className={classes.container}>
-                    <Grid item xs={12} md={2}>
+                    <Grid item xs={12} md={2} style={{minWidth: 250}}>
                         <Paper className={classes.sideBar} elevation={0}>
                             <SideBar
-                                services={servicesJSON}
-                                dummy={serviceInfo}
                                 filterCat={filterCat}
                                 filterText={filterText}
                                 setFilterCat={setFilterCat}
                                 setFilterText={setFilterText}
+                                cart={cart}
+                                setCart={setCart}
                             />
                         </Paper>
                     </Grid>
 
                     <Grid item xs={12} md={9}>
                         <Paper className={classes.serviceWindow} elevation={0}>
-                            {initialLoad ? (
+                            {services.loading ? (
                                 <>
-                                    <p>loading</p>
-                                    <CircularProgress />
+                                    <CircularProgress/>
                                 </>
                             ) : (
                                 <>
                                     <ServiceWindow
-                                        services={servicesJSON}
+                                        cart={cart}
+                                        setCart={setCart}
+                                        services={services.services}
                                         filterCat={filterCat}
                                         filterText={filterText}
                                     />
@@ -80,19 +82,19 @@ const Services = () => {
     );
 };
 
-const doInitialLoad = (initialLoad, setInitialLoad, setServiceInfo, theBigTEST) => {
-    if (initialLoad) {
-        setInitialLoad(false);
-        updateServices(setServiceInfo);
-        console.log(theBigTEST)
-    }
-};
+// const doInitialLoad = (initialLoad, setInitialLoad, setServiceInfo, theBigTEST) => {
+//     if (initialLoad) {
+//         setInitialLoad(false);
+//         updateServices(setServiceInfo);
+//         //console.log(theBigTEST)
+//     }
+// };
 
-const updateServices = (setServiceInfo) => {
-    //getServices()
-    //    .then((value) => setServiceInfo(value))
-    //    .catch(() => setServiceInfo(servicesJSON));
-};
+// const updateServices = (setServiceInfo) => {
+//     //getServices()
+//     //    .then((value) => setServiceInfo(value))
+//     //    .catch(() => setServiceInfo(servicesJSON));
+// };
 
 const useStyles = makeStyles((theme) => ({
     window: {
@@ -109,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 5,
     },
     serviceWindow: {
-        height: "600px",
+        height: "calc(100vh - 100px);",
         marginTop: 5,
         overflow: "auto",
         scrollBehavior: "smooth",
