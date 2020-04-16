@@ -1,0 +1,1662 @@
+diff --git a/.gitignore b/.gitignore
+index a4fbbc4..2ebb336 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -20,6 +20,7 @@ client/build
+ .env.test.local
+ .env.production.local
+ /server/config/config.js
++/client/src/views/Payments/config.js
+ 
+ npm-debug.log*
+ yarn-debug.log*
+diff --git a/client/package-lock.json b/client/package-lock.json
+index 9d6d1a9..d63eb87 100644
+--- a/client/package-lock.json
++++ b/client/package-lock.json
+@@ -3033,6 +3033,15 @@
+             "resolved": "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.0.0.tgz",
+             "integrity": "sha512-Phlt0plgpIIBOGTT/ehfFnbNlfsDEiqmzE2KRXoX1bLIlir4X/MR+zSyBEkL05ffWgnRSf/DXv+WrUAVr93/ow=="
+         },
++        "bindings": {
++            "version": "1.5.0",
++            "resolved": "https://registry.npmjs.org/bindings/-/bindings-1.5.0.tgz",
++            "integrity": "sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==",
++            "optional": true,
++            "requires": {
++                "file-uri-to-path": "1.0.0"
++            }
++        },
+         "block-stream": {
+             "version": "0.0.9",
+             "resolved": "https://registry.npmjs.org/block-stream/-/block-stream-0.0.9.tgz",
+@@ -5747,6 +5756,12 @@
+                 "schema-utils": "^2.5.0"
+             }
+         },
++        "file-uri-to-path": {
++            "version": "1.0.0",
++            "resolved": "https://registry.npmjs.org/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz",
++            "integrity": "sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==",
++            "optional": true
++        },
+         "filesize": {
+             "version": "6.0.1",
+             "resolved": "https://registry.npmjs.org/filesize/-/filesize-6.0.1.tgz",
+@@ -7671,6 +7686,7 @@
+                     "integrity": "sha512-Ggd/Ktt7E7I8pxZRbGIs7vwqAPscSESMrCSkx2FtWeqmheJgCo2R74fTsZFCifr0VTPwqRpPv17+6b8Zp7th0Q==",
+                     "optional": true,
+                     "requires": {
++                        "bindings": "^1.5.0",
+                         "nan": "^2.12.1",
+                         "node-pre-gyp": "*"
+                     },
+@@ -15010,6 +15026,7 @@
+                     "integrity": "sha512-Ggd/Ktt7E7I8pxZRbGIs7vwqAPscSESMrCSkx2FtWeqmheJgCo2R74fTsZFCifr0VTPwqRpPv17+6b8Zp7th0Q==",
+                     "optional": true,
+                     "requires": {
++                        "bindings": "^1.5.0",
+                         "nan": "^2.12.1",
+                         "node-pre-gyp": "*"
+                     },
+@@ -15797,6 +15814,7 @@
+                     "integrity": "sha512-Ggd/Ktt7E7I8pxZRbGIs7vwqAPscSESMrCSkx2FtWeqmheJgCo2R74fTsZFCifr0VTPwqRpPv17+6b8Zp7th0Q==",
+                     "optional": true,
+                     "requires": {
++                        "bindings": "^1.5.0",
+                         "nan": "^2.12.1",
+                         "node-pre-gyp": "*"
+                     },
+diff --git a/client/src/views/Payments/AmountDueWindow.jsx b/client/src/views/Payments/AmountDueWindow.jsx
+index 42d4b3d..d955fdc 100644
+--- a/client/src/views/Payments/AmountDueWindow.jsx
++++ b/client/src/views/Payments/AmountDueWindow.jsx
+@@ -4,6 +4,10 @@ import "./Payments.css";
+ import PayPalButton from "./PayPalButton";
+ import PaypalLogo from "./images/Paypal-Logo.png";
+ import SquareLogo from "./images/Square-Logo.png";
++import SquareLogo2 from "./images/Square.jpg";
++import { Link } from 'react-router-dom';
++
++
+ 
+ const AmountDueWindow = props => {
+     const inStyle = useStyles();
+@@ -12,26 +16,39 @@ const AmountDueWindow = props => {
+             <div className="paperHeader">
+                 <h2 className="page2Title">Amount Due</h2>
+                 <ButtonBase className="scheduleButton">
+-                    <h2 style={{margin: "4px"}}>$425.00</h2>
++                    <h2 style={{ margin: "4px" }}>${props.appointment.price}</h2>
+                 </ButtonBase>
+             </div>
+-
++            
+             <b>Choose your prefered payment method:</b>
+             <div className="paymentButtons">
+-                <ButtonBase className={inStyle.squareButton}>
++                {/* <ButtonBase className={inStyle.squareButton}>
+                     <span>Pay with</span>
+                     <img
+                         src={SquareLogo}
+                         alt="Square"
+                         className={inStyle.img}
+                     ></img>
++                </ButtonBase> */}
++                {/* <Button className={inStyle.squareButton}>
++                    <span>Pay with</span>
++                    <img
++                        src={SquareLogo2}
++                        className={inStyle.img}
++                    />
++                </Button> */}
++                <ButtonBase className={inStyle.squareButton}>
++                    <img
++                        src={SquareLogo2}
++                        className={inStyle.img}
++                    ></img>
+                 </ButtonBase>
+             </div>
+ 
+             <b>Or pay in-store</b>
+             <div className="paymentButtons">
+-                <ButtonBase className={inStyle.customButton}>
+-                    <span>Pay when you arrive</span>
++                <ButtonBase className={inStyle.customButton} >
++                    <Link className="arrivalButton" to="./">Pay when you arrive</Link>
+                 </ButtonBase>
+             </div>
+         </div>
+@@ -64,13 +81,14 @@ const useStyles = makeStyles(theme => ({
+     squareButton: {
+         display: "flex",
+         width: "50%",
+-        height: "40px",
+-        background: "#ffffff",
++        height: "50px",
++        //background: "#ffffff",
+         borderRadius: "10px",
+         justifyContent: "center",
+         alignItems: "center",
+         margin: "5px",
+         border: "solid black",
++        background: "black",
+     },
+     button: {
+         width: "50%",
+@@ -82,7 +100,7 @@ const useStyles = makeStyles(theme => ({
+     customButton: {
+         display: "flex",
+         width: "50%",
+-        height: "40px",
++        height: "50px",
+         background: "#ffffff",
+         borderRadius: "10px",
+         justifyContent: "center",
+@@ -91,7 +109,11 @@ const useStyles = makeStyles(theme => ({
+         border: "solid black",
+     },
+     img: {
+-        width: "40%",
++        width: "50%",
++        height: "100%",
++        //imageRendering: "auto",
++        imageRendering: "crisp-edges",
++        //imageRendering: "pixelated",
+     },
+     empty: {
+         width: "auto", // just to have something here
+diff --git a/client/src/views/Payments/AppointmentWindow.jsx b/client/src/views/Payments/AppointmentWindow.jsx
+index b13a317..8ea71d0 100644
+--- a/client/src/views/Payments/AppointmentWindow.jsx
++++ b/client/src/views/Payments/AppointmentWindow.jsx
+@@ -15,11 +15,44 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
+ import { ExpandLess, ExpandMore } from "@material-ui/icons";
+ import "./Payments.css";
+ 
+-const useStyles1 = makeStyles(theme => ({
++const useStyles = makeStyles(theme => ({
+     nested: {
+         paddingLeft: theme.spacing(4),
+     },
+ 
++    status: {
++        "Cancelled":{
++            backGroundColor: "white",
++            border: "2px solid red",
++            borderRadius: "10px",
++            width: "25%",
++        },
++        "Pending":{
++            backGroundColor: "white",
++            border: "2px solid red",
++            borderRadius: "10px",
++            width: "25%",
++        },
++        "Scheduled": {
++            backGroundColor: "white",
++            border: "2px solid #79e827",
++            borderRadius: "10px",
++            width: "25%",
++        },
++        "Completed":{
++            backGroundColor: "white",
++            border: "2px solid #79e827",
++            borderRadius: "10px",
++            width: "25%",
++        },
++        "Past Due":{
++            backGroundColor: "white",
++            border: "2px solid red",
++            borderRadius: "10px",
++            width: "25%",
++        },
++    },
++
+     scheduleButton: {
+         border: "1px solid",
+         backGroundColor: "white",
+@@ -29,66 +62,30 @@ const useStyles1 = makeStyles(theme => ({
+ }));
+ 
+ const AppointmentWindow = props => {
+-    const classes = useStyles1();
+-    const [open, setOpen] = React.useState(false);
+-    const handleClick = () => {
+-        setOpen(!open);
+-    };
+-    const handleClick1 = () => {
+-        setOpen(!open);
+-    };
+-
++    const classes = useStyles();
++    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
++    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
++    const dateString = days[props.appointment.date.getDay()] + ", " + months[props.appointment.date.getMonth()] + " " + props.appointment.date.getDate()
++                        + ", " + props.appointment.date.getFullYear(); 
+     return (
+         <div className="appointmentWindow">
+             <div className="paperHeader">
+                 <h2 className="page2Title">Appointment</h2>
+-                <Button className="scheduleButton" variant="outlined" size="small">
+-                    Scheduled
+-                </Button>
++                <Button classes={{root: classes.status[props.appointment.status]}}size="small" variant="outlined">
++                    {props.appointment.status}
++                </Button>    
+             </div>
+-            <p>March 31, 2020 at 2:30 PM</p>
++            <p>{dateString}</p>
+             <h4>Scheduled Items</h4>
+-            <List>
+-                <ListItem button onClick={handleClick}>
+-                    <ListItemText>Full Highlight</ListItemText>
+-                    {open ? <ExpandLess /> : <ExpandMore />}
+-                </ListItem>
+-                <Collapse in={open} timeout="auto" unmountOnExit>
+-                    <List component="div" disablePadding>
+-                        <ListItem button className={classes.nested}>
+-                            <ListItemText>Full Highlight info</ListItemText>
+-                        </ListItem>
+-                    </List>
+-                </Collapse>
+-
+-                <Divider />
+-
+-                <ListItem button onClick={handleClick1}>
+-                    <ListItemText>Full Highlight 2</ListItemText>
+-                    {open ? <ExpandLess /> : <ExpandMore />}
+-                </ListItem>
+-                <Collapse in={open} timeout="auto" unmountOnExit>
+-                    <List component="div" disablePadding>
+-                        <ListItem button className={classes.nested}>
+-                            <ListItemText>Full Highlight 2 info</ListItemText>
+-                        </ListItem>
+-                    </List>
+-                </Collapse>
+-
+-                <Divider />
++            {props.appointment.services.map(service => {
++                return (
++                    <div className="appointmentInfoDiv">
++                        {service.name}
++                        <div style={{ float: "right" }}>${service.price}</div>
++                    </div>
++                );
++            })}
+ 
+-                <ListItem button onClick={handleClick}>
+-                    <ListItemText>Full Highlight 3</ListItemText>
+-                    {open ? <ExpandLess /> : <ExpandMore />}
+-                </ListItem>
+-                <Collapse in={open} timeout="auto" unmountOnExit>
+-                    <List component="div" disablePadding>
+-                        <ListItem button className={classes.nested}>
+-                            <ListItemText>Full Highlight 3 info</ListItemText>
+-                        </ListItem>
+-                    </List>
+-                </Collapse>
+-            </List>
+         </div>
+     );
+ };
+diff --git a/client/src/views/Payments/Payments.css b/client/src/views/Payments/Payments.css
+index da2db81..6090130 100644
+--- a/client/src/views/Payments/Payments.css
++++ b/client/src/views/Payments/Payments.css
+@@ -24,31 +24,21 @@
+     justify-content: space-around;
+ }
+ 
+-/* DONT USE GLOBAL STYLES */
+-/* DONT USE GLOBAL STYLES */
+-/* DONT USE GLOBAL STYLES */
+-/* ffs */
+-
+-/* body {
+-    background-image: 
+-        url("./images/Rectangle1.png"), 
+-        url("./images/Rectangle2.png");
+-    background-position: 
+-        bottom, 
+-        bottom;
+-    background-size: 
+-        auto,
+-        auto;       
+-    background-repeat: no-repeat;
+-} */
++.testText {
++    position: absolute;
++    left: 0;
++    bottom: 0;
++}
+ 
+ .verticalSpacer {
+     flex: 1 0;
+ }
+ 
+ .scheduleButton {
+-    background-color: #79e827;
+-    border: green;
++    background-color: white;
++    border: 2px solid #79e827;
++    border-radius: 10px;
++    width: 25%; 
+ }
+ 
+ .titleInitialPage {
+@@ -95,6 +85,9 @@
+     text-decoration: underline;
+ }
+ 
++.quickLinksWindowDiv {
++    margin: 10px;
++}
+ .quickLinks {
+     color: #e7a1af;
+     text-decoration: none;
+@@ -102,3 +95,18 @@
+ .quickLinks:hover {
+     text-decoration: underline;
+ }
++
++.appointmentInfoDiv {
++    border: 2px solid pink;
++    border-radius: 10px; 
++    padding: 10px;
++    margin: 10px;
++}
++
++.arrivalButton {
++    text-decoration: none;
++}
++
++.arrivalButton:hover, .arrivalButton:active {
++    color: pink;
++}
+\ No newline at end of file
+diff --git a/client/src/views/Payments/Payments.jsx b/client/src/views/Payments/Payments.jsx
+index fc8180c..d63fc9a 100644
+--- a/client/src/views/Payments/Payments.jsx
++++ b/client/src/views/Payments/Payments.jsx
+@@ -8,12 +8,14 @@ import {
+     Typography,
+ } from "@material-ui/core";
+ import "./Payments.css";
+-import RightWindow from "./RightWindow";
+ 
+ import FirstStep from "./FirstStep";
+ import SecondStep from "./SecondStep";
+ import ThirdStep from "./ThirdStep";
+ 
++import bgImage1 from "./images/Rectangle1.png";
++import bgImage2 from "./images/Rectangle2.png";
++
+ const useStyles = makeStyles(theme => ({
+     root: {
+         width: "100%",
+@@ -45,14 +47,48 @@ function getSteps() {
+     ];
+ }
+ 
++const appointment = {
++    bookingNum: "CX4-BS2-7G9",
++    status: "Pending",
++    name: "Mars",
++    date: new Date('December 17, 1995 03:24:00'), // let birthday = new Date(1995, 11, 17, 3, 24, 0);
++    phone: "333-345-6879",
++    price: 405,
++    user: {
++        name: "Mike Tyson",
++        email: "miketyson@gmail.com",
++        emailVerified: true,
++        phone: "954-111-1111",
++        password: "knockout",
++        role: "Guest",
++    },
++    services: 
++    [
++    {
++        groupName: "Process Color",
++        name: "Single Process Color",
++        price: "55",
++        description: "",
++        imgURL: "",
++    },
++    {
++        groupName: "Snack",
++        name: "Chocolate Chip Donut",
++        price: "350",
++        description: "",
++        imgURL: "",
++    },
++    ],
++}
++
+ function getStepContent(stepIndex) {
+     switch (stepIndex) {
+         case 0:
+             return <FirstStep />;
+         case 1:
+-            return <SecondStep />;
++            return <SecondStep appointment={appointment}/>;
+         case 2:
+-            return <ThirdStep />;
++            return <ThirdStep appointment={appointment}/>;
+         default:
+             return "Unknown stepIndex";
+     }
+@@ -61,6 +97,19 @@ function getStepContent(stepIndex) {
+ const HorizontalLabelPositionBelowStepper = () => {
+     const classes = useStyles();
+     const [activeStep, setActiveStep] = React.useState(0);
++
++    const [moveNext, setMoveNext] = React.useState({
++        0 : true,
++        1 : true,
++        2 : true,
++    });
++
++    const [moveBack, setMoveBack] = React.useState({
++        0 : false,
++        1 : false,
++        2 : true,
++    });
++
+     const steps = getSteps();
+ 
+     const handleNext = () => {
+@@ -76,52 +125,59 @@ const HorizontalLabelPositionBelowStepper = () => {
+     };
+ 
+     return (
+-        <div className={classes.root}>
+-            <Stepper activeStep={activeStep} alternativeLabel>
+-                {steps.map(label => (
+-                    <Step key={label}>
+-                        <StepLabel>{label}</StepLabel>
+-                    </Step>
+-                ))}
+-            </Stepper>
+-            <div>
+-                {activeStep === steps.length ? (
+-                    <div>
+-                        <Typography className={classes.instructions}>
+-                            All steps completed
++        <>
++            <div className={classes.root}>
++                <Stepper activeStep={activeStep} alternativeLabel>
++                    {steps.map(label => (
++                        <Step key={label}>
++                            <StepLabel>{label}</StepLabel>
++                        </Step>
++                    ))}
++                </Stepper>
++                <div>
++                    {activeStep === steps.length ? (
++                        <div>
++                            <Typography className={classes.instructions}>
++                                All steps completed
+                         </Typography>
+-                        <Button onClick={handleReset}>Reset</Button>
+-                    </div>
+-                ) : (
+-                    <div>
+-                        {getStepContent(activeStep)}
+-                        <div
+-                            style={{
+-                                display: "flex",
+-                                justifyContent: "center",
+-                                paddingTop: "8px",
+-                            }}
+-                        >
+-                            <Button
+-                                disabled={activeStep === 0}
+-                                onClick={handleBack}
+-                                className={classes.backButton}
+-                            >
+-                                Back
+-                            </Button>
+-                            <Button
+-                                variant="contained"
+-                                color="primary"
+-                                onClick={handleNext}
+-                            >
+-                                {activeStep === steps.length - 1
+-                                    ? "Finish"
+-                                    : "Next"}
+-                            </Button>
++                            <Button onClick={handleReset}>Reset</Button>
+                         </div>
+-                    </div>
+-                )}
++                    ) : (
++                            <div>
++                                {getStepContent(activeStep)}
++                                <div
++                                    style={{
++                                        display: "flex",
++                                        justifyContent: "center",
++                                        paddingTop: "8px",
++                                    }}
++                                >
++                                    <Button
++                                        disabled={!moveBack[activeStep]}
++                                        onClick={handleBack}
++                                        className={classes.backButton}
++                                    >
++                                        Back
++                                    </Button>
++                                    <Button
++                                        disabled={!moveNext[activeStep]}
++                                        onClick={handleNext}
++                                        variant="contained"
++                                        color="primary"
++                                    >
++                                        {activeStep === steps.length - 1
++                                            ? "Finish"
++                                            : "Next"}
++                                    </Button>
++                                </div>
++                            </div>
++                        )}
++                </div>
+             </div>
+-        </div>
++            <img src={bgImage1} style={{position:"absolute", bottom: "0", width:"100%", zIndex: "-1"}}/>      
++            <img src={bgImage2} style={{position:"absolute", bottom: "0", width:"100%", zIndex: "-1"}}/>      
++        </>
++
+     );
+ };
++
+diff --git a/client/src/views/Payments/QuickLinksWindow.jsx b/client/src/views/Payments/QuickLinksWindow.jsx
+index c3e0f82..3e8efb4 100644
+--- a/client/src/views/Payments/QuickLinksWindow.jsx
++++ b/client/src/views/Payments/QuickLinksWindow.jsx
+@@ -7,13 +7,18 @@ const QuickLinksWindow = props => {
+     return (
+         <div className="quickLinksWindow">
+             <h2 className="page2Title">Quick Links</h2>
+-            <a className="quickLinks" href="./Book">Cancel your appointment</a>
+-            <br></br>
+-            <a className="quickLinks" href="./Book">How does scheduling work?</a>
+-            <br></br>
+-            <a className="quickLinks" href="..">Where will my appointment take place?</a>
+-            <br></br>
+-            <a className="quickLinks" href="..">Call Attractions Salon</a>
++            <div className="quickLinksWindowDiv">
++                <a className="quickLinks" href="./Book">Cancel your appointment</a>
++            </div>
++            <div className="quickLinksWindowDiv">
++                <a className="quickLinks" href="./Book">How does scheduling work?</a>
++            </div>
++            <div className="quickLinksWindowDiv">
++                <a className="quickLinks" href="..">Where will my appointment take place?</a>
++            </div>
++            <div className="quickLinksWindowDiv">
++                <a className="quickLinks" href="..">Call Attractions Salon</a>
++            </div>
+         </div >
+     );
+ };
+diff --git a/client/src/views/Payments/RightWindow.jsx b/client/src/views/Payments/RightWindow.jsx
+deleted file mode 100644
+index a25a6a3..0000000
+--- a/client/src/views/Payments/RightWindow.jsx
++++ /dev/null
+@@ -1,119 +0,0 @@
+-import React from "react";
+-import { makeStyles, TextField, Button, ButtonBase } from "@material-ui/core";
+-import "./Payments.css";
+-import PayPalButton from "./PayPalButton";
+-import PaypalLogo from "./images/Paypal-Logo.png";
+-import SquareLogo from "./images/Square-Logo.png";
+-
+-const RightWindow = props => {
+-    const inStyle = useStyles();
+-
+-    return (
+-        <div className="bigDiv">
+-            <h2 style={{ marginTop: "0px" }}>Pay Now</h2>
+-
+-            <p>
+-                <b>Please enter your Booking Number:</b>
+-            </p>
+-
+-            <TextField
+-                id="outlined-basic"
+-                label="Booking Number"
+-                variant="outlined"
+-            />
+-            <p style={{ marginTop: "0px" }}>
+-                <b>
+-                    Or if you have an account: <a>Login</a>
+-                </b>
+-            </p>
+-
+-            <p>
+-                <b>Select your prefered Payment Method</b>
+-            </p>
+-
+-            <div className="paymentButtons">
+-                <ButtonBase className={inStyle.customButton}>
+-                    <span>Pay with</span>
+-                    <span style={{ width: "5px" }} />
+-                    <img
+-                        src={PaypalLogo}
+-                        alt="Paypal"
+-                        className={inStyle.img}
+-                    ></img>
+-                </ButtonBase>
+-                <ButtonBase className={inStyle.customButton}>
+-                    <span>Pay with</span>
+-                    <img
+-                        src={SquareLogo}
+-                        alt="Square"
+-                        className={inStyle.img}
+-                    ></img>
+-                </ButtonBase>
+-            </div>
+-
+-            <p>
+-                <b>See your order - Pay when you arrive</b>
+-            </p>
+-            <div className="paymentButtons">
+-                <Button variant="outlined" className={inStyle.button}>
+-                    Pay when you arrive
+-                </Button>
+-            </div>
+-
+-            <div style={{ position: "absolute", bottom: "0" }}>
+-                <b style={{ display: "block" }}>
+-                    Don't have an Appointment Number?
+-                </b>
+-
+-                <b style={{ display: "block" }}>
+-                    Click here to shop for services and book an appointment
+-                </b>
+-            </div>
+-        </div>
+-    );
+-};
+-
+-const useStyles = makeStyles(theme => ({
+-    paypalButton: {
+-        width: "50%",
+-        height: "40px",
+-        minHeight: "40px",
+-        background: "#ffc439",
+-        maxHeight: "40px",
+-        color: "blue",
+-    },
+-    squareButton: {
+-        width: "50%",
+-        height: "40px",
+-        minHeight: "40px",
+-        background: "#000000",
+-        maxHeight: "40px",
+-        color: "white",
+-    },
+-    button: {
+-        width: "50%",
+-        height: "40px",
+-        minHeight: "40px",
+-        maxHeight: "40px",
+-        color: "black",
+-    },
+-    customButton: {
+-        display: "flex",
+-        width: "50%",
+-        height: "40px",
+-        background: "#ffc439",
+-        borderRadius: "10px",
+-        justifyContent: "center",
+-        alignItems: "center",
+-        margin: "5px",
+-    },
+-    img: {
+-        width: "40%",
+-    },
+-    empty: {
+-        width: "auto", // just to have something here
+-        height: "50rem",
+-    },
+-}));
+-
+-export default RightWindow;
+diff --git a/client/src/views/Payments/SecondStep.jsx b/client/src/views/Payments/SecondStep.jsx
+index 44486dd..4e15666 100644
+--- a/client/src/views/Payments/SecondStep.jsx
++++ b/client/src/views/Payments/SecondStep.jsx
+@@ -8,31 +8,39 @@ import AmountDueWindow from "./AmountDueWindow";
+ 
+ const useStyles = makeStyles(theme => ({
+     page2: {
+-        justifyContent: "center", 
++        justifyContent: "center",
+         height: "48rem",
+     },
+ }));
+ 
+-const SecondStep = props => {
++const SecondStep = ({ appointment }) => {
+     const classes = useStyles();
+     return (
+-        <Grid container classes={{container: classes.page2}}>
+-            {/**            use soemthing else to make it more responsive */}
+-            <Grid item xs={4} spacing={1} style={{marginRight: "60px"}}>
+-                <Paper elevation={1} className="p2Paper">
+-                    <AppointmentWindow />
+-                </Paper>
++        <div>
++            <p style={{textAlign:"center", fontSize:15}}>Booking Number:</p>
++            <p style={{textAlign:"center", fontSize:40, lineHeight:"0px"}}><strong>{appointment.bookingNum}</strong></p>
++            <Grid container classes={{ container: classes.page2 }}>
++                {/** use soemthing else to make it more responsive */}
++                <Grid item xs={4} spacing={1} style={{ marginRight: "60px" }}>
++                    <Paper elevation={1} className="p2Paper">
++                        <AppointmentWindow appointment={appointment} />
++                    </Paper>
++                </Grid>
++                <Grid item xs={4} spacing={1}>
++                    <Paper elevation={1} className="p2Paper">
++                        <AmountDueWindow appointment={appointment} />
++                    </Paper>
++                    <Paper elevation={1} className="linkPaper">
++                        <QuickLinksWindow />
++                    </Paper>
++                </Grid>
+             </Grid>
+-            <Grid item xs={4} spacing={1}>
+-                <Paper elevation={1} className="p2Paper">
+-                    <AmountDueWindow />
+-                </Paper>
+-                <Paper elevation={1} className="linkPaper">
+-                    <QuickLinksWindow />
+-                </Paper>
+-            </Grid>
+-        </Grid>
++        </div>
+     );
+ };
+ 
+ export default SecondStep;
++
++/*
++Pay with square takes you to 3rd step
++*/
+\ No newline at end of file
+diff --git a/client/src/views/Payments/SquareAPI/App.js b/client/src/views/Payments/SquareAPI/App.js
+index 843cb63..6703f26 100644
+--- a/client/src/views/Payments/SquareAPI/App.js
++++ b/client/src/views/Payments/SquareAPI/App.js
+@@ -31,4 +31,5 @@ class App extends Component {
+   }
+ }
+ 
+-export default App;
+\ No newline at end of file
++export default App;
++
+diff --git a/client/src/views/Payments/SquareAPI/App.test.js b/client/src/views/Payments/SquareAPI/App.test.js
+deleted file mode 100644
+index 93b64b5..0000000
+--- a/client/src/views/Payments/SquareAPI/App.test.js
++++ /dev/null
+@@ -1,9 +0,0 @@
+-import React from 'react';
+-import ReactDOM from 'react-dom';
+-import App from './App';
+-
+-it('renders without crashing', () => {
+-  const div = document.createElement('div');
+-  ReactDOM.render(<App />, div);
+-  ReactDOM.unmountComponentAtNode(div);
+-});
+\ No newline at end of file
+diff --git a/client/src/views/Payments/SquareAPI/PaymentForm.js b/client/src/views/Payments/SquareAPI/PaymentForm.js
+index ef10c64..e487119 100644
+--- a/client/src/views/Payments/SquareAPI/PaymentForm.js
++++ b/client/src/views/Payments/SquareAPI/PaymentForm.js
+@@ -3,7 +3,7 @@ import "./styles.css";
+ import { makeStyles } from '@material-ui/core/styles';
+ import CircularProgress from '@material-ui/core/CircularProgress';
+ import TextField from '@material-ui/core/TextField';
+-
++import squareInfo from './../config';
+ 
+ const styles = {
+   name: {
+@@ -45,9 +45,8 @@ export default class PaymentForm extends Component {
+ 
+   componentDidMount() {
+     const config = {
+-      // applicationId: "sq0idp-rARHLPiahkGtp6mMz2OeCA",
+-      applicationId: "sandbox-sq0idb-DCGr-WwXIDnp-bFL5LHROw", //For testing
+-      locationId: "GMT96A77XABR1",
++      applicationId: squareInfo.squareAPI.applicationId, //For testing
++      locationId: squareInfo.squareAPI.locationId, //sandbox location. Need client's square account to get her locationId
+       inputClass: "sq-input",
+       autoBuild: false,
+       inputStyles: [
+@@ -118,7 +117,7 @@ export default class PaymentForm extends Component {
+             lineItems: [
+               {
+                 label: "Subtotal",
+-                amount: "100",
++                amount: "100",  //digital wallet stuff
+                 pending: false
+               }
+             ]
+@@ -126,17 +125,42 @@ export default class PaymentForm extends Component {
+         },
+         cardNonceResponseReceived: (errors, nonce, cardData) => {
+           if (errors) {
+-            // Log errors from nonce generation to the Javascript console
+-            console.log("Encountered errors:");
++            // Log errors from nonce generation to the browser developer console.
++            console.error('Encountered errors:');
+             errors.forEach(function (error) {
+-              console.log("  " + error.message);
++              console.error('  ' + error.message);
+             });
+-
++            alert('Encountered errors, check browser developer console for more details');
+             return;
+           }
+-          this.setState({
+-            nonce: nonce
++          //alert(`The generated nonce is:\n${nonce}`);
++          fetch('/api/payments/process-payment', {
++            method: 'POST',
++            headers: {
++              'Accept': 'application/json',
++              'Content-Type': 'application/json'
++            },
++            body: JSON.stringify({
++              nonce: nonce
++            })
+           })
++            .catch(err => {
++              alert('Network error: ' + err);
++            })
++            .then(response => {
++              if (!response.ok) {
++                return response.text().then(errorInfo => Promise.reject(errorInfo));
++              }
++              return response.text();
++            })
++            .then(data => {
++              console.log(JSON.stringify(data));
++              alert('Payment complete successfully!\nCheck browser developer console for more details');
++            })
++            .catch(err => {
++              console.error(err);
++              alert('Payment failed to complete!\nCheck browser developer console for more details');
++            });
+         },
+         unsupportedBrowserDetected: () => { },
+         inputEventReceived: inputEvent => {
+@@ -210,7 +234,7 @@ export default class PaymentForm extends Component {
+               </p>
+             </div>
+ 
+-            <div className="nameDiv">  
++            <div className="nameDiv">
+               <TextField
+                 id="name"
+                 variant="outlined"
+@@ -235,4 +259,4 @@ export default class PaymentForm extends Component {
+       </div>
+     )
+   }
+-}
+\ No newline at end of file
++}
+diff --git a/client/src/views/Payments/SquareAPI/index.js b/client/src/views/Payments/SquareAPI/index.js
+deleted file mode 100644
+index dbe51b5..0000000
+--- a/client/src/views/Payments/SquareAPI/index.js
++++ /dev/null
+@@ -1,5 +0,0 @@
+-import React from 'react';
+-import ReactDOM from 'react-dom';
+-import App from './App';
+-
+-ReactDOM.render(<App />, document.getElementById('root'));
+\ No newline at end of file
+diff --git a/client/src/views/Payments/SquareAPI/indexSquareAPI.html b/client/src/views/Payments/SquareAPI/indexSquareAPI.html
+deleted file mode 100644
+index d75f6e0..0000000
+--- a/client/src/views/Payments/SquareAPI/indexSquareAPI.html
++++ /dev/null
+@@ -1,118 +0,0 @@
+-<!DOCTYPE html>
+-<html>
+-
+-<head>
+-    <!-- link to the SqPaymentForm library -->
+-    <script type="text/jsx" src="https://js.squareupsandbox.com/v2/paymentform"></script>
+-    <script type="text/jsx" src="ThirdStep.jsx"></script>
+-
+-    <!-- link to the local custom styles for SqPaymentForm -->
+-    <link rel="stylesheet" type="text/css" href="Payments.css">
+-
+-</head>
+- 
+-<body>
+-    Get ready for your first payment with Square!
+-
+-    <div id="form-container">
+-        <div id="sq-card-number"></div>
+-        <div class="third" id="sq-expiration-date"></div>
+-        <div class="third" id="sq-cvv"></div>
+-        <div class="third" id="sq-postal-code"></div>
+-        <button id="sq-creditcard" class="button-credit-card" onclick="onGetCardNonce(event)">Pay $1.00</button>
+-    </div> <!-- end #form-container -->
+-    <script type="text/javascript">
+-        // Create and initialize a payment form object
+-        const paymentForm = new SqPaymentForm({
+-            // Initialize the payment form elements
+-
+-            applicationId: "sandbox-sq0idb-DCGr-WwXIDnp-bFL5LHROw",
+-            inputClass: 'sq-input',
+-            autoBuild: false,
+-            // Customize the CSS for SqPaymentForm iframe elements
+-            inputStyles: [{
+-                fontSize: '16px',
+-                lineHeight: '24px',
+-                padding: '16px',
+-                placeholderColor: '#a0a0a0',
+-                backgroundColor: 'transparent',
+-            }],
+-            // Initialize the credit card placeholders
+-            cardNumber: {
+-                elementId: 'sq-card-number',
+-                placeholder: 'Card Number'
+-            },
+-            cvv: {
+-                elementId: 'sq-cvv',
+-                placeholder: 'CVV'
+-            },
+-            expirationDate: {
+-                elementId: 'sq-expiration-date',
+-                placeholder: 'MM/YY'
+-            },
+-            postalCode: {
+-                elementId: 'sq-postal-code',
+-                placeholder: 'Postal'
+-            },
+-
+-            // SqPaymentForm callback functions
+-            callbacks: {
+-                /*
+-                * callback function: cardNonceResponseReceived
+-                * Triggered when: SqPaymentForm completes a card nonce request
+-                */
+-                cardNonceResponseReceived: function (errors, nonce, cardData) {
+-                    if (errors) {
+-                        // Log errors from nonce generation to the browser developer console.
+-                        console.error('Encountered errors:');
+-                        errors.forEach(function (error) {
+-                            console.error('  ' + error.message);
+-                        });
+-                        alert('Encountered errors, check browser developer console for more details');
+-                        return;
+-                    }
+-                    //alert(`The generated nonce is:\n${nonce}`);
+-                    fetch('process-payment', {
+-                        method: 'POST',
+-                        headers: {
+-                            'Accept': 'application/json',
+-                            'Content-Type': 'application/json'
+-                        },
+-                        body: JSON.stringify({
+-                            nonce: nonce
+-                        })
+-                    })
+-                        .catch(err => {
+-                            alert('Network error: ' + err);
+-                        })
+-                        .then(response => {
+-                            if (!response.ok) {
+-                                return response.text().then(errorInfo => Promise.reject(errorInfo));
+-                            }
+-                            return response.text();
+-                        })
+-                        .then(data => {
+-                            console.log(JSON.stringify(data));
+-                            alert('Payment complete successfully!\nCheck browser developer console for more details');
+-                        })
+-                        .catch(err => {
+-                            console.error(err);
+-                            alert('Payment failed to complete!\nCheck browser developer console for more details');
+-                        });
+-                }
+-            }
+-        });
+-        paymentForm.build();
+-        // onGetCardNonce is triggered when the "Pay $1.00" button is clicked
+-        function onGetCardNonce(event) {
+-            // Don't submit the form until SqPaymentForm returns with a nonce
+-            event.preventDefault();
+-            // Request a nonce from the SqPaymentForm object
+-            paymentForm.requestCardNonce();
+-        }
+-
+-    </script>
+-
+-</body>
+-
+-</html>
+\ No newline at end of file
+diff --git a/client/src/views/Payments/images/Square.jpg b/client/src/views/Payments/images/Square.jpg
+new file mode 100644
+index 0000000..8244be9
+Binary files /dev/null and b/client/src/views/Payments/images/Square.jpg differ
+diff --git a/client/src/views/Payments/images/infoImage.png b/client/src/views/Payments/images/infoImage.png
+new file mode 100644
+index 0000000..ce6b0e2
+Binary files /dev/null and b/client/src/views/Payments/images/infoImage.png differ
+diff --git a/package-lock.json b/package-lock.json
+index b7fb401..d4d14d9 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -48,6 +48,19 @@
+         "regenerator-runtime": "^0.13.4"
+       }
+     },
++    "@date-io/core": {
++      "version": "2.5.0",
++      "resolved": "https://registry.npmjs.org/@date-io/core/-/core-2.5.0.tgz",
++      "integrity": "sha512-GifWlc0hyLdYwivltV8KVwE+OOVgYoHF4DvvKn6VOA73iVvqxbXXeL18PVFjMw8r0JUHmuhP6S+4TD8INBzXZA=="
++    },
++    "@date-io/date-fns": {
++      "version": "2.5.0",
++      "resolved": "https://registry.npmjs.org/@date-io/date-fns/-/date-fns-2.5.0.tgz",
++      "integrity": "sha512-HiQqjVLFUPsOYtW3damMw5jsY5Yk2KG3LcI7s2eioce+jgxZ6XjhGiyWur14btgTVihhkVjfdzmd5XMfpRXH1Q==",
++      "requires": {
++        "@date-io/core": "^2.5.0"
++      }
++    },
+     "@types/color-name": {
+       "version": "1.1.1",
+       "resolved": "https://registry.npmjs.org/@types/color-name/-/color-name-1.1.1.tgz",
+@@ -383,6 +396,11 @@
+       "resolved": "https://registry.npmjs.org/array-unique/-/array-unique-0.3.2.tgz",
+       "integrity": "sha1-qJS3XUvE9s1nnvMkSp/Y9Gri1Cg="
+     },
++    "asap": {
++      "version": "2.0.6",
++      "resolved": "https://registry.npmjs.org/asap/-/asap-2.0.6.tgz",
++      "integrity": "sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY="
++    },
+     "assign-symbols": {
+       "version": "1.0.0",
+       "resolved": "https://registry.npmjs.org/assign-symbols/-/assign-symbols-1.0.0.tgz",
+@@ -417,6 +435,22 @@
+         "follow-redirects": "1.5.10"
+       }
+     },
++    "babel-runtime": {
++      "version": "6.26.0",
++      "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-6.26.0.tgz",
++      "integrity": "sha1-llxwWGaOgrVde/4E/yM3vItWR/4=",
++      "requires": {
++        "core-js": "^2.4.0",
++        "regenerator-runtime": "^0.11.0"
++      },
++      "dependencies": {
++        "regenerator-runtime": {
++          "version": "0.11.1",
++          "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz",
++          "integrity": "sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg=="
++        }
++      }
++    },
+     "balanced-match": {
+       "version": "1.0.0",
+       "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.0.tgz",
+@@ -544,6 +578,11 @@
+         }
+       }
+     },
++    "bowser": {
++      "version": "1.9.4",
++      "resolved": "https://registry.npmjs.org/bowser/-/bowser-1.9.4.tgz",
++      "integrity": "sha512-9IdMmj2KjigRq6oWhmwv1W36pDuA4STQZ8q6YO9um+x07xgYNCD3Oou+WP/3L1HNz7iqythGet3/p4wvc8AAwQ=="
++    },
+     "boxen": {
+       "version": "1.3.0",
+       "resolved": "https://registry.npmjs.org/boxen/-/boxen-1.3.0.tgz",
+@@ -675,6 +714,11 @@
+       "resolved": "https://registry.npmjs.org/capture-stack-trace/-/capture-stack-trace-1.0.1.tgz",
+       "integrity": "sha512-mYQLZnx5Qt1JgB1WEiMCf2647plpGeQ2NMR/5L0HNZzGQo4fuSPnK+wjfPnKZV0aiJDgzmWqqkV/g7JD+DW0qw=="
+     },
++    "chain-function": {
++      "version": "1.0.1",
++      "resolved": "https://registry.npmjs.org/chain-function/-/chain-function-1.0.1.tgz",
++      "integrity": "sha512-SxltgMwL9uCko5/ZCLiyG2B7R9fY4pDZUw7hJ4MhirdjBLosoDqkWABi3XMucddHdLiFJMb7PD2MZifZriuMTg=="
++    },
+     "chalk": {
+       "version": "2.4.2",
+       "resolved": "https://registry.npmjs.org/chalk/-/chalk-2.4.2.tgz",
+@@ -695,6 +739,11 @@
+         }
+       }
+     },
++    "change-emitter": {
++      "version": "0.1.6",
++      "resolved": "https://registry.npmjs.org/change-emitter/-/change-emitter-0.1.6.tgz",
++      "integrity": "sha1-6LL+PX8at9aaMhma/5HqaTFAlRU="
++    },
+     "chardet": {
+       "version": "0.7.0",
+       "resolved": "https://registry.npmjs.org/chardet/-/chardet-0.7.0.tgz",
+@@ -940,6 +989,11 @@
+       "resolved": "https://registry.npmjs.org/copy-descriptor/-/copy-descriptor-0.1.1.tgz",
+       "integrity": "sha1-Z29us8OZl8LuGsOpJP1hJHSPV40="
+     },
++    "core-js": {
++      "version": "2.6.11",
++      "resolved": "https://registry.npmjs.org/core-js/-/core-js-2.6.11.tgz",
++      "integrity": "sha512-5wjnpaT/3dV+XB4borEsnAYQchn00XSgTAWKDkEqv+K8KevjbzmofK6hfJ9TZIlpj2N0xQpazy7PiRQiWHqzWg=="
++    },
+     "core-js-pure": {
+       "version": "3.6.4",
+       "resolved": "https://registry.npmjs.org/core-js-pure/-/core-js-pure-3.6.4.tgz",
+@@ -976,6 +1030,15 @@
+       "resolved": "https://registry.npmjs.org/crypto-random-string/-/crypto-random-string-1.0.0.tgz",
+       "integrity": "sha1-ojD2T1aDEOFJgAmUB5DsmVRbyn4="
+     },
++    "css-in-js-utils": {
++      "version": "2.0.1",
++      "resolved": "https://registry.npmjs.org/css-in-js-utils/-/css-in-js-utils-2.0.1.tgz",
++      "integrity": "sha512-PJF0SpJT+WdbVVt0AOYp9C8GnuruRlL/UFW7932nLWmFLQTaWEzTBQEx7/hn4BuV+WON75iAViSUJLiU3PKbpA==",
++      "requires": {
++        "hyphenate-style-name": "^1.0.2",
++        "isobject": "^3.0.1"
++      }
++    },
+     "csstype": {
+       "version": "2.6.10",
+       "resolved": "https://registry.npmjs.org/csstype/-/csstype-2.6.10.tgz",
+@@ -1104,6 +1167,14 @@
+         "esutils": "^2.0.2"
+       }
+     },
++    "dom-helpers": {
++      "version": "3.4.0",
++      "resolved": "https://registry.npmjs.org/dom-helpers/-/dom-helpers-3.4.0.tgz",
++      "integrity": "sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==",
++      "requires": {
++        "@babel/runtime": "^7.1.2"
++      }
++    },
+     "dot-prop": {
+       "version": "4.2.0",
+       "resolved": "https://registry.npmjs.org/dot-prop/-/dot-prop-4.2.0.tgz",
+@@ -1132,6 +1203,14 @@
+       "resolved": "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.2.tgz",
+       "integrity": "sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k="
+     },
++    "encoding": {
++      "version": "0.1.12",
++      "resolved": "https://registry.npmjs.org/encoding/-/encoding-0.1.12.tgz",
++      "integrity": "sha1-U4tm8+5izRq1HsMjgp0flIDHS+s=",
++      "requires": {
++        "iconv-lite": "~0.4.13"
++      }
++    },
+     "end-of-stream": {
+       "version": "1.4.4",
+       "resolved": "https://registry.npmjs.org/end-of-stream/-/end-of-stream-1.4.4.tgz",
+@@ -1668,6 +1747,27 @@
+       "integrity": "sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=",
+       "dev": true
+     },
++    "fbjs": {
++      "version": "0.8.17",
++      "resolved": "https://registry.npmjs.org/fbjs/-/fbjs-0.8.17.tgz",
++      "integrity": "sha1-xNWY6taUkRJlPWWIsBpc3Nn5D90=",
++      "requires": {
++        "core-js": "^1.0.0",
++        "isomorphic-fetch": "^2.1.1",
++        "loose-envify": "^1.0.0",
++        "object-assign": "^4.1.0",
++        "promise": "^7.1.1",
++        "setimmediate": "^1.0.5",
++        "ua-parser-js": "^0.7.18"
++      },
++      "dependencies": {
++        "core-js": {
++          "version": "1.2.7",
++          "resolved": "https://registry.npmjs.org/core-js/-/core-js-1.2.7.tgz",
++          "integrity": "sha1-ZSKUwUZR2yj6k70tX/KYOk8IxjY="
++        }
++      }
++    },
+     "figures": {
+       "version": "3.2.0",
+       "resolved": "https://registry.npmjs.org/figures/-/figures-3.2.0.tgz",
+@@ -2546,6 +2646,11 @@
+         }
+       }
+     },
++    "hyphenate-style-name": {
++      "version": "1.0.3",
++      "resolved": "https://registry.npmjs.org/hyphenate-style-name/-/hyphenate-style-name-1.0.3.tgz",
++      "integrity": "sha512-EcuixamT82oplpoJ2XU4pDtKGWQ7b00CD9f1ug9IaQ3p1bkHMiKCZ9ut9QDI6qsa6cpUuB+A/I+zLtdNK4n2DQ=="
++    },
+     "iconv-lite": {
+       "version": "0.4.24",
+       "resolved": "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.4.24.tgz",
+@@ -2620,6 +2725,15 @@
+       "resolved": "https://registry.npmjs.org/ini/-/ini-1.3.5.tgz",
+       "integrity": "sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw=="
+     },
++    "inline-style-prefixer": {
++      "version": "3.0.8",
++      "resolved": "https://registry.npmjs.org/inline-style-prefixer/-/inline-style-prefixer-3.0.8.tgz",
++      "integrity": "sha1-hVG45bTVcyROZqNLBPfTIHaitTQ=",
++      "requires": {
++        "bowser": "^1.7.3",
++        "css-in-js-utils": "^2.0.0"
++      }
++    },
+     "inquirer": {
+       "version": "7.1.0",
+       "resolved": "https://registry.npmjs.org/inquirer/-/inquirer-7.1.0.tgz",
+@@ -2998,6 +3112,15 @@
+       "resolved": "https://registry.npmjs.org/isobject/-/isobject-3.0.1.tgz",
+       "integrity": "sha1-TkMekrEalzFjaqH5yNHMvP2reN8="
+     },
++    "isomorphic-fetch": {
++      "version": "2.2.1",
++      "resolved": "https://registry.npmjs.org/isomorphic-fetch/-/isomorphic-fetch-2.2.1.tgz",
++      "integrity": "sha1-YRrhrPFPXoH3KVB0coGf6XM1WKk=",
++      "requires": {
++        "node-fetch": "^1.0.1",
++        "whatwg-fetch": ">=0.10.0"
++      }
++    },
+     "js-tokens": {
+       "version": "4.0.0",
+       "resolved": "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz",
+@@ -3044,6 +3167,11 @@
+       "resolved": "https://registry.npmjs.org/kareem/-/kareem-2.3.1.tgz",
+       "integrity": "sha512-l3hLhffs9zqoDe8zjmb/mAN4B8VT3L56EUvKNqLFVs9YlFA+zx7ke1DO8STAdDyYNkeSo1nKmjuvQeI12So8Xw=="
+     },
++    "keycode": {
++      "version": "2.2.0",
++      "resolved": "https://registry.npmjs.org/keycode/-/keycode-2.2.0.tgz",
++      "integrity": "sha1-PQr1bce4uOXLqNCpfxByBO7CKwQ="
++    },
+     "kind-of": {
+       "version": "6.0.3",
+       "resolved": "https://registry.npmjs.org/kind-of/-/kind-of-6.0.3.tgz",
+@@ -3089,6 +3217,16 @@
+       "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.15.tgz",
+       "integrity": "sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A=="
+     },
++    "lodash.merge": {
++      "version": "4.6.2",
++      "resolved": "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.2.tgz",
++      "integrity": "sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ=="
++    },
++    "lodash.throttle": {
++      "version": "4.1.1",
++      "resolved": "https://registry.npmjs.org/lodash.throttle/-/lodash.throttle-4.1.1.tgz",
++      "integrity": "sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ="
++    },
+     "log-symbols": {
+       "version": "2.2.0",
+       "resolved": "https://registry.npmjs.org/log-symbols/-/log-symbols-2.2.0.tgz",
+@@ -3155,6 +3293,24 @@
+         "object-visit": "^1.0.0"
+       }
+     },
++    "material-ui": {
++      "version": "0.20.2",
++      "resolved": "https://registry.npmjs.org/material-ui/-/material-ui-0.20.2.tgz",
++      "integrity": "sha512-VeqgQkdvtK193w+FFvXDEwlVxI4rWk83eWbpYLeOIHDPWr3rbB9B075JRnJt/8IsI2X8q5Aia5W3+7m4KkleDg==",
++      "requires": {
++        "babel-runtime": "^6.23.0",
++        "inline-style-prefixer": "^3.0.8",
++        "keycode": "^2.1.8",
++        "lodash.merge": "^4.6.0",
++        "lodash.throttle": "^4.1.1",
++        "prop-types": "^15.5.7",
++        "react-event-listener": "^0.6.2",
++        "react-transition-group": "^1.2.1",
++        "recompose": "^0.26.0",
++        "simple-assign": "^0.1.0",
++        "warning": "^3.0.0"
++      }
++    },
+     "media-typer": {
+       "version": "0.3.0",
+       "resolved": "https://registry.npmjs.org/media-typer/-/media-typer-0.3.0.tgz",
+@@ -3613,6 +3769,15 @@
+         "semver": "^5.7.0"
+       }
+     },
++    "node-fetch": {
++      "version": "1.7.3",
++      "resolved": "https://registry.npmjs.org/node-fetch/-/node-fetch-1.7.3.tgz",
++      "integrity": "sha512-NhZ4CsKx7cYm2vSrBAr2PvFOe6sWDf0UYLRqA6svUYg7+/TSfVAu49jYC4BvQ4Sms9SZgdqGBgroqfDhJdTyKQ==",
++      "requires": {
++        "encoding": "^0.1.11",
++        "is-stream": "^1.0.1"
++      }
++    },
+     "node-pre-gyp": {
+       "version": "0.14.0",
+       "resolved": "https://registry.npmjs.org/node-pre-gyp/-/node-pre-gyp-0.14.0.tgz",
+@@ -4115,6 +4280,14 @@
+       "integrity": "sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==",
+       "dev": true
+     },
++    "promise": {
++      "version": "7.3.1",
++      "resolved": "https://registry.npmjs.org/promise/-/promise-7.3.1.tgz",
++      "integrity": "sha512-nolQXZ/4L+bP/UGlkfaIujX9BKxGwmQ9OT4mOt5yvy8iK1h3wqTEJCijzGANTCCl9nWjY41juyAn2K3Q1hLLTg==",
++      "requires": {
++        "asap": "~2.0.3"
++      }
++    },
+     "prop-types": {
+       "version": "15.7.2",
+       "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz",
+@@ -4205,6 +4378,26 @@
+         "prop-types": "^15.5.0"
+       }
+     },
++    "react-event-listener": {
++      "version": "0.6.6",
++      "resolved": "https://registry.npmjs.org/react-event-listener/-/react-event-listener-0.6.6.tgz",
++      "integrity": "sha512-+hCNqfy7o9wvO6UgjqFmBzARJS7qrNoda0VqzvOuioEpoEXKutiKuv92dSz6kP7rYLmyHPyYNLesi5t/aH1gfw==",
++      "requires": {
++        "@babel/runtime": "^7.2.0",
++        "prop-types": "^15.6.0",
++        "warning": "^4.0.1"
++      },
++      "dependencies": {
++        "warning": {
++          "version": "4.0.3",
++          "resolved": "https://registry.npmjs.org/warning/-/warning-4.0.3.tgz",
++          "integrity": "sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==",
++          "requires": {
++            "loose-envify": "^1.0.0"
++          }
++        }
++      }
++    },
+     "react-google-recaptcha": {
+       "version": "2.0.1",
+       "resolved": "https://registry.npmjs.org/react-google-recaptcha/-/react-google-recaptcha-2.0.1.tgz",
+@@ -4236,6 +4429,23 @@
+         "react-is": "^16.9.0"
+       }
+     },
++    "react-square-payment-form": {
++      "version": "0.6.2",
++      "resolved": "https://registry.npmjs.org/react-square-payment-form/-/react-square-payment-form-0.6.2.tgz",
++      "integrity": "sha512-VscDGtORPkPK0zZxi4UQ92JccpZ/ZlRhyxaDsMeueDEf8Jo+BKCzXm7QZy5eXUuKCq9yTcctRUA/MhwaXMdXOA=="
++    },
++    "react-transition-group": {
++      "version": "1.2.1",
++      "resolved": "https://registry.npmjs.org/react-transition-group/-/react-transition-group-1.2.1.tgz",
++      "integrity": "sha512-CWaL3laCmgAFdxdKbhhps+c0HRGF4c+hdM4H23+FI1QBNUyx/AMeIJGWorehPNSaKnQNOAxL7PQmqMu78CDj3Q==",
++      "requires": {
++        "chain-function": "^1.0.0",
++        "dom-helpers": "^3.2.0",
++        "loose-envify": "^1.3.1",
++        "prop-types": "^15.5.6",
++        "warning": "^3.0.0"
++      }
++    },
+     "read-pkg": {
+       "version": "4.0.1",
+       "resolved": "https://registry.npmjs.org/read-pkg/-/read-pkg-4.0.1.tgz",
+@@ -4270,6 +4480,24 @@
+         "readable-stream": "^2.0.2"
+       }
+     },
++    "recompose": {
++      "version": "0.26.0",
++      "resolved": "https://registry.npmjs.org/recompose/-/recompose-0.26.0.tgz",
++      "integrity": "sha512-KwOu6ztO0mN5vy3+zDcc45lgnaUoaQse/a5yLVqtzTK13czSWnFGmXbQVmnoMgDkI5POd1EwIKSbjU1V7xdZog==",
++      "requires": {
++        "change-emitter": "^0.1.2",
++        "fbjs": "^0.8.1",
++        "hoist-non-react-statics": "^2.3.1",
++        "symbol-observable": "^1.0.4"
++      },
++      "dependencies": {
++        "hoist-non-react-statics": {
++          "version": "2.5.5",
++          "resolved": "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz",
++          "integrity": "sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw=="
++        }
++      }
++    },
+     "redux": {
+       "version": "4.0.5",
+       "resolved": "https://registry.npmjs.org/redux/-/redux-4.0.5.tgz",
+@@ -4552,6 +4780,11 @@
+         }
+       }
+     },
++    "setimmediate": {
++      "version": "1.0.5",
++      "resolved": "https://registry.npmjs.org/setimmediate/-/setimmediate-1.0.5.tgz",
++      "integrity": "sha1-KQy7Iy4waULX1+qbg3Mqt4VvgoU="
++    },
+     "setprototypeof": {
+       "version": "1.1.1",
+       "resolved": "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.1.1.tgz",
+@@ -4638,6 +4871,11 @@
+       "resolved": "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.3.tgz",
+       "integrity": "sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA=="
+     },
++    "simple-assign": {
++      "version": "0.1.0",
++      "resolved": "https://registry.npmjs.org/simple-assign/-/simple-assign-0.1.0.tgz",
++      "integrity": "sha1-F/0wZqXz13OPUDIbsPFMooHMS6o="
++    },
+     "slice-ansi": {
+       "version": "2.1.0",
+       "resolved": "https://registry.npmjs.org/slice-ansi/-/slice-ansi-2.1.0.tgz",
+@@ -4849,6 +5087,14 @@
+       "resolved": "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz",
+       "integrity": "sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw="
+     },
++    "square-connect": {
++      "version": "3.20200325.0",
++      "resolved": "https://registry.npmjs.org/square-connect/-/square-connect-3.20200325.0.tgz",
++      "integrity": "sha512-pRK9TnmqjPrgIOsTxCGXHj4np9ZhneO5u0C/1+7x9semdfa38dFV0BZK/33Pz6AMyvrVzDdFC0Z3vW88D6kM4w==",
++      "requires": {
++        "superagent": "3.8.3"
++      }
++    },
+     "static-extend": {
+       "version": "0.1.2",
+       "resolved": "https://registry.npmjs.org/static-extend/-/static-extend-0.1.2.tgz",
+@@ -5246,6 +5492,11 @@
+       "resolved": "https://registry.npmjs.org/typescript/-/typescript-3.8.3.tgz",
+       "integrity": "sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w=="
+     },
++    "ua-parser-js": {
++      "version": "0.7.21",
++      "resolved": "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-0.7.21.tgz",
++      "integrity": "sha512-+O8/qh/Qj8CgC6eYBVBykMrNtp5Gebn4dlGD/kKXVkJNDwyrAwSIqwz8CDf+tsAIWVycKcku6gIXJ0qwx/ZXaQ=="
++    },
+     "uid-safe": {
+       "version": "2.1.5",
+       "resolved": "https://registry.npmjs.org/uid-safe/-/uid-safe-2.1.5.tgz",
+@@ -5421,6 +5672,19 @@
+       "resolved": "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz",
+       "integrity": "sha1-IpnwLG3tMNSllhsLn3RSShj2NPw="
+     },
++    "warning": {
++      "version": "3.0.0",
++      "resolved": "https://registry.npmjs.org/warning/-/warning-3.0.0.tgz",
++      "integrity": "sha1-MuU3fLVy3kqwR1O9+IIcAe1gW3w=",
++      "requires": {
++        "loose-envify": "^1.0.0"
++      }
++    },
++    "whatwg-fetch": {
++      "version": "3.0.0",
++      "resolved": "https://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-3.0.0.tgz",
++      "integrity": "sha512-9GSJUgz1D4MfyKU7KRqwOjXCXTqWdFNvEr7eUBYchQiVc744mqK/MzXPNR2WsPkmkOa4ywfg8C2n8h+13Bey1Q=="
++    },
+     "which": {
+       "version": "1.3.1",
+       "resolved": "https://registry.npmjs.org/which/-/which-1.3.1.tgz",
+diff --git a/package.json b/package.json
+index e91cd74..63a8613 100644
+--- a/package.json
++++ b/package.json
+@@ -21,6 +21,7 @@
+   "author": "Dakota Rennemann",
+   "license": "MIT",
+   "dependencies": {
++    "@date-io/date-fns": "^2.5.0",
+     "@types/react-dom": "^16.9.5",
+     "@types/react-google-recaptcha": "^1.1.1",
+     "@types/react-redux": "^7.1.7",
+@@ -33,6 +34,7 @@
+     "express": "^4.17.1",
+     "express-session": "^1.17.0",
+     "lodash": "^4.17.15",
++    "material-ui": "^0.20.2",
+     "mocha": "^6.2.2",
+     "mongoose": "^5.9.4",
+     "morgan": "^1.9.1",
+@@ -43,9 +45,11 @@
+     "react-google-recaptcha": "^2.0.1",
+     "react-hook-form": "^5.1.3",
+     "react-redux": "^7.2.0",
++    "react-square-payment-form": "^0.6.2",
+     "redux": "^4.0.5",
+     "redux-thunk": "^2.3.0",
+     "should": "^13.2.3",
++    "square-connect": "3.20200325.0",
+     "supertest": "^4.0.2",
+     "typescript": "^3.8.3",
+     "validator": "^12.2.0"
+diff --git a/server/config/express.js b/server/config/express.js
+index 1ac96ee..c285bb6 100644
+--- a/server/config/express.js
++++ b/server/config/express.js
+@@ -9,7 +9,8 @@ const path = require("path"),
+     exampleRouter = require("../routes/examples.server.routes"),
+     servicesRouter = require("../routes/services.routes"),
+     accountRouter = require("../routes/account.routes"),
+-    adminRouter = require("../routes/admin/index.routes");
++    adminRouter = require("../routes/admin/index.routes"),
++    paymentsRouter = require("../routes/payments.routes");
+ 
+ const { send_code_error } = require("../tools/index");
+ 
+@@ -62,6 +63,7 @@ module.exports.init = () => {
+     app.use("/api/services", servicesRouter);
+     app.use("/api/account", accountRouter);
+     app.use("/api/admin", adminRouter);
++    app.use("/api/payments", paymentsRouter);
+ 
+     if (process.env.NODE_ENV === "production") {
+         // Serve any static files
+diff --git a/server/models/appointments.model.js b/server/models/appointments.model.js
+new file mode 100644
+index 0000000..c68876c
+--- /dev/null
++++ b/server/models/appointments.model.js
+@@ -0,0 +1,20 @@
++const mongoose = require("mongoose");
++const serviceItem = require("./item.model");
++const userSchema = require("./user.model");
++
++const appointment = new mongoose.Schema({
++    services: { type: [serviceItem], required: true},
++    bookingNum: { type: String, unique: true },
++    name:  { type: String, required: true },
++    date:  { type: Date, required: true },
++    cost:  { type: Number, required: true },
++    status: { 
++        type: String,
++        enum: ["Cancelled", "Pending", "Scheduled", "Completed", "Past Due"],
++        default: "Pending", 
++    },
++    user:  { type: [userSchema] },
++    phone: { type: String },
++});
++
++module.exports = mongoose.model("appointments", appointment);
+\ No newline at end of file
+diff --git a/server/routes/payments.routes.js b/server/routes/payments.routes.js
+new file mode 100644
+index 0000000..1422bfe
+--- /dev/null
++++ b/server/routes/payments.routes.js
+@@ -0,0 +1,56 @@
++const express = require("express");
++const router = express.Router();
++const bodyParser = require('body-parser');
++const crypto = require('crypto');
++const squareConnect = require('square-connect');
++const config = require('./../config/config');
++
++const accessToken = config.square.accessToken;
++
++router.use(bodyParser.json());
++router.use(bodyParser.urlencoded({ extended: false }));
++
++// Set Square Connect credentials and environment
++const defaultClient = squareConnect.ApiClient.instance;
++
++// Configure OAuth2 access token for authorization: oauth2
++const oauth2 = defaultClient.authentications['oauth2'];
++oauth2.accessToken = accessToken;
++
++// Set 'basePath' to switch between sandbox env and production env
++// sandbox: https://connect.squareupsandbox.com
++// production: https://connect.squareup.com
++defaultClient.basePath = 'https://connect.squareupsandbox.com';
++
++router.post('/process-payment', async (req, res) => {
++    const request_params = req.body;
++
++    // length of idempotency_key should be less than 45
++    const idempotency_key = crypto.randomBytes(22).toString('hex');
++
++    // Charge the customer's card
++    const payments_api = new squareConnect.PaymentsApi();
++    const request_body = {
++        source_id: request_params.nonce,
++        amount_money: {
++            amount: 100, // in cents. Return an integer value
++            currency: 'USD'
++        },
++        idempotency_key: idempotency_key
++    };
++
++    try {
++        const response = await payments_api.createPayment(request_body);
++        res.status(200).json({
++            'title': 'Payment Successful',
++            'result': response
++        });
++    } catch (error) {
++        res.status(500).json({
++            'title': 'Payment Failure',
++            'result': error.response.text
++        });
++    }
++});
++
++module.exports = router;
+\ No newline at end of file

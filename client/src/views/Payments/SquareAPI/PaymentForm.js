@@ -3,7 +3,7 @@ import "./styles.css";
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
-
+import squareInfo from './../config';
 
 const styles = {
   name: {
@@ -14,7 +14,10 @@ const styles = {
     backgroundColor: 'transparent',
   },
   leftCenter: {
-    color: "#000000"
+    color: "#000000",
+    fontSize: '16px',
+    fontWeight: "bold",
+    fontFamiliy: "Arial Black, Gadget, sans-serif", 
   },
   blockRight: {
     display: "block",
@@ -45,9 +48,8 @@ export default class PaymentForm extends Component {
 
   componentDidMount() {
     const config = {
-      // applicationId: "sq0idp-rARHLPiahkGtp6mMz2OeCA",
-      applicationId: "sandbox-sq0idb-DCGr-WwXIDnp-bFL5LHROw", //For testing
-      locationId: "GMT96A77XABR1",
+      applicationId: squareInfo.squareAPI.applicationId, //For testing
+      locationId: squareInfo.squareAPI.locationId, //sandbox location. Need client's square account to get her locationId
       inputClass: "sq-input",
       autoBuild: false,
       inputStyles: [
@@ -118,7 +120,7 @@ export default class PaymentForm extends Component {
             lineItems: [
               {
                 label: "Subtotal",
-                amount: "100",
+                amount: "100",  //digital wallet stuff
                 pending: false
               }
             ]
@@ -126,17 +128,42 @@ export default class PaymentForm extends Component {
         },
         cardNonceResponseReceived: (errors, nonce, cardData) => {
           if (errors) {
-            // Log errors from nonce generation to the Javascript console
-            console.log("Encountered errors:");
+            // Log errors from nonce generation to the browser developer console.
+            console.error('Encountered errors:');
             errors.forEach(function (error) {
-              console.log("  " + error.message);
+              console.error('  ' + error.message);
             });
-
+            alert('Encountered errors, check browser developer console for more details');
             return;
           }
-          this.setState({
-            nonce: nonce
+          //alert(`The generated nonce is:\n${nonce}`);
+          fetch('/api/payments/process-payment', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              nonce: nonce
+            })
           })
+            .catch(err => {
+              alert('Network error: ' + err);
+            })
+            .then(response => {
+              if (!response.ok) {
+                return response.text().then(errorInfo => Promise.reject(errorInfo));
+              }
+              return response.text();
+            })
+            .then(data => {
+              console.log(JSON.stringify(data));
+              alert('Payment complete successfully!\nCheck browser developer console for more details');
+            })
+            .catch(err => {
+              console.error(err);
+              alert('Payment failed to complete!\nCheck browser developer console for more details');
+            });
         },
         unsupportedBrowserDetected: () => { },
         inputEventReceived: inputEvent => {
@@ -210,7 +237,7 @@ export default class PaymentForm extends Component {
               </p>
             </div>
 
-            <div className="nameDiv">  
+            <div className="nameDiv">
               <TextField
                 id="name"
                 variant="outlined"
@@ -228,7 +255,7 @@ export default class PaymentForm extends Component {
             className="button-credit-card"
             onClick={this.requestCardNonce}
           >
-            Pay
+            Pay 
           </button>
         </div>
         <p style={styles.center} id="error" />
