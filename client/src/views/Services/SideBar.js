@@ -9,6 +9,7 @@ import {
     Typography,
     List,
     ListItem,
+    Chip,
     ListItemText,
 } from "@material-ui/core";
 
@@ -19,47 +20,9 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 import { Link } from "react-router-dom";
 
-import "./Services.css";
+import { useServices } from "../../hooks";
 
-const useStyles = makeStyles((theme) => ({
-    options: {
-        alignItems: "flex-start",
-        display: "contents",
-        marginLeft: 5,
-        paddingBottom: 5,
-    },
-    title: {
-        marginLeft: 5,
-        paddingTop: 5,
-        paddingBottom: 5,
-        display: "flex",
-        justifyContent: "space-between",
-        marginRight: "5px",
-    },
-    root: {
-        border: "1px solid rgba(0, 0, 0, 0.17)",
-        borderRadius: "5px",
-    },
-    searchBox: {
-        height: 64,
-        background: "rgba(0, 0, 0, 0.05)",
-        border: "none",
-        outline: "none",
-        color: "rgba(0, 0, 0, 0.75)",
-        paddingLeft: 14,
-        paddingRight: 14,
-    },
-    sidebarHeader: {
-        display: "flex",
-        flexFlow: "row nowrap",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        padding: "6px 14px"
-    },
-    selectedCheckbox: {
-        color: theme.palette.primary.main
-    }
-}));
+import "./Services.css";
 
 const SideBar = (props) => {
     const classes = useStyles();
@@ -94,7 +57,9 @@ const SideBar = (props) => {
             <div className="SideBar">
                 <div className="titleBox">
                     <div className={classes.sidebarHeader}>
-                        <Typography variant="button">Filter Services</Typography>
+                        <Typography variant="button">
+                            Filter Services
+                        </Typography>
                         <span className="spacer" />
                         <Button
                             className="clearButton"
@@ -140,7 +105,9 @@ const SideBar = (props) => {
                         type="text"
                         autoComplete="off"
                         value={props.filterText}
-                        onChange={e => props.setFilterText(e.target.value.toLowerCase())}
+                        onChange={(e) =>
+                            props.setFilterText(e.target.value.toLowerCase())
+                        }
                         style={{ width: "100%" }}
                     />
                     {/* <TextField
@@ -162,7 +129,7 @@ const SideBar = (props) => {
                     <FormControlLabel
                         label="Hair Care"
                         className={clsx("checkBoxName", {
-                            [classes.selectedCheckbox]: checked["Hair Care"]
+                            [classes.selectedCheckbox]: checked["Hair Care"],
                         })}
                         classes={{ root: classes.options }}
                         control={
@@ -180,7 +147,7 @@ const SideBar = (props) => {
                     <FormControlLabel
                         label="Haircuts"
                         className={clsx("checkBoxName", {
-                            [classes.selectedCheckbox]: checked["Hair Cuts"]
+                            [classes.selectedCheckbox]: checked["Hair Cuts"],
                         })}
                         control={
                             <Checkbox
@@ -197,7 +164,7 @@ const SideBar = (props) => {
                 <div className="itemBox">
                     <FormControlLabel
                         className={clsx("checkBoxName", {
-                            [classes.selectedCheckbox]: checked["Nail Care"]
+                            [classes.selectedCheckbox]: checked["Nail Care"],
                         })}
                         control={
                             <Checkbox
@@ -215,7 +182,8 @@ const SideBar = (props) => {
                 <div className="itemBox">
                     <FormControlLabel
                         className={clsx("checkBoxName", {
-                            [classes.selectedCheckbox]: checked["Hair extensions"]
+                            [classes.selectedCheckbox]:
+                                checked["Hair extensions"],
                         })}
                         control={
                             <Checkbox
@@ -233,7 +201,7 @@ const SideBar = (props) => {
                 <div className="itemBox">
                     <FormControlLabel
                         className={clsx("checkBoxName", {
-                            [classes.selectedCheckbox]: checked["Waxing"]
+                            [classes.selectedCheckbox]: checked["Waxing"],
                         })}
                         control={
                             <Checkbox
@@ -259,43 +227,92 @@ const SideBar = (props) => {
                 >
                     Request an appointment
                 </Button>
-                <CartList cart={props.cart} setCart={props.setCart}/>
+                <CartList cart={props.cart} setCart={props.setCart} />
             </div>
         </div>
     );
 };
 /////////////// {cart, setCart}
-const CartList = ({cart, setCart}) => {
+const CartList = () => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const servicesHook = useServices();
 
-    // change to modify the state so we can use redux later
-    // to pass the cart items and such
+    //limit to 3, cause it looks ok with just 3
 
     const handleClick = () => {
         setOpen(!open);
     };
 
+    const inCart = servicesHook.services.filter((service) => service.inCart);
+
     return (
         <List component="nav" className={classes.root} disablePadding>
             <ListItem button onClick={handleClick} className="itemClass">
-                <ShoppingCartIcon style={{ marginRight: "10px", color: "pink" }} />
+                <ShoppingCartIcon
+                    style={{ marginRight: "10px", color: "pink" }}
+                />
                 <ListItemText primary="Your Cart" />
+
+                <Chip label={String(inCart.length)} size="small" style={{marginRight: 12}} color={inCart.length > 0 ? "primary" : "default"} />
                 {open ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
 
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                    {cart.map((service) => {
-                        return (
-                            <ListItem>
-                                <ListItemText primary="filler" />
-                            </ListItem>
-                        );
-                    })}
+                    {inCart
+                        .map((service) => {
+                            return (
+                                <ListItem>
+                                    <ListItemText primary={service.name} />
+                                    ${service.price}
+                                </ListItem>
+                            );
+                        })}
                 </List>
             </Collapse>
         </List>
     );
 };
+
+const useStyles = makeStyles((theme) => ({
+    options: {
+        alignItems: "flex-start",
+        display: "contents",
+        marginLeft: 5,
+        paddingBottom: 5,
+    },
+    title: {
+        marginLeft: 5,
+        paddingTop: 5,
+        paddingBottom: 5,
+        display: "flex",
+        justifyContent: "space-between",
+        marginRight: "5px",
+    },
+    root: {
+        border: "1px solid rgba(0, 0, 0, 0.17)",
+        borderRadius: "5px",
+    },
+    searchBox: {
+        height: 64,
+        background: "rgba(0, 0, 0, 0.05)",
+        border: "none",
+        outline: "none",
+        color: "rgba(0, 0, 0, 0.75)",
+        paddingLeft: 14,
+        paddingRight: 14,
+    },
+    sidebarHeader: {
+        display: "flex",
+        flexFlow: "row nowrap",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        padding: "6px 14px",
+    },
+    selectedCheckbox: {
+        color: theme.palette.primary.main,
+    },
+}));
+
 export default SideBar;

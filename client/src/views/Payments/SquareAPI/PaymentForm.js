@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./styles.css";
 import { makeStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 import TextField from '@material-ui/core/TextField';
 import squareInfo from './../config';
 
@@ -72,7 +72,6 @@ export default class PaymentForm extends Component {
       },
       cardNumber: {
         elementId: "sq-card-number",
-        // placeholder: "• • • •  • • • •  • • • •  • • • •"
         placeholder: "Card Number"
       },
       cvv: {
@@ -114,13 +113,13 @@ export default class PaymentForm extends Component {
             countryCode: "US",
             total: {
               label: "MERCHANT NAME",
-              amount: "100",
+              amount: this.props.appointment.price*100,
               pending: false
             },
             lineItems: [
               {
                 label: "Subtotal",
-                amount: "100",  //digital wallet stuff
+                amount: this.props.appointment.price*100,  //digital wallet stuff
                 pending: false
               }
             ]
@@ -144,7 +143,8 @@ export default class PaymentForm extends Component {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              nonce: nonce
+              nonce: nonce,
+              amount: this.props.appointment.price,
             })
           })
             .catch(err => {
@@ -255,7 +255,7 @@ export default class PaymentForm extends Component {
             className="button-credit-card"
             onClick={this.requestCardNonce}
           >
-            Pay 
+            Pay ${this.props.appointment.price}
           </button>
         </div>
         <p style={styles.center} id="error" />

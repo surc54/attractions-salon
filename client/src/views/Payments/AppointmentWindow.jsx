@@ -70,12 +70,15 @@ const AppointmentWindow = props => {
     return (
         <div className="appointmentWindow">
             <div className="paperHeader">
-                <h2 className="page2Title">Appointment</h2>
+                <div>
+                    <h2 className="page2Title">Appointment Information</h2>
+                    <p style={{margin: "0"}}>{dateString}</p>
+                </div>
                 <Button classes={{root: classes.status[props.appointment.status]}}size="small" variant="outlined">
                     {props.appointment.status}
                 </Button>    
             </div>
-            <p>{dateString}</p>
+            
             <h4>Scheduled Items</h4>
             {props.appointment.services.map(service => {
                 return (

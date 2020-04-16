@@ -5,26 +5,27 @@ import ServiceWindow from "./ServiceWindow";
 import { useServices } from "../../hooks";
 import SideBar from "./SideBar";
 
-import bgImg1 from "../../assets/bg-wave-1.png"
-import bgImg2 from "../../assets/bg-wave-2.png"
+import bgImg1 from "../../assets/bg-wave-1.png";
+import bgImg2 from "../../assets/bg-wave-2.png";
 import "./Services.css";
 
 const Services = () => {
     const [cart, setCart] = React.useState([]);
     const [filterCat, setFilterCat] = useState("");
     const [filterText, setFilterText] = useState("");
-    const services = useServices(); 
+    const services = useServices();
     const classes = useStyles();
- 
-    React.useEffect(() => {         // useEffect is for side-effects (aka, loading services list)
+
+    React.useEffect(() => {
+        // useEffect is for side-effects (aka, loading services list)
         services.getServicesList(); // it isnt directly affecting rendering
-    }, []);                         // the [] means it will run only on component load
+    }, []); // the [] means it will run only on component load
 
     return (
         <>
             <div className={classes.window}>
                 <Grid container spacing={0} className={classes.container}>
-                    <Grid item xs={12} md={2} style={{minWidth: 250}}>
+                    <Grid item xs={12} md={2} className="scroll-bar" style={{ minWidth: 250, maxHeight: "calc(100vh - 64px)", overflowY: "auto" }}>
                         <Paper className={classes.sideBar} elevation={0}>
                             <SideBar
                                 filterCat={filterCat}
@@ -41,7 +42,7 @@ const Services = () => {
                         <Paper className={classes.serviceWindow} elevation={0}>
                             {services.loading ? (
                                 <>
-                                    <CircularProgress/>
+                                    <CircularProgress />
                                 </>
                             ) : (
                                 <>

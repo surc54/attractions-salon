@@ -6,20 +6,36 @@ import AppointmentWindow from "./AppointmentWindow";
 import QuickLinksWindow from "./QuickLinksWindow";
 import AmountDueWindow from "./AmountDueWindow";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     page2: {
         justifyContent: "center",
-        //height: "48rem",
-        //height: "48rem",
+        height: "39rem",
     },
 }));
 
-const SecondStep = ({ appointment }) => {
+const SecondStep = ({ appointment, setActiveStep }) => {
     const classes = useStyles();
     return (
         <div>
-            <p style={{textAlign:"center", fontSize:15}}>Booking Number:</p>
-            <p style={{textAlign:"center", fontSize:40, lineHeight:"0px"}}><strong>{appointment.bookingNum}</strong></p>
+            <p
+                style={{
+                    textAlign: "center",
+                    fontSize: 15,
+                    marginBottom: ".5em",
+                }}
+            >
+                Booking Number:
+            </p>
+            <p
+                style={{
+                    textAlign: "center",
+                    fontSize: 40,
+                    lineHeight: "0px",
+                    marginTop: ".5em",
+                }}
+            >
+                <strong>{appointment.bookingNum}</strong>
+            </p>
             <Grid container classes={{ container: classes.page2 }}>
                 {/** use soemthing else to make it more responsive */}
                 <Grid item xs={4} spacing={1} style={{ marginRight: "60px" }}>
@@ -29,7 +45,7 @@ const SecondStep = ({ appointment }) => {
                 </Grid>
                 <Grid item xs={4} spacing={1}>
                     <Paper elevation={1} className="p2Paper">
-                        <AmountDueWindow appointment={appointment} />
+                        <AmountDueWindow appointment={appointment} setActiveStep={setActiveStep} />
                     </Paper>
                     <Paper elevation={1} className="linkPaper">
                         <QuickLinksWindow />
