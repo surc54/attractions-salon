@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, GridList, GridListTile } from "@material-ui/core";
+import axios from "axios";
 
 const tempSocialMediaReviews = [
     {
@@ -25,6 +26,14 @@ const tempSocialMediaReviews = [
 ];
 
 const SocialMediaReviews = () => {
+    useEffect(() => {
+        axios.get("/api/social-media-reviews").then((response) => {
+            response.data.data.map((socialMediaReviews) =>
+                tempSocialMediaReviews.push(socialMediaReviews)
+            );
+        });
+    }, []);
+
     return (
         <div>
             <Typography

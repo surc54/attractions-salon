@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-// import PropTypes from "prop-types";
 import {
     Card,
     CardHeader,
@@ -14,18 +13,17 @@ import AddTestimonial from "./AddTestimonial";
 import axios from "axios";
 import moment from "moment";
 
-const tempTestimonials = [];
+const tempTestimonials: any[] = [];
 
 const Testimonials = () => {
+
     useEffect(() => {
         axios.get("/api/testimonial").then((response) => {
-            response.data.data.map((testimonial) =>
+            response.data.data.map((testimonial: any) =>
                 tempTestimonials.push(testimonial)
             );
         });
     }, []);
-
-    console.log(tempTestimonials);
 
     return (
         <div className="body">
@@ -35,7 +33,10 @@ const Testimonials = () => {
                 </Typography>
                 <AddTestimonial />
                 {tempTestimonials.length === 0 ? (
-                    <Typography variant="h6" styling={{ textAlign: "center" }}>
+                    <Typography
+                        variant="h6"
+                        style={{ textAlign: "center", margin: "100px" }}
+                    >
                         There are no testimonials.
                     </Typography>
                 ) : null}
@@ -99,7 +100,5 @@ const Testimonials = () => {
         </div>
     );
 };
-
-// testimonials.propTypes = {};
 
 export default Testimonials;

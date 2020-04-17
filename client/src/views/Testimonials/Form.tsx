@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { connect } from "react-redux";
-
 import { FormErrors } from "redux-form";
-
 import { Field, reduxForm } from "redux-form";
 import {
     Button,
@@ -15,6 +13,7 @@ import {
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import "./Testimonials.css";
+// import ReCAPTCHA from "react-google-recaptcha";
 
 export interface addTestimonialParams {
     name: string;
@@ -83,6 +82,15 @@ const renderRating: React.FC = (field: any) => {
 
 export const Form: React.FC = (props: any) => {
     const { handleSubmit, pristine, submitting, open, setOpen } = props;
+    // const recaptchaRef = React.createRef<ReCAPTCHA>();
+    // const [resetRecaptcha, setResetRecaptcha] = React.useState<boolean>(false);
+
+    // useLayoutEffect(() => {
+    //     if (resetRecaptcha && recaptchaRef.current) {
+    //         recaptchaRef.current.reset();
+    //         setResetRecaptcha(false);
+    //     }
+    // }, [recaptchaRef, resetRecaptcha]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -147,6 +155,12 @@ export const Form: React.FC = (props: any) => {
                                 margin="normal"
                                 rows={8}
                             />
+                            {/* <div>
+                                <ReCAPTCHA
+                                    ref={recaptchaRef}
+                                    sitekey="6Le9zuMUAAAAAE6pAtVkhrOoRrMaycB9b-hdA53b"
+                                />
+                            </div> */}
                         </div>
                     </DialogContent>
                     <DialogActions>

@@ -11,7 +11,7 @@ import { useSnackbar } from "notistack";
 import NotFound from "../404/NotFound";
 import UserSettings from "./pages/user-settings/UserSettings";
 import ServiceSettings from "./pages/ServiceSettings";
-import TestimonialsSettings from "./pages/TestimonialsSettings";
+import TestimonialsSettings from "./pages/testimonials-settings/TestimonialsSettings";
 
 /**
  * Purpose:

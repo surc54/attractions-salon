@@ -6,7 +6,7 @@ const _ = require("lodash");
 
 module.exports.list = async (req, res) => {
     await testimonial
-        .find({})
+        .find({ approved: true })
         .then((value) => {
             send_code_success(res, 200, "admin/testimonial/list/success", {
                 status: "ok",
@@ -98,7 +98,10 @@ module.exports.admin.update = async (req, res) => {
             return;
         }
 
-        await testimonial.updateOne({ _id: uid }, { approved: !req.body.approved });
+        await testimonial.updateOne(
+            { _id: uid },
+            { approved: !req.body.approved }
+        );
 
         send_code_success(res, 200, "admin/testimonial/update/success", {
             data: updated.toObject({

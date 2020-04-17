@@ -8,7 +8,7 @@ import axios from "../models/axios";
 import { v4 as uuid } from "uuid";
 
 export const addTestimonial = (
-    data: any,
+    data: any & { recaptchaToken: any },
     callbacks: ActionCallback = {}
 ): ThAction<TestimonialActions> => {
     const tempId = uuid();
