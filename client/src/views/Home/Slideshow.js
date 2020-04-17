@@ -124,34 +124,3 @@ export default function Slideshow() {
         </div>
       )}
     
-// return (
-//     <div className={styles["slideshow"]} >
-//         <AutoRotatingCarousel open={true} className={styles["slideshow"]}>
-//             <Slide
-//             media ={<img src={photo2}></img>}>
-//             </Slide>
-//             <Slide 
-//             media ={<img src={photo3}></img>}>
-//             </Slide>
-//             <Slide 
-//             media ={<img src={photo4}></img>}>
-//             </Slide>
-//         </AutoRotatingCarousel>
-//     </div>
-// )}
-// <Carousel
-//   slidesPerPage={1}
-//   centered
-//   dots
-//   animationSpeed={0}
-//   className={styles["slideshow"]}
-// >
-//   <img src={photo3} />
-//   {/* <img src={photo1} /> */}
-//   <img src={photo2} />
-//   <img src = {photo7} />
-//   {/* <img src={photo4} /> */}
-//   {/* <img src={photo5} /> */}
-  
-// </Carousel>
-// )}

@@ -54,67 +54,29 @@ export interface AuthSignUpEnd {
     };
 }
 
-// Admin user settings
-
-export const ADMIN_USER_START = "ADMIN_USER_START";
-export interface AdminUserStart {
-    type: typeof ADMIN_USER_START;
-}
-
-export const ADMIN_USER_STOP = "ADMIN_USER_STOP";
-export interface AdminUserStop {
-    type: typeof ADMIN_USER_STOP;
-}
-
-export const ADMIN_USER_ERROR = "ADMIN_USER_ERROR";
-export interface AdminUserError {
-    type: typeof ADMIN_USER_ERROR;
-    payload: any;
-}
-
-export const ADMIN_USER_UPDATE_LIST = "ADMIN_USER_UPDATE_LIST";
-export interface AdminUserUpdateList {
-    type: typeof ADMIN_USER_UPDATE_LIST;
-    payload: User[];
-}
-
-export const ADMIN_USER_UPDATE_ONE = "ADMIN_USER_UPDATE_ONE";
-export interface AdminUserUpdateOne {
-    type: typeof ADMIN_USER_UPDATE_ONE;
-    payload: User;
-}
-
-export const ADMIN_USER_DELETE_ONE = "ADMIN_USER_DELETE_ONE";
-export interface AdminUserDeleteOne {
-    type: typeof ADMIN_USER_DELETE_ONE;
-    payload: string;
-}
-
-export const ADMIN_USER_UPDATE_QUERY = "ADMIN_USER_UPDATE_QUERY";
-export interface AdminUserUpdateQuery {
-    type: typeof ADMIN_USER_UPDATE_QUERY;
-    payload: any;
-}
-
-export const ADMIN_USER_ADD_LOADED_PAGE = "ADMIN_USER_ADD_LOADED_PAGE";
-export interface AdminUserAddLoadedPage {
-    type: typeof ADMIN_USER_ADD_LOADED_PAGE;
-    payload: number;
-}
-
-export const ADMIN_USER_SET_COUNT = "ADMIN_USER_SET_COUNT";
-export interface AdminUserSetCount {
-    type: typeof ADMIN_USER_SET_COUNT;
-    payload: number;
-}
-
-export const ADMIN_USER_ADD_PAGE = "ADMIN_USER_ADD_PAGE";
-export interface AdminUserAddPage {
-    type: typeof ADMIN_USER_ADD_PAGE;
+export const EZS_LOADING = "EZS_LOADING";
+export interface EzsLoading {
+    type: typeof EZS_LOADING;
     payload: {
-        users: User[];
-        count: number;
-        page: number;
+        key: string;
+    };
+}
+
+export const EZS_UPDATE_SETTING = "EZS_UPDATE_SETTING";
+export interface EzsUpdateSetting {
+    type: typeof EZS_UPDATE_SETTING;
+    payload: {
+        key: string;
+        value: string;
+    };
+}
+
+export const EZS_ERROR = "EZS_ERROR";
+export interface EzsError {
+    type: typeof EZS_ERROR;
+    payload: {
+        key: string;
+        error: any;
     };
 }
 

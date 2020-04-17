@@ -1,21 +1,21 @@
 import { combineReducers } from "redux";
 import _loginReducer, { UserState } from "./_loginReducer";
-import { reducer as formReducer } from "redux-form";
-import testimonialReducer from "./_testimonialReducer";
-import _adminUserSettingsReducer, {
-    AdminUserSettingsState,
-} from "./_adminUserSettingsReducer";
+import _ezSettingsReducer from "./_ezSettingsReducer";
 
 export default combineReducers<ReduxState>({
     login: _loginReducer,
-    adminUserSettings: _adminUserSettingsReducer,
-    form: formReducer,
-    testimonial: testimonialReducer,
+    ezSettings: _ezSettingsReducer as any,
 });
 
 export interface ReduxState {
     login: UserState;
-    form: any;
-    testimonial: any;
-    adminUserSettings: AdminUserSettingsState;
+    ezSettings: EzSettingsState;
+}
+
+export interface EzSettingsState {
+    [key: string]: {
+        loading?: boolean;
+        value?: string;
+        error?: any;
+    };
 }
