@@ -32,7 +32,7 @@ const ServiceWindow = ({ services, filterText, filterCat }) => {
             {services
                 .filter((item) => check(item, filterText, filterCat))
                 .map((item) => {
-                    //const addText = item.added ? "Added" : "Add"
+                    
                     return (
                         <Card classes={{ root: classes.root }} key={item.name}>
                             <CardActionArea>

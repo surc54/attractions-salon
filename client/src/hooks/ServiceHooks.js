@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getServicesList, addToCart, removeFromCart } from "../actions";
+import { addService, deleteService, updateService } from "../actions";
 
 /**
  * I dont know what I am doing,
@@ -17,6 +18,7 @@ export const useServices = () => {
     // ah yeah, this hook will return the services state + the new functions we are gonna define
     const [ret, setRet] = React.useState({
         ...serviceState,
+
         getServicesList: () => {
             dispatch(getServicesList());
         },
@@ -29,7 +31,17 @@ export const useServices = () => {
             dispatch(removeFromCart(id));
         },
 
-        
+        addService: (newService) => {
+            dispatch(addService(newService));
+        },
+
+        deleteService: (id) => {
+            dispatch(deleteService(id));
+        },
+
+        updateService: (id, newService) => {
+            dispatch(updateService(id, newService));
+        },
     });
 
     React.useEffect(() => {

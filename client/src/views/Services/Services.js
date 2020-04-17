@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { makeStyles, Grid, Paper, CircularProgress } from "@material-ui/core";
-//import { services } from "../../actions/serviceActions";
 import ServiceWindow from "./ServiceWindow";
 import { useServices } from "../../hooks";
 import SideBar from "./SideBar";

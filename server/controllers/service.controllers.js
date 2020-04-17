@@ -45,7 +45,7 @@ module.exports.read = (req, res) => {
 
 module.exports.admin = {};
 
-module.exports.admin.delete = () => {
+module.exports.admin.delete = (req, res) => {
     let toRemove = req.params.id;
 
     Listing.findOneAndDelete({ _id: toRemove })
@@ -53,7 +53,7 @@ module.exports.admin.delete = () => {
         .catch((reason) => res.status(400).send("Error when deleting"));
 };
 
-module.exports.admin.update = () => {
+module.exports.admin.update = (req, res) => {
     let {
         groupName,
         name,
@@ -87,7 +87,7 @@ module.exports.admin.update = () => {
         .catch((reason) => res.status(400).send("Error when updating"));
 };
 
-module.exports.admin.create = () => {
+module.exports.admin.create = (req, res) => {
     let {
         groupName,
         name,

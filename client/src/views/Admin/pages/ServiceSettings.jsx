@@ -9,25 +9,27 @@ import {
     makeStyles,
     TableRow,
 } from "@material-ui/core";
-//import { services } from "../../../actions/serviceActions";
+import { useServices } from "../../../hooks";
 
-// type serviceType = {
-//     groupName: String;
-//     name: String;
-//     price: Number;
-//     subtitle: String;
-//     description: String;
-//     imgURL: String;
-// }[];
+let serviceType = {
+    groupName: "",
+    name: "",
+    price: 0,
+    subtitle: "",
+    description: "",
+    imgURL: "",
+};
 
 const ServiceSettings = () => {
     const [pageNum, setPageNum] = useState(0);
-    const [initialLoad, setInitialLoad] = useState(true);
-    const [serviceInfo, setServiceInfo] = useState([]);
+    const services = useServices(); 
+
+    React.useEffect(() => {
+        services.getServicesList();
+    }, []);
 
     return (
         <>
-            {doInitialLoad(initialLoad, setInitialLoad, setServiceInfo)}
             <div
                 style={{
                     display: "flex",
@@ -49,7 +51,7 @@ const ServiceSettings = () => {
                 <Divider orientation="horizontal" />
             </div>
 
-            {getChoiceView(pageNum, serviceInfo)}
+            {getChoiceView(pageNum, services.services)}
         </>
     );
 };
@@ -67,7 +69,29 @@ const getChoiceView = (pageNum, serviceInfo) => {
     }
 };
 
+const handleAdd = (addService, newService) => {
+    const test = {
+        groupName: "test",
+        name: "tes2",
+        price: 100,
+        subtitle: "test11",
+        description: "test14",
+        imgURL: "",
+    }
+    console.log("starting to add test service")
+    addService(test);
+    //if(newService){
+    //    addService(newService);
+    //}
+    //else {
+    //    // display snackbar (or something)
+    //}
+}
+
 const ServiceCreationForm = () => {
+    const useService = useServices();  
+    const [newService, setNewService] = useState(serviceType);
+
     return (
         <div>
             <div
@@ -77,17 +101,32 @@ const ServiceCreationForm = () => {
                 }}
             >
                 <h3 style={{ marginBottom: "4px" }}>Create a service</h3>
-                <Button>Submit</Button>
+                <Button onClick={()=>{handleAdd(useService.addService, newService)}}>Submit</Button>
             </div>
             <Divider orientation="horizontal" />
             <div>
-                <ServicesForm />
+                <ServicesForm 
+                    
+                />
             </div>
         </div>
     );
 };
 
+const handleUpdate = (updateService, serviceID, newService) => {
+    if(serviceID && newService){
+        updateService(serviceID, newService);
+    }
+    else {
+        // display snackbar (or something)
+    }
+}
+
 const ServiceUpdateView = ({ services }) => {
+    const useService = useServices(); 
+    const [serviceID, setServiceID] = useState("");
+    const [newService, setNewService] = useState(serviceType);
+
     return (
         <div style={{ height: "90%" }}>
             <div
@@ -97,17 +136,30 @@ const ServiceUpdateView = ({ services }) => {
                 }}
             >
                 <h3 style={{ marginBottom: "4px" }}>Update a service</h3>
-                <Button>Update</Button>
+                <Button onClick={() => handleUpdate(useService.updateService, serviceID, newService)}>Update</Button>
             </div>
             <Divider orientation="horizontal" />
             <div style={{ height: "100%", overflow: "auto" }}>
-                <ServiceCards services={services} />
+                <ServiceCards services={services} setServiceID={setServiceID} setNewService={setNewService}/>
             </div>
         </div>
     );
 };
 
+const handleDelete = (deleteService, serviceID) => {
+    if(serviceID){
+        //console.log("deleting");
+        deleteService(serviceID);
+    }
+    else{
+        ////////////////
+    }
+}
+
 const ServiceDeleteView = ({ services }) => {
+    const useService = useServices(); 
+    const [serviceID, setServiceID] = useState("");
+
     return (
         <div style={{ height: "90%" }}>
             <div
@@ -117,21 +169,22 @@ const ServiceDeleteView = ({ services }) => {
                 }}
             >
                 <h3 style={{ marginBottom: "4px" }}>Delete a service</h3>
-                <Button>Delete</Button>
+                <Button onClick={ () => {handleDelete(useService.deleteService, serviceID)} }>Delete</Button>
             </div>
             <Divider orientation="horizontal" />
             <div style={{ height: "100%", overflow: "auto" }}>
-                <ServiceCards services={services} />
+                <ServiceCards services={services} setID={setServiceID}/>
             </div>
         </div>
     );
 };
 
-const ServiceCards = ({ services }) => {
+const ServiceCards = ({ services, setID, setService, updating }) => {
     const classes = useStyles();
     return (
         <>
             <table className={classes.table}>
+                <tbody>
                 {services.map(
                     ({
                         name,
@@ -139,11 +192,12 @@ const ServiceCards = ({ services }) => {
                         groupName,
                         subtitle,
                         price,
+                        _id,
                     }) => {
                         return (
                             <TableRow
                                 className={classes.service}
-                                key={name}
+                                key={_id}
                                 hover
                             >
                                 <td>{groupName}</td>
@@ -154,6 +208,7 @@ const ServiceCards = ({ services }) => {
                         );
                     }
                 )}
+                </tbody>
             </table>
         </>
     );
@@ -241,19 +296,6 @@ const ServicesForm = () => {
             />
         </>
     );
-};
-
-const doInitialLoad = (initialLoad, setInitialLoad, setServiceInfo) => {
-    if (initialLoad) {
-        setInitialLoad(false);
-        updateServices(setServiceInfo);
-    }
-};
-
-const updateServices = (setServiceInfo) => {
-    //getServices()
-    //.then((value) => setServiceInfo(value))
-    //.catch((reason) => console.log(reason));
 };
 
 const useStyles = makeStyles({

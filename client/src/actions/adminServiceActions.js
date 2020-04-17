@@ -32,7 +32,10 @@ export const updateService = (id, newService) => (dispatch, getState) => {
                 });
             })
             .catch((err) => {
-                dispatch(axios_error(err));
+                dispatch({
+                    type: "UPDATE_SERVICE_END",
+                    payload: { error: axios_error(err)}
+                });
             })
     );
 };
@@ -42,32 +45,35 @@ export const addService = (newService) => (dispatch, getState) => {
 
     dispatch({ type: "START_SERVICES_LOAD" });
     //
-    axios.request(
-        {
+    axios
+        .request({
             ...Config.apiUrls["create a service"],
             data: newService,
-        }
-            .then((resp) => {
-                //if (resp.status !== 200) {
-                //    console.error("Status code was not 200", resp);
-                //    throw new Error("Unexpected status code");
-                //}
+        })
+        .then((resp) => {
+            //if (resp.status !== 200) {
+            //    console.error("Status code was not 200", resp);
+            //    throw new Error("Unexpected status code");
+            //}
 
-                if (!resp.data.data) {
-                    throw new Error(
-                        "Did not receive data (for service add)"
-                    );
-                }
+            console.log(resp.data);
+            console.log(resp.data.data);
 
-                dispatch({
-                    type: "CREATE_SERVICE_END",
-                    payload: resp.data.data,
-                });
-            })
-            .catch((err) => {
-                dispatch(axios_error(err));
-            })
-    );
+            if (!resp.data) {
+                throw new Error("Did not receive data (for service add)");
+            }
+
+            dispatch({
+                type: "CREATE_SERVICE_END",
+                payload: resp.data,
+            });
+        })
+        .catch((err) => {
+            dispatch({
+                type: "CREATE_SERVICE_END",
+                payload: {error: axios_error(err)}
+            });
+        });
 };
 
 export const deleteService = (id) => (dispatch, getState) => {
@@ -98,7 +104,10 @@ export const deleteService = (id) => (dispatch, getState) => {
                 });
             })
             .catch((err) => {
-                dispatch(axios_error(err));
+                dispatch({
+                    type: "DELETE_SERVICE_END",
+                    payload: {error: axios_error(err)}
+                });
             })
     );
 };
