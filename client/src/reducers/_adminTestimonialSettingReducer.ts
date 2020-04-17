@@ -29,25 +29,16 @@ const reducer: Reducer<
             };
         }
         case "ADMIN_TESTIMONIAL_UPDATE_LIST": {
+            const Testimonial = action.payload;
             return {
                 ...state,
-                Testimonials: action.payload,
-                loadedPages: [],
-                lastLoadTime: new Date(),
+                Testimonials: state.Testimonials.map((x) =>
+                    x.id === Testimonial.id ? Testimonial : x
+                ),
             };
         }
-        // case "ADMIN_TESTIMONIAL_UPDATE_ONE": {
-        //     const Testimonial = action.payload;
-        //     return {
-        //         ...state,
-        //         Testimonials: state.Testimonials.map((x) =>
-        //             x.id === Testimonial.id ? Testimonial : x
-        //         ),
-        //     };
-        // }
         case "ADMIN_TESTIMONIALS_GET_LIST": {
             const { data } = action.payload;
-            console.log(data);
             return {
                 ...state,
                 Testimonials: data,
@@ -57,9 +48,9 @@ const reducer: Reducer<
         case "ADMIN_TESTIMONIAL_DELETE_ONE": {
             return {
                 ...state,
-                // Testimonials: state.Testimonials.filter(
-                //     (x) => x.id !== action.payload
-                // ),
+                Testimonials: state.Testimonials.filter(
+                    (x) => x.id !== action.payload
+                ),
                 count: state.count - 1,
             };
         }

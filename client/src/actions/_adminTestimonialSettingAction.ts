@@ -2,12 +2,11 @@ import axios from "../models/axios";
 import Config from "../models/Config";
 import {
     AdminTestimonialDeleteResponse,
-    // AdminTestimonialInfoResponse,
     AdminTestimonialListResponse,
-    // AdminTestimonialUpdateResponse,
-    // ApiResponseTestimonial,
+    AdminTestimonialUpdateResponse,
+    ApiResponseTestimonial,
 } from "../models/ResponseTypes";
-// import { TestimonialData as Testimonial } from "../models/Testimonials";
+import { TestimonialData as Testimonial } from "../models/Testimonials";
 import { axios_error } from "../tools";
 import {
     ActionCallback,
@@ -43,7 +42,6 @@ export const getTestimonialsList = (
                 ...Config.apiUrls["admin - get testimonial list"],
             })
             .then((resp) => {
-
                 if (resp.status !== 200) {
                     console.error("Status code was not 200", resp);
                     throw new Error("Unexpected status code");
@@ -66,7 +64,8 @@ export const getTestimonialsList = (
                 dispatch({
                     type: "ADMIN_TESTIMONIALS_GET_LIST",
                     payload: {
-                        data: resp.data.data,
+                        data: (resp.data
+                            .data as unknown) as ApiResponseTestimonial,
                     },
                 });
 
@@ -105,8 +104,10 @@ export const deleteTestimonial = (
 
             dispatch({
                 type: "ADMIN_TESTIMONIAL_DELETE_ONE",
-                payload: resp.data?.data?.id as string,
+                payload: resp.data?.data?._id as string,
             });
+
+            dispatch(getTestimonialsList());
 
             callbacks?.then?.();
         })
@@ -117,6 +118,58 @@ export const deleteTestimonial = (
 
             callbacks?.catch?.({
                 message: msg,
+            });
+        })
+        .finally(() => dispatch(stop));
+};
+
+export const updateTestimonial = (
+    uid: string,
+    testimonial: Testimonial,
+    callbacks?: ActionCallback
+): ThAction<AdminTestimonialSettingsActions> => (dispatch, getState) => {
+    dispatch(start);
+
+    axios
+        .request<AdminTestimonialUpdateResponse>({
+            ...Config.apiUrls["admin - update testimonial"],
+            url: uid,
+            data: testimonial,
+        })
+        .then((resp) => {
+            if (resp.status !== 200) {
+                console.error("Status code was not 200", resp);
+                throw new Error("Unexpected status code");
+            }
+
+            if (resp.data.code !== "admin/testimonial/update/success") {
+                throw new NonSuccessError(resp);
+            }
+
+            if (resp.data.error) {
+                throw new NonSuccessError(resp);
+            }
+
+            if (!resp.data.data) {
+                throw new Error(
+                    "Did not receive data (for testimonial update)"
+                );
+            }
+
+            dispatch({
+                type: "ADMIN_TESTIMONIAL_UPDATE_LIST",
+                payload: resp.data.data,
+            });
+
+            dispatch(getTestimonialsList());
+
+            callbacks?.then?.();
+        })
+        .catch((err) => {
+            dispatch(error(axios_error(err)));
+
+            callbacks?.catch?.({
+                message: axios_error(err),
             });
         })
         .finally(() => dispatch(stop));

@@ -1,29 +1,26 @@
-import React, { useState, useEffect } from "react";
-// import PropTypes from "prop-types";
-import {
-    Card,
-    CardHeader,
-    CardContent,
-    Typography,
-    Grid,
-    Button,
-} from "@material-ui/core";
+import React, { useEffect } from "react";
+
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Button from "@material-ui/core/Button";
+
 import Rating from "@material-ui/lab/Rating";
 import { useAdminTestimonialSettings } from "../../../hooks";
 import "../../Testimonials/Testimonials.css";
-// import SocialMediaReviews from "./SocialMediaReviews";
 import moment from "moment";
 
 const TestimonialsSettings: React.FC = () => {
     const testimonialSettings = useAdminTestimonialSettings();
-    // console.log(testimonialSettings);
 
     useEffect(() => {
         testimonialSettings.getTestimonialList();
-        // console.log(testimonialSettings);
     }, []);
 
     const data = testimonialSettings.Testimonials;
+    // console.log(data);
 
     return (
         <div>
@@ -31,55 +28,84 @@ const TestimonialsSettings: React.FC = () => {
                 <h1>Testimonials</h1>
             </header>
             <div>
-                <Grid
-                    container
-                    spacing={2}
-                    justify="flex-start"
-                    direction="row"
-                    alignItems="center"
-                >
-                    {data.map((testimonial: any) => {
-                        const temp = moment(testimonial.createdAt).format("L");
-                        // console.log(testimonial);
-                        return (
-                            <Grid key={testimonial.id} md={4} item>
-                                <Card elevation={3} className="card">
-                                    <CardHeader
-                                        avatar={
-                                            <img
-                                                src={
-                                                    testimonial.profilePic ||
-                                                    "https://d3kqdc25i4tl0t.cloudfront.net/articles/content/92_408268_151204profilepicture_hero.jpg"
-                                                }
-                                                alt={
-                                                    testimonial.name || "random"
-                                                }
-                                                className="picture"
-                                            />
-                                        }
-                                        action={
-                                            <Rating
-                                                value={testimonial.rating}
-                                                className="ratings"
-                                                readOnly
-                                            />
-                                        }
-                                        title={testimonial.name}
-                                        subheader={temp}
-                                    />
-                                    <CardContent>
-                                        <Typography
-                                            variant="body2"
-                                            component="p"
-                                        >
-                                            {testimonial.feedback}
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        );
-                    })}
-                </Grid>
+                <List>
+                    {data.length !== 0 ? (
+                        data.map((testimonial) => {
+                            const temp = (
+                                <div
+                                    style={{
+                                        marginLeft: "5px",
+                                        fontSize: "12px",
+                                    }}
+                                >
+                                    Date posted:{" "}
+                                    {moment(testimonial.createdAt).format(
+                                        "lll"
+                                    )}
+                                </div>
+                            );
+                            return (
+                                <div key={testimonial.id}>
+                                    <ListItem divider>
+                                        <ListItemText
+                                            style={{ width: "0px" }}
+                                            primary={testimonial.name}
+                                            secondary={
+                                                testimonial.approved
+                                                    ? "Status: approved"
+                                                    : "Status: not approved"
+                                            }
+                                        />
+                                        <ListItemText
+                                            disableTypography
+                                            primary={
+                                                <Rating
+                                                    value={testimonial.rating}
+                                                    className="ratings"
+                                                    style={{ padding: "0px" }}
+                                                    readOnly
+                                                />
+                                            }
+                                            secondary={temp}
+                                        />
+                                        <ListItemSecondaryAction>
+                                            <Button
+                                                onClick={() => {
+                                                    testimonialSettings.updateTestimonial(
+                                                        testimonial._id,
+                                                        testimonial
+                                                    );
+                                                }}
+                                            >
+                                                {testimonial.approved
+                                                    ? "Disapprove"
+                                                    : "Approve"}
+                                            </Button>
+                                            <Button
+                                                onClick={() => {
+                                                    testimonialSettings.deleteTestimonial(
+                                                        testimonial._id
+                                                    );
+                                                }}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </ListItemSecondaryAction>
+                                    </ListItem>
+
+                                    <ListItem divider>
+                                        <ListItemText
+                                            inset
+                                            primary={testimonial.feedback}
+                                        />
+                                    </ListItem>
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <p>There are no testimonials</p>
+                    )}
+                </List>
             </div>
         </div>
     );

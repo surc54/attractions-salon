@@ -100,7 +100,14 @@ const Config: IConfig = {
             },
         },
         "admin - delete testimonial": {
-            url: "/api/admin/testimonial/",
+            baseURL: "/api/admin/testimonial/",
+            method: "DELETE",
+            headers: {
+                ...noCache,
+            },
+        },
+        "admin - update testimonial": {
+            baseURL: "/api/admin/testimonial/",
             method: "POST",
             headers: {
                 ...noCache,

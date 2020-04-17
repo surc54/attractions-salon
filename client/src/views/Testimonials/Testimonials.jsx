@@ -25,6 +25,8 @@ const Testimonials = () => {
         });
     }, []);
 
+    console.log(tempTestimonials);
+
     return (
         <div className="body">
             <div>
@@ -32,6 +34,11 @@ const Testimonials = () => {
                     Testimonials
                 </Typography>
                 <AddTestimonial />
+                {tempTestimonials.length === 0 ? (
+                    <Typography variant="h6" styling={{ textAlign: "center" }}>
+                        There are no testimonials.
+                    </Typography>
+                ) : null}
                 <Grid
                     container
                     spacing={2}
@@ -82,6 +89,8 @@ const Testimonials = () => {
                                     </Card>
                                 </Grid>
                             );
+                        } else {
+                            return null;
                         }
                     })}
                 </Grid>

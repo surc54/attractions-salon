@@ -8,7 +8,6 @@ import { ThunkAction } from "redux-thunk";
 import User from "../models/User";
 import { TestimonialData as Testimonial } from "../models/Testimonials";
 import { ReduxState } from "../reducers";
-import { addTestimonial } from "./_addTestimonial";
 
 // export default ActionTypes_old;
 
@@ -147,7 +146,7 @@ export interface AdminTestimonialError {
 export const ADMIN_TESTIMONIAL_UPDATE_LIST = "ADMIN_TESTIMONIAL_UPDATE_LIST";
 export interface AdminTestimonialUpdateList {
     type: typeof ADMIN_TESTIMONIAL_UPDATE_LIST;
-    payload: Testimonial[];
+    payload: any;
 }
 
 // export const ADMIN_TESTIMONIAL_UPDATE_ONE = "ADMIN_TESTIMONIAL_UPDATE_ONE";

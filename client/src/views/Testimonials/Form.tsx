@@ -93,7 +93,7 @@ export const Form: React.FC = (props: any) => {
     };
 
     return (
-        <div>
+        <>
             <Button
                 className="button"
                 variant="contained"
@@ -165,7 +165,7 @@ export const Form: React.FC = (props: any) => {
                     </DialogActions>
                 </form>
             </Dialog>
-        </div>
+        </>
     );
 };
 

@@ -31,7 +31,7 @@ const SocialMediaReviews = () => {
                 color="primary"
                 variant="h4"
                 className="title"
-                style={{ marginBottom: "20px" }}
+                style={{ margin: "20px 0px" }}
             >
                 Social Media Reviews
             </Typography>

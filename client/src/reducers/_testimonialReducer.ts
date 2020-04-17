@@ -15,11 +15,14 @@ function testimonialReducer(
                 ...state,
                 data: [
                     {
+                        _id: "",
                         id: action.payload.id,
                         approved: false,
                         name: action.payload.name,
                         rating: parseInt(action.payload.rating),
                         feedback: action.payload.feedback,
+                        updatedAt: "",
+                        createdAt: "",
                     },
                     ...state.data,
                 ],
