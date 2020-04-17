@@ -38,6 +38,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.9.7",
     "morgan": "^1.10.0",
+    "mongo-sanitize": "^1.1.0",
     "nodemon": "^1.19.4",
     "notistack": "^0.9.9",
     "passport": "^0.4.1",

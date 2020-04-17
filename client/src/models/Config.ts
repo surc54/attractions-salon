@@ -13,7 +13,7 @@ type HttpMethod =
 
 interface IConfig {
     apiUrls: {
-        [desc: string]: AxiosRequestConfig & { url: string };
+        [desc: string]: AxiosRequestConfig;
     };
     theme: {
         [desc: string]: any;
@@ -57,6 +57,34 @@ const Config: IConfig = {
                 ...noCache,
             },
         },
+        "admin - get user list": {
+            url: "/api/admin/account",
+            method: "POST",
+            headers: {
+                ...noCache,
+            },
+        },
+        "admin - get user": {
+            baseURL: "/api/admin/account/",
+            method: "GET",
+            headers: {
+                ...noCache,
+            },
+        },
+        "admin - delete user": {
+            baseURL: "/api/admin/account/",
+            method: "DELETE",
+            headers: {
+                ...noCache,
+            },
+        },
+        "admin - update user": {
+            baseURL: "/api/admin/account/",
+            method: "POST",
+            headers: {
+                ...noCache,
+            },
+        },
         "get services info": {
             url: "/api/services",
             method: "GET",
@@ -64,7 +92,6 @@ const Config: IConfig = {
                 ...noCache,
             },
         },
-        
     },
     theme: {
         palette: {

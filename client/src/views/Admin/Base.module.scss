@@ -11,6 +11,24 @@
         overflow-y: auto;
         overflow-x: hidden;
 
+        :global(.__admin_header) {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-start;
+            align-items: center;
+
+            h1 {
+                font-family: "Roboto", sans-serif;
+                font-size: 3.6rem;
+
+                margin-right: 1.8rem;
+            }
+        }
+
+        &.small {
+            padding-top: 112px;
+        }
+
         &:global(-enter),
         &:global(-appear) {
             opacity: 0;
@@ -79,4 +97,8 @@
 
         transition: opacity 0.25s, transform 0.25s;
     }
+}
+
+header.appBar {
+    background-color: #f1c7cf;
 }

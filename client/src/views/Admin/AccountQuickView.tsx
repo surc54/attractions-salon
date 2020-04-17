@@ -1,24 +1,25 @@
-import React from "react";
 import {
-    Paper,
-    Typography,
     Avatar,
-    Icon,
-    IconButton,
-    CircularProgress,
     Button,
     ThemeProvider,
+    CircularProgress,
     createMuiTheme,
+    Icon,
+    IconButton,
     Menu,
     MenuItem,
+    Paper,
+    ThemeProvider,
+    Typography,
 } from "@material-ui/core";
-import { useUserAuth } from "../../hooks";
-import styles from "./AccountQuickView.module.scss";
-import Config from "../../models/Config";
-import InfoDialog from "../../components/GenericDialogs/InfoDialog";
-import { emsg } from "../../tools";
+import React from "react";
 import { Link } from "react-router-dom";
+import InfoDialog from "../../components/GenericDialogs/InfoDialog";
+import { useUserAuth } from "../../hooks";
+import Config from "../../models/Config";
 import { getUserInitials } from "../../models/User";
+import { emsg } from "../../tools";
+import styles from "./AccountQuickView.module.scss";
 
 const AccountQuickView: React.FC<AccountQuickViewProps> = ({
     onLogout,
@@ -107,7 +108,7 @@ const AccountQuickView: React.FC<AccountQuickViewProps> = ({
                             <IconButton
                                 className={styles.button}
                                 size="small"
-                                onClick={e =>
+                                onClick={(e) =>
                                     setMoreMenuAnchor(e.currentTarget)
                                 }
                             >
