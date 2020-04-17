@@ -12,7 +12,8 @@ import {
 // This library lets you chain classNames together without
 // the string manipulation hassle
 import clsx from "clsx";
-import React, {useState} from "react";
+
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import homepic from "../../assets/attractions_salon_photo.jpeg";
 import SpacingGrid from "./SpacingGrid";
@@ -20,8 +21,7 @@ import SpacingGrid2 from "./SpacingGrid2";
 // This "styles" object is the only way to set styles from
 // your scss file now (because of modularity)
 import styles from "./Home.module.scss";
-import HomeSettings from "../Admin/pages/HomeSettings";
-import {useEzSettings} from "../../hooks/EzSettingsHook";
+
 import InfoPiece from "./InfoPiece";
 import Slideshow from "./Slideshow";
 
@@ -41,41 +41,13 @@ import Slideshow from "./Slideshow";
 // Changed this to an ES6 function
 const Home = () => {
     // Grab history object from react-router
-    const [aboutBox, setAboutBox] = useState("")
-    const ezSettings = useEzSettings();
     const history = useHistory();
-
-    React.useEffect(() => {
-        ezSettings
-            .get("home-about-us")
-            .then((res) => {
-                console.log("setting", res);
-                setAboutBox(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        // the [] means only do when loading this component
-    }, 
-    []
-    );
 
     // Scroll detection hook provided by Material-UI
     const isScrolled = useScrollTrigger({
         disableHysteresis: true,
         threshold: 64,
     });
-
-    const passProps = () => (
-        <div>
-            <HomeSettings
-                aboutBox = {aboutBox}
-                setAboutBox = {setAboutBox}
-                ezSettings = {ezSettings}
-            />
-        </div>
-    )
-
 
     // Grab the Theme from Material-UI
     const theme = useTheme();
@@ -220,13 +192,12 @@ const Home = () => {
                             className={styles.text}
                             component="p"
                         >
-                            {aboutBox}
-                            {/* Lorem ipsum dolor sit amet, consectetuer adipiscing
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing
                             elit. Aenean commodo ligula eget dolor. Aenean massa
                             strong. Cum sociis natoque penatibus et magnis dis
                             parturient montes, nascetur ridiculus mus. Donec
                             quam felis, ultricies nec, pellentesque eu, pretium
-                            quis, sem. */}
+                            quis, sem.
                         </Typography>
                         <Button
                             variant="outlined"
@@ -382,11 +353,7 @@ const Home = () => {
             {/* This footer was at the top of the page. */}
             {/* Better to rewrite completely. */}
             {/* <div className={styles["footer"]}></div> */}
-            {/* <HomeSettings
-                aboutBox = {aboutBox}
-                setAboutBox = {setAboutBox}
-                ezSettings = {ezSettings}
-            /> */}
+            {/* </div> */}
         </div>
     );
 };
