@@ -291,7 +291,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({
             <div className={styles.account}>
                 <AccountQuickView onLogout={onLogout} />
             </div>
-            <img src={bottomImg} alt="bottomImg" className={styles.bottomBgImage} />
+            <img alt="" src={bottomImg} className={styles.bottomBgImage} />
         </div>
     );
 
