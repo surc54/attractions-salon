@@ -8,7 +8,6 @@ import {
     Typography,
 } from "@material-ui/core";
 import "./Payments.css";
-import RightWindow from "./RightWindow";
 
 import FirstStep from "./FirstStep";
 import SecondStep from "./SecondStep";
@@ -31,7 +30,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Payments = props => {
-    const classes = useStyles();
     return <HorizontalLabelPositionBelowStepper />;
 };
 

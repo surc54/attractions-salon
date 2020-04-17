@@ -4,7 +4,6 @@ import { Button, makeStyles } from "@material-ui/core";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
 import Collapse from "@material-ui/core/Collapse";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";

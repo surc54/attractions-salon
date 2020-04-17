@@ -201,3 +201,5 @@ export class NonSuccessError extends Error {
 //         error: ""
 //     }
 // };
+
+export const ADD_TESTIMONIAL = 'ADD_TESTIMONIAL';
