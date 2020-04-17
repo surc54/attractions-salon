@@ -1,20 +1,12 @@
 import axios from "../models/axios";
 import Config from "../models/Config";
-import {axios_error} from "../tools"
-
-import {
-    START_SERVICES_LOAD,
-    GET_SERVICES_INFO_END,
-    SERVICE_ADD_TO_CART,
-    SERVICE_REMOVE_FROM_CART
-} from "./types";
+import { axios_error } from "../tools";
 
 export const getServicesList = () => {
     return (dispatch, getState) => {
         dispatch({
-            type: START_SERVICES_LOAD,
+            type: "START_SERVICES_LOAD",
         });
-
 
         axios
             .request({
@@ -33,7 +25,7 @@ export const getServicesList = () => {
 
                 // assume all went well.
                 dispatch({
-                    type: GET_SERVICES_INFO_END,
+                    type: "GET_SERVICES_INFO_END",
                     payload: {
                         // error: response.data.error,
                         error: null,
@@ -46,11 +38,11 @@ export const getServicesList = () => {
             .catch((reason) => {
                 console.error(reason);
                 dispatch({
-                    type: GET_SERVICES_INFO_END,
+                    type: "GET_SERVICES_INFO_END",
                     payload: {
-                        error: axios_error(reason)
-                    }
-                })
+                        error: axios_error(reason),
+                    },
+                });
             });
     };
 };
@@ -59,16 +51,16 @@ export const addToCart = (id) => {
     if (!id) throw new Error("No id provided.");
 
     return {
-        type: SERVICE_ADD_TO_CART,
-        payload: id
+        type: "SERVICE_ADD_TO_CART",
+        payload: id,
     };
-}
+};
 
 export const removeFromCart = (id) => {
     if (!id) throw new Error("No id provided.");
 
     return {
-        type: SERVICE_REMOVE_FROM_CART,
-        payload: id
+        type: "SERVICE_REMOVE_FROM_CART",
+        payload: id,
     };
-}
+};

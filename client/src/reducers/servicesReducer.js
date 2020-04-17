@@ -51,6 +51,7 @@ const reducer = (state = INIT, { type, payload }) => {
             }
         }
         case "SERVICE_ADD_TO_CART": {
+            console.log(state, { type, payload });
             return {
                 ...state,
                 services: state.services.map((x) =>
@@ -64,6 +65,7 @@ const reducer = (state = INIT, { type, payload }) => {
             };
         }
         case "SERVICE_REMOVE_FROM_CART": {
+            console.log(state, { type, payload });
             return {
                 ...state,
                 services: state.services.map((x) =>
@@ -77,6 +79,7 @@ const reducer = (state = INIT, { type, payload }) => {
             };
         }
         case "UPDATE_SERVICE_END": {
+            console.log(state, { type, payload });
             // expect payload to be one service
             if (payload.error) {
                 return {
@@ -95,6 +98,7 @@ const reducer = (state = INIT, { type, payload }) => {
             }
         }
         case "DELETE_SERVICE_END": {
+            console.log(state, { type, payload });
             if (payload.error) {
                 return {
                     ...state,
@@ -112,6 +116,7 @@ const reducer = (state = INIT, { type, payload }) => {
             }
         }
         case "CREATE_SERVICE_END": {
+            console.log(state, { type, payload });
             if (payload.error) {
                 return {
                     ...state,

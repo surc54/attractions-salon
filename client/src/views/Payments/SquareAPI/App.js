@@ -10,7 +10,7 @@ class App extends Component {
         };
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         const that = this;
         let sqPaymentScript = document.createElement("script");
         //sqPaymentScript.src = "https://js.squareup.com/v2/paymentform";

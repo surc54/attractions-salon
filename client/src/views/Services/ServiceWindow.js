@@ -11,7 +11,6 @@ import {
     Typography,
 } from "@material-ui/core";
 
-
 const check = (item, filterText, filterCat) => {
     //console.log(item);
     //console.log(filterText);
@@ -24,9 +23,9 @@ const check = (item, filterText, filterCat) => {
     else return item.name.toLowerCase().includes(filterText);
 };
 
-const ServiceWindow = ({ services, filterText, filterCat, cart, setCart }) => {
+const ServiceWindow = ({ services, filterText, filterCat }) => {
     const classes = useStyles();
-    const servicesHook = useServices(); 
+    const servicesHook = useServices();
 
     return (
         <div className="serviceEntries">
@@ -74,7 +73,9 @@ const ServiceWindow = ({ services, filterText, filterCat, cart, setCart }) => {
                                             color="primary"
                                             className={classes.servicePrice}
                                         >
-                                            {item.price ? `$${item.price}` : "*"}
+                                            {item.price
+                                                ? `$${item.price}`
+                                                : "*"}
                                         </Typography>
                                     </div>
                                 </CardContent>
@@ -86,16 +87,26 @@ const ServiceWindow = ({ services, filterText, filterCat, cart, setCart }) => {
                                     Learn More
                                 </Button>
                                 {item.inCart ? (
-                                    <Button size="small" color="secondary" onClick={()=> handleRemove(item, servicesHook)}>
-                                        Remove 
+                                    <Button
+                                        size="small"
+                                        color="secondary"
+                                        onClick={() =>
+                                            handleRemove(item, servicesHook)
+                                        }
+                                    >
+                                        Remove
                                     </Button>
-                                )
-                                : (
-                                    <Button size="small" color="secondary" onClick={()=> handleAdd(item, servicesHook)}>
-                                        Add 
+                                ) : (
+                                    <Button
+                                        size="small"
+                                        color="secondary"
+                                        onClick={() =>
+                                            handleAdd(item, servicesHook)
+                                        }
+                                    >
+                                        Add
                                     </Button>
-                                )
-                                }
+                                )}
                             </CardActions>
                         </Card>
                     );
@@ -108,12 +119,12 @@ const handleAdd = (item, services) => {
     // services in database dont have this field yet
     // if(!item.added) item.added = true;
     services.addToCart(item._id);
-}
+};
 const handleRemove = (item, services) => {
     // services in database dont have this field yet
     // if(!item.added) item.added = true;
     services.removeFromCart(item._id);
-}
+};
 
 const useStyles = makeStyles({
     root: {

@@ -202,12 +202,4 @@ export class NonSuccessError extends Error {
 //     }
 // };
 
-export const START_SERVICES_LOAD = "START_SERVICES_LOAD";
-export const UPDATE_SERVICE_END = "UPDATE_SERVICE_END";
-export const DELETE_SERVICE_END = "DELETE_SERVICE_END";
-export const CREATE_SERVICE_END = "CREATE_SERVICE_END";
 
-export const GET_SERVICES_INFO_END = "GET_SERVICES_INFO_END";
-
-export const SERVICE_ADD_TO_CART = "SERVICE_ADD_TO_CART";
-export const SERVICE_REMOVE_FROM_CART = "SERVICE_REMOVE_FROM_CART";

@@ -101,14 +101,14 @@ const Config: IConfig = {
         },
         "create a service": {
             url: "/api/admin/services",
-            method: "GET",
+            method: "PUT",
             headers: {
                 ...noCache,
             },
         },
         "delete a service": {
             url: "/api/admin/services",
-            method: "GET",
+            method: "DELETE",
             headers: {
                 ...noCache,
             },

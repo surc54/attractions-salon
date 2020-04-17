@@ -82,7 +82,7 @@ const AppointmentWindow = props => {
             <h4>Scheduled Items</h4>
             {props.appointment.services.map(service => {
                 return (
-                    <div className="appointmentInfoDiv">
+                    <div className="appointmentInfoDiv" key={service.name}>
                         {service.name}
                         <div style={{ float: "right" }}>${service.price}</div>
                     </div>

@@ -238,7 +238,7 @@ const CartList = () => {
     const [open, setOpen] = React.useState(false);
     const servicesHook = useServices();
 
-    //limit to 3, cause it looks ok with just 3
+    //limit to 3, cause it looks ok with just 3 -not
 
     const handleClick = () => {
         setOpen(!open);
@@ -254,21 +254,25 @@ const CartList = () => {
                 />
                 <ListItemText primary="Your Cart" />
 
-                <Chip label={String(inCart.length)} size="small" style={{marginRight: 12}} color={inCart.length > 0 ? "primary" : "default"} />
+                <Chip
+                    label={String(inCart.length)}
+                    size="small"
+                    style={{ marginRight: 12 }}
+                    color={inCart.length > 0 ? "primary" : "default"}
+                />
                 {open ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
 
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                    {inCart
-                        .map((service) => {
-                            return (
-                                <ListItem>
-                                    <ListItemText primary={service.name} />
-                                    ${service.price}
-                                </ListItem>
-                            );
-                        })}
+                    {inCart.map((service) => {
+                        return (
+                            <ListItem>
+                                <ListItemText primary={service.name} />$
+                                {service.price}
+                            </ListItem>
+                        );
+                    })}
                 </List>
             </Collapse>
         </List>

@@ -10,7 +10,6 @@ import bgImg2 from "../../assets/bg-wave-2.png";
 import "./Services.css";
 
 const Services = () => {
-    const [cart, setCart] = React.useState([]);
     const [filterCat, setFilterCat] = useState("");
     const [filterText, setFilterText] = useState("");
     const services = useServices();
@@ -25,15 +24,24 @@ const Services = () => {
         <>
             <div className={classes.window}>
                 <Grid container spacing={0} className={classes.container}>
-                    <Grid item xs={12} md={2} className="scroll-bar" style={{ minWidth: 250, maxHeight: "calc(100vh - 64px)", overflowY: "auto" }}>
+                    <Grid
+                        item
+                        xs={12}
+                        md={2}
+                        className="scroll-bar"
+                        style={{
+                            minWidth: 250,
+                            maxHeight: "calc(100vh - 64px)",
+                            overflowY: "auto",
+                        }}
+                    >
                         <Paper className={classes.sideBar} elevation={0}>
                             <SideBar
                                 filterCat={filterCat}
                                 filterText={filterText}
                                 setFilterCat={setFilterCat}
                                 setFilterText={setFilterText}
-                                cart={cart}
-                                setCart={setCart}
+                                dummy={servicesJSON}
                             />
                         </Paper>
                     </Grid>
@@ -47,8 +55,6 @@ const Services = () => {
                             ) : (
                                 <>
                                     <ServiceWindow
-                                        cart={cart}
-                                        setCart={setCart}
                                         services={services.services}
                                         filterCat={filterCat}
                                         filterText={filterText}

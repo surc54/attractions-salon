@@ -38,12 +38,12 @@ const SecondStep = ({ appointment, setActiveStep }) => {
             </p>
             <Grid container classes={{ container: classes.page2 }}>
                 {/** use soemthing else to make it more responsive */}
-                <Grid item xs={4} spacing={1} style={{ marginRight: "60px" }}>
+                <Grid item xs={4} style={{ marginRight: "60px" }}>
                     <Paper elevation={1} className="p2Paper">
                         <AppointmentWindow appointment={appointment} />
                     </Paper>
                 </Grid>
-                <Grid item xs={4} spacing={1}>
+                <Grid item xs={4} >
                     <Paper elevation={1} className="p2Paper">
                         <AmountDueWindow appointment={appointment} setActiveStep={setActiveStep} />
                     </Paper>
