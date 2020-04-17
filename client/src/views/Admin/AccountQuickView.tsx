@@ -1,7 +1,6 @@
 import {
     Avatar,
     Button,
-    ThemeProvider,
     CircularProgress,
     createMuiTheme,
     Icon,
