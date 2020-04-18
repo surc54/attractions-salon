@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const photo = new mongoose.Schema({
-    id: { type: Number},
+const stylist= new mongoose.Schema({
+    name: { type: String, required: true },
     imgURL: {
         type: String,
         default:
@@ -11,4 +11,4 @@ const photo = new mongoose.Schema({
 });
 
 
-module.exports = mongoose.model("photos", photo);
+module.exports = mongoose.model("stylist", stylist);

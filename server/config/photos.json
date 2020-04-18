@@ -1,32 +1,27 @@
 [
     {
-        "items": [
-            {
-                "id": 1,
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "id": 2,
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "id": 3,
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "id": 4,
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "id": 5,
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            },
-            {
-                "id": 6,
-                "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
-            }
-        ]
+        "id": 1,
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "id": 2,
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "id": 3,
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "id": 4,
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "id": 5,
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "id": 6,
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
     }
 ]
-
 

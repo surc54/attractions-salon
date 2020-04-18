@@ -73,7 +73,21 @@ const Config: IConfig = {
         },
         "add photos info": {
             url: "/api/photos",
-            method: "POST",
+            method: "PUT",
+            headers: {
+                ...noCache,
+            }
+        },
+        "get stylist info": {
+            url: "/api/stylists",
+            method: "GET",
+            headers: {
+                ...noCache,
+            }
+        },
+        "add stylist info": {
+            url: "/api/stylists",
+            method: "PUT",
             headers: {
                 ...noCache,
             }

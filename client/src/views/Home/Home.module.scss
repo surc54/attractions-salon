@@ -451,11 +451,24 @@ h2.sectionTitle {
     flex-direction: row;
     order: 2;
     position: relative;
-    background: url(../../assets/stylist-example.jpg);
+    background: url('https://i.imgur.com/yTj3Y6n.jpg');
     border-radius: 10px 10px 0px 0px;
     top: 0vh;
     width: 250px;
-    height: 250px;
+    height: 350px;
+}
+
+.stylist2 {
+    /* displays the photograph for stylist*/
+    display: flex;
+    flex-direction: row;
+    order: 2;
+    position: relative;
+    background: url('https://i.imgur.com/g0H2Pcp.jpg');
+    border-radius: 10px 10px 0px 0px;
+    top: 0vh;
+    width: 250px;
+    height: 350px;
 }
 
 .stylist-box {

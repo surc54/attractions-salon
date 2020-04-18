@@ -7,8 +7,6 @@ const UNIMPLEMENTED = {
     message: "Unimplemented feature.",
 };
 
-{/**afdgdfbdfdbfd */}
-
 // List all services
 router.get("/", PhotoController.list);
 
@@ -16,12 +14,12 @@ router.get("/", PhotoController.list);
 router.get("/:id", PhotoController.read);
 
 // Add photo
-router.post("/", PhotoController.create);
+// router.post("/:id", PhotoController.update);
 
 // Modify photo
-router.put("/:id", PhotoController.update);
+router.put('/', PhotoController.create);
 
 // Remove photo
-router.delete("/:id", PhotoController.delete);
+// router.delete("/:id", PhotoController.delete);
 
 module.exports = router;

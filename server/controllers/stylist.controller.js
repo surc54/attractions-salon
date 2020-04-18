@@ -2,40 +2,41 @@ const fs = require("fs");
 const path = require("path");
 
 ///////////////// Testing
-const photos = require("../models/photos.model.js");
+const stylists = require("../models/stylist.model.js");
 /////////////////
 
 //Load data from JSON file. Delete when switching to database.
-let photosArray = [];
+let stylistArray = [];
 const TEMP_DATA_LIST_FILE = path.resolve(
     __dirname,
     "../config",
-    "photos.json"
+    "stylists.json"
 );
 
 {
     let fileData;
     try {
         fileData = fs.readFileSync(TEMP_DATA_LIST_FILE);
-        photosArray = JSON.parse(fileData);
+        stylistArray = JSON.parse(fileData);
     } catch (e) {
-        photosArray = [];
-        console.error("Could not get photos data: ", e);
+        stylistArray = [];
+        console.error("Could not get stylist data: ", e);
     }
 }
 
 module.exports.list = (req, res) => {
     
     // initialize database
-    photosArray.forEach(item => {
-        let newGroup = new photos(item);
+    stylistArray.forEach(item => {
+        // this works
+        let newGroup = new stylists(item);
         newGroup.save();
     });
     res.send({
         status: "ok",
-        data: photosArray,
+        data: stylistArray,
     });
-    photos
+    stylists
         .find({})
         .then(value => {
             res.send({
@@ -43,15 +44,15 @@ module.exports.list = (req, res) => {
                 data: value,
             });
         })
-        .catch(reason => res.status(200).send("Error when finding photos"));
+        .catch(reason => res.status(200).send("Error when finding stylists"));
 };
 
 module.exports.read = (req, res) => {
-    photos
+    services
         .findById({ _id: req.params.id })
         .then(successData => res.json(successData || {}))
         .catch(reason =>
-            res.status(200).send("Error when finding a specific photo")
+            res.status(200).send("Error when finding a specific service")
         );
 
     // res.send({
@@ -61,25 +62,37 @@ module.exports.read = (req, res) => {
 };
 
 module.exports.create = (req, res) => {
-    console.log('printing newData')
-    const photo = {
-        id: req.body.id,
-        imgURL: req.body.imgURL
-    }
+    /// assuming it looks like this ///
+    let groupName = req.body.groupName;
+    let items = req.body.items;
 
-    let newData = new photos(photo);
-    console.log('printing newData')
-    console.log(newData)
-    newData.save()
-        .then((resp) => {
-            //send_code_success(res,201, "photo save success");
-            return res.status(200).json(resp)
-        .catch((err) => {
-            send_code_error(res,500, "photo save error");
-            console.error("Could not save photo to database:", err);
-        })
-    
-    })
+    // need to allow to create an item
+    // or an entirely new group
+    // but I dont know the syntax
+
+    res.send({
+        status: "ok",
+        data: servicesArray,
+    });
+
+    // experimental stuff below this
+
+    let data;
+
+    // if creating a new group
+    data = {
+        groupName: groupName,
+        items: items, // assuming both fields exist
+    };
+
+    let newData = new services(data);
+
+    // newData
+    //     .save()
+    //     .then(successData => res.json(successData))
+    //     .catch(reason =>
+    //         res.status(200).send("Some message that indicates an error")
+    //     );
 };
 
 module.exports.update = (req, res) => {

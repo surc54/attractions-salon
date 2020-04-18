@@ -43,6 +43,8 @@ import Slideshow from "./Slideshow";
 const Home = () => {
     // Grab history object from react-router
     const [aboutBox, setAboutBox] = useState("")
+    const [stylist1Name, setStylist1Name] = useState("")
+    const [stylist2Name, setStylist2Name] = useState("")
     const ezSettings = useEzSettings();
     const history = useHistory();
 
@@ -52,6 +54,21 @@ const Home = () => {
             .then((res) => {
                 console.log("setting", res);
                 setAboutBox(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        // the [] means only do when loading this component
+    }, 
+    []
+    );
+
+    React.useEffect(() => {
+        ezSettings
+            .get("home-stylist1")
+            .then((res) => {
+                console.log("setting", res);
+                setStylist1Name(res);
             })
             .catch((err) => {
                 console.log(err);
@@ -73,6 +90,10 @@ const Home = () => {
                 aboutBox = {aboutBox}
                 setAboutBox = {setAboutBox}
                 ezSettings = {ezSettings}
+                stylist1Name = {stylist1Name}
+                setStylist1Name = {setStylist1Name}
+                stylist2Name = {stylist2Name}
+                setStylist2Name = {setStylist2Name}
             />
         </div>
     )
@@ -295,8 +316,9 @@ const Home = () => {
                     </h2>
                     <SpacingGrid className={styles["stylist1"]}></SpacingGrid>
                     {/* <p style = {{color: 'white'}}>h</p> */}
-                    <SpacingGrid2 className={styles["stylist-box"]}>
-                    Jane Doe
+                    <SpacingGrid2 className={styles["stylist-box"]}
+                    stylist1Name = {stylist1Name}
+                    stylist2Name = {stylist2Name}>
                     </SpacingGrid2>
                 </Container>
             </section>
