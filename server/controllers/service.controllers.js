@@ -39,7 +39,7 @@ module.exports.read = (req, res) => {
         .findById({ _id: req.params.id })
         .then((successData) => res.json(successData || {}))
         .catch((reason) =>
-            res.status(400).send("Error when finding a specific service")
+            res.status(500).send("Error when finding a specific service")
         );
 };
 
@@ -48,9 +48,16 @@ module.exports.admin = {};
 module.exports.admin.delete = (req, res) => {
     let toRemove = req.params.id;
 
-    Listing.findOneAndDelete({ _id: toRemove })
-        .then((value) => res.json(value))
-        .catch((reason) => res.status(400).send("Error when deleting"));
+    //console.log("attempting to remove", toRemove);
+
+    services
+        .findOneAndDelete({ _id: toRemove })
+        .then((value) => {
+            res.json(value);
+        })
+        .catch((reason) => {
+            res.status(500).send("Error when deleting");
+        });
 };
 
 module.exports.admin.update = (req, res) => {
@@ -59,6 +66,7 @@ module.exports.admin.update = (req, res) => {
         name,
         price,
         description, // how to deal with optional fields?
+        __v, // how to deal with optional fields?
         subtitle,
         imgURL,
     } = req.body;
@@ -66,7 +74,7 @@ module.exports.admin.update = (req, res) => {
     /* Replace the listings's properties with the new properties found in req.body */
 
     let updateID = req.params.id;
-    
+
     let updatedInfo = {
         $set: {
             name: name ? name : undefined,
@@ -74,28 +82,24 @@ module.exports.admin.update = (req, res) => {
             groupName: groupName ? groupName : undefined,
             description: description ? description : undefined,
             subtitle: subtitle ? subtitle : undefined,
+            imgURL: imgURL,
+            __v: __v,
             // no imgURL yet
         },
     };
 
-    Listing.updateOne({ _id: updateID }, updatedInfo)
+    services
+        .updateOne({ _id: updateID }, updatedInfo)
         .then((value) =>
-            Listing.findById(updateID).then((successData) =>
+        services.findById(updateID).then((successData) =>
                 res.json(successData)
             )
         )
-        .catch((reason) => res.status(400).send("Error when updating"));
+        .catch((reason) => res.status(500).send("Error when updating"));
 };
 
 module.exports.admin.create = (req, res) => {
-    let {
-        groupName,
-        name,
-        price,
-        description,
-        subtitle,
-        imgURL,
-    } = req.body;
+    let { groupName, name, price, description, subtitle, imgURL } = req.body;
 
     // experimental stuff below this
 

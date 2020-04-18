@@ -93,21 +93,21 @@ const Config: IConfig = {
             },
         },
         "update a service": {
-            url: "/api/admin/services",
+            baseURL: "/api/admin/services/",
             method: "POST",
             headers: {
                 ...noCache,
             },
         },
         "create a service": {
-            url: "/api/admin/services",
+            baseURL: "/api/admin/services/",
             method: "PUT",
             headers: {
                 ...noCache,
             },
         },
         "delete a service": {
-            url: "/api/admin/services",
+            baseURL: "/api/admin/services/",
             method: "DELETE",
             headers: {
                 ...noCache,

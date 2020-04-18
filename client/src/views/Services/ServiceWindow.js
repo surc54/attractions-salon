@@ -34,7 +34,7 @@ const ServiceWindow = ({ services, filterText, filterCat }) => {
                 .map((item) => {
                     
                     return (
-                        <Card classes={{ root: classes.root }} key={item.name}>
+                        <Card classes={{ root: classes.root }} key={item._id}>
                             <CardActionArea>
                                 <CardMedia
                                     className={classes.media}
