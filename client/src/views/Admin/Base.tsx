@@ -20,6 +20,7 @@ import styles from "./Base.module.scss";
 import InitialLoader from "./initial-loader/InitialLoader";
 import ServiceSettings from "./pages/ServiceSettings";
 import TestimonialsSettings from "./pages/TestimonialsSettings";
+import BookSettings from "./pages/BookSettings";
 import UserSettings from "./pages/user-settings/UserSettings";
 import AdminSidebar from "./Sidebar";
 
@@ -130,6 +131,10 @@ const AdminBase: React.FC<AdminBaseProps> = () => {
                             <Route
                                 path="/admin/page/services"
                                 component={ServiceSettings}
+                            />
+                            <Route
+                                path="/admin/page/book-now"
+                                component={BookSettings}
                             />
                             <Route
                                 path="/admin/page/testimonials"

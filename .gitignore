@@ -57,6 +57,6 @@ yarn-error.log*
 
 # Environment file for React
 client/.env
-
+client/sendgrid.env
 # eslint
 .eslintrc

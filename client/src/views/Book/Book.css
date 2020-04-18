@@ -1,6 +1,12 @@
 .content {
     padding: 150px;
-    position: relative;
-    width: 850px;
+    text-align: center;
+    /* width: 850px; */
     height: 100%;
+}
+
+#date-picker-dialog,
+#time-picker,
+#outlined-required {
+    width: 100vw;
 }
