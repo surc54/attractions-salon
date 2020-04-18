@@ -11,6 +11,7 @@ function testimonialReducer(
 ): TestimonialState {
     switch (action.type) {
         case ADD_TESTIMONIAL: {
+            console.log(action.payload);
             state = {
                 ...state,
                 data: [
@@ -23,6 +24,7 @@ function testimonialReducer(
                         feedback: action.payload.feedback,
                         updatedAt: "",
                         createdAt: "",
+                        captcharesponse: action.payload.captcharesponse,
                     },
                     ...state.data,
                 ],

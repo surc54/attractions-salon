@@ -8,6 +8,7 @@ const TestimonialSchema = new Schema(
         name: String,
         rating: Number,
         feedback: String,
+        captcharesponse: String,
     },
     { timestamps: true }
 );

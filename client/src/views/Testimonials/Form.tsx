@@ -13,12 +13,13 @@ import {
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import "./Testimonials.css";
-// import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export interface addTestimonialParams {
     name: string;
     rating: number;
     feedback: string;
+    captcharesponse: string;
 }
 
 const validate = (
@@ -33,6 +34,9 @@ const validate = (
     }
     if (!values.feedback) {
         errors.feedback = "Feedback required";
+    }
+    if (!values.captcharesponse) {
+        errors.captcharesponse = "Please validate the captcha.";
     }
     return errors;
 };
@@ -60,6 +64,18 @@ const renderTextField: React.FC = (field: any) => {
     );
 };
 
+const Captcha = (field: any) => (
+    <div>
+        <ReCAPTCHA
+            sitekey="6Le9zuMUAAAAAE6pAtVkhrOoRrMaycB9b-hdA53b"
+            onChange={(response) => field.input.onChange(response)}
+        />
+        {field.meta.touched && (
+            <p style={{ color: "red", margin: "0px" }}>{field.meta.error}</p>
+        )}
+    </div>
+);
+
 const renderRating: React.FC = (field: any) => {
     return (
         <div>
@@ -82,15 +98,6 @@ const renderRating: React.FC = (field: any) => {
 
 export const Form: React.FC = (props: any) => {
     const { handleSubmit, pristine, submitting, open, setOpen } = props;
-    // const recaptchaRef = React.createRef<ReCAPTCHA>();
-    // const [resetRecaptcha, setResetRecaptcha] = React.useState<boolean>(false);
-
-    // useLayoutEffect(() => {
-    //     if (resetRecaptcha && recaptchaRef.current) {
-    //         recaptchaRef.current.reset();
-    //         setResetRecaptcha(false);
-    //     }
-    // }, [recaptchaRef, resetRecaptcha]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -139,7 +146,7 @@ export const Form: React.FC = (props: any) => {
                                 name="rating"
                                 className="ratings"
                                 size="large"
-                                style={{ marginBottom: "20px" }}
+                                style={{ padding: "0px" }}
                                 component={renderRating}
                             />
                             <Typography>
@@ -153,14 +160,9 @@ export const Form: React.FC = (props: any) => {
                                 label="Write Your feedback Here"
                                 multiline
                                 margin="normal"
-                                rows={8}
+                                rows={6}
                             />
-                            {/* <div>
-                                <ReCAPTCHA
-                                    ref={recaptchaRef}
-                                    sitekey="6Le9zuMUAAAAAE6pAtVkhrOoRrMaycB9b-hdA53b"
-                                />
-                            </div> */}
+                            <Field name="captcharesponse" component={Captcha} />
                         </div>
                     </DialogContent>
                     <DialogActions>

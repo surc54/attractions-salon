@@ -1,6 +1,7 @@
 const testimonial = require("../models/testimonial.model.js");
 const { send_code_error, send_code_success } = require("../tools");
-const _ = require("lodash");
+const axios = require("axios").default;
+const querystring = require("querystring");
 
 // For User side
 
@@ -23,7 +24,35 @@ module.exports.create = async (req, res) => {
         name: req.body.name,
         rating: req.body.rating,
         feedback: req.body.feedback,
+        captcharesponse: req.body.captcharesponse,
     });
+
+    let recaptchaResult = null;
+
+    try {
+        recaptchaResult = await axios.post(
+            "https://www.google.com/recaptcha/api/siteverify",
+            querystring.stringify({
+                secret:
+                    process.env.RECAPTCHA_SECRET ||
+                    require("../config/config").recaptcha.v2.secretKey,
+                response: req.body.captcharesponse,
+            })
+        );
+    } catch (e) {
+        send_code_error(res, 502, "auth/sign-up/recaptcha-failed");
+        return;
+    }
+
+    if (
+        !recaptchaResult ||
+        recaptchaResult.status !== 200 ||
+        !recaptchaResult.data ||
+        !recaptchaResult.data.success
+    ) {
+        send_code_error(res, 502, "auth/sign-up/recaptcha-failed");
+        return;
+    }
 
     await data
         .save()

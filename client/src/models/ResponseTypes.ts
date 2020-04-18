@@ -25,6 +25,7 @@ export interface ApiResponseTestimonial {
     rating: number;
     __v?: number;
     feedback: string;
+    captcharepsonse: string;
     _id: string;
     updatedAt: string;
     createdAt: string;

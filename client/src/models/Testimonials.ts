@@ -7,6 +7,7 @@ export interface TestimonialData {
     feedback: string;
     createdAt: string;
     updatedAt: string;
+    captcharesponse: string;
 }
 
 export interface TestimonialState {
