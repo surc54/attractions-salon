@@ -7,7 +7,6 @@ import App from "./SquareAPI/App";
 
 const ThirdStep = props => {
     return (
-        // <App></App>
         <App appointment={props.appointment}></App>
     );
 };

@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     instructions: {
         marginTop: theme.spacing(1),
         marginBottom: theme.spacing(1),
+        fontSize: 40,
     },
 }));
 
@@ -135,7 +136,7 @@ const HorizontalLabelPositionBelowStepper = () => {
                 </Stepper>
                 <div>
                     {activeStep === steps.length ? (
-                        <div>
+                        <div style={{textAlign:"center"}}>
                             <Typography className={classes.instructions}>
                                 All steps completed
                             </Typography>

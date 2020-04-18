@@ -290,7 +290,7 @@ const Home = () => {
                             <h2 className={styles.sectionTitle}>
                                 Get in Touch
                             </h2>
-                            <div className={styles.information}>
+                            <div className={styles.information}><a id="contactSection"></a>
                                 <InfoPiece
                                     maxWidth={
                                         isSmallOrBelow ? "100%" : undefined
