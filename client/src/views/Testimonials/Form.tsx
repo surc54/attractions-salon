@@ -53,6 +53,7 @@ const renderTextField: React.FC = (field: any) => {
                 fullWidth={field.fullWidth}
                 multiline={field.multiline}
                 rows={field.rows}
+                rowsMax={field.rowsMax}
                 {...field.input}
             />
             {field.meta.touched && (
@@ -160,7 +161,8 @@ export const Form: React.FC = (props: any) => {
                                 label="Write Your feedback Here"
                                 multiline
                                 margin="normal"
-                                rows={6}
+                                rowsMax={6}
+                                rows={5}
                             />
                             <Field name="captcharesponse" component={Captcha} />
                         </div>

@@ -21,7 +21,7 @@ import moment from "moment";
 
 const TestimonialsSettings: React.FC = () => {
     const testimonialSettings = useAdminTestimonialSettings();
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(2);
 
     const refresh = () => {
         testimonialSettings.getTestimonialList();

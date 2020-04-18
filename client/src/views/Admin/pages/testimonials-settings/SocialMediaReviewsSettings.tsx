@@ -11,6 +11,7 @@ import {
     GridListTile,
     GridListTileBar,
 } from "@material-ui/core";
+import axios from "axios";
 
 const tempSocialMediaReviews = [
     {
@@ -35,28 +36,14 @@ const tempSocialMediaReviews = [
     },
 ];
 
+// axios.post("/api/social-media-reviews", { tempSocialMediaReviews });
+
 const SocialMediaReviewsSettings: React.FC = () => {
     return (
         <div>
             <header className="__admin_header">
-                <h1>Social Media Reviews</h1>
+                <h1>Google and Facebook Reviews</h1>
                 <span className="spacer"></span>
-                {/* <Typography variant="button">
-                Last Loaded:{" "}
-                {!testimonialSettings.lastLoadTime
-                    ? "Never"
-                    : testimonialSettings.lastLoadTime.toLocaleTimeString()}
-            </Typography>
-
-            {testimonialSettings.loading ? (
-                <CircularProgress size={24} />
-            ) : (
-                <Tooltip title="Refresh">
-                    <IconButton onClick={refresh}>
-                        <Icon>refresh</Icon>
-                    </IconButton>
-                </Tooltip>
-            )} */}
             </header>
             <form style={{ marginBottom: "25px" }}>
                 <TextField
@@ -66,7 +53,6 @@ const SocialMediaReviewsSettings: React.FC = () => {
                     variant="outlined"
                     fullWidth
                     style={{ width: "85%", marginRight: "10px" }}
-                    // disabled={userSettings.loading}
                     // value={search}
                     // onChange={(e) => setSearch(e.target.value)}
                 />
