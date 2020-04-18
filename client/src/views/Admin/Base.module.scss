@@ -25,6 +25,10 @@
             }
         }
 
+        &.small {
+            padding-top: 112px;
+        }
+
         &:global(-enter),
         &:global(-appear) {
             opacity: 0;
@@ -93,4 +97,8 @@
 
         transition: opacity 0.25s, transform 0.25s;
     }
+}
+
+header.appBar {
+    background-color: #f1c7cf;
 }

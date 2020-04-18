@@ -25,7 +25,7 @@ const goToContactUs = () => {
     history.push("/contact");
 };
 
-const NotFound: React.FC<NotFoundProps> = () => {
+const NotFound: React.FC<NotFoundProps> = ({ equalSplit = false }) => {
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -44,7 +44,12 @@ const NotFound: React.FC<NotFoundProps> = () => {
                     <Grid item xs={12} md={8} className={styles.left}>
                         <img src={pic} alt="pic" />
                     </Grid>
-                    <Grid item xs={12} md={4} className={styles.right}>
+                    <Grid
+                        item
+                        xs={12}
+                        md={equalSplit ? 6 : 4}
+                        className={styles.right}
+                    >
                         <pre>HTTP 404 - NOT FOUND</pre>
                         <h1>This page doesn't exist.</h1>
                         <div className={styles.actions}>
@@ -89,6 +94,8 @@ const NotFound: React.FC<NotFoundProps> = () => {
     );
 };
 
-export interface NotFoundProps {}
+export interface NotFoundProps {
+    equalSplit?: boolean;
+}
 
 export default NotFound;
