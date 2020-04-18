@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import "./Testimonials.css";
-import SocialMediaReviews from "./SocialMediaReviews";
+// import SocialMediaReviews from "./SocialMediaReviews";
 import AddTestimonial from "./AddTestimonial";
 import axios from "axios";
 import moment from "moment";
@@ -96,7 +96,7 @@ const Testimonials = () => {
                     })}
                 </Grid>
             </div>
-            <SocialMediaReviews />
+            {/* <SocialMediaReviews /> */}
         </div>
     );
 };

@@ -16,12 +16,12 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Rating from "@material-ui/lab/Rating";
 import { useAdminTestimonialSettings } from "../../../../hooks";
 import "../../../Testimonials/Testimonials.css";
-import SocialMediaReviewsSettings from "./SocialMediaReviewsSettings";
+// import SocialMediaReviewsSettings from "./SocialMediaReviewsSettings";
 import moment from "moment";
 
 const TestimonialsSettings: React.FC = () => {
     const testimonialSettings = useAdminTestimonialSettings();
-    const [page, setPage] = useState(2);
+    // const [page, setPage] = useState(2);
 
     const refresh = () => {
         testimonialSettings.getTestimonialList();
@@ -36,10 +36,10 @@ const TestimonialsSettings: React.FC = () => {
 
     const page1 = (
         <div>
-            <ButtonGroup variant="text" color="primary" fullWidth size="large">
+            {/* <ButtonGroup variant="text" color="primary" fullWidth size="large">
                 <Button onClick={() => setPage(1)}>Testimonials</Button>
                 <Button onClick={() => setPage(2)}>Social Media Reviews</Button>
-            </ButtonGroup>
+            </ButtonGroup> */}
             <header className="__admin_header">
                 <h1>Testimonials</h1>
                 <span className="spacer"></span>
@@ -144,24 +144,24 @@ const TestimonialsSettings: React.FC = () => {
         </div>
     );
 
-    const page2 = (
-        <div>
-            <ButtonGroup variant="text" color="primary" fullWidth size="large">
-                <Button onClick={() => setPage(1)}>Testimonials</Button>
-                <Button onClick={() => setPage(2)}>Social Media Reviews</Button>
-            </ButtonGroup>
-            <SocialMediaReviewsSettings />
-        </div>
-    );
+    // const page2 = (
+    //     <div>
+    //         <ButtonGroup variant="text" color="primary" fullWidth size="large">
+    //             <Button onClick={() => setPage(1)}>Testimonials</Button>
+    //             <Button onClick={() => setPage(2)}>Social Media Reviews</Button>
+    //         </ButtonGroup>
+    //         <SocialMediaReviewsSettings />
+    //     </div>
+    // );
 
-    switch (page) {
-        case 1:
+    // switch (page) {
+    //     case 1:
+    //         return page1;
+    //     case 2:
+    //         return page2;
+    //     default:
             return page1;
-        case 2:
-            return page2;
-        default:
-            return page1;
-    }
+    // }
 };
 
 export default TestimonialsSettings;
