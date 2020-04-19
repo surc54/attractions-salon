@@ -97,9 +97,9 @@ module.exports.update = (req, res) => {
         },
     };
 
-    Listing.updateOne({ _id: updateID }, updatedInfo)
+    photos.updateOne({ _id: updateID }, updatedInfo)
         .then(value =>
-            Listing.findById(updateID).then(successData =>
+            photos.findById(updateID).then(successData =>
                 res.json(successData)
             )
         )
@@ -109,7 +109,7 @@ module.exports.update = (req, res) => {
 module.exports.delete = (req, res) => {
     let toRemove = req.params.id;
 
-    Listing.findOneAndDelete({ _id: toRemove })
+    photos.findOneAndDelete({ _id: toRemove })
         .then(value => res.json(value))
         .catch(reason => res.status(200).send("Error when deleting"));
 };

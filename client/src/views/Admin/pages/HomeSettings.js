@@ -13,6 +13,8 @@ import axios from 'axios';
 
 
 const HomeSettings = (props) => {
+    // const [stylistSetting,setStylistSetting] = useState("");
+    // const [stylistSetting2,setStylistSetting2] = useState("");
     const [photoInfo, setPhotoInfo] = useState([]);
     const [pageNum, setPageNum] = useState(0);
 
@@ -61,6 +63,10 @@ const getChoiceView = (pageNum, props) => {
             setStylist1Name = {props.setStylist1Name}
             stylist2Name = {props.stylist2Name}
             setStylist2Name = {props.setStylist2Name}
+            // stylistSetting = {props.stylistSetting}
+            // setStylistSetting = {props.setStylistSetting}
+            // stylistSetting2 = {props.stylistSetting2}
+            // setStylistSetting2 = {props.setStylistSetting2}
              />;
         default:
             return "Unknown pageView";
@@ -205,6 +211,9 @@ const HomeUpdateAboutView = (props) => {
 };
 
 const HomeUpdateStylistForm = (props) => {
+    const setting1 = "stylist-name";
+    const setting2 = "stylist-two";
+
     return (
         <div>
             <div
@@ -223,14 +232,16 @@ const HomeUpdateStylistForm = (props) => {
             <HomeStylistForm
             stylist1Name = {props.stylist1Name}
             setStylist1Name = {props.setStylist1Name}
+            setting = {setting1}
             />
             <p>
                 Update Stylist 2 Name
             </p>
-            {/* <HomeStylistForm
+            <HomeStylistForm
             stylist1Name = {props.stylist2Name}
             setStylist1Name = {props.setStylist2Name}
-            /> */}
+            setting = {setting2}
+            />
 
         </div>
     );
@@ -280,8 +291,10 @@ const HomeStylistForm = (props) => {
     const ezSettings = useEzSettings();
     const handleInputChange = event => {
         const box = event.target.value;
+        const setting = props.setting
+        console.log(setting)
         ezSettings
-        .set("home-stylist1", box)
+        .set({setting}, box)
         .then((res) => props.setStylist1Name(res))
         .catch((err) => console.log(err));
         }

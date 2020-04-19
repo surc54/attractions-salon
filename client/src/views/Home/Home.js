@@ -58,14 +58,8 @@ const Home = () => {
             .catch((err) => {
                 console.log(err);
             });
-        // the [] means only do when loading this component
-    }, 
-    []
-    );
-
-    React.useEffect(() => {
-        ezSettings
-            .get("home-stylist1")
+            ezSettings
+            .get("stylist-name")
             .then((res) => {
                 console.log("setting", res);
                 setStylist1Name(res);
@@ -73,7 +67,16 @@ const Home = () => {
             .catch((err) => {
                 console.log(err);
             });
-        // the [] means only do when loading this component
+
+            ezSettings
+            .get("stylist-two")
+            .then((res) => {
+                console.log("setting", res);
+                setStylist2Name(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }, 
     []
     );

@@ -29,17 +29,17 @@ export default function SpacingGrid(props) {
             <Grid key={value} item>
               <Paper/><div style = {{top: '-35%', fontSize: 25}}
               className={styles["stylist-box"]}>{props.stylist1Name}
-              <p><small>
-                A small bio here</small></p>
+              {/* <p><small>
+                A small bio here</small></p> */}
               </div>
             </Grid>
           ))}
           {[1].map(value => (
             <Grid key={value} item>
               <Paper/><div style = {{top: '-35%', fontSize: 25}}
-              className={styles["stylist-box"]}>Stylist 2
-              <p><small>
-                A small bio here</small></p>
+              className={styles["stylist-box"]}>{props.stylist2Name}
+              {/* <p><small>
+                A small bio here</small></p> */}
                 </div>
             </Grid>
           ))}
