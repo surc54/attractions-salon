@@ -4,7 +4,7 @@ import Form from "./Form";
 import { addTestimonial } from "../../actions/_addTestimonial";
 import { reset } from "redux-form";
 
-export const User = (props: any) => {
+export const AddTestimonial = (props: any) => {
     const handleSubmit = (values: any) => {
         console.log(values);
         props.dispatch(addTestimonial(values));
@@ -24,4 +24,4 @@ export const User = (props: any) => {
     );
 };
 
-export default connect(null)(User);
+export default connect(null)(AddTestimonial);

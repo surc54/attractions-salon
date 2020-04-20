@@ -1,7 +1,6 @@
-import React, { useLayoutEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { FormErrors } from "redux-form";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, FormErrors } from "redux-form";
 import {
     Button,
     Typography,
