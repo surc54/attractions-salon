@@ -5,34 +5,55 @@ const services = require("../models/services.model.js");
 
 // to import json from a file try this:
 // const export data = ...some data
-//import {data} from '../config/services.json'
-//const data = require('../config/services.json');
+const data = require('../config/services.json');
+
 // or export default { something }
 // then either import { something }
 // or import someImport -> someImport.something (?)
 
-module.exports.list = (req, res) => {
+module.exports.list = async (req, res) => {
     // initialize database
-    // data.forEach(item => {
-    //     // this works
-    //     let newGroup = new services(item);
-    //     newGroup.save();
-    // });
-    //    console.log(data);
-    // res.send({
-    //     status: "ok",
-    //     data: data,
-    // });
+    //await for(let i = 0 ; data.length; i++){
+    //    let newGroup = new services(item);
+    //    newGroup.save();  
+    //} // i was reading stuff, but I am not sure either
+    //// ahhh map & insert one, seems legit
+    //// im going to go and empty my databse brb
+    //// not sure how to check for that number
+    //services.find({}) == []?; // right
+    //
+    //servicesArray.forEach(item => {
+    //    // this works
+    //    
+    //}) 
 
     services
-        .find({})
-        .then((value) => {
-            res.send({
-                status: "ok",
-                data: value,
-            });
-        })
-        .catch((reason) => res.status(400).send("Error when finding services"));
+       .find({})
+       .then((value) => {
+            if (value.length === 0) {
+                
+                services.bulkWrite(data.map(service => ({
+                    insertOne: {
+                        document: service // i htink thats it
+                    }
+                }))).then(() => {
+                    services
+                    .find({})
+                    .then((value) => res.send({
+                        status: "ok",
+                        data: value,
+                    }));
+                }); 
+                
+
+            } else {
+                res.send({
+                    status: "ok",
+                    data: value,
+                });
+            }
+       })
+       .catch((reason) => res.status(500).send("Error when finding services"));
 };
 
 module.exports.read = (req, res) => {
