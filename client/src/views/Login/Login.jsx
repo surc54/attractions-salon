@@ -263,7 +263,7 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
                                     />
                                 ) : (
                                     <div className={styles.signedInLinks}>
-                                        <Link
+                                        {/* <Link
                                             component={RouterLink}
                                             to="/profile"
                                             onClick={() => {
@@ -271,7 +271,7 @@ const Login = ({ keepNavBar, modalMode, closeModal }) => {
                                             }}
                                         >
                                             Go to your profile
-                                        </Link>
+                                        </Link> */}
                                         {Config.adminPage.rolesAllowed.includes(
                                             userAuth.user.role
                                         ) && (
