@@ -113,6 +113,27 @@ const Config: IConfig = {
                 ...noCache,
             },
         },
+        "admin - get testimonial list": {
+            url: "/api/admin/testimonial/",
+            method: "GET",
+            headers: {
+                ...noCache,
+            },
+        },
+        "admin - delete testimonial": {
+            baseURL: "/api/admin/testimonial/",
+            method: "DELETE",
+            headers: {
+                ...noCache,
+            },
+        },
+        "admin - update testimonial": {
+            baseURL: "/api/admin/testimonial/",
+            method: "POST",
+            headers: {
+                ...noCache,
+            },
+        },
     },
     theme: {
         palette: {

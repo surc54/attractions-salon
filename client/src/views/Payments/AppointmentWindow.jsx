@@ -1,21 +1,17 @@
 import React from "react";
 import {
     makeStyles,
-    TextField,
     Button,
-    ButtonBase,
     List,
     ListItem,
-    ListItemIcon,
     ListItemText,
     Divider,
     Collapse,
 } from "@material-ui/core";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "./Payments.css";
 
-const useStyles = makeStyles(theme => ({
+const useStyles1 = makeStyles((theme) => ({
     nested: {
         paddingLeft: theme.spacing(4),
     },

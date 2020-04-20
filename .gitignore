@@ -61,3 +61,4 @@ client/.env
 
 # eslint
 .eslintrc
+client/sendgrid.env
