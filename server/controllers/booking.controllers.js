@@ -3,6 +3,7 @@ const {
   send_code_error,
   send_code_success,
 } = require("../tools");
+const client = require('twilio')(process.env.TWILIO_ACCT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 module.exports.create = (req, res) => {
   const booking = new Booking(req.body);
