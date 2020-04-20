@@ -11,7 +11,7 @@ import {
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "./Payments.css";
 
-const useStyles1 = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
     nested: {
         paddingLeft: theme.spacing(4),
     },

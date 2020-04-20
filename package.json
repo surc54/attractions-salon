@@ -38,6 +38,7 @@
     "material-ui": "^0.20.2",
     "mocha": "^6.2.2",
     "moment": "^2.24.0",
+    "mongo-sanitize": "^1.1.0",
     "mongoose": "^5.9.7",
     "morgan": "^1.10.0",
     "nodemon": "^1.19.4",
