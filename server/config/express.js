@@ -8,6 +8,7 @@ const path = require("path"),
     passport = require("passport"),
     exampleRouter = require("../routes/examples.server.routes"),
     servicesRouter = require("../routes/services.routes"),
+    bookingRouter = require("../routes/booking.routes"),
     accountRouter = require("../routes/account.routes"),
     adminRouter = require("../routes/admin/index.routes");
 
@@ -60,6 +61,7 @@ module.exports.init = () => {
     // add a router
     app.use("/api/example", exampleRouter);
     app.use("/api/services", servicesRouter);
+    app.use("/api/booking", bookingRouter);
     app.use("/api/account", accountRouter);
     app.use("/api/admin", adminRouter);
 
