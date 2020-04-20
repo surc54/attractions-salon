@@ -1,137 +1,81 @@
-const fs = require("fs");
-const path = require("path");
+const Booking = require("../models/booking.model"); // TODO: get Caleb's path to this file
+const {
+  send_code_error,
+  send_code_success,
+} = require("../tools");
 
-///////////////// Testing
-const bookings = require("../models/booking.model.js"); // TODO: get Caleb's path to this file
-/////////////////
+module.exports.create = (req, res) => {
+  const booking = new Booking(req.body);
 
-//Load data from JSON file. Delete when switching to database.
-let bookingsArray = [];
-const TEMP_DATA_LIST_FILE = path.resolve(
-    __dirname,
-    "../config",
-    "bookings.json" // <-- TODO: Create this test data set
-);
-
-{
-    let fileData;
-    try {
-        fileData = fs.readFileSync(TEMP_DATA_LIST_FILE);
-        bookingsArray = JSON.parse(fileData);
-    } catch (e) {
-        bookingsArray = [];
-        console.error("Could not get booking data: ", e);
-    }
-}
-
-{/**afdgdfbdfdbfd */}
-
-module.exports.list = (req, res) => {
-    
-    // initialize database
-    // bookingsArray.forEach(item => {
-    //     // this works
-    //     let newGroup = new bookings(item);
-    //     newGroup.save();
-    // });
-    // res.send({
-    //     status: "ok",
-    //     data: bookingsArray,
-    // });
-    bookings
-        .find({})
-        .then(value => {
-            res.send({
-                status: "ok",
-                data: value,
-            });
-        })
-        .catch(reason => res.status(200).send("Error when finding bookings"));
+  booking
+      .save()
+      .then((response) => {
+        send_code_success(res, 201); // TODO: possibly add a redirect page at the end
+      })
+      .catch((err) => {
+        send_code_error(res, 500);
+        console.error("Could not save booking to database:", err);
+      });
 };
 
 module.exports.read = (req, res) => {
-    bookings
-        .findById({ _id: req.params.id })
-        .then(successData => res.json(successData || {}))
-        .catch(reason =>
-            res.status(200).send("Error when finding a specific booking")
-        );
-
-    // res.send({
-    //     status: "ok",
-    //     data: bookingsArray,
-    // });
-};
-
-module.exports.create = (req, res) => {
-    /// assuming it looks like this ///
-    let groupName = req.body.groupName;
-    let items = req.body.items;
-
-    // need to allow to create an item
-    // or an entirely new group
-    // but I dont know the syntax
-
-    res.send({
-        status: "ok",
-        data: bookingsArray,
-    });
-
-    // experimental stuff below this
-
-    let data;
-
-    // if creating a new group
-    data = {
-        groupName: groupName,
-        items: items, // assuming both fields exist
-    };
-    // TO-DO
-    // Find by groupName, if found & equal => done
-    // Find by groupName, if found & unequal => what do I do?
-    // if not found, add new group
-
-    // should I check if same group already exists?
-    // to not create duplicates
-
-    let newData = new bookings(data);
-
-    // newData
-    //     .save()
-    //     .then(successData => res.json(successData))
-    //     .catch(reason =>
-    //         res.status(200).send("Some message that indicates an error")
-    //     );
+  Booking
+      .findOne({ bookingNum: req.params.bookingNum })
+      .then((response) => {
+        res.json(response || {});
+      })
+      .catch((err) => {
+        send_code_error(res, 500);
+        console.error("Error when finding a specific booking:", err);
+      });
 };
 
 module.exports.update = (req, res) => {
-    const group = req.group;
+  // const group = req.group;
 
-    /* Replace the listings's properties with the new properties found in req.body */
+  // let updateID = req.params.id;
+  // let updatedInfo;
 
-    let updateID = req.params.id;
-    let updatedInfo;
+  // updatedInfo = {
+  //     $set: {
+  //         groupName: req.body.groupName,
+  //         items: req.body.items,
+  //     },
+  // };
 
-    updatedInfo = {
-        $set: {
-            groupName: req.body.groupName,
-            items: req.body.items,
-        },
-    };
-
-    Listing.updateOne({ _id: updateID }, updatedInfo)
-        .then(value =>
-            Listing.findById(updateID).then(successData =>
-                res.json(successData)
-            )
-        )
-        .catch(reason => res.status(200).send("Error when updating"));
+  // Booking
+  //     .updateOne({ bookingNum: req.params.bookingNum }, updatedInfo)
+  //     .then(value =>
+  //       Listing.findById(updateID).then(successData =>
+  //         res.json(successData)
+  //       )
+  //     )
+  //     .catch(reason => res.status(500).send("Error when updating"));
 };
 
 module.exports.delete = (req, res) => {
-    let toRemove = req.params.id;
+  Listing
+      .findOneAndDelete({ bookingNum: req.params.bookingNum })
+      .then((response) => {
+        send_code_success(res, 200);
+      })
+      .catch((err) => {
+        send_code_error(res, 500);
+        console.error("Error when deleting", err);
+      });
+};
 
-    Listing.findOneAndDelete({ _id: toRemove })
-        .then(value => res.json(value))
-        .catch(reason => res.status(200).send("Error when deleting"));
+module.exports.list = (req, res) => {
+  Booking
+      .find({})
+      .then(value => {
+        res.send({
+          status: "ok",
+          data: value,
+        });
+      })
+      .catch((err) => {
+        send_code_error(res, 500);
+        console.error("Error when finding bookings", err);
+      });
 };

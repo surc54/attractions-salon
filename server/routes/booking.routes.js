@@ -6,15 +6,15 @@ const router = express.Router();
 router.get("/", BookingController.list);
 
 // Get info about specific booking
-router.get("/:id", BookingController.read);
+router.get("/:bookingNum", BookingController.read);
 
 // Add booking
 router.post("/", BookingController.create);
 
 // Modify booking
-router.put("/:id", BookingController.update);
+router.put("/:bookingNum", BookingController.update);
 
 // Remove booking
-router.delete("/:id", BookingController.delete);
+router.delete("/:bookingNum", BookingController.delete);
 
 module.exports = router;
