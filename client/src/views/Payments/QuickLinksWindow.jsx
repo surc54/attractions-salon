@@ -14,10 +14,10 @@ const QuickLinksWindow = props => {
                 <a className="quickLinks" href="./Book">How does scheduling work?</a>
             </div>
             <div className="quickLinksWindowDiv">
-                <a className="quickLinks" href="..">Where will my appointment take place?</a>
+                <a className="quickLinks" href="..#contactSection">Where will my appointment take place?</a>
             </div>
             <div className="quickLinksWindowDiv">
-                <a className="quickLinks" href="..">Call Attractions Salon</a>
+                <a className="quickLinks" href="..#contactSection">Call Attractions Salon</a>
             </div>
         </div >
     );

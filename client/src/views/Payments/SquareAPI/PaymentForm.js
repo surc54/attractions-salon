@@ -158,7 +158,8 @@ export default class PaymentForm extends Component {
             })
             .then(data => {
               console.log(JSON.stringify(data));
-              alert('Payment complete successfully!\nCheck browser developer console for more details');
+              // alert('Payment complete successfully!\nCheck browser developer console for more details');
+              alert('Payment complete successfully!\nSee you in store!');
             })
             .catch(err => {
               console.error(err);
