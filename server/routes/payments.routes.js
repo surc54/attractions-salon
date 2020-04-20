@@ -20,7 +20,9 @@ oauth2.accessToken = accessToken;
 // Set 'basePath' to switch between sandbox env and production env
 // sandbox: https://connect.squareupsandbox.com
 // production: https://connect.squareup.com
-defaultClient.basePath = 'https://connect.squareupsandbox.com';
+
+defaultClient.basePath = 'https://connect.squareupsandbox.com'; //for testing
+//defaultClient.basePath = 'https://connect.squareup.com'; //for production
 
 router.post('/process-payment', async (req, res) => {
     const request_params = req.body;

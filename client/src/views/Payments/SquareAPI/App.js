@@ -13,8 +13,8 @@ class App extends Component {
     UNSAFE_componentWillMount() {
         const that = this;
         let sqPaymentScript = document.createElement("script");
-        //sqPaymentScript.src = "https://js.squareup.com/v2/paymentform";
-        sqPaymentScript.src = "https://js.squareupsandbox.com/v2/paymentform"; //For testing
+        //sqPaymentScript.src = "https://js.squareup.com/v2/paymentform"; //for production
+        sqPaymentScript.src = "https://js.squareupsandbox.com/v2/paymentform"; //for testing
         sqPaymentScript.type = "text/javascript";
         sqPaymentScript.async = false;
         sqPaymentScript.onload = () => {

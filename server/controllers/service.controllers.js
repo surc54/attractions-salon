@@ -5,22 +5,23 @@ const services = require("../models/services.model.js");
 
 // to import json from a file try this:
 // const export data = ...some data
-// import {data} from '../filepath'
-
+//import {data} from '../config/services.json'
+//const data = require('../config/services.json');
 // or export default { something }
 // then either import { something }
 // or import someImport -> someImport.something (?)
 
 module.exports.list = (req, res) => {
     // initialize database
-    // servicesArray.forEach(item => {
+    // data.forEach(item => {
     //     // this works
     //     let newGroup = new services(item);
     //     newGroup.save();
     // });
+    //    console.log(data);
     // res.send({
     //     status: "ok",
-    //     data: servicesArray,
+    //     data: data,
     // });
 
     services
