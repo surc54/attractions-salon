@@ -45,6 +45,8 @@ const Home = () => {
     const [aboutBox, setAboutBox] = useState("")
     const [stylist1Name, setStylist1Name] = useState("")
     const [stylist2Name, setStylist2Name] = useState("")
+    const [phone, setPhone] = useState("")
+    const [email, setEmail] = useState("")
     const ezSettings = useEzSettings();
     const history = useHistory();
 
@@ -77,6 +79,24 @@ const Home = () => {
             .catch((err) => {
                 console.log(err);
             });
+            ezSettings
+            .get("email")
+            .then((res) => {
+                console.log("setting", res);
+                setEmail(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+            ezSettings
+            .get("phone")
+            .then((res) => {
+                console.log("setting", res);
+                setPhone(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }, 
     []
     );
@@ -97,6 +117,8 @@ const Home = () => {
                 setStylist1Name = {setStylist1Name}
                 stylist2Name = {stylist2Name}
                 setStylist2Name = {setStylist2Name}
+                email = {email} phone = {phone}
+                setEmail = {setEmail} setPhone = {setPhone}
             />
         </div>
     )
@@ -362,7 +384,7 @@ const Home = () => {
                                     href="tel:1-352-376-6008"
                                 >
                                     <Typography variant="body1">
-                                        (352) 376 6008
+                                        {phone}
                                     </Typography>
                                 </InfoPiece>
                                 <InfoPiece
@@ -373,7 +395,7 @@ const Home = () => {
                                     href="mailto:sample@attractionssalon.com"
                                 >
                                     <Typography variant="body1">
-                                        sample@attractionssalon.com
+                                        {email}
                                     </Typography>
                                 </InfoPiece>
                             </div>
