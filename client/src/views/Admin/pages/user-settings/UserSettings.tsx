@@ -121,7 +121,7 @@ const UserSettings: React.FC = () => {
                                     )}
                                 </TableCell>
                                 <TableCell>{row.email}</TableCell>
-                                <TableCell>{row.phone ?? "N/A"}</TableCell>
+                                <TableCell>{row.phone || "N/A"}</TableCell>
                                 <TableCell align="right">
                                     <Chip
                                         label={row.role}

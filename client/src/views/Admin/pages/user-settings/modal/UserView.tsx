@@ -58,12 +58,12 @@ const UserView: React.FC<UserViewProps> = ({ user, onClose }) => {
                 </div>
             </section>
 
-            <section>
+            {/* <section>
                 <Typography component="h2" variant="button">
                     Appointments
                 </Typography>
                 <pre>No content</pre>
-            </section>
+            </section> */}
 
             <section className={styles.adminTasks}>
                 <Typography component="h2" variant="button">
