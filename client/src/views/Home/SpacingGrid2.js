@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import styles from "./Home.module.scss";
 import Paper from '@material-ui/core/Paper';
+import { pink } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,8 +29,8 @@ export default function SpacingGrid(props) {
           {[0].map(value => (
             <Grid key={value} item>
               <Paper/><div style = {{top: '-35%', fontSize: 25}}
-              className={styles["stylist-box"]}>{props.stylist1Name}
-              {/* <p><small>
+              className={styles["stylist-box"]}><p style = {{margin: '5% 32%'}}>{props.stylist1Name}</p>
+              {/* <p style = {{fontSize: 18, margin: '40px -160px', color: '#e7a1af',fontFamily: 'arial'}}><small>
                 A small bio here</small></p> */}
               </div>
             </Grid>
@@ -37,10 +38,10 @@ export default function SpacingGrid(props) {
           {[1].map(value => (
             <Grid key={value} item>
               <Paper/><div style = {{top: '-35%', fontSize: 25}}
-              className={styles["stylist-box"]}>{props.stylist2Name}
-              {/* <p><small>
+              className={styles["stylist-box"]}><p style = {{margin: '5% 32%'}}>{props.stylist2Name}</p>
+              {/* <p style = {{fontSize: 18, margin: '40px -160px', color: '#e7a1af', fontFamily: 'arial'}}><small>
                 A small bio here</small></p> */}
-                </div>
+              </div>
             </Grid>
           ))}
         </Grid>

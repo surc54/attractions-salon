@@ -27,14 +27,14 @@ const TEMP_DATA_LIST_FILE = path.resolve(
 module.exports.list = (req, res) => {
     
     // initialize database
-    photosArray.forEach(item => {
-        let newGroup = new photos(item);
-        newGroup.save();
-    });
-    res.send({
-        status: "ok",
-        data: photosArray,
-    });
+    // photosArray.forEach(item => {
+    //     let newGroup = new photos(item);
+    //     newGroup.save();
+    // });
+    // res.send({
+    //     status: "ok",
+    //     data: photosArray,
+    // });
     photos
         .find({})
         .then(value => {

@@ -22,7 +22,7 @@ module.exports.init = () => {
     */
     mongoose.connect(process.env.DB_URI || require("./config").db.uri, {
         useNewUrlParser: true,
-        useUnifiedTopology: true,
+        useUnifiedTopology: false,
     });
     mongoose.set("useCreateIndex", true);
     mongoose.set("useFindAndModify", false);

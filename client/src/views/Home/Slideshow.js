@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import ReactDOM from 'react-dom';
 import styles from "./Home.module.scss";
 import photo1 from "../../assets/attractions_salon_photos/IMG_2861.jpeg";
 import photo2 from "../../assets/attractions_salon_photos/IMG_2862.jpeg";
@@ -14,6 +15,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
+import axios from 'axios';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -65,9 +67,22 @@ const Items = [
     },
   ];
 
-export default function Slideshow() {
+export default function Slideshow (props) {
+    const [photosData, setPhotos] = useState([]);
+    axios.get('/api/photos')
+    .then(res => {
+        // console.log(res.data)
+        setPhotos(res.data.data)
+        })
+        .catch(function(error) {
+        console.log(error);
+    })
+    // console.log(photosData)
+    const photos = Object.values(photosData);
+    // console.log(photos)
     const [activeStep, setActiveStep] = React.useState(0);
-    const maxSteps = Items.length;
+    const maxSteps = photos.length;
+    const stepz = maxSteps;
     const classes = useStyles();
     const theme = useTheme();
 
@@ -88,14 +103,20 @@ export default function Slideshow() {
             <div className={styles["slideshow"]} >
                 <AutoPlaySwipeableViews
                 axis={'x'}
+                photos = {photos}
                 index={activeStep}
                 onChangeIndex={handleStepChange}
                 enableMouseEvents
                 >
-                {Items.map((step, index) => (
+                {/* {Items.map((step, index) => (
                 <div key={step.label}>
                     {Math.abs(activeStep - index) <= 2 ? (
                     <img className={classes.img} src={step.imgPath} alt={step.label} />
+                    ) : null} */}
+                {photos.map((step, index) => (
+                <div key={step.id}>
+                    {Math.abs(activeStep - index) <= 2 ? (
+                    <img className={classes.img} src={step.imgURL} alt={step.id} />
                     ) : null}
                 </div>
                 ))
@@ -109,7 +130,7 @@ export default function Slideshow() {
                 variant="dots"
                 activeStep={activeStep}
                 nextButton={
-                    <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
+                    <Button size="small" onClick={handleNext} disabled={activeStep === (maxSteps-1)}>
                       Next
                       {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
                     </Button>
