@@ -16,6 +16,7 @@ const useStyles = makeStyles({
 
 const RightWindow = () => {
     const classes = useStyles();
+    const [bookingNum, setbookingNum] = React.useState("");
 
     return (
         <div className="bigDiv">
@@ -35,6 +36,8 @@ const RightWindow = () => {
                     <h4>Please enter your Booking Number:</h4>
 
                     <TextField
+                        value={bookingNum}
+                        onChange={(e) => {setbookingNum(e.target.value)}}
                         label="Booking Number"
                         variant="outlined"
                         style={{ marginLeft: "5px" }}

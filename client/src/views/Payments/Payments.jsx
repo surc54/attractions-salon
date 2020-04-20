@@ -49,7 +49,7 @@ function getSteps() {
 }
 
 const appointment = {
-    bookingNum: "CX4-BS2-7G9",
+    bookingNum: "CX4BS27G9",
     status: "Pending",
     name: "Mars",
     date: new Date("December 17, 1995 03:24:00"), // let birthday = new Date(1995, 11, 17, 3, 24, 0);
