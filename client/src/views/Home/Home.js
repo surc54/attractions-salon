@@ -133,7 +133,7 @@ const Home = () => {
                             variant="contained"
                             color="primary"
                             component={Link} // MUI buttons have this ability to copy other components
-                            to="/book" //       We just stole Link's functionality! So no need for <Link />
+                            to="/services" //       We just stole Link's functionality! So no need for <Link />
                         >
                             Book now
                         </Button>

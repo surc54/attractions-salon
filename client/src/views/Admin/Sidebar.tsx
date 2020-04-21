@@ -53,20 +53,8 @@ const items: SidebarItem[] = [
             },
             {
                 type: "link",
-                text: "Payments page",
-                path: "/admin/page/payments",
-                match: "startsWithPath",
-            },
-            {
-                type: "link",
                 text: "Testimonials page",
                 path: "/admin/page/testimonials",
-                match: "startsWithPath",
-            },
-            {
-                type: "link",
-                text: "Login page",
-                path: "/admin/page/login",
                 match: "startsWithPath",
             },
         ],
