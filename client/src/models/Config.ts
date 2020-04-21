@@ -13,7 +13,7 @@ type HttpMethod =
 
 interface IConfig {
     apiUrls: {
-        [desc: string]: AxiosRequestConfig;
+        [desc: string]: AxiosRequestConfig & { url: string};
     };
     theme: {
         [desc: string]: any;
@@ -85,6 +85,13 @@ const Config: IConfig = {
                 ...noCache,
             },
         },
+        "get photos info": {
+            url: "/api/photos",
+            method: "GET",
+            headers: {
+                ...noCache,
+            }
+        },
         "add photos info": {
             url: "/api/photos",
             method: "PUT",
@@ -101,6 +108,20 @@ const Config: IConfig = {
         },
         "add stylist info": {
             url: "/api/stylists",
+            method: "PUT",
+            headers: {
+                ...noCache,
+            },
+        },
+        "ez-settings - get": {
+            url: "/api/admin/ez-setting",
+            method: "GET",
+            headers: {
+                ...noCache,
+            },
+        },
+        "ez-settings - set": {
+            url: "/api/admin/ez-setting",
             method: "PUT",
             headers: {
                 ...noCache,

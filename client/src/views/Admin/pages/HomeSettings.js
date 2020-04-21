@@ -194,8 +194,8 @@ const HomeUpdateStylistForm = (props) => {
                 Update Stylist 2 Name
             </p>
             <HomeStylistForm
-            stylist1Name = {props.stylist2Name}
-            setStylist1Name = {props.setStylist2Name}
+            stylist2Name = {props.stylist2Name}
+            setStylist2Name = {props.setStylist2Name}
             setting = {setting2}
             />
 

@@ -338,8 +338,10 @@ const Home = () => {
                     <SpacingGrid className={styles["stylist1"]}></SpacingGrid>
                     {/* <p style = {{color: 'white'}}>h</p> */}
                     <SpacingGrid2 className={styles["stylist-box"]}
-                    stylist1Name = {stylist1Name}
-                    stylist2Name = {stylist2Name}>
+                    // stylist1Name = {stylist1Name}
+                    // stylist2Name = {stylist2Name}>
+                    stylist1Name = "Stylist1"
+                    stylist2Name = "Stylist2">
                     </SpacingGrid2>
                 </Container>
             </section>
@@ -380,7 +382,8 @@ const Home = () => {
                                     href="tel:1-352-376-6008"
                                 >
                                     <Typography variant="body1">
-                                        {phone}
+                                        {/* {phone} */}
+                                        (352)-376-6008
                                     </Typography>
                                 </InfoPiece>
                                 <InfoPiece
@@ -391,7 +394,8 @@ const Home = () => {
                                     href="mailto:sample@attractionssalon.com"
                                 >
                                     <Typography variant="body1">
-                                        {email}
+                                        {/* {email} */}
+                                        sample@attractionssalon.com
                                     </Typography>
                                 </InfoPiece>
                             </div>
