@@ -1,94 +1,100 @@
 import React from "react";
 import {
     makeStyles,
-    TextField,
     Button,
     ButtonBase,
     List,
     ListItem,
-    ListItemIcon,
     ListItemText,
     Divider,
     Collapse,
 } from "@material-ui/core";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "./Payments.css";
 
-const useStyles1 = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     nested: {
         paddingLeft: theme.spacing(4),
     },
 
+    root: {
+        backGroundColor: "white",
+        borderRadius: "10px",
+        width: "25%",
+    },
+    "btn-Cancelled": {
+        backGroundColor: "white",
+        border: "2px solid red",
+        color: "red",
+    },
+    "btn-Pending": {
+        backGroundColor: "white",
+        border: "2px solid red",
+        color: "red",
+        borderRadius: "10px",
+        width: "25%",
+    },
+    "btn-Scheduled": {
+        backGroundColor: "white",
+        border: "2px solid #79e827",
+        color: "#79e827",
+        borderRadius: "10px",
+        width: "25%",
+
+    },
+    "btn-Completed": {
+        backGroundColor: "white",
+        border: "2px solid #79e827",
+        color: "#79e827",
+        borderRadius: "10px",
+        width: "25%",
+    },
+    "btn-Past Due": {
+        backGroundColor: "white",
+        border: "2px solid red",
+        color: "red",
+        borderRadius: "10px",
+        width: "25%",
+    },
     scheduleButton: {
         border: "1px solid",
         backGroundColor: "white",
         borderColor: "#79E827",
+        color: "#79e827",
         color: "#79E827",
     },
 }));
 
 const AppointmentWindow = props => {
-    const classes = useStyles1();
-    const [open, setOpen] = React.useState(false);
-    const handleClick = () => {
-        setOpen(!open);
-    };
-    const handleClick1 = () => {
-        setOpen(!open);
-    };
-
+    const classes = useStyles();
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const dateString = days[props.appointment.date.getDay()] + ", " + months[props.appointment.date.getMonth()] + " " + props.appointment.date.getDate()
+        + ", " + props.appointment.date.getFullYear();
     return (
         <div className="appointmentWindow">
             <div className="paperHeader">
-                <h2 className="page2Title">Appointment</h2>
-                <Button className="scheduleButton" variant="outlined" size="small">
-                    Scheduled
+                <div>
+                    <h2 className="page2Title">Appointment Information</h2>
+                    <p style={{ margin: "0" }}>{dateString}</p>
+                </div>
+                <Button classes={{
+                    root: classes["btn-" + props.appointment.status]
+                }} styles={ {backGroundColor: "white", borderRadius: "10px", width: "25%"}} size="small" variant="outlined">
+                    {props.appointment.status}
                 </Button>
             </div>
-            <p>March 31, 2020 at 2:30 PM</p>
+
             <h4>Scheduled Items</h4>
-            <List>
-                <ListItem button onClick={handleClick}>
-                    <ListItemText>Full Highlight</ListItemText>
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        <ListItem button className={classes.nested}>
-                            <ListItemText>Full Highlight info</ListItemText>
-                        </ListItem>
-                    </List>
-                </Collapse>
+            {props.appointment.services.map(service => {
+                return (
+                    <div className="appointmentInfoDiv" key={service.name}>
+                        {service.name}
+                        <div style={{ float: "right" }}>${service.price}</div>
+                    </div>
+                );
+            })}
 
-                <Divider />
-
-                <ListItem button onClick={handleClick1}>
-                    <ListItemText>Full Highlight 2</ListItemText>
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        <ListItem button className={classes.nested}>
-                            <ListItemText>Full Highlight 2 info</ListItemText>
-                        </ListItem>
-                    </List>
-                </Collapse>
-
-                <Divider />
-
-                <ListItem button onClick={handleClick}>
-                    <ListItemText>Full Highlight 3</ListItemText>
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        <ListItem button className={classes.nested}>
-                            <ListItemText>Full Highlight 3 info</ListItemText>
-                        </ListItem>
-                    </List>
-                </Collapse>
-            </List>
         </div>
     );
 };

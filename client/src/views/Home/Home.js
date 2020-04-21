@@ -11,14 +11,13 @@ import {
 
 // This library lets you chain classNames together without
 // the string manipulation hassle
-import Carousel from 'react-material-ui-carousel'
 import clsx from "clsx";
 
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import homepic from "../../assets/attractions_salon_photo.jpeg";
-import SpacingGrid from "./SpacingGrid"
-import SpacingGrid2 from "./SpacingGrid2"
+import SpacingGrid from "./SpacingGrid";
+import SpacingGrid2 from "./SpacingGrid2";
 // This "styles" object is the only way to set styles from
 // your scss file now (because of modularity)
 import styles from "./Home.module.scss";
@@ -38,11 +37,6 @@ import Slideshow from "./Slideshow";
     - Never use absolute positioning for things meant to work when resizing unless
       you have a parent element that can restrain the child. 
  */
-
-const defaultProps = {
-    center: { lat: 29.6728, lng: -82.39131 },
-    zoom: 12,
-};
 
 // Changed this to an ES6 function
 const Home = () => {
@@ -209,7 +203,7 @@ const Home = () => {
                             variant="outlined"
                             color="primary"
                             className={styles.readMoreButton}
-                            component={Link} 
+                            component={Link}
                             to="/"
                         >
                             Read more
@@ -266,13 +260,11 @@ const Home = () => {
                 {/* Use container to get padding on the sides */}
                 <Container>
                     <h2 className={styles.sectionTitle}>Stylists</h2>
-                    <h2>
-
-                    </h2>
+                    <h2>{" "}</h2>
                     <SpacingGrid className={styles["stylist1"]}></SpacingGrid>
                     {/* <p style = {{color: 'white'}}>h</p> */}
                     <SpacingGrid2 className={styles["stylist-box"]}>
-                    Jane Doe
+                        Jane Doe
                     </SpacingGrid2>
                 </Container>
             </section>
@@ -290,7 +282,7 @@ const Home = () => {
                             <h2 className={styles.sectionTitle}>
                                 Get in Touch
                             </h2>
-                            <div className={styles.information}>
+                            <div className={styles.information}><a id="contactSection"></a>
                                 <InfoPiece
                                     maxWidth={
                                         isSmallOrBelow ? "100%" : undefined
@@ -332,6 +324,7 @@ const Home = () => {
                         <Grid item xs={12} md={8} className={styles.right}>
                             <iframe
                                 // Removed height/weight props. Defined in scss file
+                                title="map"
                                 className={styles.map}
                                 frameBorder="0"
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3466.590252296763!2d-82.393560285099!3d29.673662342947903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88e8bb527c8cb42d%3A0x1a9ff37664975788!2sAttractions%20Salon!5e0!3m2!1sen!2sus!4v1583782909156!5m2!1sen!2sus"

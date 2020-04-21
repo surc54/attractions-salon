@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const serviceItem = require("./item.model");
+//const serviceItem = require("./item.model");
 
 const serviceGroup = new mongoose.Schema({
     groupName: { type: String, required: true },
@@ -14,7 +14,5 @@ const serviceGroup = new mongoose.Schema({
         // temporary, may have copyright
     },
 });
-
-{/**afdgdfbdfdbfd */}
 
 module.exports = mongoose.model("services", serviceGroup);
