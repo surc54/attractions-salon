@@ -1,9 +1,11 @@
-const Booking = require("../models/booking.model"); // TODO: get Caleb's path to this file
+const express = require("express");
+const Booking = require("../models/booking.model");
+
 const {
   send_code_error,
   send_code_success,
 } = require("../tools");
-const client = require('twilio')(process.env.TWILIO_ACCT_SID, process.env.TWILIO_AUTH_TOKEN);
+// const client = require('twilio')(process.env.TWILIO_ACCT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 module.exports.create = (req, res) => {
   const booking = new Booking(req.body);
@@ -12,10 +14,10 @@ module.exports.create = (req, res) => {
       .save()
       .then((response) => {
         send_code_success(res, 201); // TODO: possibly add a redirect page at the end
-        client
-            .messages
-            .create({body: 'Hi there! A new appointment has been made.', from: '+13524882645', to: '+19545625489‬'})
-            .then(message => console.log(message.sid));
+        // client
+        //     .messages
+        //     .create({body: 'Hi there! A new appointment has been made.', from: '+13524882645', to: '+19545625489‬'})
+        //     .then(message => console.log(message.sid));
       })
       .catch((err) => {
         send_code_error(res, 500);
@@ -35,31 +37,31 @@ module.exports.read = (req, res) => {
       });
 };
 
-module.exports.update = (req, res) => {
-  // const group = req.group;
+// module.exports.update = (req, res) => {
+//   const group = req.group;
 
-  // let updateID = req.params.id;
-  // let updatedInfo;
+//   let updateID = req.params.id;
+//   let updatedInfo;
 
-  // updatedInfo = {
-  //     $set: {
-  //         groupName: req.body.groupName,
-  //         items: req.body.items,
-  //     },
-  // };
+//   updatedInfo = {
+//       $set: {
+//           groupName: req.body.groupName,
+//           items: req.body.items,
+//       },
+//   };
 
-  // Booking
-  //     .updateOne({ bookingNum: req.params.bookingNum }, updatedInfo)
-  //     .then(value =>
-  //       Listing.findById(updateID).then(successData =>
-  //         res.json(successData)
-  //       )
-  //     )
-  //     .catch(reason => res.status(500).send("Error when updating"));
-};
+//   Booking
+//       .updateOne({ bookingNum: req.params.bookingNum }, updatedInfo)
+//       .then(value =>
+//         Listing.findById(updateID).then(successData =>
+//           res.json(successData)
+//         )
+//       )
+//       .catch(reason => res.status(500).send("Error when updating"));
+// };
 
 module.exports.delete = (req, res) => {
-  Listing
+  Booking
       .findOneAndDelete({ bookingNum: req.params.bookingNum })
       .then((response) => {
         send_code_success(res, 200);

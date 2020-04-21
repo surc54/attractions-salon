@@ -64,7 +64,7 @@ module.exports.init = () => {
     app.use("/api/example", exampleRouter);
     app.use("/api/services", servicesRouter);
     app.use("/api/testimonial", testimonialRouter);
-    app.use("/api/booking", bookingRouter);
+    // app.use("/api/booking", bookingRouter);
     app.use("/api/account", accountRouter);
     app.use("/api/admin", adminRouter);
     app.use("/api/payments", paymentsRouter);
