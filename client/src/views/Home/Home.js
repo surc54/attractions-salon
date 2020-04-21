@@ -12,8 +12,7 @@ import {
 // This library lets you chain classNames together without
 // the string manipulation hassle
 import clsx from "clsx";
-
-import React from "react";
+import React, {useState} from "react";
 import { Link, useHistory } from "react-router-dom";
 import homepic from "../../assets/attractions_salon_photo.jpeg";
 import SpacingGrid from "./SpacingGrid";
@@ -21,7 +20,8 @@ import SpacingGrid2 from "./SpacingGrid2";
 // This "styles" object is the only way to set styles from
 // your scss file now (because of modularity)
 import styles from "./Home.module.scss";
-
+import HomeSettings from "../Admin/pages/HomeSettings";
+import {useEzSettings} from "../../hooks/EzSettingsHook";
 import InfoPiece from "./InfoPiece";
 import Slideshow from "./Slideshow";
 
