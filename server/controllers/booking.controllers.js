@@ -12,6 +12,10 @@ module.exports.create = (req, res) => {
       .save()
       .then((response) => {
         send_code_success(res, 201); // TODO: possibly add a redirect page at the end
+        client
+            .messages
+            .create({body: 'Hi there! A new appointment has been made.', from: '+13524882645', to: '+19545625489‬'})
+            .then(message => console.log(message.sid));
       })
       .catch((err) => {
         send_code_error(res, 500);
