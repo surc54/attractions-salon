@@ -1,0 +1,13 @@
+[
+    {
+        "id": 1,
+        "name": "Stylist 1",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    },
+    {
+        "id": 2,
+        "name": "Stylist 2",
+        "imgURL": "https://images.pexels.com/photos/973403/pexels-photo-973403.jpeg"
+    }
+]
+

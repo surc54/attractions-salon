@@ -10,6 +10,8 @@ const path = require("path"),
     servicesRouter = require("../routes/services.routes"),
     testimonialRouter = require("../routes/testimonial.routes"),
     // bookingRouter = require("../routes/booking.routes"),
+    stylistRouter = require("../routes/stylists.routes"),
+    photosRouter = require("../routes/photos.routes"),
     accountRouter = require("../routes/account.routes"),
     adminRouter = require("../routes/admin/index.routes"),
     paymentsRouter = require("../routes/payments.routes");
@@ -23,7 +25,7 @@ module.exports.init = () => {
     */
     mongoose.connect(process.env.DB_URI || require("./config").db.uri, {
         useNewUrlParser: true,
-        useUnifiedTopology: true,
+        useUnifiedTopology: false,
     });
     mongoose.set("useCreateIndex", true);
     mongoose.set("useFindAndModify", false);
@@ -68,6 +70,8 @@ module.exports.init = () => {
     app.use("/api/account", accountRouter);
     app.use("/api/admin", adminRouter);
     app.use("/api/payments", paymentsRouter);
+    app.use("/api/photos", photosRouter);
+    app.use("/api/stylists", stylistRouter);
 
     if (process.env.NODE_ENV === "production") {
         // Serve any static files

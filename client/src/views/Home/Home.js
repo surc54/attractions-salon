@@ -41,13 +41,87 @@ import Slideshow from "./Slideshow";
 // Changed this to an ES6 function
 const Home = () => {
     // Grab history object from react-router
+    const [aboutBox, setAboutBox] = useState("")
+    const [stylist1Name, setStylist1Name] = useState("")
+    const [stylist2Name, setStylist2Name] = useState("")
+    const [phone, setPhone] = useState("")
+    const [email, setEmail] = useState("")
+    const ezSettings = useEzSettings();
     const history = useHistory();
+
+    React.useEffect(() => {
+        ezSettings
+            .get("home-about-us")
+            .then((res) => {
+                console.log("setting", res);
+                setAboutBox(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+            ezSettings
+            .get("stylist-name")
+            .then((res) => {
+                console.log("setting", res);
+                setStylist1Name(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+            ezSettings
+            .get("stylist-two")
+            .then((res) => {
+                console.log("setting", res);
+                setStylist2Name(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+            ezSettings
+            .get("email")
+            .then((res) => {
+                console.log("setting", res);
+                setEmail(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+            ezSettings
+            .get("phone")
+            .then((res) => {
+                console.log("setting", res);
+                setPhone(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, 
+    []
+    );
 
     // Scroll detection hook provided by Material-UI
     const isScrolled = useScrollTrigger({
         disableHysteresis: true,
         threshold: 64,
     });
+
+    const passProps = () => (
+        <div>
+            <HomeSettings
+                aboutBox = {aboutBox}
+                setAboutBox = {setAboutBox}
+                ezSettings = {ezSettings}
+                stylist1Name = {stylist1Name}
+                setStylist1Name = {setStylist1Name}
+                stylist2Name = {stylist2Name}
+                setStylist2Name = {setStylist2Name}
+                email = {email} phone = {phone}
+                setEmail = {setEmail} setPhone = {setPhone}
+            />
+        </div>
+    )
+
 
     // Grab the Theme from Material-UI
     const theme = useTheme();
@@ -263,8 +337,9 @@ const Home = () => {
                     <h2>{" "}</h2>
                     <SpacingGrid className={styles["stylist1"]}></SpacingGrid>
                     {/* <p style = {{color: 'white'}}>h</p> */}
-                    <SpacingGrid2 className={styles["stylist-box"]}>
-                        Jane Doe
+                    <SpacingGrid2 className={styles["stylist-box"]}
+                    stylist1Name = {stylist1Name}
+                    stylist2Name = {stylist2Name}>
                     </SpacingGrid2>
                 </Container>
             </section>
@@ -305,7 +380,7 @@ const Home = () => {
                                     href="tel:1-352-376-6008"
                                 >
                                     <Typography variant="body1">
-                                        (352) 376 6008
+                                        {phone}
                                     </Typography>
                                 </InfoPiece>
                                 <InfoPiece
@@ -316,7 +391,7 @@ const Home = () => {
                                     href="mailto:sample@attractionssalon.com"
                                 >
                                     <Typography variant="body1">
-                                        sample@attractionssalon.com
+                                        {email}
                                     </Typography>
                                 </InfoPiece>
                             </div>
