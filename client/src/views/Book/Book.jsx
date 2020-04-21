@@ -3,12 +3,23 @@ import { Button, Grid, TextField, Typography } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import "./Book.css";
+import axios from 'axios';
 
 const Book = props => {
     const [selectedDate, setSelectedDate] = React.useState(new Date());
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        alert("Booking submitted! Check your phone for your booking number.");
+        axios.post(`https://pure-crag-64431.herokuapp.com/api/booking/`)
+        .then(res => {
+            console.log(res);
+            console.log(res.data);
+        })
     };
     
     return (
@@ -70,6 +81,7 @@ const Book = props => {
                         key={"Request an appointment"}
                         variant="contained"
                         color="primary"
+                        onClick={handleSubmit}
                         style={{ width: "100%", marginTop: 15, marginBottom: 20 }}>Submit</Button>
                     </Grid>
                 </Grid>

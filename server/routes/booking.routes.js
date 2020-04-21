@@ -11,8 +11,8 @@ router.get("/:bookingNum", BookingController.read);
 // Add booking
 router.post("/", BookingController.create);
 
-// Modify booking
-router.put("/:bookingNum", BookingController.update);
+// // Modify booking
+// router.put("/:bookingNum", BookingController.update);
 
 // Remove booking
 router.delete("/:bookingNum", BookingController.delete);

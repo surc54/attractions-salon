@@ -9,9 +9,9 @@ const path = require("path"),
     exampleRouter = require("../routes/examples.server.routes"),
     servicesRouter = require("../routes/services.routes"),
     testimonialRouter = require("../routes/testimonial.routes"),
-    // bookingRouter = require("../routes/booking.routes"),
     stylistRouter = require("../routes/stylists.routes"),
     photosRouter = require("../routes/photos.routes"),
+    bookingRouter = require("../routes/booking.routes"),
     accountRouter = require("../routes/account.routes"),
     adminRouter = require("../routes/admin/index.routes"),
     paymentsRouter = require("../routes/payments.routes");
@@ -66,7 +66,7 @@ module.exports.init = () => {
     app.use("/api/example", exampleRouter);
     app.use("/api/services", servicesRouter);
     app.use("/api/testimonial", testimonialRouter);
-    // app.use("/api/booking", bookingRouter);
+    app.use("/api/booking", bookingRouter);
     app.use("/api/account", accountRouter);
     app.use("/api/admin", adminRouter);
     app.use("/api/payments", paymentsRouter);

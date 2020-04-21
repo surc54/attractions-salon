@@ -3,7 +3,7 @@ const serviceItem = require("./item.model");
 const userSchema = require("./user.model");
 
 const booking = new mongoose.Schema({
-    services: { type: [serviceItem], required: true},
+    // services: { type: [serviceItem], required: true},
     bookingNum: { type: String, unique: true },
     name:  { type: String, required: true },
     date:  { type: Date, required: true },
@@ -13,8 +13,8 @@ const booking = new mongoose.Schema({
         enum: ["Cancelled", "Pending", "Scheduled", "Completed", "Past Due"],
         default: "Pending",
     },
-    user:  { type: [userSchema] },
+    // user:  { type: [userSchema] },
     phone: { type: String },
 });
 
-module.exports = mongoose.model("booking", booking);
+module.exports = mongoose.model("bookings", booking);
