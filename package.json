@@ -54,6 +54,7 @@
     "should": "^13.2.3",
     "square-connect": "3.20200325.0",
     "supertest": "^4.0.2",
+    "twilio": "^3.42.2",
     "typescript": "^3.8.3",
     "validator": "^12.2.0"
   },
