@@ -22,6 +22,7 @@ import ServiceSettings from "./pages/ServiceSettings";
 import TestimonialsSettings from "./pages/testimonials-settings/TestimonialsSettings";
 import UserSettings from "./pages/user-settings/UserSettings";
 import AdminSidebar from "./Sidebar";
+import HomeSettings from "./pages/HomeSettings";
 
 /**
  * Purpose:
@@ -127,6 +128,10 @@ const AdminBase: React.FC<AdminBaseProps> = () => {
                 >
                     <Router history={history}>
                         <Switch>
+                            <Route
+                                path="/admin/page/home"
+                                component={HomeSettings}
+                            />
                             <Route
                                 path="/admin/page/services"
                                 component={ServiceSettings}
