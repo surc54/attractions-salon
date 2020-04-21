@@ -52,8 +52,8 @@ export default class PaymentForm extends Component {
       // locationId: squareInfo.squareAPI.locationId, //sandbox location. Need client's square account to get her locationId
       // applicationId: process.env.SQUARE_APPLICATION_ID || require("./../config").squareAPI.applicationId, //For testing
       // locationId: process.env.SQUARE_LOCATION_ID || require("./../config").squareAPI.locationId, //sandbox location. Need client's square account to get her locationId
-      applicationId: process.env.SQUARE_APPLICATION_ID,
-      locationId: process.env.SQUARE_LOCATION_ID, 
+      applicationId: process.env.REACT_APP_SQUARE_APPLICATION_ID,
+      locationId: process.env.REACT_APP_SQUARE_LOCATION_ID, 
       inputClass: "sq-input",
       autoBuild: false,
       inputStyles: [
