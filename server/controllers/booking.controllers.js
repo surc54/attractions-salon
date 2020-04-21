@@ -3,24 +3,30 @@ const {
   send_code_error,
   send_code_success,
 } = require("../tools");
-// const client = require('twilio')(process.env.TWILIO_ACCT_SID, process.env.TWILIO_AUTH_TOKEN);
+const client = require('twilio')(
+    process.env.TWILIO_ACCT_SID || require("../config/config").twilio.acctSID,
+    process.env.TWILIO_AUTH_TOKEN || require("../config/config").twilio.authToken);
 
-module.exports.create = (req, res) => {
+module.exports.create = async (req, res) => {
   const booking = new Booking(req.body);
 
-  booking
-      .save()
-      .then((response) => {
-        send_code_success(res, 201); // TODO: possibly add a redirect page at the end
-        // client
-        //     .messages
-        //     .create({body: 'Hi there! A new appointment has been made.', from: '+13524882645', to: '+17249948887'})
-        //     .then(message => console.log(message.sid));
-      })
-      .catch((err) => {
-        send_code_error(res, 500);
-        console.error("Could not save booking to database:", err);
-      });
+  // booking
+  //     .save()
+  //     .then((response) => {
+  //       send_code_success(res, 201); // TODO: possibly add a redirect page at the end
+  //       // client
+  //       //     .messages
+  //       //     .create({body: 'Hi there! A new appointment has been made.', from: '+13524882645', to: '+17249948887'})
+  //       //     .then(message => console.log(message.sid));
+  //     })
+  //     .catch((err) => {
+  //       send_code_error(res, 500);
+  //       console.error("Could not save booking to database:", err);
+  //     });
+  client
+  .messages
+  .create({body: 'A new appointment has been recieved for Attractions Salon. Booking #CX4BS27G9', from: '+13524882645', to: '+17249948887'})
+  .then(message => console.log(message.sid));
 };
 
 module.exports.read = (req, res) => {

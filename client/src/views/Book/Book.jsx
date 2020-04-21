@@ -14,28 +14,12 @@ const Book = props => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
-        // const msg = {
-        //     Body: "Hi there! A new appointment has been made. Booking #CX4BS27G9",
-        //     From: "+13524882645",
-        //     StatusCallback: "http://postb.in/1234abcd",
-        //     To: "+17249948887‬" //+19545625489‬
-        // };
-        // const accountSid = 'AC8647556163446007893b6bd5d0270bc8';
-        // const authToken = '869466ff08e5badaaaa8c415058a9077';
-      
-        // alert("pressed");
-        // axios.post(`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`, { msg }, {
-        //     headers: {
-        //       "Content-Type": "application/x-www-form-urlencoded",
-        //       "Authorization": `Basic ${Buffer.from(accountSid + ':' + authToken).toString('base64')}`
-        //     }
-        // })
-        // .then(res => {
-        //     console.log(res);
-        //     console.log(res.data);
-        //     alert("Booking submitted! Your booking number is: CX4BS27G9");
-        // })
+        alert("Booking submitted! Check your phone for your booking number.");
+        axios.post(`https://pure-crag-64431.herokuapp.com/api/booking/`)
+        .then(res => {
+            console.log(res);
+            console.log(res.data);
+        })
     };
     
     return (
