@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const serviceItem = require("./item.model");
 const userSchema = require("./user.model");
 
-const appointment = new mongoose.Schema({
+const booking = new mongoose.Schema({
     services: { type: [serviceItem], required: true},
     bookingNum: { type: String, unique: true },
     name:  { type: String, required: true },
@@ -17,4 +17,4 @@ const appointment = new mongoose.Schema({
     phone: { type: String },
 });
 
-module.exports = mongoose.model("appointments", appointment);
+module.exports = mongoose.model("booking", booking);
