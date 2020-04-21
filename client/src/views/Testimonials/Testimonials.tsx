@@ -4,6 +4,7 @@ import {
     CardHeader,
     CardContent,
     Typography,
+    Avatar,
     Grid,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
@@ -16,7 +17,6 @@ import moment from "moment";
 const tempTestimonials: any[] = [];
 
 const Testimonials = () => {
-
     useEffect(() => {
         axios.get("/api/testimonial").then((response) => {
             response.data.data.map((testimonial: any) =>
@@ -57,17 +57,11 @@ const Testimonials = () => {
                                     <Card elevation={3} className="card">
                                         <CardHeader
                                             avatar={
-                                                <img
-                                                    src={
-                                                        testimonial.profilePic ||
-                                                        "https://d3kqdc25i4tl0t.cloudfront.net/articles/content/92_408268_151204profilepicture_hero.jpg"
-                                                    }
-                                                    alt={
-                                                        testimonial.name ||
-                                                        "random"
-                                                    }
-                                                    className="picture"
-                                                />
+                                                <Avatar>
+                                                    {testimonial.name
+                                                        .charAt(0)
+                                                        .toUpperCase()}
+                                                </Avatar>
                                             }
                                             action={
                                                 <Rating
