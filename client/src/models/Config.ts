@@ -13,7 +13,7 @@ type HttpMethod =
 
 interface IConfig {
     apiUrls: {
-        [desc: string]: AxiosRequestConfig & { url: string};
+        [desc: string]: AxiosRequestConfig;
     };
     theme: {
         [desc: string]: any;
