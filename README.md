@@ -89,3 +89,13 @@ Under “Administrative Actions,” you can choose which role to set for the sel
 
 ## Deleting a user
 Once again, under “Administrative Actions,” you can select “Delete User” and click “Start Execution” in order to complete the task. Be warned, you cannot recover a deleted user.
+
+## APIs Used
+
+| API Key Location| API Key Location |
+| :-------------- | :----------------|
+| Google Maps API | client/src/views/Home/Home.js, <br /> Line ~408 |
+| PassportJS      | Cookie Secret (to secure sessions) : <br />Set the environment variable “COOKIE_SECRET” to any random sequence of letters and numbers. |
+| ReCAPTCHA       | Site Key(for testimonials): <br />/client/src/views/Testimonials/Form.tsx, line ~70 <br />Secret Key(for testimonials): server/config/config.js, <br />Line ~14 <br />(sitekey for signup) <br />\client\src\views\Login\SignUpForm.tsx,<br /> Line ~232  |
+| Twilio          | server/config/config.js        |
+| Square          | client/src/views/Payments/config.js,<br /> Line 3 and 4<br /><br /> server/config/config.js,<br /> Line 12  |
