@@ -25,7 +25,7 @@ module.exports.create = async (req, res) => {
   //     });
   client
   .messages
-  .create({body: 'A new appointment has been recieved for Attractions Salon. Booking #CX4BS27G9', from: '+13524882645', to: '+19545625489‬'})
+  .create({body: 'A new appointment has been recieved for Attractions Salon. Booking #CX4BS27G9', from: '+13524882645', to: process.env.SMS_RECIPIENT })
   .then(message => console.log(message.sid));
 };
 
