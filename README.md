@@ -16,9 +16,9 @@
 - Password: test
 
 ## To get to Admin Panel:
-Login as Admin
-Click on the profile icon on the top right corner
-Select “Go to Admin Panel”
+1. Login as Admin
+2. Click on the profile icon on the top right corner
+3. Select “Go to Admin Panel”
 
 ## To add a service on the “Services” page
 1. Get to Admin Panel
