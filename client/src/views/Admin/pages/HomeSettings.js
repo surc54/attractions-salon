@@ -55,7 +55,9 @@ const getChoiceView = (pageNum, props) => {
         case 1:
             return <HomeUpdateAboutView 
             aboutBox = {props.aboutBox}
-            setAboutBox = {props.setAboutBox}/>;
+            setAboutBox = {props.setAboutBox}
+            email = {props.email}
+            setEmail = {props.setEmail}/>;
         case 2:
             return <HomeUpdateStylistForm
             stylist1Name = {props.stylist1Name}
@@ -158,10 +160,9 @@ const HomeUpdateAboutView = (props) => {
             <Divider orientation="horizontal" />
             <HomeAboutForm 
             aboutBox = {props.aboutBox}
-            setAboutBox = {props.setAboutBox}/>
-            <p>
-                Please enter new text for "About Us" section.
-            </p>
+            setAboutBox = {props.setAboutBox}
+            email = {props.email}
+            setEmail = {props.setEmail}/>
         </div>
     );
 };
@@ -204,6 +205,15 @@ const HomeUpdateStylistForm = (props) => {
 
 const HomeAboutForm = (props) => {
     const ezSettings = useEzSettings();
+
+    const handleChange = event => {
+        const box = event.target.value;
+        ezSettings
+        .set('email', box)
+        .then((res) => props.setEmail(res))
+        .catch((err) => console.log(err));
+        }
+
     const handleInputChange = event => {
         // console.log('handle input change')
         const box = event.target.value;
@@ -213,7 +223,19 @@ const HomeAboutForm = (props) => {
         .then((res) => props.setAboutBox(res))
         .catch((err) => console.log(err));
         }
+
+        const handlePhoneChange = event => {
+            // console.log('handle input change')
+            const box = event.target.value;
+            // props.setAboutBox({ ...props.aboutBox,box})
+            ezSettings
+            .set("phone", box)
+            .then((res) => props.setPhone(res))
+            .catch((err) => console.log(err));
+            }
+
     return (
+        <div>
         <form>
             <TextField 
              onSubmit = { event => {
@@ -237,8 +259,64 @@ const HomeAboutForm = (props) => {
                 </TextField>
                 <p></p>
                 <input type="submit" value="Submit" /> 
+            </form>
+            <p>
+                Enter new text for "About Us" section above.
+            </p>
+            <form>
+            <TextField 
+             onSubmit = { event => {
+                event.preventDefault();
+                if (!props.email) return
+                const box = event.target;
+                props.setEmail({ ...props.email,box})
+                console.log(props.email)
+                }}
+                placeholder="Enter email address"
+                value={props.email}   
+                variant="outlined"
+                rows={1}
+                style={{ margin: "10px", width: '500px' }}
+                rowsMax={1}
+                required
+                input type="text" name="name" value={props.email} onChange={handleChange}
+                >
+                <input type="text" name="name" value={props.email} onChange={handleChange} />
+                </TextField>
+                <p></p>
+                <input type="submit" value="Submit" /> 
     
-            </form>  
+            </form> 
+            <p>
+                Enter email address to be displayed on Home Page above.
+            </p>
+            <form>
+            <TextField 
+             onSubmit = { event => {
+                event.preventDefault();
+                if (!props.phone) return
+                const box = event.target;
+                props.setPhone({ ...props.phone,box})
+                }}
+                placeholder="Enter phone number"
+                value={props.phone}   
+                variant="outlined"
+                rows={1}
+                style={{ margin: "10px", width: '500px' }}
+                rowsMax={1}
+                required
+                input type="text" name="name" value={props.phone} onChange={handlePhoneChange}
+                >
+                <input type="text" name="name" value={props.phone} onChange={handlePhoneChange} />
+                </TextField>
+                <p></p>
+                <input type="submit" value="Submit" /> 
+    
+            </form> 
+            <p>
+                Enter the phone number to be displayed on Home Page above.
+            </p>
+            </div>  
     );
 };
 
@@ -278,7 +356,8 @@ const HomeStylistForm = (props) => {
                 <p></p>
                 <input type="submit" value="Submit" /> 
     
-            </form>  
+            </form>
+              
     );
 };
 
