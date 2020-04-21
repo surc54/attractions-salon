@@ -3,9 +3,11 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const squareConnect = require('square-connect');
-const config = require('./../config/config');
+//const config = require('./../config/config');
 
-const accessToken = config.square.accessToken;
+//const accessToken = config.square.accessToken;
+// const accessToken: process.env.SQUARE_ACCESS_TOKEN || require("./../config/config").square.accessToken; //For testing
+const accessToken = process.env.SQUARE_ACCESS_TOKEN  //For testing
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));

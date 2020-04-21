@@ -3,7 +3,7 @@ import "./styles.css";
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import TextField from '@material-ui/core/TextField';
-import squareInfo from './../config';
+//import squareInfo from './../config';
 
 const styles = {
   name: {
@@ -48,8 +48,10 @@ export default class PaymentForm extends Component {
 
   componentDidMount() {
     const config = {
-      applicationId: squareInfo.squareAPI.applicationId, //For testing
-      locationId: squareInfo.squareAPI.locationId, //sandbox location. Need client's square account to get her locationId
+      // applicationId: squareInfo.squareAPI.applicationId, //For testing
+      // locationId: squareInfo.squareAPI.locationId, //sandbox location. Need client's square account to get her locationId
+      applicationId: process.env.SQUARE_APPLICATION_ID || require("./../config").squareAPI.applicationId, //For testing
+      locationId: process.env.SQUARE_LOCATION_ID || require("./../config").squareAPI.locationId, //sandbox location. Need client's square account to get her locationId
       inputClass: "sq-input",
       autoBuild: false,
       inputStyles: [
