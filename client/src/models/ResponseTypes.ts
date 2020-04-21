@@ -20,6 +20,17 @@ export interface ApiResponseUser {
     phone?: string;
 }
 
+export interface ApiResponseTestimonial {
+    name: string;
+    rating: number;
+    __v?: number;
+    feedback: string;
+    captcharepsonse: string;
+    _id: string;
+    updatedAt: string;
+    createdAt: string;
+}
+
 export interface GetAuthInfoResponse
     extends GenericApiResponse<undefined, "auth/info/success"> {
     signedIn?: boolean;
@@ -86,4 +97,39 @@ export type AdminUserDeleteResponse = GenericApiResponse<
     | "admin/user/delete/success"
     | "admin/user/delete/error"
     | "admin/user/delete/cannot-delete-self"
+>;
+
+// admin testimonial setting types
+
+export interface AdminTestimonialListResponse
+    extends GenericApiResponse<
+        ApiResponseTestimonial[],
+        | "admin/testimonial/list/success"
+        | "admin/testimonial/list/error"
+    > {
+    count?: number;
+}
+
+export type AdminTestimonialInfoResponse = GenericApiResponse<
+    ApiResponseTestimonial,
+    | "admin/testimonial/info/missing-uid"
+    | "admin/testimonial/info/uid-illegal-format"
+    | "admin/testimonial/info/success"
+    | "admin/testimonial/info/error"
+>;
+
+export type AdminTestimonialUpdateResponse = GenericApiResponse<
+    ApiResponseTestimonial,
+    | "admin/testimonial/update/body-required"
+    | "admin/testimonial/update/success"
+    | "admin/testimonial/update/error"
+    | "admin/testimonial/update/invalid-values"
+>;
+
+export type AdminTestimonialDeleteResponse = GenericApiResponse<
+    ApiResponseTestimonial,
+    | "admin/testimonial/delete/missing-id"
+    | "admin/testimonial/delete/success"
+    | "admin/testimonial/delete/error"
+    | "admin/testimonial/delete/cannot-delete-self"
 >;

@@ -19,7 +19,7 @@ import NotFound from "../404/NotFound";
 import styles from "./Base.module.scss";
 import InitialLoader from "./initial-loader/InitialLoader";
 import ServiceSettings from "./pages/ServiceSettings";
-import TestimonialsSettings from "./pages/TestimonialsSettings";
+import TestimonialsSettings from "./pages/testimonials-settings/TestimonialsSettings";
 import UserSettings from "./pages/user-settings/UserSettings";
 import AdminSidebar from "./Sidebar";
 

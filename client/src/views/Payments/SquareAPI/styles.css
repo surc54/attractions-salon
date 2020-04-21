@@ -179,9 +179,11 @@
 
   .third {
     float: left;
+    /* text-align: center; */
     width: calc((100% - 32px) / 3);
     padding: 0;
-    margin: 0 16px 16px 0;
+    /* margin: 0 16px 16px 0; */
+    margin: 0 16px 16px 0; 
   }
   
   .third:last-of-type {

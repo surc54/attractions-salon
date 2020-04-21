@@ -1,6 +1,7 @@
 import {
     Avatar,
     Button,
+    ThemeProvider,
     CircularProgress,
     createMuiTheme,
     Icon,
@@ -8,7 +9,6 @@ import {
     Menu,
     MenuItem,
     Paper,
-    ThemeProvider,
     Typography,
 } from "@material-ui/core";
 import React from "react";
@@ -16,8 +16,8 @@ import { Link } from "react-router-dom";
 import InfoDialog from "../../components/GenericDialogs/InfoDialog";
 import { useUserAuth } from "../../hooks";
 import Config from "../../models/Config";
-import { getUserInitials } from "../../models/User";
 import { emsg } from "../../tools";
+import { getUserInitials } from "../../models/User";
 import styles from "./AccountQuickView.module.scss";
 
 const AccountQuickView: React.FC<AccountQuickViewProps> = ({

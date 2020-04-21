@@ -8,8 +8,10 @@ const path = require("path"),
     passport = require("passport"),
     exampleRouter = require("../routes/examples.server.routes"),
     servicesRouter = require("../routes/services.routes"),
+    testimonialRouter = require("../routes/testimonial.routes"),
     accountRouter = require("../routes/account.routes"),
-    adminRouter = require("../routes/admin/index.routes");
+    adminRouter = require("../routes/admin/index.routes"),
+    paymentsRouter = require("../routes/payments.routes");
 
 const { send_code_error } = require("../tools/index");
 
@@ -60,8 +62,10 @@ module.exports.init = () => {
     // add a router
     app.use("/api/example", exampleRouter);
     app.use("/api/services", servicesRouter);
+    app.use("/api/testimonial", testimonialRouter);
     app.use("/api/account", accountRouter);
     app.use("/api/admin", adminRouter);
+    app.use("/api/payments", paymentsRouter);
 
     if (process.env.NODE_ENV === "production") {
         // Serve any static files
