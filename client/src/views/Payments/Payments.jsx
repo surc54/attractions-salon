@@ -49,12 +49,12 @@ function getSteps() {
 }
 
 const appointment = {
-    bookingNum: "CX4-BS2-7G9",
+    bookingNum: "CX4BS27G9",
     status: "Scheduled",
     name: "Mars",
-    date: new Date("December 17, 1995 03:24:00"), // let birthday = new Date(1995, 11, 17, 3, 24, 0);
+    date: new Date("April 27, 2020 03:24:00"), // let birthday = new Date(1995, 11, 17, 3, 24, 0);
     phone: "333-345-6879",
-    price: 405,
+    price: 81,
     user: {
         name: "Mike Tyson",
         email: "miketyson@gmail.com",
@@ -65,16 +65,16 @@ const appointment = {
     },
     services: [
         {
-            groupName: "Process Color",
-            name: "Single Process Color",
-            price: "55",
+            groupName: "Treatments",
+            name: "Texturizer/Cut",
+            price: "75",
             description: "",
             imgURL: "",
         },
         {
-            groupName: "Snack",
-            name: "Chocolate Chip Donut",
-            price: "350",
+            groupName: "Waxing",
+            name: "Lips",
+            price: "6",
             description: "",
             imgURL: "",
         },

@@ -26,10 +26,10 @@ const RightWindow = () => {
                     display: "flex",
                     height: "60%",
                     padding: "8px",
-                    justifyContent: "space-around",
+                    justifyContent: "space-evenly",
                 }}
             >
-                <div style={{ width: "70%", textAlign: "center" }}>
+                <div style={{ width: "70%", paddingTop: "3em", textAlign: "center" }}>
                     <h4>Please enter your Booking Number:</h4>
 
                     <TextField
@@ -38,14 +38,14 @@ const RightWindow = () => {
                         style={{ marginLeft: "5px" }}
                     />
                 </div>
-
+{/* 
                 <Divider
                     orientation="vertical"
                     flexItem
                     classes={{ root: classes.root }}
-                />
+                /> */}
 
-                <div style={{ width: "70%", textAlign: "center" }}>
+                {/* <div style={{ width: "70%", textAlign: "center" }}>
                     <h4>Or use your account information:</h4>
 
                     <TextField
@@ -59,7 +59,7 @@ const RightWindow = () => {
                         variant="outlined"
                         style={{ marginLeft: "5px" }}
                     />
-                </div>
+                </div> */}
             </div>
 
             <div className="titleInitialPage2">
