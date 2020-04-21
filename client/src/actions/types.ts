@@ -6,6 +6,7 @@
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
 import User from "../models/User";
+import { TestimonialData as Testimonial } from "../models/Testimonials";
 import { ReduxState } from "../reducers";
 
 // export default ActionTypes_old;
@@ -118,6 +119,48 @@ export interface AdminUserAddPage {
     };
 }
 
+// ADMIN TESTIMONIAL PAGE
+
+export const ADMIN_TESTIMONIAL_START = "ADMIN_TESTIMONIAL_START";
+export interface AdminTestimonialStart {
+    type: typeof ADMIN_TESTIMONIAL_START;
+}
+
+export const ADMIN_TESTIMONIAL_STOP = "ADMIN_TESTIMONIAL_STOP";
+export interface AdminTestimonialStop {
+    type: typeof ADMIN_TESTIMONIAL_STOP;
+}
+
+export const ADMIN_TESTIMONIALS_GET_LIST = "ADMIN_TESTIMONIALS_GET_LIST";
+export interface adminTestimonialGetList {
+    type: typeof ADMIN_TESTIMONIALS_GET_LIST;
+    payload: any;
+}
+
+export const ADMIN_TESTIMONIAL_ERROR = "ADMIN_TESTIMONIAL_ERROR";
+export interface AdminTestimonialError {
+    type: typeof ADMIN_TESTIMONIAL_ERROR;
+    payload: any;
+}
+
+export const ADMIN_TESTIMONIAL_UPDATE_LIST = "ADMIN_TESTIMONIAL_UPDATE_LIST";
+export interface AdminTestimonialUpdateList {
+    type: typeof ADMIN_TESTIMONIAL_UPDATE_LIST;
+    payload: any;
+}
+
+// export const ADMIN_TESTIMONIAL_UPDATE_ONE = "ADMIN_TESTIMONIAL_UPDATE_ONE";
+// export interface AdminTestimonialUpdateOne {
+//     type: typeof ADMIN_TESTIMONIAL_UPDATE_ONE;
+//     payload: Testimonial;
+// }
+
+export const ADMIN_TESTIMONIAL_DELETE_ONE = "ADMIN_TESTIMONIAL_DELETE_ONE";
+export interface AdminTestimonialDeleteOne {
+    type: typeof ADMIN_TESTIMONIAL_DELETE_ONE;
+    payload: string;
+}
+
 // export type Type = keyof Payload;
 
 // export interface Action<T extends Type> {
@@ -137,6 +180,8 @@ export type UserActions =
     | AuthLogoutEnd
     | AuthSignUpEnd;
 
+export type TestimonialActions = AddTestimonial;
+
 export type AdminUserSettingsActions =
     | AdminUserStart
     | AdminUserStop
@@ -148,6 +193,14 @@ export type AdminUserSettingsActions =
     | AdminUserAddLoadedPage
     | AdminUserSetCount
     | AdminUserAddPage;
+
+export type AdminTestimonialSettingsActions =
+    | AdminTestimonialStart
+    | AdminTestimonialStop
+    | AdminTestimonialUpdateList
+    | AdminTestimonialDeleteOne
+    | adminTestimonialGetList
+    | AdminTestimonialError;
 
 export type ThAction<A extends Action<any>> = ThunkAction<
     void,
@@ -201,3 +254,10 @@ export class NonSuccessError extends Error {
 //         error: ""
 //     }
 // };
+
+export const ADD_TESTIMONIAL = "ADD_TESTIMONIAL";
+
+export interface AddTestimonial {
+    type: typeof ADD_TESTIMONIAL;
+    payload: any;
+}

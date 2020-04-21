@@ -1,9 +1,6 @@
-import React from "react";
-import {
-    Typography,
-    GridList,
-    GridListTile,
-} from "@material-ui/core";
+import React, { useEffect } from "react";
+import { Typography, GridList, GridListTile } from "@material-ui/core";
+import axios from "axios";
 
 const tempSocialMediaReviews = [
     {
@@ -29,18 +26,26 @@ const tempSocialMediaReviews = [
 ];
 
 const SocialMediaReviews = () => {
+    useEffect(() => {
+        axios.get("/api/social-media-reviews").then((response) => {
+            response.data.data.map((socialMediaReviews) =>
+                tempSocialMediaReviews.push(socialMediaReviews)
+            );
+        });
+    }, []);
+
     return (
         <div>
             <Typography
                 color="primary"
                 variant="h4"
                 className="title"
-                style={{ marginBottom: "20px" }}
+                style={{ margin: "20px 0px" }}
             >
                 Social Media Reviews
             </Typography>
             <GridList cellHeight="auto">
-                {tempSocialMediaReviews.map(review => {
+                {tempSocialMediaReviews.map((review) => {
                     return (
                         <GridListTile
                             key={review.id}
@@ -52,6 +57,7 @@ const SocialMediaReviews = () => {
                                     border: "none",
                                     overflow: "hidden",
                                 }}
+                                title={review.URL}
                                 src={review.URL}
                                 width={review.width}
                                 height={review.height}

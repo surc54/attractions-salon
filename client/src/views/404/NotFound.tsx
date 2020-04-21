@@ -41,13 +41,8 @@ const NotFound: React.FC<NotFoundProps> = ({ equalSplit = false }) => {
                     spacing={!isSmall ? 5 : undefined}
                     justify="center"
                 >
-                    <Grid
-                        item
-                        xs={12}
-                        md={equalSplit ? 6 : 8}
-                        className={styles.left}
-                    >
-                        <img alt="" src={pic} />
+                    <Grid item xs={12} md={8} className={styles.left}>
+                        <img src={pic} alt="pic" />
                     </Grid>
                     <Grid
                         item

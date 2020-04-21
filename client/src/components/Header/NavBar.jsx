@@ -37,12 +37,12 @@ const navItems = [
         path: "/services",
         external: false,
     },
-    {
-        name: "Book Now",
-        desc: "request an appointment for the salon",
-        path: "/book",
-        external: false,
-    },
+    //{
+    //    name: "Book Now",
+    //    desc: "request an appointment for the salon",
+    //    path: "/book",
+    //    external: false,
+    //},
     {
         name: "Payments",
         desc: "pay your booking in advance",

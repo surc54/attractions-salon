@@ -61,7 +61,7 @@ const App = () => {
         <>
             <NavBar />
             <Switch>
-                {routes.map(r => (
+                {routes.map((r) => (
                     <Route
                         key={r.path}
                         exact={!!r.exact}
