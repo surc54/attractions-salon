@@ -266,12 +266,13 @@ const Home = () => {
                             className={styles.text}
                             component="p"
                         >
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing
+                            {aboutBox}
+                            {/* Lorem ipsum dolor sit amet, consectetuer adipiscing
                             elit. Aenean commodo ligula eget dolor. Aenean massa
                             strong. Cum sociis natoque penatibus et magnis dis
                             parturient montes, nascetur ridiculus mus. Donec
                             quam felis, ultricies nec, pellentesque eu, pretium
-                            quis, sem.
+                            quis, sem. */}
                         </Typography>
                         <Button
                             variant="outlined"
@@ -340,8 +341,8 @@ const Home = () => {
                     <SpacingGrid2 className={styles["stylist-box"]}
                     // stylist1Name = {stylist1Name}
                     // stylist2Name = {stylist2Name}>
-                    stylist1Name = "Stylist1"
-                    stylist2Name = "Stylist2">
+                    stylist1Name = {stylist1Name}
+                    stylist2Name = {stylist2Name}>
                     </SpacingGrid2>
                 </Container>
             </section>
@@ -382,8 +383,8 @@ const Home = () => {
                                     href="tel:1-352-376-6008"
                                 >
                                     <Typography variant="body1">
-                                        {/* {phone} */}
-                                        (352)-376-6008
+                                        {phone}
+                                        {/* (352)-376-6008 */}
                                     </Typography>
                                 </InfoPiece>
                                 <InfoPiece
@@ -394,8 +395,8 @@ const Home = () => {
                                     href="mailto:sample@attractionssalon.com"
                                 >
                                     <Typography variant="body1">
-                                        {/* {email} */}
-                                        sample@attractionssalon.com
+                                        {email}
+                                        {/* sample@attractionssalon.com */}
                                     </Typography>
                                 </InfoPiece>
                             </div>
