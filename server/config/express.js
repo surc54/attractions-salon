@@ -15,7 +15,6 @@ const path = require("path"),
     accountRouter = require("../routes/account.routes"),
     adminRouter = require("../routes/admin/index.routes"),
     paymentsRouter = require("../routes/payments.routes");
-    ezSettingsRouter = require("../routes/admin/ez-setting.routes");
 
 const { send_code_error } = require("../tools/index");
 
@@ -70,7 +69,6 @@ module.exports.init = () => {
     app.use("/api/booking", bookingRouter);
     app.use("/api/account", accountRouter);
     app.use("/api/admin", adminRouter);
-    app.use("/api/admin/ez-setting", ezSettingsRouter);
     app.use("/api/payments", paymentsRouter);
     app.use("/api/photos", photosRouter);
     app.use("/api/stylists", stylistRouter);
