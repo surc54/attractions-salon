@@ -68,15 +68,18 @@ const Items = [
 
 export default function Slideshow (props) {
     const [photosData, setPhotos] = useState([]);
-    axios.get('/api/photos')
-    .then(res => {
-        // console.log(res.data)
-        setPhotos(res.data.data)
-        })
-        .catch(function(error) {
-        console.log(error);
-    })
-    // console.log(photosData)
+    React.useEffect(() => {
+      axios.get('/api/photos')
+      .then(res => {
+          // console.log(res.data)
+          setPhotos(res.data.data)
+          })
+          .catch(function(error) {
+          console.log(error);
+      })
+    }, 
+    []
+    );
     const photos = Object.values(photosData);
     // console.log(photos)
     const [activeStep, setActiveStep] = React.useState(0);
