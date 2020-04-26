@@ -1,81 +1,146 @@
-## Attractions Salon
+# Attractions Salon
 
-### _**IMPORTANT NOTES**_
+## Description of Features
 
-This project does not have a mongoDB connection setup. Setup the connection based on the environments below.
+-  Slideshow presenting photos of salon
+- Provides user with location and directions to salon
+- Lists services with description and pricing information
+- Book Now service where users fill out form with contact information and time for appointment, this information gets sent to client, and will connect to the user who booked the appointment
+- Payments page where user has the option to pay for services before the scheduled appointment
+- Provides user with a list of reviews from past customers as well as ability to leave their own review
+- Admin panel can be used by the client to update any information on the website
 
--   local development: create a config file (make sure to name it config.js) in the config folder, which exports your db.uri connection. An example is provided, config/config.example.js. This file will be ignored by git so your db credentials will be kept safe when the app is deployed.
--   production: Since the config file is not pushed when you deploy your app, you must specifiy your db uri in heorku. Set the uri in heroku as specified in [this](https://devcenter.heroku.com/articles/config-vars) resource. Make sure you name the environement variable "DB_URI".
+## Description and Navigation for Client to Update Admin Content Page 
+## Admin Login (at this point in time)
+- Email: admin@example.com 
+- Password: test
 
-This project contains an example project board meant to showcase how one can be used. The issues posted to it are not real issues.
+## To get to Admin Panel:
+1. Login as Admin
+2. Click on the profile icon on the top right corner
+3. Select “Go to Admin Panel”
 
-## Getting Started
+## To add a service on the “Services” page
+1. Get to Admin Panel
+2. Go to Services Page on the left navigation bar
+3. Select “Add a new Service” on the top navigation bar of Services Page
+4. Fill in the information in the boxes, then select submit on the right of the page
 
-This repository aims to assist you in beginning work on a MERN stack application for heroku deployment with a solid file structure as a foundation. To get started make a copy of this template repo for your project teams by clicking the green "Use this template" button above.
+## To update a service on the “Services” page
+1. Get to Admin Panel
+2. Go to Services Page on the left navigation bar
+3. Select “Update a Service” on the top navigation bar of Services Page
+4. Select the service to update, fill in the information in the boxes, then select submit on the right of the page
 
-Since this project will hold both the client application and the server application there will be node modules in two different places. First run `npm install` from the root. After this you will run `npm run-script install-all` from the root. From now on run this command anytime you want to install all modules again. This is a script we have defined in package.json. Alternatively your group may choose to simplify this process by using yarn workspaces as specified [here](https://yarnpkg.com/lang/en/docs/workspaces/).
+## To delete a service on the “Services” page
+1. Get to Admin Panel
+2. Go to Services Page on the left navigation bar
+3. Select “Delete a Service” on the top navigation bar of Services Page
+4. Select the service to delete, then select delete on the right of the page
 
-This app can be deployed directly to heroku since there is a script defined in package.json which will automatically handle building and deploying the app. For more information on deploying to heroku reference the extra resources at the bottom of this file.
+## To approve a new testimonial
+1. This process is done when a user adds a review to your website. Before it is added to your testimonials page it has to be approved by you.
+2. Get to Admin Panel
+3. Go to Testimonials Page on the left navigation bar
+4. Select “Approve New Testimonial” on the desired testimonial of the Testimonials Page
 
-## Available Scripts
+## To delete a testimonial
+1. After adding a testimonial to your site, you may change your mind and decide you want it taken off, in order to do this you follow these steps:
+2. Get to Admin Panel
+3. Go to Testimonials Page on the left navigation bar
+4. Select “Delete Testimonials/Reviews” on the desired testimonial of the Testimonials Page
 
-Please note that any time the server is run in these scripts `nodemon` is used in place of `node` for easier development. If you are interested in how this works follow the nodemon In the project directory, you can run:
+## Managing Your Users
+This website allows users to create their own account. The main purpose of the “Users” section under the Miscellaneous header is to view and manage these user accounts.
 
-### `npm run-script dev`
+## Viewing/Finding Users
+Users are displayed in a list with the following headers:
+- Name,
+- Email,
+- Phone, and
+- Role.
+For convenience, any administrator or owner roles are colored in the primary accent color. Clicking on any row will open the User Dialog with user-specific actions.
 
-Runs both the client app and the server app in development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view the client in the browser.
+Another convenient feature is “Search.” In the text box above the list of users, type text to find users with matching names or emails. To clear this filter, click the “Clear Filters” button, located next to the search button.
 
-### `npm run-script client`
+## Understanding the User Dialog
+The User Dialog is a popup-style modal that contains information about a specific user. Features include:
+- View user’s name
+- View user’s email
+- View user’s phone number (if provided)
+- Edit any of the previously mentioned values
+- Execute administrative tasks
 
-Runs just the client app in development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view the client in the browser.
+## Updating a user’s information
+1. Once the user that requires modification is found, click on their row to open their User Dialog.
+3. Once you confirm that you have the correct user, click the edit button on the top right-hand corner. This will transform the User Dialog into a series of text boxes with their corresponding labels.
+3. Once you finish editing, click save to send your changes to the database.
 
-### `npm run-script server`
+## Change a user’s role
+There are three roles in the current system model:
+- Guest
+  - Cannot access administrator panel
+- Admin
+  - Cannot change other user’s roles
+- Owner
+  - Full access
 
-Runs just the server in development mode.<br>
+Under “Administrative Actions,” you can choose which role to set for the selected user. Keep in mind that only Owners can do this.
 
-### `npm run build`
+## Deleting a user
+Once again, under “Administrative Actions,” you can select “Delete User” and click “Start Execution” in order to complete the task. Be warned, you cannot recover a deleted user.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## APIs Used
 
-If deploying to heroku this does not need to be run since it is handled by the heroku-postbuild script<br>
+| API Key Location| API Key Location |
+| :-------------- | :----------------|
+| Google Maps API | client/src/views/Home/Home.js, <br /> Line ~408 |
+| PassportJS      | Cookie Secret (to secure sessions) : <br />Set the environment variable “COOKIE_SECRET” to any random sequence of letters and numbers. |
+| ReCAPTCHA       | Site Key(for testimonials): <br />/client/src/views/Testimonials/Form.tsx, line ~70 <br />Secret Key(for testimonials): server/config/config.js, <br />Line ~14 <br />(sitekey for signup) <br />\client\src\views\Login\SignUpForm.tsx,<br /> Line ~232  |
+| Twilio          | server/config/config.js        |
+| Square          | client/src/views/Payments/config.js,<br /> Line 3 and 4<br /><br /> server/config/config.js,<br /> Line 12  |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Environmental Variables 
+Environmental variables located in server/config/config.js
 
-## File structure
+|                |                 |
+| -------------- | ----------------|
+| COOKIE_SECRET | Secret for cookie session storage (overrides config.js) |
+| DB_URI | Database URI (overrides config.js) |
+| RECAPTCHA_SECRET | Recaptcha secret key (overrides config.js) |
 
-#### `client` - Holds the client application
+```
+//This file holds any configuration variables we may need
+//'config.js' is usually ignored by git to protect sensitive information, such as your database's username and password
+module.exports = {
+    db: {
+        uri: '', 
+    },
+    cookie: {
+        secret: '', 
+    },
+    square: {
+        accessToken: '',
+    },
+    recaptcha: {
+        v3: {
+            siteKey: "",
+            secretKey: "",
+        },
+        v2: {
+            siteKey: "",
+            secretKey: "",
+        },
+    },
+    twilio: {
+        acctSID: 'AC8647556163446007893b6bd5d0270bc8',
+        authToken: '869466ff08e5badaaaa8c415058a9077',
+    }
+};
+```
+server/config/config.js
 
--   #### `public` - This holds all of our static files
--   #### `src`
-    -   #### `assets` - This folder holds assets such as images, docs, and fonts
-    -   #### `components` - This folder holds all of the different components that will make up our views
-    -   #### `views` - These represent a unique page on the website i.e. Home or About. These are still normal react components
-    -   #### `App.js` - This is what renders all of our browser routes and different views
-    -   #### `index.js` - This is what renders the react app by rendering App.js, should not change
--   #### `package.json` - Defines npm behaviors and packages for the client
+## Log-In credentials.
+Email: admin@example.com <br />
+Password: test
 
-#### `server` - Holds the server application
-
--   #### `config` - This holds our configuration files, like mongoDB uri
--   #### `controllers` - These hold all of the callback functions that each route will call
--   #### `models` - This holds all of our data models
--   #### `routes` - This holds all of our HTTP to URL path associations for each unique url
--   #### `tests` - This holds all of our server tests that we have defined
--   #### `server.js` - Defines npm behaviors and packages for the client
-
-#### `package.json` - Defines npm behaviors like the scripts defined in the next section of the README
-
-#### `.gitignore` - Tells git which files to ignore
-
-#### `README` - This file!
-
-## Learn More
-
-To learn how to setup a local MongoDB instance for testing, check out how to [connect to MongoDB](https://docs.mongodb.com/guides/server/drivers/).
-
-To learn how to deploy a full-stack web app to heroku, check out [this great guide](https://daveceddia.com/deploy-react-express-app-heroku/).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

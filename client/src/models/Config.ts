@@ -85,6 +85,48 @@ const Config: IConfig = {
                 ...noCache,
             },
         },
+        "get photos info": {
+            url: "/api/photos",
+            method: "GET",
+            headers: {
+                ...noCache,
+            }
+        },
+        "add photos info": {
+            url: "/api/photos",
+            method: "PUT",
+            headers: {
+                ...noCache,
+            }
+        },
+        "get stylist info": {
+            url: "/api/stylists",
+            method: "GET",
+            headers: {
+                ...noCache,
+            }
+        },
+        "add stylist info": {
+            url: "/api/stylists",
+            method: "PUT",
+            headers: {
+                ...noCache,
+            },
+        },
+        "ez-settings - get": {
+            url: "/api/admin/ez-setting",
+            method: "GET",
+            headers: {
+                ...noCache,
+            },
+        },
+        "ez-settings - set": {
+            url: "/api/admin/ez-setting",
+            method: "PUT",
+            headers: {
+                ...noCache,
+            },
+        },
         "get services info": {
             url: "/api/services",
             method: "GET",

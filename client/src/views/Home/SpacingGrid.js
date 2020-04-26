@@ -13,26 +13,31 @@ const useStyles = makeStyles(theme => ({
     width: 250,
   },
   control: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(5),
   },
 }));
 
 export default function SpacingGrid() {
-  const [spacing, setSpacing] = React.useState(2);
+  const [spacing, setSpacing] = React.useState(5);
   const classes = useStyles();
 
   return (
-    <Grid container className={classes.root} spacing={2}>
+    <Grid container className={classes.root} spacing={5}>
       <Grid item xs={12}>
         <Grid container justify="center" spacing={spacing}>
-          {[0, 1, 2].map(value => (
-            <Grid key={value} item>
+          {[0].map(value => (
+            <Grid key={0} item>
               <Paper className={styles["stylist1"]} />
+            </Grid>
+          ))}
+          {[1].map(value => (
+            <Grid key={1} item>
+              <Paper className={styles["stylist2"]} />
             </Grid>
           ))}
         </Grid>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
       </Grid>
     </Grid>
   );

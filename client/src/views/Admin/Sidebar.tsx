@@ -47,12 +47,6 @@ const items: SidebarItem[] = [
             },
             {
                 type: "link",
-                text: "Book Now page",
-                path: "/admin/page/book-now",
-                match: "startsWithPath",
-            },
-            {
-                type: "link",
                 text: "Testimonials page",
                 path: "/admin/page/testimonials",
                 match: "startsWithPath",

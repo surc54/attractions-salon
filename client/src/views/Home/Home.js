@@ -12,8 +12,7 @@ import {
 // This library lets you chain classNames together without
 // the string manipulation hassle
 import clsx from "clsx";
-
-import React from "react";
+import React, {useState} from "react";
 import { Link, useHistory } from "react-router-dom";
 import homepic from "../../assets/attractions_salon_photo.jpeg";
 import SpacingGrid from "./SpacingGrid";
@@ -21,7 +20,8 @@ import SpacingGrid2 from "./SpacingGrid2";
 // This "styles" object is the only way to set styles from
 // your scss file now (because of modularity)
 import styles from "./Home.module.scss";
-
+import HomeSettings from "../Admin/pages/HomeSettings";
+import {useEzSettings} from "../../hooks/EzSettingsHook";
 import InfoPiece from "./InfoPiece";
 import Slideshow from "./Slideshow";
 
@@ -41,13 +41,87 @@ import Slideshow from "./Slideshow";
 // Changed this to an ES6 function
 const Home = () => {
     // Grab history object from react-router
+    const [aboutBox, setAboutBox] = useState("")
+    const [stylist1Name, setStylist1Name] = useState("")
+    const [stylist2Name, setStylist2Name] = useState("")
+    const [phone, setPhone] = useState("")
+    const [email, setEmail] = useState("")
+    const ezSettings = useEzSettings();
     const history = useHistory();
+
+    React.useEffect(() => {
+        ezSettings
+            .get("home-about-us")
+            .then((res) => {
+                console.log("setting", res);
+                setAboutBox(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+            ezSettings
+            .get("stylist-name")
+            .then((res) => {
+                console.log("setting", res);
+                setStylist1Name(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+            ezSettings
+            .get("stylist-two")
+            .then((res) => {
+                console.log("setting", res);
+                setStylist2Name(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+            ezSettings
+            .get("email")
+            .then((res) => {
+                console.log("setting", res);
+                setEmail(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+            ezSettings
+            .get("phone")
+            .then((res) => {
+                console.log("setting", res);
+                setPhone(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, 
+    []
+    );
 
     // Scroll detection hook provided by Material-UI
     const isScrolled = useScrollTrigger({
         disableHysteresis: true,
         threshold: 64,
     });
+
+    const passProps = () => (
+        <div>
+            <HomeSettings
+                aboutBox = {aboutBox}
+                setAboutBox = {setAboutBox}
+                ezSettings = {ezSettings}
+                stylist1Name = {stylist1Name}
+                setStylist1Name = {setStylist1Name}
+                stylist2Name = {stylist2Name}
+                setStylist2Name = {setStylist2Name}
+                email = {email} phone = {phone}
+                setEmail = {setEmail} setPhone = {setPhone}
+            />
+        </div>
+    )
+
 
     // Grab the Theme from Material-UI
     const theme = useTheme();
@@ -192,12 +266,13 @@ const Home = () => {
                             className={styles.text}
                             component="p"
                         >
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing
+                            {aboutBox}
+                            {/* Lorem ipsum dolor sit amet, consectetuer adipiscing
                             elit. Aenean commodo ligula eget dolor. Aenean massa
                             strong. Cum sociis natoque penatibus et magnis dis
                             parturient montes, nascetur ridiculus mus. Donec
                             quam felis, ultricies nec, pellentesque eu, pretium
-                            quis, sem.
+                            quis, sem. */}
                         </Typography>
                         <Button
                             variant="outlined"
@@ -263,8 +338,11 @@ const Home = () => {
                     <h2>{" "}</h2>
                     <SpacingGrid className={styles["stylist1"]}></SpacingGrid>
                     {/* <p style = {{color: 'white'}}>h</p> */}
-                    <SpacingGrid2 className={styles["stylist-box"]}>
-                        Jane Doe
+                    <SpacingGrid2 className={styles["stylist-box"]}
+                    // stylist1Name = {stylist1Name}
+                    // stylist2Name = {stylist2Name}>
+                    stylist1Name = {stylist1Name}
+                    stylist2Name = {stylist2Name}>
                     </SpacingGrid2>
                 </Container>
             </section>
@@ -305,7 +383,8 @@ const Home = () => {
                                     href="tel:1-352-376-6008"
                                 >
                                     <Typography variant="body1">
-                                        (352) 376 6008
+                                        {phone}
+                                        {/* (352)-376-6008 */}
                                     </Typography>
                                 </InfoPiece>
                                 <InfoPiece
@@ -316,7 +395,8 @@ const Home = () => {
                                     href="mailto:sample@attractionssalon.com"
                                 >
                                     <Typography variant="body1">
-                                        sample@attractionssalon.com
+                                        {email}
+                                        {/* sample@attractionssalon.com */}
                                     </Typography>
                                 </InfoPiece>
                             </div>
