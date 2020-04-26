@@ -8,12 +8,15 @@ const client = require('twilio')(
     process.env.TWILIO_AUTH_TOKEN || require("../config/config").twilio.authToken);
 
 module.exports.create = async (req, res) => {
-  const booking = new Booking(req.body);
-
+  // const booking = new Booking(req.body);
+  const bookingNumber = Math.random().toString(36).substring(2, 11);
+  const phoneNumber = "+1" + req.body.phone;
+  const SMSmessage = req.body.name + " has made a new appointment at Attractions Salon. Booking #" + bookingNumber;
+  console.log(bookingNumber);
   // booking
   //     .save()
   //     .then((response) => {
-  //       send_code_success(res, 201); // TODO: possibly add a redirect page at the end
+  //       send_code_success(res, 201);
   //       // client
   //       //     .messages
   //       //     .create({body: 'Hi there! A new appointment has been made.', from: '+13524882645', to: '+17249948887'})
@@ -25,7 +28,7 @@ module.exports.create = async (req, res) => {
   //     });
   client
   .messages
-  .create({body: 'A new appointment has been recieved for Attractions Salon. Booking #CX4BS27G9', from: '+13524882645', to: '+17249948887'})
+  .create({body: SMSmessage, from: '+13524882645', to: phoneNumber})
   .then(message => console.log(message.sid));
 };
 

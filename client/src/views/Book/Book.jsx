@@ -6,20 +6,26 @@ import "./Book.css";
 import axios from 'axios';
 
 const Book = props => {
+    let booking = {};
     const [selectedDate, setSelectedDate] = React.useState(new Date());
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
     };
 
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        booking[name] = value;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert("Booking submitted! Check your phone for your booking number.");
-        axios.post(`https://pure-crag-64431.herokuapp.com/api/booking/`)
+        booking['date'] = selectedDate;
+        axios.post(`/api/booking/`, booking)
         .then(res => {
             console.log(res);
-            console.log(res.data);
-        })
+        });
+        alert("Booking submitted! Check your phone for your booking number.");
     };
     
     return (
@@ -37,6 +43,8 @@ const Book = props => {
                         required
                         id="outlined-required"
                         label="Name"
+                        name="name"
+                        onChange={handleInputChange}
                         variant="outlined"
                         />
                     </Grid>
@@ -46,6 +54,8 @@ const Book = props => {
                         required
                         id="outlined-required"
                         label="Phone"
+                        name="phone"
+                        onChange={handleInputChange}
                         variant="outlined"
                         />
                     </Grid>
