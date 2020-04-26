@@ -8,28 +8,30 @@ const client = require('twilio')(
     process.env.TWILIO_AUTH_TOKEN || require("../config/config").twilio.authToken);
 
 module.exports.create = async (req, res) => {
-  // const booking = new Booking(req.body);
-  const bookingNumber = Math.random().toString(36).substring(2, 11);
+  const bookingNumber = Math.random().toString(36).substring(2, 11).toUpperCase();
   const phoneNumber = "+1" + req.body.phone;
   const SMSmessage = req.body.name + " has made a new appointment at Attractions Salon. Booking #" + bookingNumber;
-  console.log(bookingNumber);
-  // booking
-  //     .save()
-  //     .then((response) => {
-  //       send_code_success(res, 201);
-  //       // client
-  //       //     .messages
-  //       //     .create({body: 'Hi there! A new appointment has been made.', from: '+13524882645', to: '+17249948887'})
-  //       //     .then(message => console.log(message.sid));
-  //     })
-  //     .catch((err) => {
-  //       send_code_error(res, 500);
-  //       console.error("Could not save booking to database:", err);
-  //     });
-  client
-  .messages
-  .create({body: SMSmessage, from: '+13524882645', to: phoneNumber})
-  .then(message => console.log(message.sid));
+  console.log("Booking #" + bookingNumber);
+  let newBooking = {
+    bookingNum: bookingNumber,
+    name: req.body.name,
+    date: req.body.date,
+    phone: phoneNumber
+  }
+  const booking = new Booking(newBooking);
+  booking
+      .save()
+      .then((response) => {
+        client
+        .messages
+        .create({body: SMSmessage, from: '+13524882645', to: phoneNumber})
+        .then(message => console.log(message.sid));
+        send_code_success(res, 201);
+      })
+      .catch((err) => {
+        send_code_error(res, 500);
+        console.error("Could not save booking to database:", err);
+      });
 };
 
 module.exports.read = (req, res) => {
