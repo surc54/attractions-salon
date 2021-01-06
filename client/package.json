@@ -11,7 +11,7 @@
         "@material-ui/styles": "^4.9.0",
         "@types/reactstrap": "^8.4.2",
         "@types/redux-form": "^8.2.3",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "clsx": "^1.1.0",
         "copy-to-clipboard": "^3.3.1",
         "date-fns": "^2.11.1",
